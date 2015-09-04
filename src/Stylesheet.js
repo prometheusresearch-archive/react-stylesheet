@@ -10,6 +10,10 @@ import isFunction           from 'lodash/lang/isFunction';
 import zipObject            from 'lodash/array/zipObject';
 import Style                from './Style';
 
+const DEFAULT_RULES = {
+  boxSizing: 'border-box'
+};
+
 class StyledComponent extends React.Component {
 
   static propTypes = {
@@ -78,7 +82,9 @@ export default function createStylesheet(specs, name = null) {
     }
     let styleName = name ? `${name}__${key}` : key;
     let {Component = 'div', ...rules} = spec;
-    let style = Style.create({...specs.default, ...rules}, styleName);
+    let style = Style.create(
+      {...DEFAULT_RULES, ...specs.default, ...rules},
+      styleName);
     return [key, createComponent(Component, style)];
   });
   return zipObject(components.filter(Boolean));
