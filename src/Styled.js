@@ -5,6 +5,7 @@
 import Themeable              from 'rethemeable/lib/Themeable';
 import map                    from 'lodash/collection/map';
 import zipObject              from 'lodash/array/zipObject';
+import isString               from 'lodash/lang/isString';
 import isValidReactComponent  from './isValidReactComponent';
 import createStylesheet       from './createStylesheet';
 import styleComponent         from './styleComponent';
@@ -15,7 +16,7 @@ export default function Styled(Component, stylesheet = Component.stylesheet) {
     stylesheet = createStylesheet(stylesheet);
   }
   Component = Themeable(Component, stylesheet);
-  return class extends Themeable(Component, stylesheet) {
+  return class extends Component {
 
     static displayName = `Styled(${displayName})`;
 
@@ -24,14 +25,14 @@ export default function Styled(Component, stylesheet = Component.stylesheet) {
         let prevSpec = stylesheet[key];
         if (prevSpec &&
             !isValidReactComponent(spec) &&
-            !isValidReactComponent(prevSpec)) {
-          spec = {Component: prevSpec.Component, ...spec};
+            !isValidReactComponent(prevSpec) || isString(prevSpec)) {
+          spec = {Component: isString(prevSpec) ? prevSpec : prevSpec.Component, ...spec};
         }
         return [key, spec];
       });
       nextStylesheet = zipObject(nextStylesheet);
       nextStylesheet = createStylesheet(nextStylesheet);
-      return Component.style(nextStylesheet);
+      return super.style(nextStylesheet);
     }
 
     constructor(props) {
