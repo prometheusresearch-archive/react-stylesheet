@@ -23,10 +23,15 @@ export default function createStylesheet(specs, name = null) {
       return [key, spec];
     }
     let {Component = 'div', ...style} = spec;
-    if (!Style.is(style)) {
-      style = Style.create(style, name ? `${name}__${key}` : key);
+    if (typeof Component.style === 'function') {
+      Component = Component.style(style);
+    } else {
+      if (!Style.is(style)) {
+        style = Style.create(style, name ? `${name}__${key}` : key);
+      }
+      Component = styleComponent(Component, style, key);
     }
-    return [key, styleComponent(Component, style, key)];
+    return [key, Component];
   });
   return zipObject(components.filter(Boolean));
 }
