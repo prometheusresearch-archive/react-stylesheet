@@ -13,6 +13,10 @@ import decamelize             from 'decamelize';
 
 const self = 'self';
 
+const DEFAULT_STYLE = {
+  boxSizing: 'border-box'
+};
+
 const SUPPORTED_PSEUDO_CLASSES = {
   focus: true,
   hover: true,
@@ -45,6 +49,10 @@ export default class Style {
   static create(spec, id = '') {
     id = uniqueId(id ? `Style_${id}` : 'Style');
     return new Style(convertSpecToStyle(spec), id);
+  }
+
+  static is(obj) {
+    return obj instanceof Style;
   }
 
   constructor(style, id) {
@@ -98,7 +106,7 @@ export default class Style {
 
 function convertSpecToStyle(spec) {
   let style = {
-    [self]: {}
+    [self]: {...DEFAULT_STYLE}
   };
 
   forEach(spec, (value, key) => {

@@ -4,9 +4,9 @@ React Stylesheet
 React Stylesheet provides a way to produce React components which have
 predefined styles applied:
 
-    import Stylesheet from 'react-stylesheet'
+    import {stylesheet} from 'react-stylesheet'
 
-    let styled = Stylesheet({
+    let styled = stylesheet({
 
       header: {
         boxSizing: 'border-box',
@@ -54,7 +54,23 @@ Specify DOM component
 When defining styled components you can specify which DOM component to use as an
 underlying component:
 
-    let styled = Stylesheet({
+    import {stylesheet, style} from 'react-stylesheet'
+
+    let styled = stylesheet({
+
+      header: style('h1', {
+        boxSizing: 'border-box',
+        height: 50
+      })
+    })
+
+So that `<styled.header />` will render into `<h1 />`.
+
+There's also a shortcut:
+
+    import {stylesheet} from 'react-stylesheet'
+
+    let styled = stylesheet({
 
       header: {
         Component: 'h1',
@@ -62,9 +78,7 @@ underlying component:
         height: 50
       }
     })
-
-So that `<styled.header />` will render into `<h1 />`.
-
+    
 Theming
 -------
 
@@ -96,11 +110,13 @@ different stylesheets:
 
 Later you can define several different themes:
 
-    let bootstrapTheme = Stylesheet({
+    import {stylesheet} from 'react-stylesheet'
+
+    let bootstrapTheme = stylesheet({
       ...
     })
 
-    let materialTheme = Stylesheet({
+    let materialTheme = stylesheet({
       ...
     })
 

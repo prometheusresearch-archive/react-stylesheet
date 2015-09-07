@@ -2,14 +2,14 @@
  * @copyright 2015 Prometheus Research, LLC
  */
 
-import React      from 'react';
-import assert     from 'power-assert';
-import Stylesheet from '../Stylesheet';
+import React            from 'react';
+import assert           from 'power-assert';
+import createStylesheet from '../createStylesheet';
 
-describe('Stylesheet', function() {
+describe('createStylesheet', function() {
 
   it('produces React components from spec', function() {
-    let s = Stylesheet({
+    let s = createStylesheet({
       header: {
         width: 10
       }
@@ -19,7 +19,7 @@ describe('Stylesheet', function() {
   });
 
   it('allows to specify underlying component', function() {
-    let s = Stylesheet({
+    let s = createStylesheet({
       header: {
         Component: 'h1',
         width: 10
@@ -30,7 +30,7 @@ describe('Stylesheet', function() {
   });
 
   it('produces components which can alter styles based on state', function() {
-    let s = Stylesheet({
+    let s = createStylesheet({
       header: {
         Component: 'div',
         width: 10,
@@ -49,7 +49,7 @@ describe('Stylesheet', function() {
     class Composite extends React.Component {
 
     }
-    let s = Stylesheet({
+    let s = createStylesheet({
       dom: 'dom',
       Composite: Composite,
     });
