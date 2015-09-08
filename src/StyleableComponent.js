@@ -4,7 +4,7 @@
 
 import React, {PropTypes} from 'react';
 
-export default class StyledComponent extends React.Component {
+export default class StyleableComponent extends React.Component {
 
   static Component = null;
 

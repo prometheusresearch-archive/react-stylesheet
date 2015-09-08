@@ -4,7 +4,7 @@
 
 import stylesheet  from './createStylesheet';
 import style       from './styleComponent';
-import Styled      from './Styled';
+import Styleable   from './Styleable';
 
-export {stylesheet, style, Styled};
-export default {stylesheet, style, Styled};
+export {stylesheet, style, Styleable};
+export default {stylesheet, style, Styleable};

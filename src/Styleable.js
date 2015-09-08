@@ -10,7 +10,7 @@ import isValidReactComponent  from './isValidReactComponent';
 import createStylesheet       from './createStylesheet';
 import styleComponent         from './styleComponent';
 
-export default function Styled(Component, stylesheet = Component.stylesheet) {
+export default function Styleable(Component, stylesheet = Component.stylesheet) {
   let displayName = Component.displayName || Component.name;
   if (stylesheet) {
     stylesheet = createStylesheet(stylesheet);
@@ -18,7 +18,7 @@ export default function Styled(Component, stylesheet = Component.stylesheet) {
   Component = Themeable(Component, stylesheet);
   return class extends Component {
 
-    static displayName = `Styled(${displayName})`;
+    static displayName = `Styleable(${displayName})`;
 
     static style(nextStylesheet) {
       nextStylesheet = map(nextStylesheet, (spec, key) => {

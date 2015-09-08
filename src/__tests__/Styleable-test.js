@@ -2,15 +2,15 @@
  * @copyright 2015 Prometheus Research, LLC
  */
 
-import React  from 'react';
-import assert from 'power-assert';
-import Styled from '../Styled';
+import React     from 'react';
+import assert    from 'power-assert';
+import Styleable from '../Styleable';
 
-describe('Styled', function() {
+describe('Styleable', function() {
 
   it('makes component use a stylesheet', function() {
 
-    @Styled
+    @Styleable
     class Button extends React.Component {
 
       static stylesheet = {
@@ -29,7 +29,7 @@ describe('Styled', function() {
 
   it('provides style static method', function() {
 
-    @Styled
+    @Styleable
     class Button extends React.Component {
 
       static stylesheet = {
@@ -42,18 +42,18 @@ describe('Styled', function() {
       }
     }
 
-    let StyledButton = Button.style({
+    let StyleableButton = Button.style({
       Root: {
         color: 'red'
       }
     });
-    let markup = React.renderToString(<StyledButton />);
+    let markup = React.renderToString(<StyleableButton />);
     assert(/<button class="Style_Root\d+"/.exec(markup));
   });
 
   it('allows styling composite components', function() {
 
-    @Styled
+    @Styleable
     class A extends React.Component {
 
       static stylesheet = {
@@ -66,7 +66,7 @@ describe('Styled', function() {
       }
     }
 
-    @Styled
+    @Styleable
     class B extends React.Component {
 
       static stylesheet = {
@@ -79,7 +79,7 @@ describe('Styled', function() {
       }
     }
 
-    @Styled
+    @Styleable
     class C extends React.Component {
 
       static stylesheet = {
@@ -97,7 +97,7 @@ describe('Styled', function() {
     markup = React.renderToString(<C />);
     assert(/<div/.exec(markup));
 
-    let StyledC = C.style({
+    let StyleableC = C.style({
       Root: {
         Root: {
           Root: {
@@ -107,7 +107,7 @@ describe('Styled', function() {
       }
     });
 
-    markup = React.renderToString(<StyledC />);
+    markup = React.renderToString(<StyleableC />);
     assert(/<div class="Style_Root\d+"/.exec(markup));
   });
 });
