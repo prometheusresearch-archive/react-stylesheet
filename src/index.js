@@ -7,4 +7,4 @@ import style       from './styleComponent';
 import Styleable   from './Styleable';
 
 export {stylesheet, style, Styleable};
-export default {stylesheet, style, Styleable};
+export default Styleable;
