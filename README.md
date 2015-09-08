@@ -4,15 +4,18 @@ React Stylesheet
 React Stylesheet is a methodology for styling React components.
 
 The main principle of React Stylesheet is that all styling should be done with
-React components alone. Why? Because it's easier! You'll see.
+React components alone.
 
-Let's see how we can define a `<Button />` component:
+DOM components are styled with CSS and composite components are styled with
+stylesheets (which are just sets of other components).
+
+Let's define `<Button />` component which is styled using React Stylesheet.
 
     import React from 'react'
     import ReactStylesheet from 'react-stylesheet'
     import Icon from 'react-fa'
 
-    @ReactStylesheet.Styleable
+    @ReactStylesheet
     class Button extends React.Component {
 
       static stylesheet = {
@@ -32,30 +35,27 @@ Let's see how we can define a `<Button />` component:
       }
     }
 
-Three things to note here:
+What we did here is:
 
-* We applied `ReactStylesheet.Styleable` [higher order component][] on our
+* We used `ReactStylesheet` [higher order component][] to mark out component as
+  being styleable by React Stylesheet.
+
+* We used `stylesheet` static attribute to define the stylsheet of the
   component.
 
-* We defined component's stylesheet to be composed of `Root` being a React DOM
-  `<button />` component by default and `Icon` being an `<Icon />` component
-  from [react-fa][] package.
+* We used `this.stylesheet` instance attribute to render the component.
 
-* We used components from stylesheet in `render()` method.
-
-Now we can produce a version `<Button />` with different styles by overriding
-its stylesheet:
-
-    function SuccessIcon() {
-      return <Icon name="ok" />
-    }
+Now the only part left is to produce a version of `<Button />` with different
+styling. We use `style` static method for that:
 
     let SuccessButton = Button.style({
       Root: {
         color: 'white',
         backgroundColod: 'green'
       },
-      Icon: SuccessIcon
+      Icon() {
+        return <Icon name="ok" />
+      }
     })
 
 [higher order component]: https://gist.github.com/sebmarkbage/ef0bf1f338a7182b6775
