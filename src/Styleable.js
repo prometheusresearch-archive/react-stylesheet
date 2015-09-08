@@ -5,11 +5,8 @@
 import invariant                from 'invariant';
 import map                      from 'lodash/collection/map';
 import zipObject                from 'lodash/array/zipObject';
-import isString                 from 'lodash/lang/isString';
 import isPlainObject            from 'lodash/lang/isPlainObject';
-import isValidReactComponent    from './isValidReactComponent';
 import createStylesheet         from './createStylesheet';
-import styleComponent           from './styleComponent';
 import getComponentDisplayName  from './getComponentDisplayName';
 
 export default function Styleable(Component, stylesheet = Component.stylesheet) {
@@ -33,7 +30,7 @@ export default function Styleable(Component, stylesheet = Component.stylesheet) 
       return this.constructor.stylesheet;
     }
 
-  }
+  };
 }
 
 function reconcileStylesheet(stylesheet, prevStylesheet, displayName) {

@@ -2,7 +2,6 @@
  * @copyright 2015 Prometheus Research, LLC
  */
 
-import React, {PropTypes}     from 'react';
 import map                    from 'lodash/collection/map';
 import zipObject              from 'lodash/array/zipObject';
 import isValidReactComponent  from './isValidReactComponent';

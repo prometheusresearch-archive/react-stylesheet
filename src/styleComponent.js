@@ -30,7 +30,7 @@ export default function styleComponent(Component, style, styleKey = null) {
   if (!Style.is(style)) {
     style = Style.create(style, styleKey || displayName);
   }
-  return class extends StyleableComponent{
+  return class extends StyleableComponent {
     static displayName = `StyleableComponent(${displayName})`;
     static Component = Component;
     static _style = style;
