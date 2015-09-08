@@ -2,10 +2,11 @@
  * @copyright 2015 Prometheus Research, LLC
  */
 
-import invariant              from 'invariant';
-import Style                  from './Style';
-import StyleableComponent     from './StyleableComponent';
-import isValidReactComponent  from './isValidReactComponent';
+import invariant                from 'invariant';
+import Style                    from './Style';
+import StyleableComponent       from './StyleableComponent';
+import isValidReactComponent    from './isValidReactComponent';
+import getComponentDisplayName  from './getComponentDisplayName';
 
 /**
  * Create a styled component for a provided component.
@@ -37,10 +38,4 @@ export default function styleComponent(Component, style, styleKey = null) {
       return styleComponent(Component, style);
     }
   };
-}
-
-function getComponentDisplayName(Component) {
-  return typeof Component === 'string' ?
-    Component :
-    Component.displayName || Component.name;
 }
