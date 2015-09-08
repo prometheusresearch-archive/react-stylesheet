@@ -25,6 +25,7 @@
     "decamelize": "^1.0.0",
     "invariant": "^2.1.0",
     "lodash": "^3.10.1",
+    "rethemeable": "^3.0.0",
     "style-loader": "^0.12.3"
   },
   "devDependencies": {
