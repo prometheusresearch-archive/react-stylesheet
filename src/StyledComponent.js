@@ -8,7 +8,7 @@ export default class StyledComponent extends React.Component {
 
   static Component = null;
 
-  static style = null;
+  static _style= null;
 
   static propTypes = {
     state: PropTypes.object
@@ -16,16 +16,16 @@ export default class StyledComponent extends React.Component {
 
   render() {
     let {state, ...props} = this.props;
-    let {Component, style} = this.constructor;
-    let className = style.asClassName(state);
+    let {Component, _style} = this.constructor;
+    let className = _style.asClassName(state);
     return <Component {...props} className={className} />;
   }
 
   componentDidMount() {
-    this.constructor.style.use();
+    this.constructor._style.use();
   }
 
   componentWillUnmount() {
-    this.constructor.style.dispose();
+    this.constructor._style.dispose();
   }
 }

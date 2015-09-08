@@ -32,7 +32,10 @@ export default function styleComponent(Component, style, styleKey = null) {
   return class extends StyledComponent {
     static displayName = `Styled(${displayName})`;
     static Component = Component;
-    static style = style;
+    static _style = style;
+    static style(style) {
+      return styleComponent(Component, style);
+    }
   };
 }
 
