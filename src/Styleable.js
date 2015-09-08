@@ -47,6 +47,7 @@ function reconcileStylesheet(stylesheet, prevStylesheet, displayName) {
     return [key, spec];
   });
   stylesheet = zipObject(stylesheet);
+  stylesheet = {...prevStylesheet, ...stylesheet};
   stylesheet = createStylesheet(stylesheet);
   return stylesheet;
 }
