@@ -23,16 +23,14 @@ export default function Styled(Component, stylesheet = Component.stylesheet) {
     static style(nextStylesheet) {
       nextStylesheet = map(nextStylesheet, (spec, key) => {
         let prevSpec = stylesheet[key];
-        if (prevSpec &&
-            !isValidReactComponent(spec) &&
-            !isValidReactComponent(prevSpec) || isString(prevSpec)) {
-          spec = {Component: isString(prevSpec) ? prevSpec : prevSpec.Component, ...spec};
+        if (prevSpec && !isValidReactComponent(spec)) {
+          spec = {Component: isValidReactComponent(prevSpec) ? prevSpec : prevSpec.Component, ...spec};
         }
         return [key, spec];
       });
       nextStylesheet = zipObject(nextStylesheet);
       nextStylesheet = createStylesheet(nextStylesheet);
-      return super.style(nextStylesheet);
+      return Component.style.call(this, nextStylesheet);
     }
 
     constructor(props) {
