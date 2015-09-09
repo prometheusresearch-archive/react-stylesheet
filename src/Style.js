@@ -141,11 +141,13 @@ function compileStylesheet(style, id) {
       let pseudoClassName = `${id}:${decamelize(cls, '-')}`;
       let className = `${id}--${cls}`;
       mapping[cls] = className;
-      return `.${className}, .${pseudoClassName} { ${css} }`;
+      return `:root .${className}, .${pseudoClassName} { ${css} }`;
     } else {
       let className = cls === self ? id : id + '--' + cls;
       mapping[cls] = className;
-      return `.${className} { ${css} }`;
+      return cls === self ?
+        `.${className} { ${css} }` :
+        `:root .${className} { ${css} }`;
     }
   }).join('\n');
 
