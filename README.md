@@ -58,5 +58,11 @@ styling. We use `style` static method for that:
       }
     })
 
+## Credits
+
+React Selectbox is free software created by [Prometheus Research][] and is
+released under the MIT license.
+
+[Prometheus Research, LLC]: http://prometheusresearch.com
 [higher order component]: https://gist.github.com/sebmarkbage/ef0bf1f338a7182b6775
 [react-fa]: https://github.com/andreypopp/react-fa
