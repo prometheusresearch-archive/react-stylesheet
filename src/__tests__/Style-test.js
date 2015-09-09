@@ -45,4 +45,33 @@ describe('Style', function() {
     assert(/Style_style\d+--x/.exec(style.asClassName({x: true})));
   });
 
+  it('can be overriden with style spec', function() {
+    let style = Style.create({
+      background: 'white',
+      color: 'black',
+      x: {
+        color: 'red',
+      },
+      y: {
+        color: 'white',
+      }
+    });
+    let overriden = style.override({
+      color: 'yellow',
+      x: {
+        color: 'x',
+        fontSize: '12pt',
+      },
+      z: {
+        x: 12
+      }
+    });
+    assert(overriden.style.self.background === 'white');
+    assert(overriden.style.self.color === 'yellow');
+    assert(overriden.style.x.color === 'x');
+    assert(overriden.style.x.fontSize === '12pt');
+    assert(overriden.style.y.color === 'white');
+    assert(overriden.style.z.x === 12);
+  });
+
 });
