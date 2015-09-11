@@ -35,9 +35,9 @@
     "eslint-plugin-react": "^3.3.1",
     "mocha": "^2.3.0",
     "power-assert": "^1.0.0",
-    "react": "^0.13.3"
+    "react": "^0.14.0-rc1 || >= 0.13.0, < 0.15.0"
   },
   "peerDependencies": {
-    "react": "^0.13.3"
+    "react": "^0.14.0-rc1 || >= 0.13.0, < 0.15.0"
   }
 }
