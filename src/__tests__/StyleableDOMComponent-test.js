@@ -9,44 +9,45 @@ import StyleableDOMComponent  from '../StyleableDOMComponent';
 
 describe('StyleableDOMComponent', function() {
 
-  it('renders provided Component with the provided stylesheet', function() {
-    let stylesheet = {
+  let stylesheet;
+  let Component;
+  let component;
+  let element;
+
+  function mount() {
+    stylesheet = {
       asClassName: Sinon.stub().returns('class'),
       use: Sinon.spy(),
       dispose: Sinon.spy(),
     };
 
-    class Component extends StyleableDOMComponent {
+    Component = class extends StyleableDOMComponent {
       static stylesheet = stylesheet;
       static Component = 'span';
     }
 
-    let component = TestUtils.renderIntoDocument(<Component />);
-    let element = React.findDOMNode(component);
+    component = TestUtils.renderIntoDocument(<Component />);
+    element = React.findDOMNode(component);
+  }
 
+  function unmount() {
+    if (element.parentNode) {
+      React.unmountComponentAtNode(element.parentNode);
+    }
+  }
+
+  beforeEach(mount);
+  afterEach(unmount);
+
+  it('renders provided Component with the provided stylesheet', function() {
     assert(element.classList.contains('class'));
     assert(element.tagName === 'SPAN');
   });
 
   it('uses and disposes stylesheet', function() {
-    let stylesheet = {
-      asClassName: Sinon.stub().returns('class'),
-      use: Sinon.spy(),
-      dispose: Sinon.spy(),
-    };
-
-    class Component extends StyleableDOMComponent {
-      static stylesheet = stylesheet;
-      static Component = 'span';
-    }
-    let component = TestUtils.renderIntoDocument(<Component />);
-    let element = React.findDOMNode(component);
-
     assert(stylesheet.use.calledOnce);
     assert(!stylesheet.dispose.called);
-
-    React.unmountComponentAtNode(element.parentNode);
-
+    unmount();
     assert(stylesheet.use.calledOnce);
     assert(stylesheet.dispose.calledOnce);
   });
