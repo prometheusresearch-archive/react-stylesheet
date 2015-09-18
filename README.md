@@ -1,7 +1,7 @@
 React Stylesheet
 ================
 
-React Stylesheet is a methodology for styling React components.
+React Stylesheet is a methodology (and a library) for styling React components.
 
 The main principle of React Stylesheet is that all styling should be done with
 React components alone.
@@ -37,30 +37,64 @@ Let's define `<Button />` component which is styled using React Stylesheet.
 
 What we did here is:
 
-* We used `ReactStylesheet` [higher order component][] to mark out component as
-  being styleable by React Stylesheet.
+* We use `ReactStylesheet` [higher order component][] to mark out component as
+  being styleable.
 
-* We used `stylesheet` static attribute to define the stylsheet of the
+* We use `stylesheet` static attribute to define the stylsheet of the
   component.
 
-* We used `this.stylesheet` instance attribute to render the component.
+* We reference components via `this.stylesheet` in `render()`.
 
 Now the only part left is to produce a version of `<Button />` with different
-styling. We use `style` static method for that:
+styling. We use `style()` static method for that:
 
     let SuccessButton = Button.style({
       Root: {
         color: 'white',
-        backgroundColod: 'green'
+        backgroundColod: 'green',
+        hover: {
+          color: 'red'
+        }
       },
       Icon() {
         return <Icon name="ok" />
       }
     })
 
+We pass `style()` a stylesheet which is merged into the original one:
+
+* If you pass a component (`Icon` in the example above, it's a function but with
+  React >= 0.14 it's a valid component also) it is used instead of the original
+  one.
+
+* If you pass an object:
+
+  * If it overrides DOM component in the original stylesheet, then the object is
+    treated as a set of CSS styles.  It's compiled to CSS class and a new styled
+    DOM component wrapper is generated with the CSS class attached.
+
+  * If it overrides composite styleable component in the original stylesheet, then it's
+    passed to that's component `style()` static method.
+
+The last point allows to style component hierarchies with easy:
+
+    let StyledForm = Form.style({
+      Root: {
+        ...
+      },
+      SubmitButton: {
+        Root: {
+          ...
+        },
+        Icon: {
+          ...
+        }
+      }
+    })
+
 ## Credits
 
-React Selectbox is free software created by [Prometheus Research][] and is
+React Stylesheet is free software created by [Prometheus Research][] and is
 released under the MIT license.
 
 [Prometheus Research]: http://prometheusresearch.com
