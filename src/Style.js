@@ -68,13 +68,13 @@ export default class Style {
     this._disposeTimer = null;
   }
 
-  override(spec) {
+  override(spec, id) {
     let style = Style.is(spec) ? spec.style : convertSpecToStyle(spec);
     let nextStyle = {...this.style};
     forEach(style, (v, k) => {
       nextStyle[k] = {...nextStyle[k], ...v};
     });
-    return Style.create(nextStyle);
+    return Style.create(nextStyle, id);
   }
 
   asClassName(state = {}) {
