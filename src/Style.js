@@ -11,7 +11,7 @@ import map                    from 'lodash/collection/map';
 import filter                 from 'lodash/collection/filter';
 import decamelize             from 'decamelize';
 
-const self = 'self';
+const SELF = 'self';
 
 const DEFAULT_STYLE = {
   boxSizing: 'border-box'
@@ -80,7 +80,7 @@ export default class Style {
   asClassName(state = {}) {
     return filter(
       this.className,
-      (className, key) => key === self || state[key]
+      (className, key) => key === SELF || state[key]
     ).join(' ');
   }
 
@@ -115,14 +115,14 @@ export default class Style {
 
 function convertSpecToStyle(spec) {
   let style = {
-    [self]: {...DEFAULT_STYLE}
+    [SELF]: {...DEFAULT_STYLE}
   };
 
   forEach(spec, (value, key) => {
     if (isPlainObject(value)) {
       style[key] = value;
     } else {
-      style[self][key] = value;
+      style[SELF][key] = value;
     }
   });
 
@@ -143,7 +143,7 @@ function compileStylesheet(style, id) {
       mapping[cls] = className;
       return `.${className}, .${pseudoClassName} { ${css} }`;
     } else {
-      let className = cls === self ? id : id + '--' + cls;
+      let className = cls === SELF ? id : id + '--' + cls;
       mapping[cls] = className;
       return `.${className} { ${css} }`;
     }
