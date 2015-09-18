@@ -7,9 +7,7 @@ import CSSPropertyOperations  from 'react/lib/CSSPropertyOperations';
 import isPlainObject          from 'lodash/lang/isPlainObject';
 import uniqueId               from 'lodash/utility/uniqueId';
 import forEach                from 'lodash/collection/forEach';
-import map                    from 'lodash/collection/map';
 import filter                 from 'lodash/collection/filter';
-import flatten                from 'lodash/array/flatten';
 import decamelize             from 'decamelize';
 
 const SELF = 'self';
@@ -165,7 +163,7 @@ function compileStylesheet(style, id) {
         compiled.push(compilePseudoClass(mapping, css, sName, `${id}--${name}`, false));
       });
     }
-  })
+  });
   compiled = compiled.join('\n');
 
   return {css: [[id, compiled]], className: mapping};
