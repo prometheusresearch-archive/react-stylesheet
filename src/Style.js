@@ -137,7 +137,7 @@ function compileStylesheet(style, id) {
 
     if (SUPPORTED_PSEUDO_CLASSES[cls]) {
       // We compile styles for states both as pseudoclasses and as regular
-      // classes so we can force some of states via JS
+      // classes so we can force some states via JS
       let pseudoClassName = `${id}:${decamelize(cls, '-')}`;
       let className = `${id}--${cls}`;
       mapping[cls] = className;
