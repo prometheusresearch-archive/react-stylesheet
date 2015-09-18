@@ -13,10 +13,9 @@ describe('Style', function() {
       color: 'red',
     }, 'style');
     let [_, css] = style.css[0];
-    assert(css);
-    assert(css.indexOf('width:10px') > -1);
-    assert(css.indexOf('color:red') > -1);
-    assert(/Style_style/.exec(style.asClassName()));
+    css = css.split('\n');
+    assert(css.length === 1);
+    assert(/^.Style_style\d+ { box-sizing:border-box;width:10px;color:red; }$/.exec(css[0]));
   });
 
   it('compiles pseudo classes', function() {
@@ -26,9 +25,10 @@ describe('Style', function() {
       }
     }, 'style');
     let [_, css] = style.css[0];
-    assert(css);
-    assert(css.indexOf(':focus') > -1);
-    assert(/Style_style/.exec(style.asClassName()));
+    css = css.split('\n');
+    assert(css.length === 2);
+    assert(/^.Style_style\d+ { box-sizing:border-box; }$/.exec(css[0]));
+    assert(/^.Style_style\d+--focus, .Style_style\d+:focus { color:red; }$/.exec(css[1]));
   });
 
   it('compiles arbitrary state classes', function() {
@@ -38,11 +38,12 @@ describe('Style', function() {
       }
     }, 'style');
     let [_, css] = style.css[0];
-    assert(css);
-    assert(css.indexOf('--x') > -1);
-    assert(/Style_style/.exec(style.asClassName()));
-    assert(/Style_style/.exec(style.asClassName({x: true})));
-    assert(/Style_style\d+--x/.exec(style.asClassName({x: true})));
+    css = css.split('\n');
+    assert(css.length === 2);
+    assert(/^.Style_style\d+ { box-sizing:border-box; }$/.exec(css[0]));
+    assert(/^.Style_style\d+--x { color:red; }$/.exec(css[1]));
+    assert(/^Style_style\d+$/.exec(style.asClassName()));
+    assert(/^Style_style\d+ Style_style\d+--x/.exec(style.asClassName({x: true})));
   });
 
   it('can be overriden with style spec', function() {
@@ -55,7 +56,14 @@ describe('Style', function() {
       y: {
         color: 'white',
       }
-    });
+    }, 'style');
+
+    let styleCSS = style.css[0][1].split('\n');
+    assert(styleCSS.length === 3);
+    assert(/^.Style_style\d+ { box-sizing:border-box;background:white;color:black; }$/.exec(styleCSS[0]));
+    assert(/^.Style_style\d+--x { color:red; }$/.exec(styleCSS[1]));
+    assert(/^.Style_style\d+--y { color:white; }$/.exec(styleCSS[2]));
+
     let overriden = style.override({
       color: 'yellow',
       x: {
@@ -65,7 +73,15 @@ describe('Style', function() {
       z: {
         x: 12
       }
-    });
+    }, 'style');
+
+    let overridenCSS = overriden.css[0][1].split('\n');
+    assert(overridenCSS.length === 4);
+    assert(/^.Style_style\d+ { box-sizing:border-box;background:white;color:yellow; }$/.exec(overridenCSS[0]));
+    assert(/^.Style_style\d+--x { color:x;font-size:12pt; }$/.exec(overridenCSS[1]));
+    assert(/^.Style_style\d+--y { color:white; }$/.exec(overridenCSS[2]));
+    assert(/^.Style_style\d+--z { x:12px; }$/.exec(overridenCSS[3]));
+
     assert(overriden.style.self.background === 'white');
     assert(overriden.style.self.color === 'yellow');
     assert(overriden.style.x.color === 'x');
