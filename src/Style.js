@@ -9,6 +9,7 @@ import uniqueId               from 'lodash/utility/uniqueId';
 import forEach                from 'lodash/collection/forEach';
 import map                    from 'lodash/collection/map';
 import filter                 from 'lodash/collection/filter';
+import flatten                from 'lodash/array/flatten';
 import decamelize             from 'decamelize';
 
 const SELF = 'self';
@@ -71,10 +72,18 @@ export default class Style {
   override(spec, id) {
     let style = Style.is(spec) ? spec.style : convertSpecToStyle(spec);
     let nextStyle = {...this.style};
-    forEach(style, (v, k) => {
-      nextStyle[k] = {...nextStyle[k], ...v};
+    forEach(style, (value, name) => {
+      if (name === SELF) {
+        nextStyle[name] = {...nextStyle[name], ...value};
+      } else {
+        nextStyle[name] = {...nextStyle[name]};
+        forEach(value, (sValue, sName) => {
+          nextStyle[name][sName] = {...sValue};
+        });
+      }
     });
-    return Style.create(nextStyle, id);
+    id = uniqueId(id ? `Style_${id}` : 'Style');
+    return new Style(nextStyle, id);
   }
 
   asClassName(state = {}) {
@@ -113,14 +122,18 @@ export default class Style {
 
 }
 
-function convertSpecToStyle(spec) {
+function convertSpecToStyle(spec, addDefaultStyle = true, recurse = true) {
   let style = {
-    [SELF]: {...DEFAULT_STYLE}
+    [SELF]: addDefaultStyle ? {...DEFAULT_STYLE} : {}
   };
 
   forEach(spec, (value, key) => {
     if (isPlainObject(value)) {
-      style[key] = value;
+      if (recurse) {
+        style[key] = convertSpecToStyle(value, false, false);
+      } else {
+        style[key] = value;
+      }
     } else {
       style[SELF][key] = value;
     }
@@ -131,23 +144,46 @@ function convertSpecToStyle(spec) {
 
 function compileStylesheet(style, id) {
   let mapping = {};
+  let compiled = [];
 
-  let css = map(style, (rules, cls) => {
-    let css = CSSPropertyOperations.createMarkupForStyles(rules);
+  forEach(style, (style, name) => {
+    let css = name === SELF ?
+      CSSPropertyOperations.createMarkupForStyles(style) :
+      CSSPropertyOperations.createMarkupForStyles(style[SELF]);
 
-    if (SUPPORTED_PSEUDO_CLASSES[cls]) {
-      // We compile styles for states both as pseudoclasses and as regular
-      // classes so we can force some states via JS
-      let pseudoClassName = `${id}:${decamelize(cls, '-')}`;
-      let className = `${id}--${cls}`;
-      mapping[cls] = className;
-      return `.${className}, .${pseudoClassName} { ${css} }`;
+    if (SUPPORTED_PSEUDO_CLASSES[name]) {
+      compiled.push(compilePseudoClass(mapping, css, name, id));
     } else {
-      let className = cls === SELF ? id : id + '--' + cls;
-      mapping[cls] = className;
-      return `.${className} { ${css} }`;
+      compiled.push(compileClass(mapping, css, name, id));
     }
-  }).join('\n');
+    if (name !== SELF) {
+      forEach(style, (style, sName) => {
+        if (sName === SELF || !SUPPORTED_PSEUDO_CLASSES[sName]) {
+          return;
+        }
+        let css = CSSPropertyOperations.createMarkupForStyles(style);
+        compiled.push(compilePseudoClass(mapping, css, sName, `${id}--${name}`, false));
+      });
+    }
+  })
+  compiled = compiled.join('\n');
 
-  return {css: [[id, css]], className: mapping};
+  return {css: [[id, compiled]], className: mapping};
+}
+
+function compileClass(mapping, css, name, id) {
+  let className = name === SELF ? id : id + '--' + name;
+  mapping[name] = className;
+  return `.${className} { ${css} }`;
+}
+
+function compilePseudoClass(mapping, css, name, id, compileAsRegular = true) {
+  let pseudoClassName = `${id}:${decamelize(name, '-')}`;
+  if (compileAsRegular) {
+    let className = `${id}--${name}`;
+    mapping[name] = className;
+    return `.${className}, .${pseudoClassName} { ${css} }`;
+  } else {
+    return `.${pseudoClassName} { ${css} }`;
+  }
 }

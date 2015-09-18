@@ -46,6 +46,25 @@ describe('Style', function() {
     assert(/^Style_style\d+ Style_style\d+--x/.exec(style.asClassName({x: true})));
   });
 
+  it('compiles arbitrary state classes with pseudoclasses', function() {
+    let style = Style.create({
+      x: {
+        color: 'red',
+        hover: {
+          color: 'white'
+        }
+      }
+    }, 'style');
+    let [_, css] = style.css[0];
+    css = css.split('\n');
+    assert(css.length === 3);
+    assert(/^.Style_style\d+ { box-sizing:border-box; }$/.exec(css[0]));
+    assert(/^.Style_style\d+--x { color:red; }$/.exec(css[1]));
+    assert(/^.Style_style\d+--x:hover { color:white; }$/.exec(css[2]));
+    assert(/^Style_style\d+$/.exec(style.asClassName()));
+    assert(/^Style_style\d+ Style_style\d+--x/.exec(style.asClassName({x: true})));
+  });
+
   it('can be overriden with style spec', function() {
     let style = Style.create({
       background: 'white',
@@ -72,7 +91,7 @@ describe('Style', function() {
       },
       z: {
         x: 12
-      }
+      },
     }, 'style');
 
     let overridenCSS = overriden.css[0][1].split('\n');
@@ -84,10 +103,10 @@ describe('Style', function() {
 
     assert(overriden.style.self.background === 'white');
     assert(overriden.style.self.color === 'yellow');
-    assert(overriden.style.x.color === 'x');
-    assert(overriden.style.x.fontSize === '12pt');
-    assert(overriden.style.y.color === 'white');
-    assert(overriden.style.z.x === 12);
+    assert(overriden.style.x.self.color === 'x');
+    assert(overriden.style.x.self.fontSize === '12pt');
+    assert(overriden.style.y.self.color === 'white');
+    assert(overriden.style.z.self.x === 12);
   });
 
 });
