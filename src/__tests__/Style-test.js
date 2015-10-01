@@ -18,6 +18,16 @@ describe('Style', function() {
     assert(/^.Style_style\d+ { box-sizing:border-box;width:10px;color:red; }$/.exec(css[0]));
   });
 
+  it('compiles arrays into multiple values', function() {
+    let style = Style.create({
+      color: ['red', 'white'],
+    }, 'style');
+    let [_, css] = style.css[0];
+    css = css.split('\n');
+    assert(css.length === 1);
+    assert(/^.Style_style\d+ { box-sizing:border-box;color:red;color:white; }$/.exec(css[0]));
+  });
+
   it('compiles pseudo classes', function() {
     let style = Style.create({
       focus: {

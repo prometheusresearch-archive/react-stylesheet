@@ -5,6 +5,7 @@
 import addStyleToDOM          from 'style-loader/addStyles';
 import CSSPropertyOperations  from 'react/lib/CSSPropertyOperations';
 import isPlainObject          from 'lodash/lang/isPlainObject';
+import isArray                from 'lodash/lang/isArray';
 import uniqueId               from 'lodash/utility/uniqueId';
 import forEach                from 'lodash/collection/forEach';
 import filter                 from 'lodash/collection/filter';
@@ -120,6 +121,14 @@ export default class Style {
 
 }
 
+function convertValue(key, value) {
+  if (isArray(value) && value.length > 0) {
+    let rest = value.slice(1).map(v => `${key}:${v}`);
+    value = [value[0]].concat(rest).join(';');
+  }
+  return value;
+}
+
 function convertSpecToStyle(spec, addDefaultStyle = true, recurse = true) {
   let style = {
     [SELF]: addDefaultStyle ? {...DEFAULT_STYLE} : {}
@@ -130,10 +139,10 @@ function convertSpecToStyle(spec, addDefaultStyle = true, recurse = true) {
       if (recurse) {
         style[key] = convertSpecToStyle(value, false, false);
       } else {
-        style[key] = value;
+        style[key] = convertValue(key, value);
       }
     } else {
-      style[SELF][key] = value;
+      style[SELF][key] = convertValue(key, value);
     }
   });
 
