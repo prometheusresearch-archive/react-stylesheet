@@ -59,4 +59,10 @@ describe('StyleableDOMComponent', function() {
     assert(element.tagName === 'DIV');
     unmount();
   });
+
+  it('allows setting custom className', function() {
+    let element = mount({className: 'custom'});
+    assert(element.classList.contains('custom'));
+    unmount();
+  });
 });

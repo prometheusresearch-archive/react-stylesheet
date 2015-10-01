@@ -3,6 +3,7 @@
  */
 
 import React, {PropTypes}       from 'react';
+import cx                       from 'classnames';
 import getComponentDisplayName  from './getComponentDisplayName';
 import Style                    from './Style';
 
@@ -30,10 +31,20 @@ export default class StyleableDOMComponent extends React.Component {
   }
 
   render() {
-    let {state, Component = this.constructor.Component, ...props} = this.props;
+    let {
+      state,
+      Component = this.constructor.Component,
+      className: extraClassName,
+      ...props
+    } = this.props;
     let {stylesheet} = this.constructor;
     let className = stylesheet.asClassName(state);
-    return <Component {...props} className={className} />;
+    return (
+      <Component
+        {...props}
+        className={cx(className, extraClassName)}
+        />
+    );
   }
 
   componentDidMount() {
