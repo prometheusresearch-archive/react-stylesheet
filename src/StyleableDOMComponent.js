@@ -13,7 +13,8 @@ export default class StyleableDOMComponent extends React.Component {
   static stylesheet = null;
 
   static propTypes = {
-    state: PropTypes.object
+    state: PropTypes.object,
+    Component: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   };
 
   static style(stylesheet, Component = this.Component, name = null) {
@@ -29,8 +30,8 @@ export default class StyleableDOMComponent extends React.Component {
   }
 
   render() {
-    let {state, ...props} = this.props;
-    let {Component, stylesheet} = this.constructor;
+    let {state, Component = this.constructor.Component, ...props} = this.props;
+    let {stylesheet} = this.constructor;
     let className = stylesheet.asClassName(state);
     return <Component {...props} className={className} />;
   }

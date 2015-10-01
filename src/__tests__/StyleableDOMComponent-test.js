@@ -14,7 +14,7 @@ describe('StyleableDOMComponent', function() {
   let component;
   let element;
 
-  function mount() {
+  function mount(props) {
     stylesheet = {
       asClassName: Sinon.stub().returns('class'),
       use: Sinon.spy(),
@@ -26,8 +26,9 @@ describe('StyleableDOMComponent', function() {
       static Component = 'span';
     }
 
-    component = TestUtils.renderIntoDocument(<Component />);
+    component = TestUtils.renderIntoDocument(<Component {...props} />);
     element = React.findDOMNode(component);
+    return element;
   }
 
   function unmount() {
@@ -36,19 +37,26 @@ describe('StyleableDOMComponent', function() {
     }
   }
 
-  beforeEach(mount);
-  afterEach(unmount);
-
   it('renders provided Component with the provided stylesheet', function() {
+    mount();
     assert(element.classList.contains('class'));
     assert(element.tagName === 'SPAN');
+    unmount();
   });
 
   it('uses and disposes stylesheet', function() {
+    mount();
     assert(stylesheet.use.calledOnce);
     assert(!stylesheet.dispose.called);
     unmount();
     assert(stylesheet.use.calledOnce);
     assert(stylesheet.dispose.calledOnce);
+    unmount();
+  });
+
+  it('allows to override DOM component via props', function() {
+    let element = mount({Component: 'div'});
+    assert(element.tagName === 'DIV');
+    unmount();
   });
 });
