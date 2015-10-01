@@ -16,6 +16,7 @@ export default class StyleableDOMComponent extends React.Component {
   static propTypes = {
     state: PropTypes.object,
     Component: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    className: PropTypes.string,
   };
 
   static style(stylesheet, Component = this.Component, name = null) {
