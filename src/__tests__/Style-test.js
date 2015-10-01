@@ -21,11 +21,12 @@ describe('Style', function() {
   it('compiles arrays into multiple values', function() {
     let style = Style.create({
       color: ['red', 'white'],
+      width: [1, 10],
     }, 'style');
     let [_, css] = style.css[0];
     css = css.split('\n');
     assert(css.length === 1);
-    assert(/^.Style_style\d+ { box-sizing:border-box;color:red;color:white; }$/.exec(css[0]));
+    assert(/^.Style_style\d+ { box-sizing:border-box;color:red;color:white;width:1px;width:10px; }$/.exec(css[0]));
   });
 
   it('compiles pseudo classes', function() {

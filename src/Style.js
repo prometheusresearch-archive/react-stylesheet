@@ -4,6 +4,7 @@
 
 import addStyleToDOM          from 'style-loader/addStyles';
 import CSSPropertyOperations  from 'react/lib/CSSPropertyOperations';
+import dangerousStyleValue    from 'react/lib/dangerousStyleValue';
 import isPlainObject          from 'lodash/lang/isPlainObject';
 import isArray                from 'lodash/lang/isArray';
 import uniqueId               from 'lodash/utility/uniqueId';
@@ -123,8 +124,8 @@ export default class Style {
 
 function convertValue(key, value) {
   if (isArray(value) && value.length > 0) {
-    let rest = value.slice(1).map(v => `${key}:${v}`);
-    value = [value[0]].concat(rest).join(';');
+    let rest = value.slice(1).map(v => `${key}:${dangerousStyleValue(key, v)}`);
+    value = [dangerousStyleValue(key, value[0])].concat(rest).join(';');
   }
   return value;
 }
