@@ -1,6 +1,6 @@
 {
   "name": "@prometheusresearch/react-stylesheet",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "React components with predefined styles",
   "main": "./lib/index.js",
   "scripts": {
