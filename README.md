@@ -1,6 +1,8 @@
 React Stylesheet
 ================
 
+[![Travis build status](https://img.shields.io/travis/prometheusresearch/react-stylesheet/master.svg)](https://travis-ci.org/prometheusresearch/react-stylesheet)
+
 React Stylesheet is a methodology (and a library) for styling React components.
 
 The main principle of React Stylesheet is that all styling should be done with
