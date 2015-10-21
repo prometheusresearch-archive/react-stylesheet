@@ -11,26 +11,30 @@ import getComponentDisplayName  from './getComponentDisplayName';
 
 export default function Styleable(Component, stylesheet = Component.stylesheet) {
 
-  return class extends Component {
+  let StyleableComponent = class extends Component {
 
     static displayName = `Styleable(${getComponentDisplayName(Component)})`;
 
     static stylesheet = createStylesheet(stylesheet);
-
-    static style(nextStylesheet) {
-      nextStylesheet = reconcileStylesheet(
-        nextStylesheet,
-        this.stylesheet,
-        getComponentDisplayName(this)
-      );
-      return Styleable(Component, nextStylesheet);
-    }
 
     get stylesheet() {
       return this.constructor.stylesheet;
     }
 
   };
+
+  if (StyleableComponent.style === undefined) {
+    StyleableComponent.style = function style(nextStylesheet) {
+      nextStylesheet = reconcileStylesheet(
+        nextStylesheet,
+        this.stylesheet,
+        getComponentDisplayName(this)
+      );
+      return Styleable(Component, nextStylesheet);
+    };
+  }
+
+  return StyleableComponent;
 }
 
 function reconcileStylesheet(stylesheet, prevStylesheet, displayName) {
