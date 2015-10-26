@@ -13,8 +13,10 @@ export default class StyleableComponent extends React.Component {
 
   static style(spec) {
     let stylesheet = Stylesheet.overrideStylesheet(this.stylesheet, spec);
-    return class extends this {
+    return class extends StyleableComponent {
       static stylesheet = stylesheet;
+      static Component = this.Component;
+      static displayName = this.displayName;
     };
   }
 
