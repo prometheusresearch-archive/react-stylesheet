@@ -51,6 +51,21 @@ describe('defineStylesheet', function() {
     assert(/<button/.exec(markup));
   });
 
+  it('allows override stylesheet via props', function() {
+
+    @defineStylesheet({Root: 'button'})
+    class Button extends React.Component {
+
+      render() {
+        let {Root} = this.props.stylesheet;
+        return <Root />;
+      }
+    }
+
+    let markup = React.renderToString(<Button stylesheet={{Root: 'div'}}/>);
+    assert(/<div/.exec(markup));
+  });
+
   it('provides style static method', function() {
 
     @defineStylesheet({Root: 'button'})
