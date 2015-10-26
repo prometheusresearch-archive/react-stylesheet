@@ -26,7 +26,8 @@
     "decamelize": "^1.0.0",
     "invariant": "^2.1.0",
     "lodash": "^3.10.1",
-    "style-loader": "^0.12.3"
+    "style-loader": "^0.12.3",
+    "to-slug-case": "^0.1.2"
   },
   "devDependencies": {
     "babel": "^5.8.23",
