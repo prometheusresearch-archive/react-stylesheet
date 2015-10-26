@@ -4,7 +4,6 @@
 
 import invariant                from 'invariant';
 import {isPlainObject}          from './Utils';
-import createStylesheet         from './createStylesheet';
 import getComponentDisplayName  from './getComponentDisplayName';
 import * as Stylesheet          from './Stylesheet';
 
