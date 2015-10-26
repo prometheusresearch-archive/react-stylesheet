@@ -10,15 +10,11 @@ describe('Styleable', function() {
 
   it('makes component use a stylesheet', function() {
 
-    @Styleable
+    @Styleable({Root: 'button'})
     class Button extends React.Component {
 
-      static stylesheet = {
-        Root: 'button'
-      };
-
       render() {
-        let {Root} = this.stylesheet;
+        let {Root} = this.props.stylesheet;
         return <Root />;
       }
     }
@@ -29,15 +25,11 @@ describe('Styleable', function() {
 
   it('provides style static method', function() {
 
-    @Styleable
+    @Styleable({Root: 'button'})
     class Button extends React.Component {
 
-      static stylesheet = {
-        Root: 'button'
-      };
-
       render() {
-        let {Root} = this.stylesheet;
+        let {Root} = this.props.stylesheet;
         return <Root />;
       }
     }
@@ -53,41 +45,29 @@ describe('Styleable', function() {
 
   it('allows styling composite components', function() {
 
-    @Styleable
+    @Styleable({Root: 'div'})
     class A extends React.Component {
 
-      static stylesheet = {
-        Root: 'div'
-      };
-
       render() {
-        let {Root} = this.stylesheet;
+        let {Root} = this.props.stylesheet;
         return <Root />;
       }
     }
 
-    @Styleable
+    @Styleable({Root: A})
     class B extends React.Component {
 
-      static stylesheet = {
-        Root: A
-      };
-
       render() {
-        let {Root} = this.stylesheet;
+        let {Root} = this.props.stylesheet;
         return <Root />;
       }
     }
 
-    @Styleable
+    @Styleable({Root: B})
     class C extends React.Component {
 
-      static stylesheet = {
-        Root: B
-      };
-
       render() {
-        let {Root} = this.stylesheet;
+        let {Root} = this.props.stylesheet;
         return <Root />;
       }
     }
