@@ -48,7 +48,7 @@ describe('Styleable', function() {
       }
     });
     let markup = React.renderToString(<StyleableButton />);
-    assert(/<button class="Style_Root\d+"/.exec(markup));
+    assert(/<button class="Style_button\d+"/.exec(markup));
   });
 
   it('allows styling composite components', function() {
@@ -108,6 +108,7 @@ describe('Styleable', function() {
     });
 
     markup = React.renderToString(<StyleableC />);
-    assert(/<div class="Style_Root\d+"/.exec(markup));
+    assert(/<div class="Style_div\d+"/.exec(markup));
+    assert(StyleableC.stylesheet.Root.stylesheet.Root.stylesheet.Root.stylesheet.style.self.color === 'red')
   });
 });

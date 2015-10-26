@@ -6,7 +6,7 @@ import invariant                from 'invariant';
 import {isPlainObject}          from './Utils';
 import createStylesheet         from './createStylesheet';
 import getComponentDisplayName  from './getComponentDisplayName';
-import {overrideStylesheet}     from './Stylesheet';
+import * as Stylesheet          from './Stylesheet';
 
 export default function Styleable(Component, stylesheet = Component.stylesheet) {
 
@@ -14,7 +14,7 @@ export default function Styleable(Component, stylesheet = Component.stylesheet) 
 
     static displayName = `Styleable(${getComponentDisplayName(Component)})`;
 
-    static stylesheet = createStylesheet(stylesheet);
+    static stylesheet = Stylesheet.createStylesheet(stylesheet);
 
     get stylesheet() {
       return this.constructor.stylesheet;
@@ -24,7 +24,7 @@ export default function Styleable(Component, stylesheet = Component.stylesheet) 
 
   if (StyleableComponent.style === undefined) {
     StyleableComponent.style = function style(spec) {
-      let stylesheet = overrideStylesheet(this.stylesheet, spec);
+      let stylesheet = Stylesheet.overrideStylesheet(this.stylesheet, spec);
       return Styleable(Component, stylesheet);
     };
   }

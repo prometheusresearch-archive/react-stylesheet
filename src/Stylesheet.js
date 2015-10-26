@@ -19,8 +19,8 @@ export function createStylesheet(spec) {
     if (isValidReactComponent(item)) {
       stylesheet[key] = item;
     } else {
-      let {Component = 'div', style} = item;
-      Component = styleComponent(Component, style);
+      let {Component = 'div', ...componentStylesheet} = item;
+      Component = styleComponent(Component, componentStylesheet);
       stylesheet[key] = Component;
     }
   }
@@ -70,9 +70,8 @@ export function overrideStylesheet(stylesheet, spec) {
     if (isValidReactComponent(item)) {
       stylesheet[key] = item;
     } else {
-      let {Component = stylesheet[key], style} = spec[key];
-      // XXX: need to call overrideComponentStyle(Component, style) here
-      stylesheet[key] = styleComponent(Component, style);
+      let {Component = stylesheet[key], ...componentStylesheet} = spec[key];
+      stylesheet[key] = styleComponent(Component, componentStylesheet);
     }
   }
   return stylesheet;
