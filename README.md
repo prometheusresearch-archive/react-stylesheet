@@ -15,10 +15,10 @@ Let's define `<Button />` component which is styled using React Stylesheet.
 
 ```javascript
 import React from 'react'
-import ReactStylesheet from '@prometheusresearch/react-stylesheet'
+import {define} from '@prometheusresearch/react-stylesheet'
 import Icon from 'react-fa'
 
-@ReactStylesheet({
+@define({
   Root: 'button',
   Icon: Icon,
 })
@@ -39,7 +39,7 @@ class Button extends React.Component {
 
 What we did here is:
 
-* We use `ReactStylesheet` [higher order component][] to mark out component as
+* We use `define` [higher order component][] to mark out component as
   being styleable.
 
 * We use `stylesheet` static attribute to define the stylsheet of the

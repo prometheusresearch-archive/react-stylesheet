@@ -2,15 +2,15 @@
  * @copyright 2015 Prometheus Research, LLC
  */
 
-import React     from 'react';
-import assert    from 'power-assert';
-import Styleable from '../Styleable';
+import React from 'react';
+import assert from 'power-assert';
+import defineStylesheet from '../defineStylesheet';
 
-describe('Styleable', function() {
+describe('defineStylesheet', function() {
 
   it('makes component use a stylesheet', function() {
 
-    @Styleable({Root: 'button'})
+    @defineStylesheet({Root: 'button'})
     class Button extends React.Component {
 
       render() {
@@ -23,9 +23,37 @@ describe('Styleable', function() {
     assert(/<button/.exec(markup));
   });
 
+  it('works as a factory function', function() {
+
+    class Button extends React.Component {
+
+      render() {
+        let {Root} = this.props.stylesheet;
+        return <Root />;
+      }
+    }
+
+    Button = defineStylesheet(Button, {Root: 'button'});
+
+    let markup = React.renderToString(<Button />);
+    assert(/<button/.exec(markup));
+  });
+
+  it('works as a factory function with functional components', function() {
+
+    function Button({stylesheet: {Root}}) {
+      return <Root />;
+    }
+
+    Button = defineStylesheet(Button, {Root: 'button'});
+
+    let markup = React.renderToString(<Button />);
+    assert(/<button/.exec(markup));
+  });
+
   it('provides style static method', function() {
 
-    @Styleable({Root: 'button'})
+    @defineStylesheet({Root: 'button'})
     class Button extends React.Component {
 
       render() {
@@ -45,7 +73,7 @@ describe('Styleable', function() {
 
   it('allows styling composite components', function() {
 
-    @Styleable({Root: 'div'})
+    @defineStylesheet({Root: 'div'})
     class A extends React.Component {
 
       render() {
@@ -54,7 +82,7 @@ describe('Styleable', function() {
       }
     }
 
-    @Styleable({Root: A})
+    @defineStylesheet({Root: A})
     class B extends React.Component {
 
       render() {
@@ -63,7 +91,7 @@ describe('Styleable', function() {
       }
     }
 
-    @Styleable({Root: B})
+    @defineStylesheet({Root: B})
     class C extends React.Component {
 
       render() {
