@@ -18,17 +18,15 @@ import React from 'react'
 import ReactStylesheet from '@prometheusresearch/react-stylesheet'
 import Icon from 'react-fa'
 
-@ReactStylesheet
+@ReactStylesheet({
+  Root: 'button',
+  Icon: Icon,
+})
 class Button extends React.Component {
 
-  static stylesheet = {
-    Root: 'button',
-    Icon: Icon,
-  }
-
   render() {
-    let {caption, icon} = this.props
-    let {Root, Icon} = this.stylesheet
+    let {caption, icon, stylesheet} = this.props
+    let {Root, Icon} = stylesheet
     return (
       <Root>
         <Icon name={icon} />
@@ -47,7 +45,7 @@ What we did here is:
 * We use `stylesheet` static attribute to define the stylsheet of the
   component.
 
-* We reference components via `this.stylesheet` in `render()`.
+* We reference components via `this.props.stylesheet` in `render()`.
 
 Now the only part left is to produce a version of `<Button />` with different
 styling. We use `style()` static method for that:
