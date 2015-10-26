@@ -21,7 +21,8 @@ export default function styleComponent(Component, stylesheet, name = null) {
     return Component.style(stylesheet);
   } else {
     if (!DOMStylesheet.isValidStylesheet(stylesheet)) {
-      stylesheet = DOMStylesheet.createStylesheet(stylesheet, name || getComponentDisplayName(Component));
+      name = name || getComponentDisplayName(Component);
+      stylesheet = DOMStylesheet.createStylesheet(stylesheet, name);
     }
     return styleDOMComponent(Component, stylesheet);
   }

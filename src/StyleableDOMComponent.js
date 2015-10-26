@@ -20,7 +20,6 @@ export default class StyleableDOMComponent extends React.Component {
   };
 
   static style(spec) {
-    let stylesheet = this.stylesheet;
     return class extends StyleableDOMComponent {
       static displayName = getComponentDisplayName(this);
       static Component = this.Component;
