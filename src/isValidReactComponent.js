@@ -2,8 +2,7 @@
  * @copyright 2015 Prometheus Research, LLC
  */
 
-import isString   from 'lodash/lang/isString';
-import isFunction from 'lodash/lang/isFunction';
+import {isString, isFunction} from './Utils';
 
 /**
  * Loose check if the argument is a valid React component.

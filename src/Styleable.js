@@ -3,9 +3,7 @@
  */
 
 import invariant                from 'invariant';
-import map                      from 'lodash/collection/map';
-import zipObject                from 'lodash/array/zipObject';
-import isPlainObject            from 'lodash/lang/isPlainObject';
+import {isPlainObject}          from './Utils';
 import createStylesheet         from './createStylesheet';
 import getComponentDisplayName  from './getComponentDisplayName';
 
@@ -37,21 +35,29 @@ export default function Styleable(Component, stylesheet = Component.stylesheet) 
   return StyleableComponent;
 }
 
-function reconcileStylesheet(stylesheet, prevStylesheet, displayName) {
-  stylesheet = map(stylesheet, (spec, key) => {
+function reconcileStylesheet(stylesheet, prevStylesheet, displayName = 'Unknown') {
+  let nextStylesheet = {};
+  for (let key in stylesheet) {
+    if (!stylesheet.hasOwnProperty(key)) {
+      continue;
+    }
+
+    let spec = stylesheet[key];
     let Component = prevStylesheet[key];
     invariant(
       Component !== undefined,
       'Invalid stylesheet override for key "%s" for component "<%s />"',
       key, displayName
     );
+
     if (isPlainObject(spec)) {
       spec = {Component, ...spec};
     }
-    return [key, spec];
-  });
-  stylesheet = zipObject(stylesheet);
-  stylesheet = {...prevStylesheet, ...stylesheet};
-  stylesheet = createStylesheet(stylesheet);
-  return stylesheet;
+
+    nextStylesheet[key] = spec;
+  }
+
+  nextStylesheet = {...prevStylesheet, ...nextStylesheet};
+  nextStylesheet = createStylesheet(nextStylesheet);
+  return nextStylesheet;
 }

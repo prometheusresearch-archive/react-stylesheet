@@ -2,15 +2,11 @@
  * @copyright 2015 Prometheus Research, LLC
  */
 
-import addStyleToDOM          from 'style-loader/addStyles';
-import CSSPropertyOperations  from 'react/lib/CSSPropertyOperations';
-import dangerousStyleValue    from 'react/lib/dangerousStyleValue';
-import isPlainObject          from 'lodash/lang/isPlainObject';
-import isArray                from 'lodash/lang/isArray';
-import uniqueId               from 'lodash/utility/uniqueId';
-import forEach                from 'lodash/collection/forEach';
-import filter                 from 'lodash/collection/filter';
-import decamelize             from 'decamelize';
+import addStyleToDOM            from 'style-loader/addStyles';
+import CSSPropertyOperations    from 'react/lib/CSSPropertyOperations';
+import dangerousStyleValue      from 'react/lib/dangerousStyleValue';
+import {isArray, isPlainObject,
+        toDashCase, uniqueID}   from './Utils';
 
 const SELF = 'self';
 
@@ -48,7 +44,7 @@ const SUPPORTED_PSEUDO_CLASSES = {
 export default class Style {
 
   static create(spec, id = '') {
-    id = uniqueId(id ? `Style_${id}` : 'Style');
+    id = uniqueID(id ? `Style_${id}` : 'Style');
     return new Style(convertSpecToStyle(spec), id);
   }
 
@@ -72,25 +68,38 @@ export default class Style {
   override(spec, id) {
     let style = Style.is(spec) ? spec.style : convertSpecToStyle(spec);
     let nextStyle = {...this.style};
-    forEach(style, (value, name) => {
-      if (name === SELF) {
-        nextStyle[name] = {...nextStyle[name], ...value};
-      } else {
-        nextStyle[name] = {...nextStyle[name]};
-        forEach(value, (sValue, sName) => {
-          nextStyle[name][sName] = {...sValue};
-        });
+    for (let key in style) {
+      if (!style.hasOwnProperty(key)) {
+        continue;
       }
-    });
-    id = uniqueId(id ? `Style_${id}` : 'Style');
+      if (key === SELF) {
+        nextStyle[key] = {...nextStyle[key], ...style[key]};
+      } else {
+        let value = style[key];
+        nextStyle[key] = {...nextStyle[key]};
+        for (let sKey in value) {
+          if (!value.hasOwnProperty(sKey)) {
+            continue;
+          }
+          nextStyle[key][sKey] = {...value[sKey]};
+        }
+      }
+    }
+    id = uniqueID(id ? `Style_${id}` : 'Style');
     return new Style(nextStyle, id);
   }
 
   asClassName(state = {}) {
-    return filter(
-      this.className,
-      (className, key) => key === SELF || state[key]
-    ).join(' ');
+    let className = [];
+    for (let key in this.className) {
+      if (!this.className.hasOwnProperty(key)) {
+        continue;
+      }
+      if (key === SELF || state[key]) {
+        className.push(this.className[key]);
+      }
+    }
+    return className.join(' ');
   }
 
   use() {
@@ -135,7 +144,11 @@ function convertSpecToStyle(spec, addDefaultStyle = true, recurse = true) {
     [SELF]: addDefaultStyle ? {...DEFAULT_STYLE} : {}
   };
 
-  forEach(spec, (value, key) => {
+  for (let key in spec) {
+    if (!spec.hasOwnProperty(key)) {
+      continue;
+    }
+    let value = spec[key];
     if (isPlainObject(value)) {
       if (recurse) {
         style[key] = convertSpecToStyle(value, false, false);
@@ -145,7 +158,7 @@ function convertSpecToStyle(spec, addDefaultStyle = true, recurse = true) {
     } else {
       style[SELF][key] = convertValue(key, value);
     }
-  });
+  }
 
   return style;
 }
@@ -154,26 +167,36 @@ function compileStylesheet(style, id) {
   let mapping = {};
   let compiled = [];
 
-  forEach(style, (style, name) => {
-    let css = name === SELF ?
-      CSSPropertyOperations.createMarkupForStyles(style) :
-      CSSPropertyOperations.createMarkupForStyles(style[SELF]);
+  for (let key in style) {
+    if (!style.hasOwnProperty(key)) {
+      continue;
+    }
+    let value = style[key];
 
-    if (SUPPORTED_PSEUDO_CLASSES[name]) {
-      compiled.push(compilePseudoClass(mapping, css, name, id));
+    let css = key === SELF ?
+      CSSPropertyOperations.createMarkupForStyles(value) :
+      CSSPropertyOperations.createMarkupForStyles(value[SELF]);
+
+    if (SUPPORTED_PSEUDO_CLASSES[key]) {
+      compiled.push(compilePseudoClass(mapping, css, key, id));
     } else {
-      compiled.push(compileClass(mapping, css, name, id));
+      compiled.push(compileClass(mapping, css, key, id));
     }
-    if (name !== SELF) {
-      forEach(style, (style, sName) => {
-        if (sName === SELF || !SUPPORTED_PSEUDO_CLASSES[sName]) {
-          return;
+    if (key !== SELF) {
+      for (let sKey in value) {
+        if (!value.hasOwnProperty(sKey)) {
+          continue;
         }
-        let css = CSSPropertyOperations.createMarkupForStyles(style);
-        compiled.push(compilePseudoClass(mapping, css, sName, `${id}--${name}`, false));
-      });
+        let sValue = value[sKey];
+        if (sKey === SELF || !SUPPORTED_PSEUDO_CLASSES[sKey]) {
+          continue;
+        }
+        let css = CSSPropertyOperations.createMarkupForStyles(sValue);
+        compiled.push(compilePseudoClass(mapping, css, sKey, `${id}--${key}`, false));
+      }
     }
-  });
+  }
+
   compiled = compiled.join('\n');
 
   return {css: [[id, compiled]], className: mapping};
@@ -186,7 +209,7 @@ function compileClass(mapping, css, name, id) {
 }
 
 function compilePseudoClass(mapping, css, name, id, compileAsRegular = true) {
-  let pseudoClassName = `${id}:${decamelize(name, '-')}`;
+  let pseudoClassName = `${id}:${toDashCase(name)}`;
   if (compileAsRegular) {
     let className = `${id}--${name}`;
     mapping[name] = className;

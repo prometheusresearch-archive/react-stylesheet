@@ -2,8 +2,7 @@
  * @copyright 2015, Prometheus Research, LLC
  */
 
-import isString   from 'lodash/lang/isString';
-import toSlugCase from 'to-slug-case';
+import {isString, toDashCase} from './Utils';
 
 function keyMirrorDashCase(obj) {
   let result = {};
@@ -11,7 +10,7 @@ function keyMirrorDashCase(obj) {
     if (!obj.hasOwnProperty(key)) {
       continue;
     }
-    result[key] = toSlugCase(key);
+    result[key] = toDashCase(key);
   }
   return result;
 }
