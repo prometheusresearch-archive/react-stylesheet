@@ -3,9 +3,10 @@
  */
 
 export default from './Styleable';
-export {createStylesheet as stylesheet} from './Stylesheet';
-export style        from './styleComponent';
-export Style        from './Style';
-export Styleable    from './Styleable';
-export * as CSS     from './CSS';
+export style from './styleComponent';
+export Styleable from './Styleable';
+
+export * as Stylesheet from './Stylesheet';
+export * as DOMStylesheet from './DOMStylesheet';
+export * as CSS from './CSS';
 

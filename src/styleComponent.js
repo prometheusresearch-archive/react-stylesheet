@@ -3,7 +3,7 @@
  */
 
 import invariant from 'invariant';
-import Style from './Style';
+import * as DOMStylesheet from './DOMStylesheet';
 import StyleableDOMComponent from './StyleableDOMComponent';
 import isValidReactComponent from './isValidReactComponent';
 import getComponentDisplayName from './getComponentDisplayName';
@@ -20,8 +20,8 @@ export default function styleComponent(Component, stylesheet, name = null) {
   if (typeof Component.style === 'function') {
     return Component.style(stylesheet);
   } else {
-    if (!Style.is(stylesheet)) {
-      stylesheet = Style.create(stylesheet, name || getComponentDisplayName(Component));
+    if (!DOMStylesheet.isValidStylesheet(stylesheet)) {
+      stylesheet = DOMStylesheet.createStylesheet(stylesheet, name || getComponentDisplayName(Component));
     }
     return styleDOMComponent(Component, stylesheet);
   }

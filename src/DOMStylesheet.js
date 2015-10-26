@@ -41,16 +41,41 @@ const SUPPORTED_PSEUDO_CLASSES = {
   visited: true,
 };
 
-export default class Style {
+export function createStylesheet(spec, id = '') {
+  id = uniqueID(id ? `Style_${id}` : 'Style');
+  return new DOMStylesheet(convertSpecToStyle(spec), id);
+}
 
-  static create(spec, id = '') {
-    id = uniqueID(id ? `Style_${id}` : 'Style');
-    return new Style(convertSpecToStyle(spec), id);
-  }
+export function isValidStylesheet(obj) {
+  return obj instanceof DOMStylesheet;
+}
 
-  static is(obj) {
-    return obj instanceof Style;
+export function overrideStylesheet(stylesheet, spec, id) {
+  let style = isValidStylesheet(spec) ? spec.style : convertSpecToStyle(spec);
+  let nextStyle = {...stylesheet.style};
+  for (let key in style) {
+    if (!style.hasOwnProperty(key)) {
+      continue;
+    }
+    if (key === SELF) {
+      nextStyle[key] = {...nextStyle[key], ...style[key]};
+    } else {
+      let value = style[key];
+      nextStyle[key] = {...nextStyle[key]};
+      for (let sKey in value) {
+        if (!value.hasOwnProperty(sKey)) {
+          continue;
+        }
+        nextStyle[key][sKey] = {...value[sKey]};
+      }
+    }
   }
+  id = uniqueID(id ? `Style_${id}` : 'Style');
+  return new DOMStylesheet(nextStyle, id);
+}
+
+
+class DOMStylesheet {
 
   constructor(style, id) {
     let {css, className} = compileStylesheet(style, id);
@@ -63,30 +88,6 @@ export default class Style {
     this._remove = null;
     this._disposePerform = this._disposePerform.bind(this);
     this._disposeTimer = null;
-  }
-
-  override(spec, id) {
-    let style = Style.is(spec) ? spec.style : convertSpecToStyle(spec);
-    let nextStyle = {...this.style};
-    for (let key in style) {
-      if (!style.hasOwnProperty(key)) {
-        continue;
-      }
-      if (key === SELF) {
-        nextStyle[key] = {...nextStyle[key], ...style[key]};
-      } else {
-        let value = style[key];
-        nextStyle[key] = {...nextStyle[key]};
-        for (let sKey in value) {
-          if (!value.hasOwnProperty(sKey)) {
-            continue;
-          }
-          nextStyle[key][sKey] = {...value[sKey]};
-        }
-      }
-    }
-    id = uniqueID(id ? `Style_${id}` : 'Style');
-    return new Style(nextStyle, id);
   }
 
   asClassName(state = {}) {

@@ -3,12 +3,12 @@
  */
 
 import assert from 'power-assert';
-import Style  from '../Style';
+import * as DOMStylesheet from '../DOMStylesheet';
 
-describe('Style', function() {
+describe('DOMStylesheet', function() {
 
   it('compiles style representation to CSS', function() {
-    let style = Style.create({
+    let style = DOMStylesheet.createStylesheet({
       width: 10,
       color: 'red',
     }, 'style');
@@ -19,7 +19,7 @@ describe('Style', function() {
   });
 
   it('compiles arrays into multiple values', function() {
-    let style = Style.create({
+    let style = DOMStylesheet.createStylesheet({
       color: ['red', 'white'],
       width: [1, 10],
     }, 'style');
@@ -30,7 +30,7 @@ describe('Style', function() {
   });
 
   it('compiles pseudo classes', function() {
-    let style = Style.create({
+    let style = DOMStylesheet.createStylesheet({
       focus: {
         color: 'red',
       }
@@ -43,7 +43,7 @@ describe('Style', function() {
   });
 
   it('compiles arbitrary state classes', function() {
-    let style = Style.create({
+    let style = DOMStylesheet.createStylesheet({
       x: {
         color: 'red',
       }
@@ -58,7 +58,7 @@ describe('Style', function() {
   });
 
   it('compiles arbitrary state classes with pseudoclasses', function() {
-    let style = Style.create({
+    let style = DOMStylesheet.createStylesheet({
       x: {
         color: 'red',
         hover: {
@@ -77,7 +77,7 @@ describe('Style', function() {
   });
 
   it('can be overriden with style spec', function() {
-    let style = Style.create({
+    let style = DOMStylesheet.createStylesheet({
       background: 'white',
       color: 'black',
       x: {
@@ -94,7 +94,7 @@ describe('Style', function() {
     assert(/^.Style_style\d+--x { color:red; }$/.exec(styleCSS[1]));
     assert(/^.Style_style\d+--y { color:white; }$/.exec(styleCSS[2]));
 
-    let overriden = style.override({
+    let overriden = DOMStylesheet.overrideStylesheet(style, {
       color: 'yellow',
       x: {
         color: 'x',
