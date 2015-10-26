@@ -156,6 +156,20 @@ DOM components:
 <StyledDiv state={{hover: false, active: true}} />
 ```
 
+## Helpers for DOM stylesheets
+
+React Stylesheet provides helpers to define DOM stylesheets:
+
+```javascript
+import {CSS, style} from '@prometheusresearch/react-stylesheet'
+
+let Warning = style('div', {
+  color: CSS.rgba(245, 123, 12),
+  padding: CSS.padding(10, 20),
+  textDecoration: CSS.none,
+})
+```
+
 ## Credits
 
 React Stylesheet is free software created by [Prometheus Research][] and is
