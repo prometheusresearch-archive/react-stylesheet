@@ -15,10 +15,10 @@ Let's define `<Button />` component which is styled using React Stylesheet.
 
 ```javascript
 import React from 'react'
-import {defineStylesheet} from '@prometheusresearch/react-stylesheet'
+import {attachStylesheet} from '@prometheusresearch/react-stylesheet'
 import Icon from 'react-fa'
 
-@defineStylesheet({
+@attachStylesheet({
   Root: 'button',
   Icon: Icon,
 })
@@ -39,7 +39,7 @@ class Button extends React.Component {
 
 What we did here is:
 
-* We use `defineStylesheet` [higher order component][] to attach an initial
+* We use `attachStylesheet` [higher order component][] to attach an initial
   stylesheet to a composite component.
 
 * We use `stylesheet` prop passed to component to render component's UI.

@@ -8,13 +8,13 @@ import * as Stylesheet from './Stylesheet';
 import StyleableComponent from './StyleableComponent';
 import isValidReactComponent from './isValidReactComponent';
 
-export default function defineStylesheet(Component, spec) {
+export default function attachStylesheet(Component, spec) {
   if (isValidReactComponent(Component)) {
-    return defineStylesheetImpl(Component, spec);
+    return attachStylesheetImpl(Component, spec);
   } else if (spec === undefined) {
     let spec = Component;
-    return function defineStylesheetDecorator(Component) {
-      return defineStylesheetImpl(Component, spec);
+    return function attachStylesheetDecorator(Component) {
+      return attachStylesheetImpl(Component, spec);
     };
   } else {
     invariant(
@@ -24,7 +24,7 @@ export default function defineStylesheet(Component, spec) {
   }
 }
 
-function defineStylesheetImpl(Component, spec) {
+function attachStylesheetImpl(Component, spec) {
   return class extends StyleableComponent {
     static displayName = `Styleable(${getComponentDisplayName(Component)})`;
     static stylesheet = Stylesheet.createStylesheet(spec);

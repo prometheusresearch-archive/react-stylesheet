@@ -4,13 +4,13 @@
 
 import React from 'react';
 import assert from 'power-assert';
-import defineStylesheet from '../defineStylesheet';
+import attachStylesheet from '../attachStylesheet';
 
-describe('defineStylesheet', function() {
+describe('attachStylesheet', function() {
 
   it('makes component use a stylesheet', function() {
 
-    @defineStylesheet({Root: 'button'})
+    @attachStylesheet({Root: 'button'})
     class Button extends React.Component {
 
       render() {
@@ -33,7 +33,7 @@ describe('defineStylesheet', function() {
       }
     }
 
-    Button = defineStylesheet(Button, {Root: 'button'});
+    Button = attachStylesheet(Button, {Root: 'button'});
 
     let markup = React.renderToString(<Button />);
     assert(/<button/.exec(markup));
@@ -45,7 +45,7 @@ describe('defineStylesheet', function() {
       return <Root />;
     }
 
-    Button = defineStylesheet(Button, {Root: 'button'});
+    Button = attachStylesheet(Button, {Root: 'button'});
 
     let markup = React.renderToString(<Button />);
     assert(/<button/.exec(markup));
@@ -53,7 +53,7 @@ describe('defineStylesheet', function() {
 
   it('allows override stylesheet via props', function() {
 
-    @defineStylesheet({Root: 'button'})
+    @attachStylesheet({Root: 'button'})
     class Button extends React.Component {
 
       render() {
@@ -68,7 +68,7 @@ describe('defineStylesheet', function() {
 
   it('provides style static method', function() {
 
-    @defineStylesheet({Root: 'button'})
+    @attachStylesheet({Root: 'button'})
     class Button extends React.Component {
 
       render() {
@@ -88,7 +88,7 @@ describe('defineStylesheet', function() {
 
   it('allows styling composite components', function() {
 
-    @defineStylesheet({Root: 'div'})
+    @attachStylesheet({Root: 'div'})
     class A extends React.Component {
 
       render() {
@@ -97,7 +97,7 @@ describe('defineStylesheet', function() {
       }
     }
 
-    @defineStylesheet({Root: A})
+    @attachStylesheet({Root: A})
     class B extends React.Component {
 
       render() {
@@ -106,7 +106,7 @@ describe('defineStylesheet', function() {
       }
     }
 
-    @defineStylesheet({Root: B})
+    @attachStylesheet({Root: B})
     class C extends React.Component {
 
       render() {

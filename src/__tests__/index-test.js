@@ -4,19 +4,16 @@
 
 import assert from 'power-assert';
 import * as pkg from '../index';
-import defineStylesheet from '../defineStylesheet';
+import attachStylesheet from '../attachStylesheet';
 import styleComponent from '../styleComponent';
 import * as Stylesheet from '../Stylesheet';
-import * as DOMStylesheet from '../DOMStylesheet';
-import * as CSS from '../CSS';
 
 describe('package', function() {
 
   it('exports some stuff', function() {
-    assert(pkg.deafult === undefined);
-    assert(pkg.defineStylesheet === defineStylesheet);
+    assert(pkg.default === undefined);
+    assert(pkg.attachStylesheet === attachStylesheet);
     assert(pkg.styleComponent === styleComponent);
-    assert(pkg.Stylesheet === Stylesheet);
-    assert(pkg.DOMStylesheet === DOMStylesheet);
+    assert(pkg.createStylesheet === Stylesheet.createStylesheet);
   });
 });
