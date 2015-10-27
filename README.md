@@ -3,30 +3,76 @@ React Stylesheet
 
 [![Travis build status](https://img.shields.io/travis/prometheusresearch/react-stylesheet/master.svg)](https://travis-ci.org/prometheusresearch/react-stylesheet)
 
-React Stylesheet is a methodology (and a library) for styling React components.
+React Stylesheet is a way to style React components with React components!
 
-The main principle of React Stylesheet is that all styling should be done with
-React components alone.
+Installation
+------------
 
-DOM components are styled with CSS and composite components are styled with
-stylesheets (which are just sets of other components).
+```
+% npm install @prometheusresearch/react-stylesheet
+```
 
-Let's define `<Button />` component which is styled using React Stylesheet.
+Basic usage
+-----------
+
+The idea is that component should define a stylesheet to render its UI with.
+
+A stylesheet is just a collection of styled components:
+
+```javascript
+import React from 'react'
+import {createStylesheet} from '@prometheusresearch/react-stylesheet'
+
+let stylesheet = createStylesheet({
+  Root: {
+    Component: 'button',
+    fontSize: '12pt'
+  },
+  Caption: {
+    Component: 'div',
+    fontWeight: 'bold'
+  }
+})
+
+class Button extends React.Component {
+
+  render() {
+    let {caption} = this.props
+    let {Root, Icon} = stylesheet
+    return (
+      <Root>
+        <Caption>{caption}</Caption>
+      </Root>
+    )
+  }
+}
+```
+
+Stylable composite components
+-----------------------------
+
+Sometimes you want to define a reusable component which you would want to style
+later using different stylesheets.
+
+You can define an initial stylesheet which does nothing but renders base DOM
+components and then override that:
 
 ```javascript
 import React from 'react'
 import {attachStylesheet} from '@prometheusresearch/react-stylesheet'
 import Icon from 'react-fa'
 
-@attachStylesheet({
+let stylesheet = {
   Root: 'button',
   Icon: Icon,
-})
+};
+
+@attachStylesheet(stylesheet)
 class Button extends React.Component {
 
   render() {
-    let {caption, icon, stylesheet} = this.props
-    let {Root, Icon} = stylesheet
+    let {caption, icon} = this.props
+    let {Root, Icon} = this.props.stylesheet
     return (
       <Root>
         <Icon name={icon} />
