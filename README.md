@@ -15,10 +15,10 @@ Let's define `<Button />` component which is styled using React Stylesheet.
 
 ```javascript
 import React from 'react'
-import {define} from '@prometheusresearch/react-stylesheet'
+import {defineStylesheet} from '@prometheusresearch/react-stylesheet'
 import Icon from 'react-fa'
 
-@define({
+@defineStylesheet({
   Root: 'button',
   Icon: Icon,
 })
@@ -39,19 +39,18 @@ class Button extends React.Component {
 
 What we did here is:
 
-* We use `define` [higher order component][] to mark out component as
-  being styleable.
+* We use `defineStylesheet` [higher order component][] to attach an initial
+  stylesheet to a composite component.
 
-* We use `stylesheet` static attribute to define the stylsheet of the
-  component.
-
-* We reference components via `this.props.stylesheet` in `render()`.
+* We use `stylesheet` prop passed to component to render component's UI.
 
 Now the only part left is to produce a version of `<Button />` with different
-styling. We use `style()` static method for that:
+styling. We use `styleComponent(Component, stylesheet)` function for that:
 
 ```javascript
-let SuccessButton = Button.style({
+import {styleComponent} from '@prometheusresearch/react-stylesheet'
+
+let SuccessButton = styleComponent(Button, {
   Root: {
     color: 'white',
     backgroundColor: 'green',
@@ -65,28 +64,29 @@ let SuccessButton = Button.style({
 })
 ```
 
-We pass `style()` a stylesheet which is merged into the original one:
+We pass `styleComponent()` a stylesheet which is merged into the original one:
 
-* If you pass a component (`Icon` in the example above, it's a function but with
-  React >= 0.14 it's a valid component also) it is used instead of the original
-  one.
+* If you pass a component (`Icon` in the example above) it is used instead of
+  the original one.
 
 * If you pass an object:
 
   * If it overrides DOM component in the original stylesheet, then the object is
-    treated as a set of CSS styles.  It's compiled to CSS class and a new styled
+    treated as a set of CSS styles. It's compiled to CSS class and a new styled
     DOM component wrapper is generated with the CSS class attached.
 
-  * If it overrides composite styleable component in the original stylesheet, then it's
-    passed to that's component `style()` static method.
+  * If it overrides composite component in the original stylesheet, then it's
+    being used to style this component with recursive `styleComponent` function
+    call.
 
 The last point allows to style component hierarchies with easy:
 
 ```javascript
-let StyledForm = Form.style({
+let StyledForm = styleComponent(Form, {
   Root: {
     ...
   },
+  // this is the same as calling styleComponent(SubmitButton, { ... })
   SubmitButton: {
     Root: {
       ...
@@ -100,15 +100,12 @@ let StyledForm = Form.style({
 
 ## Styled DOM components
 
-When you override DOM components in stylesheet by providing an object literal
-with CSS rules then the new styled DOM component is created.
-
-Another way to create styled DOM components is to use `style` function:
+You can also produce styled DOM components with `styleComponent` function:
 
 ```javascript
-import {style} from '@prometheusresearch/react-stylesheet'
+import {styleComponent} from '@prometheusresearch/react-stylesheet'
 
-let StyledDiv = style('div', {
+let StyledDiv = styleComponent('div', {
   color: 'red'
 })
 
@@ -135,7 +132,9 @@ DOM components are mounted into the DOM.
 Styled DOM components are allowed to have states:
 
 ```javascript
-let StyledDiv = style('div', {
+import {styleComponent} from '@prometheusresearch/react-stylesheet'
+
+let StyledDiv = styleComponent('div', {
   color: 'red',
   hover: {
     color: 'black'
@@ -161,9 +160,9 @@ DOM components:
 React Stylesheet provides helpers to define DOM stylesheets:
 
 ```javascript
-import {CSS, style} from '@prometheusresearch/react-stylesheet'
+import {CSS, styleComponent} from '@prometheusresearch/react-stylesheet'
 
-let Warning = style('div', {
+let Warning = styleComponent('div', {
   color: CSS.rgba(245, 123, 12),
   padding: CSS.padding(10, 20),
   textDecoration: CSS.none,

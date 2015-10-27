@@ -14,8 +14,8 @@ describe('package', function() {
 
   it('exports some stuff', function() {
     assert(pkg.deafult === undefined);
-    assert(pkg.define === defineStylesheet);
-    assert(pkg.style === styleComponent);
+    assert(pkg.defineStylesheet === defineStylesheet);
+    assert(pkg.styleComponent === styleComponent);
     assert(pkg.CSS  === CSS);
     assert(pkg.Stylesheet === Stylesheet);
     assert(pkg.DOMStylesheet === DOMStylesheet);
