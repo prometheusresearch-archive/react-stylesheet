@@ -160,12 +160,13 @@ DOM components:
 React Stylesheet provides helpers to define DOM stylesheets:
 
 ```javascript
-import {CSS, styleComponent} from '@prometheusresearch/react-stylesheet'
+import {styleComponent} from '@prometheusresearch/react-stylesheet'
+import {rgba, padding, none} from '@prometheusresearch/react-stylesheet/css'
 
 let Warning = styleComponent('div', {
-  color: CSS.rgba(245, 123, 12),
-  padding: CSS.padding(10, 20),
-  textDecoration: CSS.none,
+  color: rgba(245, 123, 12),
+  padding: padding(10, 20),
+  textDecoration: none,
 })
 ```
 

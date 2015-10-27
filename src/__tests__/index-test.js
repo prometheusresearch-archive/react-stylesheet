@@ -16,7 +16,6 @@ describe('package', function() {
     assert(pkg.deafult === undefined);
     assert(pkg.defineStylesheet === defineStylesheet);
     assert(pkg.styleComponent === styleComponent);
-    assert(pkg.CSS  === CSS);
     assert(pkg.Stylesheet === Stylesheet);
     assert(pkg.DOMStylesheet === DOMStylesheet);
   });
