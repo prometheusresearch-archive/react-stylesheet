@@ -3,37 +3,44 @@ React Stylesheet
 
 [![Travis build status](https://img.shields.io/travis/prometheusresearch/react-stylesheet/master.svg)](https://travis-ci.org/prometheusresearch/react-stylesheet)
 
-React Stylesheet is a way to style React components with React components!
+React Stylesheet is a way to style React components with... React components!
 
-Installation
-------------
+## Installation
 
 ```
 % npm install @prometheusresearch/react-stylesheet
 ```
 
-Basic usage
------------
+## Basic usage
 
 The idea is that component should define a stylesheet to render its UI with.
 
-A stylesheet is just a collection of styled components:
+A stylesheet is just a collection of React components. You ask what React
+Stylesheet does for you then? It allows to define styled DOM components with
+an easy API:
 
 ```javascript
 import React from 'react'
 import {createStylesheet} from '@prometheusresearch/react-stylesheet'
 
 let stylesheet = createStylesheet({
-  Root: {
+  Root: { // generates <button /> with CSS class applied
     Component: 'button',
     fontSize: '12pt'
   },
-  Caption: {
+  Caption: { // generates <button /> with CSS class applied
     Component: 'div',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    hover: { // yes, pseudo classes are supported
+      color: 'red'
+    }
   }
 })
+```
 
+Now we can define our component in terms of the stylesheet:
+
+```javascript
 class Button extends React.Component {
 
   render() {
@@ -48,8 +55,7 @@ class Button extends React.Component {
 }
 ```
 
-Stylable composite components
------------------------------
+## Stylable composite components
 
 Sometimes you want to define a reusable component which you would want to style
 later using different stylesheets.
