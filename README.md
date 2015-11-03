@@ -8,7 +8,7 @@ React Stylesheet is a way to style React components with... React components!
 ## Installation
 
 ```
-% npm install @prometheusresearch/react-stylesheet
+% npm install react-stylesheet
 ```
 
 ## Basic usage
@@ -21,7 +21,7 @@ an easy API:
 
 ```javascript
 import React from 'react'
-import {createStylesheet} from '@prometheusresearch/react-stylesheet'
+import {createStylesheet} from 'react-stylesheet'
 
 let stylesheet = createStylesheet({
   Root: { // generates <button /> with CSS class applied
@@ -65,7 +65,7 @@ components and then override that:
 
 ```javascript
 import React from 'react'
-import {attachStylesheet} from '@prometheusresearch/react-stylesheet'
+import {attachStylesheet} from 'react-stylesheet'
 import Icon from 'react-fa'
 
 let stylesheet = {
@@ -100,7 +100,7 @@ Now the only part left is to produce a version of `<Button />` with different
 styling. We use `styleComponent(Component, stylesheet)` function for that:
 
 ```javascript
-import {styleComponent} from '@prometheusresearch/react-stylesheet'
+import {styleComponent} from 'react-stylesheet'
 
 let SuccessButton = styleComponent(Button, {
   Root: {
@@ -155,7 +155,7 @@ let StyledForm = styleComponent(Form, {
 You can also produce styled DOM components with `styleComponent` function:
 
 ```javascript
-import {styleComponent} from '@prometheusresearch/react-stylesheet'
+import {styleComponent} from 'react-stylesheet'
 
 let StyledDiv = styleComponent('div', {
   color: 'red'
@@ -184,7 +184,7 @@ DOM components are mounted into the DOM.
 Styled DOM components are allowed to have states:
 
 ```javascript
-import {styleComponent} from '@prometheusresearch/react-stylesheet'
+import {styleComponent} from 'react-stylesheet'
 
 let StyledDiv = styleComponent('div', {
   color: 'red',
@@ -212,8 +212,8 @@ DOM components:
 React Stylesheet provides helpers to define DOM stylesheets:
 
 ```javascript
-import {styleComponent} from '@prometheusresearch/react-stylesheet'
-import {rgba, padding, none} from '@prometheusresearch/react-stylesheet/css'
+import {styleComponent} from 'react-stylesheet'
+import {rgba, padding, none} from 'react-stylesheet/css'
 
 let Warning = styleComponent('div', {
   color: rgba(245, 123, 12),
