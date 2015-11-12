@@ -6,6 +6,7 @@ import React from 'react';
 import invariant from 'invariant';
 import getComponentDisplayName from './getComponentDisplayName';
 import isValidReactComponent from './isValidReactComponent';
+import transferStaticProperties from './transferStaticProperties';
 import * as Stylesheet from './Stylesheet';
 
 export default function attachStylesheet(Component, spec) {
@@ -25,11 +26,13 @@ export default function attachStylesheet(Component, spec) {
 }
 
 function attachStylesheetImpl(Component, spec) {
-  return class extends StyleableComponentDecorator {
+  let StyleableComponent = class extends StyleableComponentDecorator {
     static displayName = `Styleable(${getComponentDisplayName(Component)})`;
     static stylesheet = Stylesheet.createStylesheet(spec);
     static Component = Component;
   };
+  transferStaticProperties(Component, StyleableComponent, ['Component', 'stylesheet']);
+  return StyleableComponent;
 }
 
 class StyleableComponentDecorator extends React.Component {

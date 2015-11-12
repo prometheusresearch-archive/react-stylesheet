@@ -134,4 +134,19 @@ describe('attachStylesheet', function() {
     assert(/<div class="Style_div\d+"/.exec(markup));
     assert(StyleableC.stylesheet.Root.stylesheet.Root.stylesheet.Root.stylesheet.style.self.color === 'red')
   });
+
+  it('transfers static properties to a decorated component', function() {
+
+    @attachStylesheet({})
+    class A extends React.Component {
+
+      static attr = 42;
+      static method() {
+        return 42;
+      }
+    }
+
+    assert(A.attr === 42);
+    assert(A.method() === 42);
+  });
 });
