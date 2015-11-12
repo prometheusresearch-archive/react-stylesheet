@@ -1,6 +1,6 @@
 {
   "name": "react-stylesheet",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "React components with predefined styles",
   "main": "./lib/index.js",
   "scripts": {
