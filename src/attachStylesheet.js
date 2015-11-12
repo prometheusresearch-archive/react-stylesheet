@@ -43,11 +43,13 @@ class StyleableComponentDecorator extends React.Component {
 
   static style(spec) {
     let stylesheet = Stylesheet.overrideStylesheet(this.stylesheet, spec);
-    return class extends StyleableComponentDecorator {
+    let StyleableComponent = class extends StyleableComponentDecorator {
       static stylesheet = stylesheet;
       static Component = this.Component;
       static displayName = this.displayName;
     };
+    transferStaticProperties(this.Component, StyleableComponent, ['Component', 'stylesheet']);
+    return StyleableComponent;
   }
 
   render() {

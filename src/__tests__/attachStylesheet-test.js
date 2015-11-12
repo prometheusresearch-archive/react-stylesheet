@@ -148,5 +148,10 @@ describe('attachStylesheet', function() {
 
     assert(A.attr === 42);
     assert(A.method() === 42);
+
+    let B = A.style({});
+
+    assert(B.attr === 42);
+    assert(B.method() === 42);
   });
 });
