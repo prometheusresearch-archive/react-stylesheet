@@ -41,7 +41,9 @@ export default class StyleableDOMComponent extends React.Component {
     } = this.props;
     if (state && !this._stateDeprecationWarned) {
       this._stateDeprecationWarned = true;
-      console.error('Warning: React Stylesheet: state props is deprecated, use variant prop instead');
+      console.error(
+        'Warning: React Stylesheet: state is deprecated, use variant instead'
+      );
     }
     variant = variant || state;
     let {stylesheet} = this.constructor;
