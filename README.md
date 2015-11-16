@@ -179,7 +179,7 @@ That results in:
 The `<style>` element is attached only at least one of the corresponding styled
 DOM components are mounted into the DOM.
 
-## States for styled DOM components
+## Variants for styled DOM components
 
 Styled DOM components are allowed to have variants:
 
@@ -191,20 +191,20 @@ let StyledDiv = styleComponent('div', {
   hover: {
     color: 'black'
   },
-  customState: {
+  customVariant: {
     backgroundColor: 'red'
   }
 })
 ```
 
-States like `hover`, `active`, ... are compiled into pseudoclasses and into
+Variants like `hover`, `active`, ... are compiled into pseudoclasses and into
 regular classes as well.
 
 You can toggle variants by passing variant names as keys to `variant` prop of styled
 DOM components:
 
 ```javascript
-<StyledDiv variant={{hover: false, active: true}} />
+<StyledDiv variant={{hover: false, active: true, customVariant: true}} />
 ```
 
 ## Helpers for DOM stylesheets
