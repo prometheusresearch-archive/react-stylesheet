@@ -181,7 +181,7 @@ DOM components are mounted into the DOM.
 
 ## States for styled DOM components
 
-Styled DOM components are allowed to have states:
+Styled DOM components are allowed to have variants:
 
 ```javascript
 import {styleComponent} from 'react-stylesheet'
@@ -200,11 +200,11 @@ let StyledDiv = styleComponent('div', {
 States like `hover`, `active`, ... are compiled into pseudoclasses and into
 regular classes as well.
 
-You can toggle states by passing state names as keys to `state` prop of styled
+You can toggle variants by passing variant names as keys to `variant` prop of styled
 DOM components:
 
 ```javascript
-<StyledDiv state={{hover: false, active: true}} />
+<StyledDiv variant={{hover: false, active: true}} />
 ```
 
 ## Helpers for DOM stylesheets

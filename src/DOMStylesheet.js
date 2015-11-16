@@ -101,13 +101,13 @@ class DOMStylesheet {
     return this._compiled.className;
   }
 
-  asClassName(state = {}) {
+  asClassName(variant = {}) {
     let className = [];
     for (let key in this.className) {
       if (!this.className.hasOwnProperty(key)) {
         continue;
       }
-      if (key === SELF || state[key]) {
+      if (key === SELF || variant[key]) {
         className.push(this.className[key]);
       }
     }

@@ -31,7 +31,23 @@ describe('Stylesheet', function() {
       assert(/<h1 class=\"Style_h1\d+\"/.exec(markup));
     });
 
-    it('produces components which can alter styles based on state', function() {
+    it('produces components which can alter styles based on variant', function() {
+      let s = createStylesheet({
+        header: {
+          Component: 'div',
+          width: 10,
+          x: {
+            width: 20
+          }
+        }
+      });
+      let markup = React.renderToString(<s.header />);
+      assert(/<div class=\"Style_div\d+\"/.exec(markup));
+      let markupWithState = React.renderToString(<s.header variant={{x: true}} />);
+      assert(/<div class=\"Style_div\d+\ Style_div\d+--x"/.exec(markupWithState));
+    });
+
+    it('produces components which can alter styles based on state (deprecated)', function() {
       let s = createStylesheet({
         header: {
           Component: 'div',
@@ -46,6 +62,7 @@ describe('Stylesheet', function() {
       let markupWithState = React.renderToString(<s.header state={{x: true}} />);
       assert(/<div class=\"Style_div\d+\ Style_div\d+--x"/.exec(markupWithState));
     });
+
 
     it('passes React components as-is', function() {
       class Composite extends React.Component {

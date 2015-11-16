@@ -42,7 +42,7 @@ describe('DOMStylesheet', function() {
     assert(/^.Style_style\d+--focus, .Style_style\d+:focus { color:red; }$/.exec(css[1]));
   });
 
-  it('compiles arbitrary state classes', function() {
+  it('compiles arbitrary variant classes', function() {
     let style = DOMStylesheet.createStylesheet({
       x: {
         color: 'red',
@@ -57,7 +57,7 @@ describe('DOMStylesheet', function() {
     assert(/^Style_style\d+ Style_style\d+--x/.exec(style.asClassName({x: true})));
   });
 
-  it('compiles arbitrary state classes with pseudoclasses', function() {
+  it('compiles arbitrary variant classes with pseudoclasses', function() {
     let style = DOMStylesheet.createStylesheet({
       x: {
         color: 'red',

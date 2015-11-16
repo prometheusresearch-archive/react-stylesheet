@@ -14,7 +14,7 @@ export default class StyleableDOMComponent extends React.Component {
   static stylesheet = null;
 
   static propTypes = {
-    state: PropTypes.object,
+    variant: PropTypes.object,
     Component: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     className: PropTypes.string,
   };
@@ -27,15 +27,25 @@ export default class StyleableDOMComponent extends React.Component {
     };
   }
 
+  constructor(props) {
+    super(props);
+    this._stateDeprecationWarned = false;
+  }
+
   render() {
     let {
-      state,
+      variant, state,
       Component = this.constructor.Component,
       className: extraClassName,
       ...props
     } = this.props;
+    if (state && !this._stateDeprecationWarned) {
+      this._stateDeprecationWarned = true;
+      console.error('Warning: React Stylesheet: state props is deprecated, use variant prop instead');
+    }
+    variant = variant || state;
     let {stylesheet} = this.constructor;
-    let className = stylesheet.asClassName(state);
+    let className = stylesheet.asClassName(variant);
     return (
       <Component
         {...props}
