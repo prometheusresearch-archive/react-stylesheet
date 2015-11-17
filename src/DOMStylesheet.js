@@ -44,7 +44,7 @@ const SUPPORTED_PSEUDO_CLASSES = {
 
 export function createStylesheet(spec, id = '') {
   id = uniqueID(id ? `Style_${id}` : 'Style');
-  return new DOMStylesheet(_parse(spec), id);
+  return new DOMStylesheet(parseSpecToStyle(spec), id);
 }
 
 export function isValidStylesheet(obj) {
@@ -52,7 +52,7 @@ export function isValidStylesheet(obj) {
 }
 
 export function overrideStylesheet(stylesheet, spec, id) {
-  let style = isValidStylesheet(spec) ? spec.style : _parse(spec);
+  let style = isValidStylesheet(spec) ? spec.style : parseSpecToStyle(spec);
   let nextStyle = {...stylesheet.style};
   for (let key in style) {
     if (!style.hasOwnProperty(key)) {
@@ -90,7 +90,7 @@ class DOMStylesheet {
 
   @memoize
   get _compiled() {
-    return _compile(this.style, this.id);
+    return compileStyle(this.style, this.id);
   }
 
   get css() {
@@ -102,7 +102,7 @@ class DOMStylesheet {
   }
 
   asClassName(variant = {}) {
-    return _variantToClassName(this.className, variant).join(' ');
+    return resolveVariantToClassName(this.className, variant).join(' ');
   }
 
   use() {
@@ -134,29 +134,36 @@ class DOMStylesheet {
 
 }
 
-
-function _variantToClassName(mapping, variant, prefix = '') {
+/**
+ * Resolve variant to CSS class name.
+ */
+function resolveVariantToClassName(mapping, variant, prefix = '') {
   let classList = prefix === '' ? [mapping[BASE]] : [];
 
-  for (let key in variant) {
-    if (!variant.hasOwnProperty(key) || !variant[key]) {
+  for (let variantName in variant) {
+    if (!variant.hasOwnProperty(variantName) || !variant[variantName]) {
       continue;
     }
-    let classNameKey = `${prefix}${key}`;
-    if (mapping[classNameKey]) {
-      classList.push(mapping[classNameKey]);
+    let key = `${prefix}${variantName}`;
+    if (mapping[key]) {
+      classList.push(mapping[key]);
     }
-    if (typeof variant[key] === 'object' && variant[key] !== null) {
-      classList = classList.concat(_variantToClassName(mapping, variant[key], `${prefix}${key}--`));
+    if (isPlainObject(variant[variantName])) {
+      let subClassList = resolveVariantToClassName(
+        mapping,
+        variant[variantName],
+        `${prefix}${variantName}--`
+      );
+      classList = classList.concat(subClassList);
     }
   }
   return classList;
 }
 
 /**
- * Parse style spec into style object.
+ * Parse style spec to style object.
  */
-function _parse(spec, root = true) {
+function parseSpecToStyle(spec, root = true) {
   let styleBase = root ? {...DEFAULT_STYLE} : {};
   let style = {[BASE]: styleBase};
   for (let key in spec) {
@@ -165,7 +172,7 @@ function _parse(spec, root = true) {
     }
     let item = spec[key];
     if (isPlainObject(item)) {
-      style[key] = _parse(item, false);
+      style[key] = parseSpecToStyle(item, false);
     } else {
       styleBase[key] = _value(key, item);
     }
@@ -177,7 +184,7 @@ function _parse(spec, root = true) {
  * Compile style into CSS string with mapping from variant names to CSS class
  * names.
  */
-function _compile(
+function compileStyle(
     style, id,
     result = {className: {}, css: []},
     variantPath = [],
@@ -196,16 +203,16 @@ function _compile(
 
         if (SUPPORTED_PSEUDO_CLASSES[variant]) {
           let pseudoClassName = _className(id, variantPath, variant, true);
-          result.css.push(_emitClass(`.${className}, .${pseudoClassName}`, value));
+          result.css.push(compileClass(`.${className}, .${pseudoClassName}`, value));
         } else {
-          result.css.push(_emitClass(`.${className}`, value));
+          result.css.push(compileClass(`.${className}`, value));
         }
       } else {
-        result.css.push(_emitClass(`.${id}`, value));
+        result.css.push(compileClass(`.${id}`, value));
         result.className[BASE] = id;
       }
     } else {
-      _compile(
+      compileStyle(
         value,
         id,
         result,
@@ -220,7 +227,7 @@ function _compile(
 /**
  * Compile class name and rule set into CSS class.
  */
-function _emitClass(className, ruleSet) {
+function compileClass(className, ruleSet) {
   let css = `${className} { ${CSSPropertyOperations.createMarkupForStyles(ruleSet)} }`;
   return css;
 }
