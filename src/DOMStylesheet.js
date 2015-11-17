@@ -9,7 +9,7 @@ import dangerousStyleValue      from 'react/lib/dangerousStyleValue';
 import {isArray, isPlainObject,
         toDashCase, uniqueID}   from './Utils';
 
-const SELF = 'self';
+const BASE = 'base';
 
 const DEFAULT_STYLE = {
   boxSizing: 'border-box'
@@ -44,7 +44,7 @@ const SUPPORTED_PSEUDO_CLASSES = {
 
 export function createStylesheet(spec, id = '') {
   id = uniqueID(id ? `Style_${id}` : 'Style');
-  return new DOMStylesheet(convertSpecToStyle(spec), id);
+  return new DOMStylesheet(_parse(spec), id);
 }
 
 export function isValidStylesheet(obj) {
@@ -52,13 +52,13 @@ export function isValidStylesheet(obj) {
 }
 
 export function overrideStylesheet(stylesheet, spec, id) {
-  let style = isValidStylesheet(spec) ? spec.style : convertSpecToStyle(spec);
+  let style = isValidStylesheet(spec) ? spec.style : _parse(spec);
   let nextStyle = {...stylesheet.style};
   for (let key in style) {
     if (!style.hasOwnProperty(key)) {
       continue;
     }
-    if (key === SELF) {
+    if (key === BASE) {
       nextStyle[key] = {...nextStyle[key], ...style[key]};
     } else {
       let value = style[key];
@@ -90,7 +90,7 @@ class DOMStylesheet {
 
   @memoize
   get _compiled() {
-    return compileStylesheet(this.style, this.id);
+    return _compile(this.style, this.id);
   }
 
   get css() {
@@ -102,16 +102,7 @@ class DOMStylesheet {
   }
 
   asClassName(variant = {}) {
-    let className = [];
-    for (let key in this.className) {
-      if (!this.className.hasOwnProperty(key)) {
-        continue;
-      }
-      if (key === SELF || variant[key]) {
-        className.push(this.className[key]);
-      }
-    }
-    return className.join(' ');
+    return _variantToClassName(this.className, variant).join(' ');
   }
 
   use() {
@@ -143,90 +134,129 @@ class DOMStylesheet {
 
 }
 
-function convertValue(key, value) {
-  if (isArray(value) && value.length > 0) {
-    let rest = value.slice(1).map(v => `${key}:${dangerousStyleValue(key, v)}`);
-    value = [dangerousStyleValue(key, value[0])].concat(rest).join(';');
+
+function _variantToClassName(mapping, variant, prefix = '') {
+  let classList = prefix === '' ? [mapping[BASE]] : [];
+
+  for (let key in variant) {
+    if (!variant.hasOwnProperty(key) || !variant[key]) {
+      continue;
+    }
+    let classNameKey = `${prefix}${key}`;
+    if (mapping[classNameKey]) {
+      classList.push(mapping[classNameKey]);
+    }
+    if (typeof variant[key] === 'object' && variant[key] !== null) {
+      classList = classList.concat(_variantToClassName(mapping, variant[key], `${prefix}${key}--`));
+    }
   }
-  return value;
+  return classList;
 }
 
-function convertSpecToStyle(spec, addDefaultStyle = true, recurse = true) {
-  let style = {
-    [SELF]: addDefaultStyle ? {...DEFAULT_STYLE} : {}
-  };
-
+/**
+ * Parse style spec into style object.
+ */
+function _parse(spec, root = true) {
+  let styleBase = root ? {...DEFAULT_STYLE} : {};
+  let style = {[BASE]: styleBase};
   for (let key in spec) {
     if (!spec.hasOwnProperty(key)) {
       continue;
     }
-    let value = spec[key];
-    if (isPlainObject(value)) {
-      if (recurse) {
-        style[key] = convertSpecToStyle(value, false, false);
-      } else {
-        style[key] = convertValue(key, value);
-      }
+    let item = spec[key];
+    if (isPlainObject(item)) {
+      style[key] = _parse(item, false);
     } else {
-      style[SELF][key] = convertValue(key, value);
+      styleBase[key] = _value(key, item);
     }
   }
-
   return style;
 }
 
-function compileStylesheet(style, id) {
-  let mapping = {};
-  let compiled = [];
-
+/**
+ * Compile style into CSS string with mapping from variant names to CSS class
+ * names.
+ */
+function _compile(
+    style, id,
+    result = {className: {}, css: []},
+    variantPath = [],
+    variant = null
+  ) {
   for (let key in style) {
     if (!style.hasOwnProperty(key)) {
       continue;
     }
     let value = style[key];
+    if (key === BASE) {
+      if (variant !== null) {
+        let className = _className(id, variantPath, variant);
+        result.className[_variantKey(variantPath, variant)] = className;
 
-    let css = key === SELF ?
-      CSSPropertyOperations.createMarkupForStyles(value) :
-      CSSPropertyOperations.createMarkupForStyles(value[SELF]);
 
-    if (SUPPORTED_PSEUDO_CLASSES[key]) {
-      compiled.push(compilePseudoClass(mapping, css, key, id));
-    } else {
-      compiled.push(compileClass(mapping, css, key, id));
-    }
-    if (key !== SELF) {
-      for (let sKey in value) {
-        if (!value.hasOwnProperty(sKey)) {
-          continue;
+        if (SUPPORTED_PSEUDO_CLASSES[variant]) {
+          let pseudoClassName = _className(id, variantPath, variant, true);
+          result.css.push(_emitClass(`.${className}, .${pseudoClassName}`, value));
+        } else {
+          result.css.push(_emitClass(`.${className}`, value));
         }
-        let sValue = value[sKey];
-        if (sKey === SELF || !SUPPORTED_PSEUDO_CLASSES[sKey]) {
-          continue;
-        }
-        let css = CSSPropertyOperations.createMarkupForStyles(sValue);
-        compiled.push(compilePseudoClass(mapping, css, sKey, `${id}--${key}`, false));
+      } else {
+        result.css.push(_emitClass(`.${id}`, value));
+        result.className[BASE] = id;
       }
+    } else {
+      _compile(
+        value,
+        id,
+        result,
+        variant !== null ? variantPath.concat(variant) : variantPath,
+        key,
+      );
     }
   }
-
-  compiled = compiled.join('\n');
-
-  return {css: [[id, compiled]], className: mapping};
+  return {css: [[id, result.css.join('\n')]], className: result.className};
 }
 
-function compileClass(mapping, css, name, id) {
-  let className = name === SELF ? id : id + '--' + name;
-  mapping[name] = className;
-  return `.${className} { ${css} }`;
+/**
+ * Compile class name and rule set into CSS class.
+ */
+function _emitClass(className, ruleSet) {
+  let css = `${className} { ${CSSPropertyOperations.createMarkupForStyles(ruleSet)} }`;
+  return css;
 }
 
-function compilePseudoClass(mapping, css, name, id, compileAsRegular = true) {
-  let pseudoClassName = `${id}:${toDashCase(name)}`;
-  if (compileAsRegular) {
-    let className = `${id}--${name}`;
-    mapping[name] = className;
-    return `.${className}, .${pseudoClassName} { ${css} }`;
-  } else {
-    return `.${pseudoClassName} { ${css} }`;
+/**
+ * Create a CSS class name.
+ */
+function _className(id, variantPath, variant, asPseudo = false) {
+  let className = `${id}`;
+  if (variantPath.length > 0) {
+    className = className + `--${variantPath.join('--')}`;
   }
+  if (variant) {
+    if (asPseudo) {
+      className = className + `:${toDashCase(variant)}`;
+    } else {
+      className = className + `--${variant}`;
+    }
+  }
+  return className;
+}
+
+/**
+ * Create a variant key.
+ */
+function _variantKey(variantPath, variant) {
+  return variantPath.concat(variant).join('--');
+}
+
+/**
+ * Process ruleSet value.
+ */
+function _value(key, value) {
+  if (isArray(value) && value.length > 0) {
+    let rest = value.slice(1).map(v => `${key}:${dangerousStyleValue(key, v)}`);
+    value = [dangerousStyleValue(key, value[0])].concat(rest).join(';');
+  }
+  return value;
 }

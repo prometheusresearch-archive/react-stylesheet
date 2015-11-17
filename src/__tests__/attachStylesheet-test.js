@@ -132,7 +132,7 @@ describe('attachStylesheet', function() {
 
     markup = React.renderToString(<StyleableC />);
     assert(/<div class="Style_div\d+"/.exec(markup));
-    assert(StyleableC.stylesheet.Root.stylesheet.Root.stylesheet.Root.stylesheet.style.self.color === 'red')
+    assert(StyleableC.stylesheet.Root.stylesheet.Root.stylesheet.Root.stylesheet.style.base.color === 'red')
   });
 
   it('transfers static properties to a decorated component', function() {

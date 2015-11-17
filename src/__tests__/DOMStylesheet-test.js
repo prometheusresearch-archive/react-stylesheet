@@ -71,9 +71,10 @@ describe('DOMStylesheet', function() {
     assert(css.length === 3);
     assert(/^.Style_style\d+ { box-sizing:border-box; }$/.exec(css[0]));
     assert(/^.Style_style\d+--x { color:red; }$/.exec(css[1]));
-    assert(/^.Style_style\d+--x:hover { color:white; }$/.exec(css[2]));
+    assert(/^.Style_style\d+--x--hover, .Style_style\d+--x:hover { color:white; }$/.exec(css[2]));
     assert(/^Style_style\d+$/.exec(style.asClassName()));
-    assert(/^Style_style\d+ Style_style\d+--x/.exec(style.asClassName({x: true})));
+    assert(/^Style_style\d+ Style_style\d+--x$/.exec(style.asClassName({x: true})));
+    assert(/^Style_style\d+ Style_style\d+--x Style_style\d+--x--hover$/.exec(style.asClassName({x: {hover: true}})));
   });
 
   it('can be overriden with style spec', function() {
@@ -112,12 +113,12 @@ describe('DOMStylesheet', function() {
     assert(/^.Style_style\d+--y { color:white; }$/.exec(overridenCSS[2]));
     assert(/^.Style_style\d+--z { x:12px; }$/.exec(overridenCSS[3]));
 
-    assert(overriden.style.self.background === 'white');
-    assert(overriden.style.self.color === 'yellow');
-    assert(overriden.style.x.self.color === 'x');
-    assert(overriden.style.x.self.fontSize === '12pt');
-    assert(overriden.style.y.self.color === 'white');
-    assert(overriden.style.z.self.x === 12);
+    assert(overriden.style.base.background === 'white');
+    assert(overriden.style.base.color === 'yellow');
+    assert(overriden.style.x.base.color === 'x');
+    assert(overriden.style.x.base.fontSize === '12pt');
+    assert(overriden.style.y.base.color === 'white');
+    assert(overriden.style.z.base.x === 12);
   });
 
 });
