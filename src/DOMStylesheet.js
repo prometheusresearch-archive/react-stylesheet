@@ -9,12 +9,22 @@ import dangerousStyleValue      from 'react/lib/dangerousStyleValue';
 import {isArray, isPlainObject,
         toDashCase, uniqueID}   from './Utils';
 
+/**
+ * Special key which designates the rules which should be applied even if no
+ * variant is being active.
+ */
 const BASE = 'base';
 
+/**
+ * Styles we want to be added to every CSS class.
+ */
 const DEFAULT_STYLE = {
   boxSizing: 'border-box'
 };
 
+/**
+ * Variant names we want to see compiled as CSS pseudo classes.
+ */
 const SUPPORTED_PSEUDO_CLASSES = {
   focus: true,
   hover: true,
@@ -42,15 +52,25 @@ const SUPPORTED_PSEUDO_CLASSES = {
   visited: true,
 };
 
+/**
+ * Create a new stylesheet from stylesheet spec.
+ */
 export function createStylesheet(spec, id = '') {
   id = uniqueID(id ? `Style_${id}` : 'Style');
   return new DOMStylesheet(parseSpecToStyle(spec), id);
 }
 
+/**
+ * Check if object is a valida stylesheet.
+ */
 export function isValidStylesheet(obj) {
   return obj instanceof DOMStylesheet;
 }
 
+/**
+ * Produce a new stylesheet by overriding an existing one with a new stylesheet
+ * spec.
+ */
 export function overrideStylesheet(stylesheet, spec, id) {
   let style = isValidStylesheet(spec) ? spec.style : parseSpecToStyle(spec);
   let nextStyle = {...stylesheet.style};
@@ -75,7 +95,10 @@ export function overrideStylesheet(stylesheet, spec, id) {
   return new DOMStylesheet(nextStyle, id);
 }
 
-
+/**
+ * DOM stylesheet is a collection of classes which are applied to a single DOM
+ * element.
+ */
 class DOMStylesheet {
 
   constructor(style, id) {
