@@ -233,7 +233,7 @@ function compileStyle(style, id, path = [], variant = null) {
     } else {
       let nextPath = variant === null ? path : path.concat(variant);
       let subResult = compileStyle(value, id, nextPath, key);
-      mapping = {...mapping, ...subResult.mapping};
+      mapping[key] = subResult.mapping;
       css = css.concat(subResult.css);
     }
   }
