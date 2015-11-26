@@ -16,6 +16,11 @@ import {isArray, isPlainObject,
 const BASE = 'base';
 
 /**
+ * Special key which is used to store className in mapping.
+ */
+const CLASSNAME = 'className';
+
+/**
  * Styles we want to be added to every CSS class.
  */
 const DEFAULT_STYLE = {
@@ -117,7 +122,7 @@ class DOMStylesheet {
   }
 
   get css() {
-    return this._compiled.css;
+    return [[this.id, this._compiled.css.join('\n')]];
   }
 
   get mapping() {
@@ -160,26 +165,20 @@ class DOMStylesheet {
 /**
  * Resolve variant to CSS class name.
  */
-function resolveVariantToClassName(mapping, variant, prefix = '') {
-  let classList = prefix === '' ? [mapping[BASE]] : [];
+function resolveVariantToClassName(mapping, variant) {
+  let classList = [];
 
-  for (let variantName in variant) {
-    if (!variant.hasOwnProperty(variantName) || !variant[variantName]) {
-      continue;
-    }
-    let key = `${prefix}${variantName}`;
-    if (mapping[key]) {
+  for (let key in mapping) {
+    if (key === CLASSNAME) {
       classList.push(mapping[key]);
-    }
-    if (isPlainObject(variant[variantName])) {
-      let subClassList = resolveVariantToClassName(
-        mapping,
-        variant[variantName],
-        `${prefix}${variantName}--`
-      );
-      classList = classList.concat(subClassList);
+    } else if (variant[key]) {
+      let subClassList = resolveVariantToClassName(mapping[key], variant);
+      for (let i = 0; i < subClassList.length; i++) {
+        classList.push(subClassList[i]);
+      }
     }
   }
+
   return classList;
 }
 
@@ -207,12 +206,9 @@ function parseSpecToStyle(spec, root = true) {
  * Compile style into CSS string with mapping from variant names to CSS class
  * names.
  */
-function compileStyle(
-    style, id,
-    result = {mapping: {}, css: []},
-    variantPath = [],
-    variant = null
-  ) {
+function compileStyle(style, id, path = [], variant = null) {
+  let mapping = {};
+  let css = [];
   for (let key in style) {
     if (!style.hasOwnProperty(key)) {
       continue;
@@ -220,31 +216,28 @@ function compileStyle(
     let value = style[key];
     if (key === BASE) {
       if (variant !== null) {
-        let className = _className(id, variantPath, variant);
-        result.mapping[_variantKey(variantPath, variant)] = className;
-
+        let className = _className(id, path, variant);
+        mapping[variant] = mapping[variant] || {};
+        mapping[variant][CLASSNAME] = className;
 
         if (SUPPORTED_PSEUDO_CLASSES[variant]) {
-          let pseudoClassName = _className(id, variantPath, variant, true);
-          result.css.push(compileClass(`.${className}, .${pseudoClassName}`, value));
+          let pseudoClassName = _className(id, path, variant, true);
+          css.push(compileClass(`.${className}, .${pseudoClassName}`, value));
         } else {
-          result.css.push(compileClass(`.${className}`, value));
+          css.push(compileClass(`.${className}`, value));
         }
       } else {
-        result.css.push(compileClass(`.${id}`, value));
-        result.mapping[BASE] = id;
+        css.push(compileClass(`.${id}`, value));
+        mapping[CLASSNAME] = id;
       }
     } else {
-      compileStyle(
-        value,
-        id,
-        result,
-        variant !== null ? variantPath.concat(variant) : variantPath,
-        key,
-      );
+      let nextPath = variant === null ? path : path.concat(variant);
+      let subResult = compileStyle(value, id, nextPath, key);
+      mapping = {...mapping, ...subResult.mapping};
+      css = css.concat(subResult.css);
     }
   }
-  return {css: [[id, result.css.join('\n')]], mapping: result.mapping};
+  return {css, mapping};
 }
 
 /**
@@ -258,10 +251,10 @@ function compileClass(className, ruleSet) {
 /**
  * Create a CSS class name.
  */
-function _className(id, variantPath, variant, asPseudo = false) {
+function _className(id, path, variant, asPseudo = false) {
   let className = `${id}`;
-  if (variantPath.length > 0) {
-    className = className + `--${variantPath.join('--')}`;
+  if (path.length > 0) {
+    className = className + `--${path.join('--')}`;
   }
   if (variant) {
     if (asPseudo) {
@@ -271,13 +264,6 @@ function _className(id, variantPath, variant, asPseudo = false) {
     }
   }
   return className;
-}
-
-/**
- * Create a variant key.
- */
-function _variantKey(variantPath, variant) {
-  return variantPath.concat(variant).join('--');
 }
 
 /**

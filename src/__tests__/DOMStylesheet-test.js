@@ -74,7 +74,7 @@ describe('DOMStylesheet', function() {
     assert(/^.Style_style\d+--x--hover, .Style_style\d+--x:hover { color:white; }$/.exec(css[2]));
     assert(/^Style_style\d+$/.exec(style.asClassName()));
     assert(/^Style_style\d+ Style_style\d+--x$/.exec(style.asClassName({x: true})));
-    assert(/^Style_style\d+ Style_style\d+--x Style_style\d+--x--hover$/.exec(style.asClassName({x: {hover: true}})));
+    assert(/^Style_style\d+ Style_style\d+--x Style_style\d+--x--hover$/.exec(style.asClassName({x: true, hover: true})));
   });
 
   it('can be overriden with style spec', function() {
