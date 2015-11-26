@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 import assert from 'power-assert';
 import {createStylesheet} from '../Stylesheet';
 
@@ -16,7 +17,7 @@ describe('Stylesheet', function() {
           width: 10
         }
       });
-      let markup = React.renderToString(<s.header />);
+      let markup = ReactDOMServer.renderToString(<s.header />);
       assert(/<div class=\"Style_div\d+\"/.exec(markup));
     });
 
@@ -27,7 +28,7 @@ describe('Stylesheet', function() {
           width: 10
         }
       });
-      let markup = React.renderToString(<s.header />);
+      let markup = ReactDOMServer.renderToString(<s.header />);
       assert(/<h1 class=\"Style_h1\d+\"/.exec(markup));
     });
 
@@ -41,9 +42,9 @@ describe('Stylesheet', function() {
           }
         }
       });
-      let markup = React.renderToString(<s.header />);
+      let markup = ReactDOMServer.renderToString(<s.header />);
       assert(/<div class=\"Style_div\d+\"/.exec(markup));
-      let markupWithState = React.renderToString(<s.header variant={{x: true}} />);
+      let markupWithState = ReactDOMServer.renderToString(<s.header variant={{x: true}} />);
       assert(/<div class=\"Style_div\d+\ Style_div\d+--x"/.exec(markupWithState));
     });
 
@@ -57,9 +58,9 @@ describe('Stylesheet', function() {
           }
         }
       });
-      let markup = React.renderToString(<s.header />);
+      let markup = ReactDOMServer.renderToString(<s.header />);
       assert(/<div class=\"Style_div\d+\"/.exec(markup));
-      let markupWithState = React.renderToString(<s.header state={{x: true}} />);
+      let markupWithState = ReactDOMServer.renderToString(<s.header state={{x: true}} />);
       assert(/<div class=\"Style_div\d+\ Style_div\d+--x"/.exec(markupWithState));
     });
 

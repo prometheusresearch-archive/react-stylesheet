@@ -3,6 +3,7 @@
  */
 
 import React                  from 'react';
+import ReactDOM               from 'react-dom';
 import TestUtils              from 'react/lib/ReactTestUtils';
 import Sinon                  from 'sinon';
 import StyleableDOMComponent  from '../StyleableDOMComponent';
@@ -27,13 +28,13 @@ describe('StyleableDOMComponent', function() {
     }
 
     component = TestUtils.renderIntoDocument(<Component {...props} />);
-    element = React.findDOMNode(component);
+    element = ReactDOM.findDOMNode(component);
     return element;
   }
 
   function unmount() {
     if (element.parentNode) {
-      React.unmountComponentAtNode(element.parentNode);
+      ReactDOM.unmountComponentAtNode(element.parentNode);
     }
   }
 

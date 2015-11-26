@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 import assert from 'power-assert';
 import attachStylesheet from '../attachStylesheet';
 
@@ -19,7 +20,7 @@ describe('attachStylesheet', function() {
       }
     }
 
-    let markup = React.renderToString(<Button />);
+    let markup = ReactDOMServer.renderToString(<Button />);
     assert(/<button/.exec(markup));
   });
 
@@ -35,7 +36,7 @@ describe('attachStylesheet', function() {
 
     Button = attachStylesheet(Button, {Root: 'button'});
 
-    let markup = React.renderToString(<Button />);
+    let markup = ReactDOMServer.renderToString(<Button />);
     assert(/<button/.exec(markup));
   });
 
@@ -47,7 +48,7 @@ describe('attachStylesheet', function() {
 
     Button = attachStylesheet(Button, {Root: 'button'});
 
-    let markup = React.renderToString(<Button />);
+    let markup = ReactDOMServer.renderToString(<Button />);
     assert(/<button/.exec(markup));
   });
 
@@ -62,7 +63,7 @@ describe('attachStylesheet', function() {
       }
     }
 
-    let markup = React.renderToString(<Button stylesheet={{Root: 'div'}}/>);
+    let markup = ReactDOMServer.renderToString(<Button stylesheet={{Root: 'div'}}/>);
     assert(/<div/.exec(markup));
   });
 
@@ -82,7 +83,7 @@ describe('attachStylesheet', function() {
         color: 'red'
       }
     });
-    let markup = React.renderToString(<StyleableButton />);
+    let markup = ReactDOMServer.renderToString(<StyleableButton />);
     assert(/<button class="Style_button\d+"/.exec(markup));
   });
 
@@ -117,7 +118,7 @@ describe('attachStylesheet', function() {
 
     let markup;
 
-    markup = React.renderToString(<C />);
+    markup = ReactDOMServer.renderToString(<C />);
     assert(/<div/.exec(markup));
 
     let StyleableC = C.style({
@@ -130,7 +131,7 @@ describe('attachStylesheet', function() {
       }
     });
 
-    markup = React.renderToString(<StyleableC />);
+    markup = ReactDOMServer.renderToString(<StyleableC />);
     assert(/<div class="Style_div\d+"/.exec(markup));
     assert(StyleableC.stylesheet.Root.stylesheet.Root.stylesheet.Root.stylesheet.style.base.color === 'red')
   });
