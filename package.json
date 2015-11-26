@@ -47,6 +47,6 @@
     "sinon": "^1.17.1"
   },
   "peerDependencies": {
-    "react": ">= 0.13.0, < 0.15.0"
+    "react": "^0.14.0"
   }
 }
