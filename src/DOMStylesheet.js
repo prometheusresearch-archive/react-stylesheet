@@ -120,12 +120,12 @@ class DOMStylesheet {
     return this._compiled.css;
   }
 
-  get className() {
-    return this._compiled.className;
+  get mapping() {
+    return this._compiled.mapping;
   }
 
   asClassName(variant = {}) {
-    return resolveVariantToClassName(this.className, variant).join(' ');
+    return resolveVariantToClassName(this.mapping, variant).join(' ');
   }
 
   use() {
@@ -209,7 +209,7 @@ function parseSpecToStyle(spec, root = true) {
  */
 function compileStyle(
     style, id,
-    result = {className: {}, css: []},
+    result = {mapping: {}, css: []},
     variantPath = [],
     variant = null
   ) {
@@ -221,7 +221,7 @@ function compileStyle(
     if (key === BASE) {
       if (variant !== null) {
         let className = _className(id, variantPath, variant);
-        result.className[_variantKey(variantPath, variant)] = className;
+        result.mapping[_variantKey(variantPath, variant)] = className;
 
 
         if (SUPPORTED_PSEUDO_CLASSES[variant]) {
@@ -232,7 +232,7 @@ function compileStyle(
         }
       } else {
         result.css.push(compileClass(`.${id}`, value));
-        result.className[BASE] = id;
+        result.mapping[BASE] = id;
       }
     } else {
       compileStyle(
@@ -244,7 +244,7 @@ function compileStyle(
       );
     }
   }
-  return {css: [[id, result.css.join('\n')]], className: result.className};
+  return {css: [[id, result.css.join('\n')]], mapping: result.mapping};
 }
 
 /**
