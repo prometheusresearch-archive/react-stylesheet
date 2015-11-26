@@ -76,28 +76,28 @@ export function isValidStylesheet(obj) {
  * Produce a new stylesheet by overriding an existing one with a new stylesheet
  * spec.
  */
-export function overrideStylesheet(stylesheet, spec, id) {
-  let style = isValidStylesheet(spec) ? spec.style : parseSpecToStyle(spec);
-  let nextStyle = {...stylesheet.style};
-  for (let key in style) {
-    if (!style.hasOwnProperty(key)) {
+export function overrideStylesheet(stylesheet, override, id) {
+  override = isValidStylesheet(override) ?
+    override.style :
+    parseSpecToStyle(override);
+  let style = overrideStyle(stylesheet.style, override);
+  id = uniqueID(id ? `Style_${id}` : 'Style');
+  return new DOMStylesheet(style, id);
+}
+
+function overrideStyle(style, override) {
+  let nextStyle = {...style};
+  for (let key in override) {
+    if (!override.hasOwnProperty(key)) {
       continue;
     }
     if (key === BASE) {
-      nextStyle[key] = {...nextStyle[key], ...style[key]};
+      nextStyle[key] = {...nextStyle[key], ...override[key]};
     } else {
-      let value = style[key];
-      nextStyle[key] = {...nextStyle[key]};
-      for (let sKey in value) {
-        if (!value.hasOwnProperty(sKey)) {
-          continue;
-        }
-        nextStyle[key][sKey] = {...value[sKey]};
-      }
+      nextStyle[key] = overrideStyle(nextStyle[key], override[key]);
     }
   }
-  id = uniqueID(id ? `Style_${id}` : 'Style');
-  return new DOMStylesheet(nextStyle, id);
+  return nextStyle;
 }
 
 /**
