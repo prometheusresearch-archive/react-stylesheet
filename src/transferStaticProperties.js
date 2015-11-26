@@ -4,13 +4,13 @@
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function
 let FUNCTION_STATIC_PROPERTIES = {
-  'arguments': true,
-  'arity': true,
-  'caller': true,
-  'length': true,
-  'name': true,
-  'displayName': true,
-  'prototype': true,
+  arguments: true,
+  arity: true,
+  caller: true,
+  length: true,
+  name: true,
+  displayName: true,
+  prototype: true,
 };
 
 /**

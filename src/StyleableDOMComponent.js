@@ -15,6 +15,7 @@ export default class StyleableDOMComponent extends React.Component {
 
   static propTypes = {
     variant: PropTypes.object,
+    state: PropTypes.object,
     Component: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     className: PropTypes.string,
   };
@@ -41,7 +42,7 @@ export default class StyleableDOMComponent extends React.Component {
     } = this.props;
     if (state && !this._stateDeprecationWarned) {
       this._stateDeprecationWarned = true;
-      console.error(
+      console.error( // eslint-disable-line
         'Warning: React Stylesheet: state is deprecated, use variant instead'
       );
     }
