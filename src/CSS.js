@@ -16,11 +16,24 @@ function keyMirrorDashCase(obj) {
 }
 
 export function boxShadow(offsetX, offsetY, blurRadius, spreadRadius, color) {
+  if (color === none || color === null) {
+    return none;
+  }
   return `${offsetX}px ${offsetY}px ${blurRadius}px ${spreadRadius}px ${color}`;
 }
 
 export function insetBoxShadow(offsetX, offsetY, blurRadius, spreadRadius, color) {
+  if (color === none || color === null) {
+    return none;
+  }
   return `inset ${boxShadow(offsetX, offsetY, blurRadius, spreadRadius, color)}`;
+}
+
+export function textShadow(offsetX, offsetY, blurRadius, color) {
+  if (color === none || color === null) {
+    return none;
+  }
+  return `${offsetX}px ${offsetY}px ${blurRadius}px ${color}`;
 }
 
 export function rgba(r, g, b, a) {
@@ -44,6 +57,9 @@ export function border(width, style, color) {
   if (color === undefined) {
     color = style;
     style = border.solid;
+  }
+  if (color === none || color === null) {
+    return none;
   }
   return `${width}px ${style} ${color}`;
 }
@@ -90,6 +106,7 @@ export let display = keyMirrorDashCase({
 
 export let cursor = keyMirrorDashCase({
   pointer: true,
+  default: true,
 });
 
 export let overflow = keyMirrorDashCase({
