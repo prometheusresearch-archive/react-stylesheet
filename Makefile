@@ -28,7 +28,7 @@ push:
 	@git push --tags origin HEAD:master
 
 clean:
-	@rm -f $(LIB)
+	@rm -f lib
 
 lib/%: src/%
 	@echo "Building $<"
