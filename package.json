@@ -1,0 +1,47 @@
+{
+  "name": "react-dom-stylesheet",
+  "version": "0.1.0",
+  "description": "Stylesheets for React DOM elements",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prometheusresearch/react-dom-stylesheet.git"
+  },
+  "keywords": [
+    "react",
+    "stylesheet",
+    "dom"
+  ],
+  "author": "Prometheus Research, LLC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/prometheusresearch/react-dom-stylesheet/issues"
+  },
+  "homepage": "https://github.com/prometheusresearch/react-dom-stylesheet#readme",
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "babel-eslint": "^4.1.1",
+    "babel-plugin-espower": "^1.0.0",
+    "eslint": "^1.3.1",
+    "eslint-plugin-react": "^3.3.1",
+    "jsdom": "^6.3.0",
+    "mocha": "^2.3.0",
+    "power-assert": "^1.0.0",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "sinon": "^1.17.1"
+  },
+  "dependencies": {
+    "amp-unique-id": "^1.0.2",
+    "classnames": "^2.2.1",
+    "is-array": "^1.0.1",
+    "is-function": "^1.0.1",
+    "is-string": "^1.0.4",
+    "memoize-decorator": "^1.0.2",
+    "style-loader": "^0.13.0",
+    "to-slug-case": "^0.1.2"
+  }
+}

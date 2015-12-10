@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+- stable
+before_install: npm install -g npm@latest
+before_deploy: make build
+deploy:
+  provider: npm
+  email: 8mayday@gmail.com
+  api_key:
+    secure: q0kWSZ+vrOTYZqMJAVwR1NcwxQtilYGbxTu6WghhF8CBwIOPQjnJLfySX1OnsHtn7HBVjlGaXrYDDXFkt2TK17WBTRzs4q/Rw4IdTNPdHIW36mU2hFj3LgTDP1Pdv2VWTLGQyMceEe9tybwha0aPjTTldkmjLGVkiWyi8DumtsiT+AQmvXGJEyxh8/gp8wQD8q4krQ6fpO+iJWgHiHHOyw3jIuSfZCA56BQcyiv/qmhX3B4Bezq4ZAtvDgUj0gnOaXk77GM8u35MW8InCzPG7CLprtLzL0rPUnoUMS/Kcdj7iqO8qHIBoSfUs3OWQttni2VYTNLbhGoFwawmD5hGYzXTmlWBCgPfD98DNszBKRnrtUD/jFUOaLbAi9iFDTWnXZ/b+qY/jUTxIIfxKARszGY6a7MdAf4PVhbDQHfOfCTov41yKeBpDiWNRfaiwy9G2kRYGUInQaoEP9dzQXzb4EQ78QX3E12cEOeZBIQBYZmx+06lui14qONAGGkfqXaFuW50MGZ55k9y1bi50f/XVJA+3SxZmgmpA1ZFAkz7U91q/AEcyRf2jwi6RWzlY+oWdbpMfDwMVqH+FZgkqZkibipGV8xzo8aZCkEcY+RCZCozfnEAHCXGzjo5fDF9pm+ozww+hiyhRKegMJ0akfy1sgTtjEw39wVHWEClg4YBg3g=
+  on:
+    tags: true
+    repo: prometheusresearch/react-stylesheet
