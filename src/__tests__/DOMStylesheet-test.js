@@ -118,6 +118,9 @@ describe('DOMStylesheet', function() {
       'Style_styleUNIQ--x',
       'Style_styleUNIQ--x--hover',
     );
+    assertClassName(style.asClassName({hover: true}),
+      'Style_styleUNIQ',
+    );
   });
 
   it('can be overriden with style spec', function() {
