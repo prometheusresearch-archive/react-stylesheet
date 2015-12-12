@@ -5,6 +5,21 @@
 import assert from 'power-assert';
 import * as DOMStylesheet from '../DOMStylesheet';
 
+function assertCSS(css, ...expectations) {
+  assert(css.length === expectations.length);
+  expectations.forEach((expectation, idx) => {
+    let pattern = new RegExp(`^${expectation.replace(/UNIQ/g, '\\d+')}$`);
+    assert(pattern.exec(css[idx]));
+  });
+}
+
+function assertClassName(className, ...expectations) {
+  expectations = expectations.map(expectation =>
+    expectation.replace(/UNIQ/g, '\\d+'));
+  let pattern = new RegExp(`^${expectations.join(' ')}$`);
+  assert(pattern.exec(className));
+}
+
 describe('DOMStylesheet', function() {
 
   it('compiles style representation to CSS', function() {
@@ -12,10 +27,12 @@ describe('DOMStylesheet', function() {
       width: 10,
       color: 'red',
     }, 'style');
-    let [_, css] = style.css[0];
-    css = css.split('\n');
-    assert(css.length === 1);
-    assert(/^.Style_style\d+ { box-sizing:border-box;width:10px;color:red; }$/.exec(css[0]));
+    assertCSS(style.css,
+      '.Style_styleUNIQ { box-sizing:border-box;width:10px;color:red; }'
+    );
+    assertClassName(style.asClassName(),
+      'Style_styleUNIQ'
+    );
   });
 
   it('compiles arrays into multiple values', function() {
@@ -23,10 +40,15 @@ describe('DOMStylesheet', function() {
       color: ['red', 'white'],
       width: [1, 10],
     }, 'style');
-    let [_, css] = style.css[0];
-    css = css.split('\n');
-    assert(css.length === 1);
-    assert(/^.Style_style\d+ { box-sizing:border-box;color:red;color:white;width:1px;width:10px; }$/.exec(css[0]));
+    assertCSS(style.css,
+      '.Style_styleUNIQ { box-sizing:border-box;color:red;color:white;width:1px;width:10px; }'
+    );
+    assertClassName(style.asClassName(),
+      'Style_styleUNIQ'
+    );
+    assertClassName(style.asClassName({}),
+      'Style_styleUNIQ'
+    );
   });
 
   it('compiles pseudo classes', function() {
@@ -35,11 +57,20 @@ describe('DOMStylesheet', function() {
         color: 'red',
       }
     }, 'style');
-    let [_, css] = style.css[0];
-    css = css.split('\n');
-    assert(css.length === 2);
-    assert(/^.Style_style\d+ { box-sizing:border-box; }$/.exec(css[0]));
-    assert(/^.Style_style\d+--focus, .Style_style\d+:focus { color:red; }$/.exec(css[1]));
+    assertCSS(style.css,
+      '.Style_styleUNIQ { box-sizing:border-box; }',
+      '.Style_styleUNIQ--focus, .Style_styleUNIQ:focus { color:red; }'
+    );
+    assertClassName(style.asClassName(),
+      'Style_styleUNIQ'
+    );
+    assertClassName(style.asClassName({focus: true}),
+      'Style_styleUNIQ',
+      'Style_styleUNIQ--focus'
+    );
+    assertClassName(style.asClassName({focus: false}),
+      'Style_styleUNIQ'
+    );
   });
 
   it('compiles arbitrary variant classes', function() {
@@ -48,13 +79,17 @@ describe('DOMStylesheet', function() {
         color: 'red',
       }
     }, 'style');
-    let [_, css] = style.css[0];
-    css = css.split('\n');
-    assert(css.length === 2);
-    assert(/^.Style_style\d+ { box-sizing:border-box; }$/.exec(css[0]));
-    assert(/^.Style_style\d+--x { color:red; }$/.exec(css[1]));
-    assert(/^Style_style\d+$/.exec(style.asClassName()));
-    assert(/^Style_style\d+ Style_style\d+--x/.exec(style.asClassName({x: true})));
+    assertCSS(style.css,
+      '.Style_styleUNIQ { box-sizing:border-box; }',
+      '.Style_styleUNIQ--x { color:red; }',
+    );
+    assertClassName(style.asClassName(),
+      'Style_styleUNIQ',
+    );
+    assertClassName(style.asClassName({x: true}),
+      'Style_styleUNIQ',
+      'Style_styleUNIQ--x',
+    );
   });
 
   it('compiles arbitrary variant classes with pseudoclasses', function() {
@@ -66,16 +101,23 @@ describe('DOMStylesheet', function() {
         }
       }
     }, 'style');
-    let [_, css] = style.css[0];
-    css = css.split('\n');
-    assert(css.length === 3);
-    assert(/^.Style_style\d+ { box-sizing:border-box; }$/.exec(css[0]));
-    assert(/^.Style_style\d+--x { color:red; }$/.exec(css[1]));
-    assert(/^.Style_style\d+--x--hover, .Style_style\d+--x:hover { color:white; }$/.exec(css[2]));
-    assert(/^Style_style\d+$/.exec(style.asClassName()));
-    assert(/^Style_style\d+ Style_style\d+--x$/.exec(style.asClassName({x: true})));
-    assert(/^Style_style\d+ Style_style\d+--x Style_style\d+--x--hover$/.exec(style.asClassName({x: true, hover: true})));
-    assert(/^Style_style\d+ Style_style\d+--x Style_style\d+--x--hover$/.exec(style.asClassName({hover: true, x: true})));
+    assertCSS(style.css,
+      '.Style_styleUNIQ { box-sizing:border-box; }',
+      '.Style_styleUNIQ--x { color:red; }',
+      '.Style_styleUNIQ--x--hover, .Style_styleUNIQ--x:hover { color:white; }',
+    );
+    assertClassName(style.asClassName(),
+      'Style_styleUNIQ'
+    );
+    assertClassName(style.asClassName({x: true}),
+      'Style_styleUNIQ',
+      'Style_styleUNIQ--x',
+    );
+    assertClassName(style.asClassName({x: true, hover: true}),
+      'Style_styleUNIQ',
+      'Style_styleUNIQ--x',
+      'Style_styleUNIQ--x--hover',
+    );
   });
 
   it('can be overriden with style spec', function() {
@@ -90,11 +132,11 @@ describe('DOMStylesheet', function() {
       }
     }, 'style');
 
-    let styleCSS = style.css[0][1].split('\n');
-    assert(styleCSS.length === 3);
-    assert(/^.Style_style\d+ { box-sizing:border-box;background:white;color:black; }$/.exec(styleCSS[0]));
-    assert(/^.Style_style\d+--x { color:red; }$/.exec(styleCSS[1]));
-    assert(/^.Style_style\d+--y { color:white; }$/.exec(styleCSS[2]));
+    assertCSS(style.css,
+      '.Style_styleUNIQ { box-sizing:border-box;background:white;color:black; }',
+      '.Style_styleUNIQ--x { color:red; }',
+      '.Style_styleUNIQ--y { color:white; }',
+    );
 
     let overriden = DOMStylesheet.overrideStylesheet(style, {
       color: 'yellow',
@@ -107,19 +149,12 @@ describe('DOMStylesheet', function() {
       },
     }, 'style');
 
-    let overridenCSS = overriden.css[0][1].split('\n');
-    assert(overridenCSS.length === 4);
-    assert(/^.Style_style\d+ { box-sizing:border-box;background:white;color:yellow; }$/.exec(overridenCSS[0]));
-    assert(/^.Style_style\d+--x { color:x;font-size:12pt; }$/.exec(overridenCSS[1]));
-    assert(/^.Style_style\d+--y { color:white; }$/.exec(overridenCSS[2]));
-    assert(/^.Style_style\d+--z { x:12px; }$/.exec(overridenCSS[3]));
-
-    assert(overriden.style.base.background === 'white');
-    assert(overriden.style.base.color === 'yellow');
-    assert(overriden.style.x.base.color === 'x');
-    assert(overriden.style.x.base.fontSize === '12pt');
-    assert(overriden.style.y.base.color === 'white');
-    assert(overriden.style.z.base.x === 12);
+    assertCSS(overriden.css,
+      '.Style_styleUNIQ { box-sizing:border-box;background:white;color:yellow; }',
+      '.Style_styleUNIQ--x { color:x;font-size:12pt; }',
+      '.Style_styleUNIQ--y { color:white; }',
+      '.Style_styleUNIQ--z { x:12px; }',
+    );
   });
 
 });

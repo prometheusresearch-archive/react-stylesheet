@@ -122,7 +122,7 @@ class DOMStylesheet {
   }
 
   get css() {
-    return [[this.id, this._compiled.css.join('\n')]];
+    return this._compiled.css;
   }
 
   get mapping() {
@@ -140,7 +140,7 @@ class DOMStylesheet {
       this._disposeTimer = null;
     }
     if (this._remove === null) {
-      this._remove = addStyleToDOM(this.css);
+      this._remove = addStyleToDOM([[this.id, this.css.join('\n')]]);
     }
     return this;
   }
