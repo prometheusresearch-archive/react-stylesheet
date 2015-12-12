@@ -92,6 +92,37 @@ describe('DOMStylesheet', function() {
     );
   });
 
+  it('compiles arbitrary variant classes with nested variants', function() {
+    let style = DOMStylesheet.createStylesheet({
+      x: {
+        color: 'red',
+        y: {
+          color: 'white'
+        }
+      }
+    }, 'style');
+    assertCSS(style.css,
+      '.Style_styleUNIQ { box-sizing:border-box; }',
+      '.Style_styleUNIQ--x { color:red; }',
+      '.Style_styleUNIQ--x--y { color:white; }',
+    );
+    assertClassName(style.asClassName(),
+      'Style_styleUNIQ'
+    );
+    assertClassName(style.asClassName({x: true}),
+      'Style_styleUNIQ',
+      'Style_styleUNIQ--x',
+    );
+    assertClassName(style.asClassName({x: true, y: true}),
+      'Style_styleUNIQ',
+      'Style_styleUNIQ--x',
+      'Style_styleUNIQ--x--y',
+    );
+    assertClassName(style.asClassName({y: true}),
+      'Style_styleUNIQ',
+    );
+  });
+
   it('compiles arbitrary variant classes with pseudoclasses', function() {
     let style = DOMStylesheet.createStylesheet({
       x: {
