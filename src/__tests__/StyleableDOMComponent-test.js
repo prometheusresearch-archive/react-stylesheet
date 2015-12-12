@@ -131,15 +131,17 @@ describe('StyleableDOMComponent', function() {
 
   it('allows setting custom className', function() {
     let element = mount({className: 'custom'});
+    assert(element.classList.contains('default'));
     assert(element.classList.contains('custom'));
     unmount();
   });
 
   it('allows variants', function() {
-    let element = mount({variant: 'variant'});
+    let variant = {};
+    let element = mount({variant});
     assert(defaultStylesheet.asClassName.calledOnce);
     assert(defaultStylesheet.asClassName.firstCall.args.length === 1);
-    assert(defaultStylesheet.asClassName.firstCall.args[0] === 'variant');
+    assert(defaultStylesheet.asClassName.firstCall.args[0] === variant);
     unmount();
   });
 });
