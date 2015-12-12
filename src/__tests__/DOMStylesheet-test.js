@@ -172,7 +172,7 @@ describe('DOMStylesheet', function() {
       '.Style_styleUNIQ--y { color:white; }',
     );
 
-    let overriden = DOMStylesheet.overrideStylesheet(style, {
+    let overriden = style.override({
       color: 'yellow',
       x: {
         color: 'x',

@@ -76,7 +76,7 @@ export function isValidStylesheet(obj) {
  * Produce a new stylesheet by overriding an existing one with a new stylesheet
  * spec.
  */
-export function overrideStylesheet(stylesheet, override, id) {
+function overrideStylesheet(stylesheet, override, id) {
   override = isValidStylesheet(override) ?
     override.style :
     parseSpecToStyle(override);
@@ -158,6 +158,10 @@ class DOMStylesheet {
       this._remove();
       this._remove = null;
     }
+  }
+
+  override(spec, id) {
+    return overrideStylesheet(this, spec, id);
   }
 
 }
