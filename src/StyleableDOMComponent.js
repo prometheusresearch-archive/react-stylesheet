@@ -15,53 +15,63 @@ export default class StyleableDOMComponent extends React.Component {
 
   static propTypes = {
     variant: PropTypes.object,
-    state: PropTypes.object,
-    Component: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     className: PropTypes.string,
+    Component: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    stylesheet: PropTypes.object,
   };
 
   static style(spec) {
     return class extends StyleableDOMComponent {
       static displayName = getComponentDisplayName(this);
       static Component = this.Component;
-      static stylesheet = DOMStylesheet.overrideStylesheet(this.stylesheet, spec);
+      static stylesheet = this.stylesheet.override(spec);
     };
-  }
-
-  constructor(props) {
-    super(props);
-    this._stateDeprecationWarned = false;
   }
 
   render() {
     let {
-      variant, state,
+      variant,
+      className,
       Component = this.constructor.Component,
-      className: extraClassName,
+      stylesheet = this.constructor.stylesheet,
       ...props
     } = this.props;
-    if (state && !this._stateDeprecationWarned) {
-      this._stateDeprecationWarned = true;
-      console.error( // eslint-disable-line
-        'Warning: React Stylesheet: state is deprecated, use variant instead'
-      );
-    }
-    variant = variant || state;
-    let {stylesheet} = this.constructor;
-    let className = stylesheet.asClassName(variant);
     return (
       <Component
         {...props}
-        className={cx(className, extraClassName)}
+        className={cx(stylesheet.asClassName(variant), className)}
         />
     );
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.stylesheet !== this.props.stylesheet) {
+      this._disposeStylesheet(this.props);
+      this._useStylesheet(nextProps);
+    }
+  }
+
   componentDidMount() {
-    this.constructor.stylesheet.use();
+    this._useStylesheet();
   }
 
   componentWillUnmount() {
-    this.constructor.stylesheet.dispose();
+    this._disposeStylesheet();
+  }
+
+  _useStylesheet(props = this.props) {
+    if (props.stylesheet) {
+      props.stylesheet.use();
+    } else {
+      this.constructor.stylesheet.use();
+    }
+  }
+
+  _disposeStylesheet(props = this.props) {
+    if (props.stylesheet) {
+      props.stylesheet.dispose();
+    } else {
+      this.constructor.stylesheet.dispose();
+    }
   }
 }
