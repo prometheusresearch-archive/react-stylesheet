@@ -9,7 +9,7 @@ import styleComponent from './styleComponent';
 /**
  * Create stylesheet from stylesheet spec.
  */
-export function createStylesheet(spec) {
+export function create(spec) {
   let stylesheet = {};
   for (let key in spec) {
     if (!spec.hasOwnProperty(key)) {
@@ -32,7 +32,7 @@ export function createStylesheet(spec) {
  *
  * Object is a stylesheet if every value is a valid React component.
  */
-export function isValidStylesheet(obj) {
+export function isStylesheet(obj) {
   for (let key in obj) {
     if (!obj.hasOwnProperty(key)) {
       continue;
@@ -53,7 +53,7 @@ export function isValidStylesheet(obj) {
  */
 export function overrideStylesheet(stylesheet, spec) {
   invariant(
-    isValidStylesheet(stylesheet),
+    isStylesheet(stylesheet),
     'overrideStylesheet(...): first argument should be a valid stylesheet'
   );
   stylesheet = {...stylesheet};
