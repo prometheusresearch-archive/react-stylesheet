@@ -23,7 +23,7 @@ function assertClassName(className, ...expectations) {
 describe('DOMStylesheet', function() {
 
   it('compiles style representation to CSS', function() {
-    let style = DOMStylesheet.createStylesheet({
+    let style = DOMStylesheet.create({
       width: 10,
       color: 'red',
     }, 'style');
@@ -36,7 +36,7 @@ describe('DOMStylesheet', function() {
   });
 
   it('compiles arrays into multiple values', function() {
-    let style = DOMStylesheet.createStylesheet({
+    let style = DOMStylesheet.create({
       color: ['red', 'white'],
       width: [1, 10],
     }, 'style');
@@ -52,7 +52,7 @@ describe('DOMStylesheet', function() {
   });
 
   it('compiles pseudo classes', function() {
-    let style = DOMStylesheet.createStylesheet({
+    let style = DOMStylesheet.create({
       focus: {
         color: 'red',
       }
@@ -74,7 +74,7 @@ describe('DOMStylesheet', function() {
   });
 
   it('compiles arbitrary variant classes', function() {
-    let style = DOMStylesheet.createStylesheet({
+    let style = DOMStylesheet.create({
       x: {
         color: 'red',
       }
@@ -93,7 +93,7 @@ describe('DOMStylesheet', function() {
   });
 
   it('compiles arbitrary variant classes with nested variants', function() {
-    let style = DOMStylesheet.createStylesheet({
+    let style = DOMStylesheet.create({
       x: {
         color: 'red',
         y: {
@@ -124,7 +124,7 @@ describe('DOMStylesheet', function() {
   });
 
   it('compiles arbitrary variant classes with pseudoclasses', function() {
-    let style = DOMStylesheet.createStylesheet({
+    let style = DOMStylesheet.create({
       x: {
         color: 'red',
         hover: {
@@ -155,7 +155,7 @@ describe('DOMStylesheet', function() {
   });
 
   it('can be overriden with style spec', function() {
-    let style = DOMStylesheet.createStylesheet({
+    let style = DOMStylesheet.create({
       background: 'white',
       color: 'black',
       x: {

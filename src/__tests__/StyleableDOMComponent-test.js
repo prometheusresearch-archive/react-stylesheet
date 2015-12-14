@@ -15,7 +15,7 @@ describe('StyleableDOMComponent', function() {
   let component;
   let element;
 
-  function createStylesheet(className = 'class') {
+  function create(className = 'class') {
     return {
       asClassName: Sinon.stub().returns(className),
       use: Sinon.spy(),
@@ -24,7 +24,7 @@ describe('StyleableDOMComponent', function() {
   }
 
   function mount(props) {
-    defaultStylesheet = createStylesheet('default');
+    defaultStylesheet = create('default');
 
     Component = class extends StyleableDOMComponent {
       static stylesheet = defaultStylesheet;
@@ -71,7 +71,7 @@ describe('StyleableDOMComponent', function() {
   });
 
   it('allows to override stylesheet via props (mount-custom/unmount-custom)', function() {
-    let stylesheet = createStylesheet('stylesheet');
+    let stylesheet = create('stylesheet');
     let element = mount({stylesheet});
     assert(!defaultStylesheet.use.calledOnce);
     assert(stylesheet.use.calledOnce);
@@ -83,7 +83,7 @@ describe('StyleableDOMComponent', function() {
   });
 
   it('allows to override stylesheet via props (mount/replace/unmount-custom)', function() {
-    let stylesheet = createStylesheet('stylesheet');
+    let stylesheet = create('stylesheet');
     let element = mount();
     assert(element.classList.contains('default'));
     assert(defaultStylesheet.use.calledOnce);
@@ -97,7 +97,7 @@ describe('StyleableDOMComponent', function() {
   });
 
   it('allows to override stylesheet via props (mount-custom/replace/unmount)', function() {
-    let stylesheet = createStylesheet('stylesheet');
+    let stylesheet = create('stylesheet');
     let element = mount({stylesheet});
     assert(!element.classList.contains('default'));
     assert(element.classList.contains('stylesheet'));
@@ -114,8 +114,8 @@ describe('StyleableDOMComponent', function() {
   });
 
   it('allows to override stylesheet via props (mount-custom/replace-custom/unmount-custom)', function() {
-    let stylesheet = createStylesheet('stylesheet');
-    let stylesheetX = createStylesheet('stylesheetX');
+    let stylesheet = create('stylesheet');
+    let stylesheetX = create('stylesheetX');
     let element = mount({stylesheet});
     assert(element.classList.contains('stylesheet'));
     assert(stylesheet.use.calledOnce);

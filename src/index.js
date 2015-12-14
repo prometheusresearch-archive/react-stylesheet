@@ -2,7 +2,7 @@
  * @copyright 2015 Prometheus Research, LLC
  */
 
-import {isValidStylesheet, createStylesheet} from './DOMStylesheet';
+import {isStylesheet, create} from './DOMStylesheet';
 import StyleableDOMComponent from './StyleableDOMComponent';
 import getComponentDisplayName from './getComponentDisplayName';
 
@@ -11,8 +11,8 @@ export function style(Component, stylesheet, displayName = null) {
     displayName = getComponentDisplayName(Component);
     displayName = `StyleableDOMComponent(${displayName})`;
   }
-  if (!isValidStylesheet(stylesheet)) {
-    stylesheet = createStylesheet(stylesheet, displayName);
+  if (!isStylesheet(stylesheet)) {
+    stylesheet = create(stylesheet, displayName);
   }
   return class extends StyleableDOMComponent {
     static displayName = displayName;
@@ -21,7 +21,4 @@ export function style(Component, stylesheet, displayName = null) {
   };
 }
 
-export let create = createStylesheet;
-export let isStylesheet = isValidStylesheet;
-
-export {StyleableDOMComponent}
+export {StyleableDOMComponent, isStylesheet, create}

@@ -60,7 +60,7 @@ const SUPPORTED_PSEUDO_CLASSES = {
 /**
  * Create a new stylesheet from stylesheet spec.
  */
-export function createStylesheet(spec, id = '') {
+export function create(spec, id = '') {
   id = uniqueID(id ? `Style_${id}` : 'Style');
   return new DOMStylesheet(parseSpecToStyle(spec), id);
 }
@@ -68,7 +68,7 @@ export function createStylesheet(spec, id = '') {
 /**
  * Check if object is a valida stylesheet.
  */
-export function isValidStylesheet(obj) {
+export function isStylesheet(obj) {
   return obj instanceof DOMStylesheet;
 }
 
@@ -77,7 +77,7 @@ export function isValidStylesheet(obj) {
  * spec.
  */
 function overrideStylesheet(stylesheet, override, id) {
-  override = isValidStylesheet(override) ?
+  override = isStylesheet(override) ?
     override.style :
     parseSpecToStyle(override);
   let style = overrideStyle(stylesheet.style, override);
