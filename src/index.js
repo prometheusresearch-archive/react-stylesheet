@@ -20,3 +20,17 @@ export function style(Component, stylesheet, displayName = null) {
     static stylesheet = stylesheet;
   };
 }
+
+export function create(obj) {
+  let stylesheet = {};
+  for (let key in obj) {
+    if (!obj.hasOwnPropertyName(key)) {
+      continue;
+    }
+    let {Component = 'div', displayName = null, ...style} = obj[key];
+    stylesheet[key] = style(Component, style, displayName);
+  }
+  return stylesheet;
+}
+
+export StyleableDOMComponent;
