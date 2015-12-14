@@ -51,10 +51,10 @@ export function isStylesheet(obj) {
  * Note that as stylesheet is also a valid spec then this function can be used
  * to override one stylesheet with another.
  */
-export function overrideStylesheet(stylesheet, spec) {
+export function override(stylesheet, spec) {
   invariant(
     isStylesheet(stylesheet),
-    'overrideStylesheet(...): first argument should be a valid stylesheet'
+    'override(...): first argument should be a valid stylesheet'
   );
   stylesheet = {...stylesheet};
   for (let key in spec) {
@@ -63,7 +63,7 @@ export function overrideStylesheet(stylesheet, spec) {
     }
     invariant(
       stylesheet[key] !== undefined,
-      'overrideStylesheet(...): invalid override, stylesheet does not have key "%s"',
+      'override(...): invalid override, stylesheet does not have key "%s"',
       key
     );
     let item = spec[key];
