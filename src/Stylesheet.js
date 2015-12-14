@@ -9,7 +9,8 @@ import styleComponent from './styleComponent';
 /**
  * Create stylesheet from stylesheet spec.
  */
-export function create(spec) {
+export function create(spec, options = {}) {
+  let style = options.style || styleComponent;
   let stylesheet = {};
   for (let key in spec) {
     if (!spec.hasOwnProperty(key)) {
@@ -20,7 +21,7 @@ export function create(spec) {
       stylesheet[key] = item;
     } else {
       let {Component = 'div', ...componentStylesheet} = item;
-      Component = styleComponent(Component, componentStylesheet);
+      Component = style(Component, componentStylesheet, options);
       stylesheet[key] = Component;
     }
   }
@@ -51,7 +52,8 @@ export function isStylesheet(obj) {
  * Note that as stylesheet is also a valid spec then this function can be used
  * to override one stylesheet with another.
  */
-export function override(stylesheet, spec) {
+export function override(stylesheet, spec, options ={}) {
+  let style = options.style || styleComponent;
   invariant(
     isStylesheet(stylesheet),
     'override(...): first argument should be a valid stylesheet'
@@ -71,7 +73,7 @@ export function override(stylesheet, spec) {
       stylesheet[key] = item;
     } else {
       let {Component = stylesheet[key], ...componentStylesheet} = spec[key];
-      stylesheet[key] = styleComponent(Component, componentStylesheet);
+      stylesheet[key] = style(Component, componentStylesheet, options);
     }
   }
   return stylesheet;
