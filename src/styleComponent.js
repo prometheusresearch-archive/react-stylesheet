@@ -5,12 +5,13 @@
 import invariant from 'invariant';
 import isValidReactComponent from './isValidReactComponent';
 import getComponentDisplayName from './getComponentDisplayName';
-import * as Stylesheet from './Stylesheet';
+import {override} from './Stylesheet';
+import {isString} from './Utils';
 
 /**
  * Apply a stylesheet to a component.
  */
-export default function styleComponent(Component, stylesheet, options) {
+export default function styleComponent(Component, stylesheet, options = {}) {
   invariant(
     isValidReactComponent(Component),
     'Expected a valid React component, got: %s',
@@ -22,8 +23,10 @@ export default function styleComponent(Component, stylesheet, options) {
     let displayName = options.displayName || getComponentDisplayName(Component);
     return class extends Component {
       static displayName = displayName;
-      static stylesheet = Stylesheet.override(Component.stylesheet, stylesheet, options);
+      static stylesheet = override(Component.stylesheet, stylesheet, options);
     }
+  } else if (isString(Component) && options.styleDOM) {
+    return options.styleDOM(Component, stylesheet);
   } else {
     invariant(
       false,
