@@ -52,7 +52,7 @@ export function isStylesheet(obj) {
  * Note that as stylesheet is also a valid spec then this function can be used
  * to override one stylesheet with another.
  */
-export function override(stylesheet, spec, options ={}) {
+export function override(stylesheet, spec, options = {}) {
   let style = options.style || styleComponent;
   invariant(
     isStylesheet(stylesheet),

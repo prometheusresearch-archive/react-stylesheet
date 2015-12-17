@@ -24,7 +24,7 @@ export default function styleComponent(Component, stylesheet, options = {}) {
     return class extends Component {
       static displayName = displayName;
       static stylesheet = override(Component.stylesheet, stylesheet, options);
-    }
+    };
   } else if (isString(Component) && options.styleDOM) {
     return options.styleDOM(Component, stylesheet);
   } else {
