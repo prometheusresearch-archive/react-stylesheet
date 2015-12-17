@@ -22,16 +22,9 @@
   },
   "homepage": "https://github.com/prometheusresearch/react-stylesheet#readme",
   "dependencies": {
-    "amp-unique-id": "^1.0.2",
-    "classnames": "^2.1.5",
     "invariant": "^2.1.0",
-    "is-array": "^1.0.1",
     "is-function": "^1.0.1",
-    "is-plain-object": "^2.0.1",
-    "is-string": "^1.0.4",
-    "memoize-decorator": "^1.0.2",
-    "style-loader": "^0.12.3",
-    "to-slug-case": "^0.1.2"
+    "is-string": "^1.0.4"
   },
   "devDependencies": {
     "babel": "^5.8.23",
