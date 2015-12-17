@@ -5,7 +5,7 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import assert from 'power-assert';
-import {create, style} from '../Stylesheet';
+import {create, style, override} from '../Stylesheet';
 
 describe('Stylesheet', function() {
 
@@ -73,7 +73,6 @@ describe('Stylesheet', function() {
         static stylesheet = {
           Header: 'h1'
         };
-
       }
       let s = create({
         Component: {
@@ -128,6 +127,55 @@ describe('Stylesheet', function() {
       });
       assert(s.dom === 'dom')
       assert(s.Composite === Composite)
+    });
+
+  });
+
+  describe('override(stylesheet, override)', function() {
+
+    it('overrides stylesheet with a spec override', function() {
+      class Caption extends React.Component {
+        static stylesheet = {
+          Header: 'h1'
+        };
+      }
+      let stylesheet = {
+        Root: 'div',
+        Field: 'span',
+        Caption: Caption,
+      };
+      let overridden = override(stylesheet, {
+        Field: 'h1',
+        Caption: {
+          Header: 'h2',
+        }
+      });
+      assert(overridden.Root === 'div');
+      assert(overridden.Field === 'h1');
+      assert(overridden.Caption.stylesheet.Header === 'h2');
+    });
+
+    it('overrides stylesheet with a stylesheet override', function() {
+      class Caption extends React.Component {
+        static stylesheet = {
+          Header: 'h1'
+        };
+      }
+      let stylesheet = {
+        Root: 'div',
+        Field: 'span',
+        Caption: Caption,
+      };
+      let overridden = override(stylesheet, create({
+        Field: 'h1',
+        Caption: {
+          Component: Caption,
+          Header: 'h2',
+        }
+      }));
+      assert(overridden.Root === 'div');
+      assert(overridden.Field === 'h1');
+      assert(overridden.Caption.stylesheet.Header === 'h2');
     });
 
   });
