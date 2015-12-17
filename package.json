@@ -2,7 +2,7 @@
   "name": "react-stylesheet",
   "version": "0.6.1",
   "description": "React components with predefined styles",
-  "main": "./lib/index.js",
+  "main": "./lib/Stylesheet.js",
   "scripts": {
     "test": "make test"
   },

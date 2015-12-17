@@ -4,13 +4,14 @@
 
 import invariant from 'invariant';
 import isValidReactComponent from './isValidReactComponent';
-import styleComponent from './styleComponent';
+import getComponentDisplayName from './getComponentDisplayName';
+import {isString} from './Utils';
 
 /**
  * Create stylesheet from stylesheet spec.
  */
 export function create(spec, options = {}) {
-  let style = options.style || styleComponent;
+  let styleComponent = options.style || style;
   let stylesheet = {};
   for (let key in spec) {
     if (!spec.hasOwnProperty(key)) {
@@ -21,7 +22,7 @@ export function create(spec, options = {}) {
       stylesheet[key] = item;
     } else {
       let {Component = 'div', ...componentStylesheet} = item;
-      Component = style(Component, componentStylesheet, options);
+      Component = styleComponent(Component, componentStylesheet, options);
       stylesheet[key] = Component;
     }
   }
@@ -53,7 +54,7 @@ export function isStylesheet(obj) {
  * to override one stylesheet with another.
  */
 export function override(stylesheet, spec, options = {}) {
-  let style = options.style || styleComponent;
+  let styleComponent = options.style || style;
   invariant(
     isStylesheet(stylesheet),
     'override(...): first argument should be a valid stylesheet'
@@ -73,8 +74,36 @@ export function override(stylesheet, spec, options = {}) {
       stylesheet[key] = item;
     } else {
       let {Component = stylesheet[key], ...componentStylesheet} = spec[key];
-      stylesheet[key] = style(Component, componentStylesheet, options);
+      stylesheet[key] = styleComponent(Component, componentStylesheet, options);
     }
   }
   return stylesheet;
+}
+
+/**
+ * Apply a stylesheet to a component.
+ */
+export function style(Component, stylesheet, options = {}) {
+  invariant(
+    isValidReactComponent(Component),
+    'Expected a valid React component, got: %s',
+    typeof Component
+  );
+  if (typeof Component.style === 'function') {
+    return Component.style(stylesheet);
+  } else if (Component.stylesheet) {
+    let displayName = options.displayName || getComponentDisplayName(Component);
+    return class extends Component {
+      static displayName = displayName;
+      static stylesheet = override(Component.stylesheet, stylesheet, options);
+    };
+  } else if (isString(Component) && options.styleDOM) {
+    return options.styleDOM(Component, stylesheet);
+  } else {
+    invariant(
+      false,
+      'Unable to style component: <%s />',
+      getComponentDisplayName(Component)
+    );
+  }
 }
