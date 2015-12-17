@@ -22,9 +22,7 @@
   },
   "homepage": "https://github.com/prometheusresearch/react-stylesheet#readme",
   "dependencies": {
-    "invariant": "^2.1.0",
-    "is-function": "^1.0.1",
-    "is-string": "^1.0.4"
+    "invariant": "^2.1.0"
   },
   "devDependencies": {
     "babel": "^5.8.23",

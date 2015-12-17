@@ -3,9 +3,7 @@
  */
 
 import invariant from 'invariant';
-import isValidReactComponent from './isValidReactComponent';
-import getComponentDisplayName from './getComponentDisplayName';
-import {isString} from './Utils';
+import {isNativeComponent, isComponent, getComponentDisplayName} from './Utils';
 
 /**
  * Create stylesheet from stylesheet spec.
@@ -18,7 +16,7 @@ export function create(spec, options = {}) {
       continue;
     }
     let item = spec[key];
-    if (isValidReactComponent(item)) {
+    if (isComponent(item)) {
       stylesheet[key] = item;
     } else {
       let {Component = 'div', ...componentStylesheet} = item;
@@ -39,7 +37,7 @@ export function isStylesheet(obj) {
     if (!obj.hasOwnProperty(key)) {
       continue;
     }
-    if (!isValidReactComponent(obj[key])) {
+    if (!isComponent(obj[key])) {
       return false;
     }
   }
@@ -70,7 +68,7 @@ export function override(stylesheet, spec, options = {}) {
       key
     );
     let item = spec[key];
-    if (isValidReactComponent(item)) {
+    if (isComponent(item)) {
       stylesheet[key] = item;
     } else {
       let {Component = stylesheet[key], ...componentStylesheet} = spec[key];
@@ -85,7 +83,7 @@ export function override(stylesheet, spec, options = {}) {
  */
 export function style(Component, stylesheet, options = {}) {
   invariant(
-    isValidReactComponent(Component),
+    isComponent(Component),
     'Expected a valid React component, got: %s',
     typeof Component
   );
@@ -97,7 +95,7 @@ export function style(Component, stylesheet, options = {}) {
       static displayName = displayName;
       static stylesheet = override(Component.stylesheet, stylesheet, options);
     };
-  } else if (isString(Component) && options.styleDOM) {
+  } else if (isNativeComponent(Component) && options.styleDOM) {
     return options.styleDOM(Component, stylesheet);
   } else {
     invariant(

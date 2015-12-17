@@ -4,7 +4,6 @@
 
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import assert from 'power-assert';
 import {create, style, override} from '../Stylesheet';
 
 describe('Stylesheet', function() {
