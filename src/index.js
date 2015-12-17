@@ -32,23 +32,6 @@ export function create(spec, options = {}) {
 }
 
 /**
- * Check if object is a valid stylesheet.
- *
- * Object is a stylesheet if every value is a valid React component.
- */
-export function isStylesheet(obj) {
-  for (let key in obj) {
-    if (!obj.hasOwnProperty(key)) {
-      continue;
-    }
-    if (!isComponent(obj[key])) {
-      return false;
-    }
-  }
-  return true;
-}
-
-/**
  * Produce a new stylesheet by overriding keys from the original stylesheet with
  * values from spec.
  *
@@ -57,10 +40,6 @@ export function isStylesheet(obj) {
  */
 export function override(stylesheet, spec, options = {}) {
   let styleComponent = options.style || style;
-  invariant(
-    isStylesheet(stylesheet),
-    'override(...): first argument should be a valid stylesheet'
-  );
   stylesheet = {...stylesheet};
   for (let key in spec) {
     if (!spec.hasOwnProperty(key)) {
