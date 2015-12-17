@@ -4,7 +4,7 @@
 
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import {create, style, override} from '../Stylesheet';
+import {create, style, override} from '../';
 
 describe('Stylesheet', function() {
 

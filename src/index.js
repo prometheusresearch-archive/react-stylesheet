@@ -3,7 +3,11 @@
  */
 
 import invariant from 'invariant';
-import {isNativeComponent, isComponent, getComponentDisplayName} from './Utils';
+import {
+  isNativeComponent,
+  isComponent,
+  getComponentDisplayName
+} from './utilities';
 
 /**
  * Create stylesheet from stylesheet spec.
