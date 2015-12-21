@@ -44,8 +44,8 @@ let Label = style('span', {
 
 Now on hover you can see the underline appears.
 
-But you always force any pseudoclass to appear from JS by passing `variant`
-prop:
+But you can always force any pseudoclass to appear from JS by passing a
+specially constructed `variant` prop:
 
 ```
 <Label variant={{hover: true}} />
@@ -65,8 +65,8 @@ let Label = style('span', {
 })
 ```
 
-Now to toggle any particular variant you need to pass a component `variant`
-prop:
+Now to toggle any particular variant you need to pass a component a specially
+constructed `variant` prop:
 
 ```
 <Label variant={{important: true}} />
