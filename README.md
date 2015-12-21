@@ -59,7 +59,7 @@ Sometimes you want a set of style variants and toggle them via JS:
 let Label = style('span', {
   fontWeight: 'bold',
   fontSize: '12pt',
-  important: {
+  emphasis: {
     textDecoration: 'underline'
   }
 })
@@ -69,7 +69,7 @@ Now to toggle any particular variant you need to pass a component a specially
 constructed `variant` prop:
 
 ```
-<Label variant={{important: true}} />
+<Label variant={{emphasis: true}} />
 ```
 
 This is very similar to pseudoclass example above and in fact pseudoclasses are
