@@ -41,7 +41,7 @@
     "consistent-return": 2,           // Require return statements to either always or never specify values
     "curly": 2,                       // Specify curly brace conventions for all control statements
     "default-case": 2,                // Require default case in switch statements (off by default)
-    "eqeqeq": 2,                      // Require the use of === and !==
+    "eqeqeq": [2, "smart"],           // Require the use of === and !==
     "guard-for-in": 2,                // Make sure for-in loops have an if statement (off by default)
     "no-alert": 2,                    // Disallow the use of alert, confirm, and prompt
     "no-caller": 2,                   // Disallow use of arguments.caller or arguments.callee

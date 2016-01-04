@@ -24,4 +24,4 @@ export function style(Component, stylesheet, displayName = null) {
   };
 }
 
-export {StyleableDOMComponent, isStylesheet, create}
+export {StyleableDOMComponent, isStylesheet, create};

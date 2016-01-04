@@ -5,7 +5,6 @@
 import React, {PropTypes} from 'react';
 import cx from 'classnames';
 import getComponentDisplayName from './getComponentDisplayName';
-import * as DOMStylesheet from './DOMStylesheet';
 
 export default class StyleableDOMComponent extends React.Component {
 
