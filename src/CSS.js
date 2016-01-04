@@ -2,7 +2,7 @@
  * @copyright 2015, Prometheus Research, LLC
  */
 
-import {isString, toDashCase} from './Utils';
+import {isString, toDashCase} from './utilities';
 
 function keyMirrorDashCase(obj) {
   let result = {};

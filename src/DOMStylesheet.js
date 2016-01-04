@@ -7,7 +7,7 @@ import addStyleToDOM            from 'style-loader/addStyles';
 import CSSPropertyOperations    from 'react/lib/CSSPropertyOperations';
 import dangerousStyleValue      from 'react/lib/dangerousStyleValue';
 import {isArray, isPlainObject,
-        toDashCase, uniqueID}   from './Utils';
+        toDashCase, uniqueID}   from './utilities';
 
 /**
  * Special key which designates the rules which should be applied even if no
