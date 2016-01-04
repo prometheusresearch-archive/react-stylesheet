@@ -2,6 +2,7 @@
  * @copyright 2015 Prometheus Research, LLC
  */
 
+import React from 'react';
 import {style, create, isStylesheet} from '../';
 
 describe('index', function() {
@@ -27,6 +28,22 @@ describe('index', function() {
       let Component = 'div';
       let Styled = style(Component, {width: 10}, 'CustomDisplayName');
       assert(Styled.displayName === 'CustomDisplayName');
+    });
+
+    it('delegates to style() method if component has it', function() {
+      class Component extends React.Component {
+
+        render() {
+          return <div className={this.props.className} />;
+        }
+
+        static style(_stylesheet) {
+          return 'span';
+        }
+      }
+
+      let Styled = style(Component, {width: 10});
+      assert(Styled === 'span');
     });
 
   });

@@ -7,6 +7,9 @@ import StyleableDOMComponent from './StyleableDOMComponent';
 import getComponentDisplayName from './getComponentDisplayName';
 
 export function style(Component, stylesheet, displayName = null) {
+  if (Component.style) {
+    return Component.style(stylesheet, displayName);
+  }
   if (displayName == null) {
     displayName = getComponentDisplayName(Component);
     displayName = `StyleableDOMComponent(${displayName})`;
