@@ -35,19 +35,40 @@ describe('DOMStylesheet', function() {
     );
   });
 
+  it('lift values to CSS with toCSS() method call', function() {
+    class Width {
+      toCSS() {
+        return 42;
+      }
+    }
+    class Color {
+      toCSS() {
+        return 'white';
+      }
+    }
+    assertCSS(
+      DOMStylesheet.create({
+        color: ['red', new Color()],
+        width: new Width(),
+      }, 'style').css,
+      '.Style_styleUNIQ { box-sizing:border-box;color:red;color:white;width:42px; }'
+    );
+  });
+
   it('compiles arrays into multiple values', function() {
-    let style = DOMStylesheet.create({
-      color: ['red', 'white'],
-      width: [1, 10],
-    }, 'style');
-    assertCSS(style.css,
+    assertCSS(
+      DOMStylesheet.create({
+        color: ['red', 'white'],
+        width: [1, 10],
+      }, 'style').css,
       '.Style_styleUNIQ { box-sizing:border-box;color:red;color:white;width:1px;width:10px; }'
     );
-    assertClassName(style.asClassName(),
-      'Style_styleUNIQ'
-    );
-    assertClassName(style.asClassName({}),
-      'Style_styleUNIQ'
+    assertCSS(
+      DOMStylesheet.create({
+        color: [],
+        width: [1, 10],
+      }, 'style').css,
+      '.Style_styleUNIQ { box-sizing:border-box;color:;width:1px;width:10px; }'
     );
   });
 

@@ -200,7 +200,7 @@ function parseSpecToStyle(spec, root = true) {
     if (isPlainObject(item)) {
       style[key] = parseSpecToStyle(item, false);
     } else {
-      styleBase[key] = _value(key, item);
+      styleBase[key] = compileValue(key, item);
     }
   }
   return style;
@@ -220,12 +220,12 @@ function compileStyle(style, id, path = [], variant = null) {
     let value = style[key];
     if (key === BASE) {
       if (variant !== null) {
-        let className = _className(id, path, variant);
+        let className = generateClassName(id, path, variant);
         mapping[variant] = mapping[variant] || {};
         mapping[variant][CLASSNAME] = className;
 
         if (SUPPORTED_PSEUDO_CLASSES[variant]) {
-          let pseudoClassName = _className(id, path, variant, true);
+          let pseudoClassName = generateClassName(id, path, variant, true);
           css.push(compileClass(`.${className}, .${pseudoClassName}`, value));
         } else {
           css.push(compileClass(`.${className}`, value));
@@ -255,7 +255,7 @@ function compileClass(className, ruleSet) {
 /**
  * Create a CSS class name.
  */
-function _className(id, path, variant, asPseudo = false) {
+function generateClassName(id, path, variant, asPseudo = false) {
   let className = `${id}`;
   if (path.length > 0) {
     className = className + `--${path.join('--')}`;
@@ -270,13 +270,22 @@ function _className(id, path, variant, asPseudo = false) {
   return className;
 }
 
-/**
- * Process ruleSet value.
- */
-function _value(key, value) {
-  if (isArray(value) && value.length > 0) {
-    let rest = value.slice(1).map(v => `${key}:${dangerousStyleValue(key, v)}`);
-    value = [dangerousStyleValue(key, value[0])].concat(rest).join(';');
+function compileValue(key, value) {
+  let compiled = '';
+  if (isArray(value)) {
+    for (let i = 0; i < value.length; i++) {
+      if (i === 0) {
+        compiled += dangerousStyleValue(key, liftValue(value[i]));
+      } else {
+        compiled += ';' + key + ':' + dangerousStyleValue(key, liftValue(value[i]));
+      }
+    }
+  } else {
+    compiled = liftValue(value);
   }
-  return value;
+  return compiled;
+}
+
+function liftValue(value) {
+  return value && value.toCSS ? value.toCSS() : value;
 }
