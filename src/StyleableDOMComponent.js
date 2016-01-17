@@ -50,7 +50,7 @@ export default class StyleableDOMComponent extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this._useStylesheet();
   }
 
