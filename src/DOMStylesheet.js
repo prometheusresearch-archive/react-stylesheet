@@ -100,6 +100,10 @@ function overrideStyle(style, override) {
   return nextStyle;
 }
 
+function sanitizeID(id) {
+  return id.replace(/[^0-9a-zA-Z\-_]/g, '_');
+}
+
 /**
  * DOM stylesheet is a collection of classes which are applied to a single DOM
  * element.
@@ -108,7 +112,7 @@ class DOMStylesheet {
 
   constructor(style, id) {
     this.style = style;
-    this.id = id;
+    this.id = sanitizeID(id);
 
     this._refs = 0;
     this._remove = null;
