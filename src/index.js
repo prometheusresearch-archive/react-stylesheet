@@ -4,7 +4,6 @@
 
 import invariant from 'invariant';
 import {
-  isNativeComponent,
   isComponent,
   getComponentDisplayName
 } from './utilities';
@@ -78,7 +77,7 @@ export function style(Component, stylesheet, options = {}) {
       static displayName = displayName;
       static stylesheet = override(Component.stylesheet, stylesheet, options);
     };
-  } else if (isNativeComponent(Component) && options.styleDOM) {
+  } else if (options.styleDOM) {
     return options.styleDOM(Component, stylesheet);
   } else {
     invariant(
