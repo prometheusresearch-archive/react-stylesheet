@@ -5,6 +5,14 @@ React Stylesheet
 
 React Stylesheet is a way to style React components with... React components!
 
+## Motivation
+
+Define a convention for styling composite React components which is agnostic to
+underlying DOM element styling mechanism (CSS classes or inline styles, CSS in
+JS or traditional stylesheets).
+
+Provide a minimal set of API primitives which adhere to the convention.
+
 ## Installation
 
 ```
@@ -13,9 +21,8 @@ React Stylesheet is a way to style React components with... React components!
 
 ## Usage
 
-The idea is that component should define a stylesheet to render its UI.
-
-A stylesheet is just a collection of React components:
+The convention is that a composite React component should define a stylesheet (a
+mapping from names to React compoennts) as a class property:
 
 ```javascript
 import React from 'react'
@@ -29,7 +36,7 @@ class Button extends React.Component {
 
   render() {
     let {caption} = this.props
-    let {Root, Icon} = stylesheet
+    let {Root, Icon} = this.constructor.stylesheet
     return (
       <Root>
         <Caption>{caption}</Caption>
@@ -39,13 +46,14 @@ class Button extends React.Component {
 }
 ```
 
-You ask what React Stylesheet does for you then? It mostly just defines a
-convention which is useful for interop.
+Instead of using concrete DOM components `render()` is defined in terms
+of components from `this.constructor.stylesheet`.
 
-Aside from that, there are some utilities to redefine styling of components.
+That allows to derive a new composite component with existing behaviour but with
+different stylesheet easily.
 
-The `style(Component, stylesheetOverride)` creates a new component which has a
-new stylesheet:
+React Stylesheet provides an API for that, a `style(Component,
+stylesheetOverride)` function:
 
 ```javascript
 import {style} from 'react-stylesheet'
