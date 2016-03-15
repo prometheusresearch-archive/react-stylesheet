@@ -70,7 +70,7 @@ export function style(Component, stylesheet, options = {}) {
     typeof Component
   );
   if (typeof Component.style === 'function') {
-    return Component.style(stylesheet);
+    return Component.style(stylesheet, options);
   } else if (Component.stylesheet) {
     let displayName = options.displayName || getComponentDisplayName(Component);
     return class extends Component {
