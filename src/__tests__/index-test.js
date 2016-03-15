@@ -78,6 +78,18 @@ describe('Stylesheet', function() {
       });
       assert(Styled2.Component === Orig);
     });
+
+    it('preserves displayName', function() {
+      class NamedComponent extends React.Component {
+        static stylesheet = {
+          A: 'A',
+        }
+      }
+      let Styled = style(NamedComponent, {
+        A: 'StyledA'
+      });
+      assert(Styled.displayName === 'NamedComponent');
+    });
   });
 
   describe('create(stylesheetSpec)', function() {
