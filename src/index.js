@@ -76,6 +76,7 @@ export function style(Component, stylesheet, options = {}) {
     return class extends Component {
       static displayName = displayName;
       static stylesheet = override(Component.stylesheet, stylesheet, options);
+      static Component = Component.Component || Component;
     };
   } else if (options.styleDOM) {
     return options.styleDOM(Component, stylesheet);

@@ -63,6 +63,21 @@ describe('Stylesheet', function() {
       assert(Styled.stylesheet === 'stylesheet');
     });
 
+    it('preserves a reference to an original component', function() {
+      class Orig extends React.Component {
+        static stylesheet = {
+          A: 'A',
+        }
+      }
+      let Styled = style(Orig, {
+        A: 'StyledA'
+      });
+      assert(Styled.Component === Orig);
+      let Styled2 = style(Styled, {
+        A: 'StyledA2'
+      });
+      assert(Styled2.Component === Orig);
+    });
   });
 
   describe('create(stylesheetSpec)', function() {
