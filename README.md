@@ -7,7 +7,7 @@ React Stylesheet is a way to style React components with... React components!
 
 ## Motivation
 
-Define a convention for styling composite React components which is agnostic to
+Define a convention for styling composite React components which is agnostic to the
 underlying DOM element styling mechanism (CSS classes or inline styles, CSS in
 JS or traditional stylesheets).
 
@@ -22,7 +22,7 @@ Provide a minimal set of API primitives which adhere to the convention.
 ## Usage
 
 The convention is that a composite React component should define a stylesheet (a
-mapping from names to React compoennts) as a class property:
+mapping from names to React components) as a class property:
 
 ```javascript
 import React from 'react'
@@ -46,11 +46,11 @@ class Button extends React.Component {
 }
 ```
 
-Instead of using concrete DOM components `render()` is defined in terms
+Instead of using concrete DOM components, `render()` is defined in terms
 of components from `this.constructor.stylesheet`.
 
-That allows to derive a new composite component with existing behaviour but with
-different stylesheet easily.
+That allows deriving a new composite component with existing behaviour but with
+a different stylesheet easily.
 
 React Stylesheet provides an API for that, a `style(Component,
 stylesheetOverride)` function:
@@ -68,11 +68,11 @@ let SuccessButton = style(Button, {
 })
 ```
 
-As you can see we defined an override for original stylesheet which replaces
-`<button />` and `<div />` with versions of component which attach some CSS
+As you can see, we defined an override for the original stylesheet which replaces
+`<button />` and `<div />` with versions of the components which attach some CSS
 class names.
 
-Similarly we can define stylesheet which styles DOM component with inline
+Similarly we can define a stylesheet which styles a DOM component with inline
 styles:
 
 ```javascript
