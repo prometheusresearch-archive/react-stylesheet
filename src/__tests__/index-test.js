@@ -28,6 +28,15 @@ describe('Stylesheet', function() {
       assert(Styled.defaultProps.stylesheet.B === 'B');
     });
 
+    it('styles legacy component', function() {
+      let C = React.createClass({render() {}});
+      let Styled = style(C, {A: 'A', B: 'B'});
+      assert(Styled.defaultProps);
+      assert(Styled.defaultProps.stylesheet);
+      assert(Styled.defaultProps.stylesheet.A === 'A');
+      assert(Styled.defaultProps.stylesheet.B === 'B');
+    });
+
     it('styles class component with predefined stylesheet', function() {
       class C extends React.Component {
         static defaultProps = {
@@ -41,6 +50,21 @@ describe('Stylesheet', function() {
       assert(Styled.defaultProps.stylesheet.B === 'C');
     });
 
+    it('styles legacy class component with predefined stylesheet', function() {
+      let C = React.createClass({
+        getDefaultProps() {
+          return {stylesheet: {A: 'A', B: 'B'}}
+        },
+        render() {}
+      });
+      let Styled = style(C, {B: 'C'});
+      assert(Styled.defaultProps);
+      assert(Styled.defaultProps.stylesheet);
+      assert(Styled.defaultProps.stylesheet.A === 'A');
+      assert(Styled.defaultProps.stylesheet.B === 'C');
+    });
+
+
     it('re-styles funciton component', function() {
       function C() {}
       C.defaultProps = {
@@ -53,7 +77,6 @@ describe('Stylesheet', function() {
       assert(Styled.defaultProps.stylesheet.B === 'C');
     });
 
-
     it('re-styles class component', function() {
       class C extends React.Component {}
       let Styled = style(C, {A: 'A', B: 'B'});
@@ -64,7 +87,19 @@ describe('Stylesheet', function() {
       assert(ReStyled.defaultProps.stylesheet.B === 'C');
     });
 
-    it('re-styles funciton component', function() {
+    it('re-styles legacy class component', function() {
+      let C = React.createClass({
+        render() {}
+      });
+      let Styled = style(C, {A: 'A', B: 'B'});
+      let ReStyled = style(Styled, {B: 'C'});
+      assert(ReStyled.defaultProps);
+      assert(ReStyled.defaultProps.stylesheet);
+      assert(ReStyled.defaultProps.stylesheet.A === 'A');
+      assert(ReStyled.defaultProps.stylesheet.B === 'C');
+    });
+
+    it('re-styles function component', function() {
       function C() {}
       let Styled = style(C, {A: 'A', B: 'B'});
       let ReStyled = style(Styled, {B: 'C'});

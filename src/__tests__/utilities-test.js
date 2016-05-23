@@ -6,6 +6,7 @@ import React from 'react';
 import {
   isComponent,
   isClassComponent,
+  isLegacyReactClassComponent,
   isFunctionComponent,
   getComponentDisplayName
 } from '../utilities';
@@ -22,6 +23,13 @@ describe('utilities', function() {
     assert(!isClassComponent('div'));
     assert(!isClassComponent(function X() {}));
     assert(isClassComponent(class extends React.Component {}));
+  });
+
+  it('isLegacyReactClassComponent', function() {
+    assert(!isLegacyReactClassComponent('div'));
+    assert(!isLegacyReactClassComponent(function X() {}));
+    assert(!isLegacyReactClassComponent(class extends React.Component {}));
+    assert(isLegacyReactClassComponent(React.createClass({render(){}})));
   });
 
   it('isFunctionComponent', function() {
