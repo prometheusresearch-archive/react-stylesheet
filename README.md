@@ -38,7 +38,7 @@ class Button extends React.Component {
   }
 
   render() {
-    let {caption, stylesheet: {Root, Icon}} = this.props
+    let {caption, stylesheet: {Root, Caption}} = this.props
     return (
       <Root>
         <Caption>{caption}</Caption>
@@ -58,9 +58,6 @@ function `style(Component, override)`:
 import {style} from 'react-stylesheet'
 
 let SuccessButton = style(Button, {
-  Root(props) {
-    return <button {...props} className="ui-Button" />
-  },
   Caption(props) {
     return <div {...props} className="ui-Button__caption" />
   }
@@ -77,9 +74,6 @@ Another option would be to use inline styles:
 import {style} from 'react-stylesheet'
 
 let SuccessButton = style(Button, {
-  Root(props) {
-    return <button {...props} style={{background: 'red'}} />
-  },
   Caption(props) {
     return <div {...props} style={{color: 'white'}} />
   }
