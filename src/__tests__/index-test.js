@@ -10,6 +10,70 @@ describe('Stylesheet', function() {
 
   describe('style(Component, stylesheet)', function() {
 
+    it('styles class component', function() {
+      class C extends React.Component {}
+      let Styled = style(C, {A: 'A', B: 'B'});
+      assert(Styled.defaultProps);
+      assert(Styled.defaultProps.stylesheet);
+      assert(Styled.defaultProps.stylesheet.A === 'A');
+      assert(Styled.defaultProps.stylesheet.B === 'B');
+    });
+
+    it('styles funciton component', function() {
+      function C() {}
+      let Styled = style(C, {A: 'A', B: 'B'});
+      assert(Styled.defaultProps);
+      assert(Styled.defaultProps.stylesheet);
+      assert(Styled.defaultProps.stylesheet.A === 'A');
+      assert(Styled.defaultProps.stylesheet.B === 'B');
+    });
+
+    it('styles class component with predefined stylesheet', function() {
+      class C extends React.Component {
+        static defaultProps = {
+          stylesheet: {A: 'A', B: 'B'}
+        };
+      }
+      let Styled = style(C, {B: 'C'});
+      assert(Styled.defaultProps);
+      assert(Styled.defaultProps.stylesheet);
+      assert(Styled.defaultProps.stylesheet.A === 'A');
+      assert(Styled.defaultProps.stylesheet.B === 'C');
+    });
+
+    it('re-styles funciton component', function() {
+      function C() {}
+      C.defaultProps = {
+        stylesheet: {A: 'A', B: 'B'}
+      };
+      let Styled = style(C, {B: 'C'});
+      assert(Styled.defaultProps);
+      assert(Styled.defaultProps.stylesheet);
+      assert(Styled.defaultProps.stylesheet.A === 'A');
+      assert(Styled.defaultProps.stylesheet.B === 'C');
+    });
+
+
+    it('re-styles class component', function() {
+      class C extends React.Component {}
+      let Styled = style(C, {A: 'A', B: 'B'});
+      let ReStyled = style(Styled, {B: 'C'});
+      assert(ReStyled.defaultProps);
+      assert(ReStyled.defaultProps.stylesheet);
+      assert(ReStyled.defaultProps.stylesheet.A === 'A');
+      assert(ReStyled.defaultProps.stylesheet.B === 'C');
+    });
+
+    it('re-styles funciton component', function() {
+      function C() {}
+      let Styled = style(C, {A: 'A', B: 'B'});
+      let ReStyled = style(Styled, {B: 'C'});
+      assert(ReStyled.defaultProps);
+      assert(ReStyled.defaultProps.stylesheet);
+      assert(ReStyled.defaultProps.stylesheet.A === 'A');
+      assert(ReStyled.defaultProps.stylesheet.B === 'C');
+    });
+
     it('delegates to static style() if any', function() {
       class C extends React.Component {
         static style(stylesheet) {
@@ -21,7 +85,7 @@ describe('Stylesheet', function() {
       assert(Styled.stylesheet === 'stylesheet');
     });
 
-    it('delegates overrides stylesheet', function() {
+    it('overrides static stylesheet (legacy codepath)', function() {
       class C extends React.Component {
         static stylesheet = {
           Root: 'Root',
@@ -35,26 +99,15 @@ describe('Stylesheet', function() {
       assert(Styled.stylesheet.A === 'StyledA');
     });
 
-    it('throws if it cannot style component', function() {
-      class C extends React.Component {
-
-      }
-      assert.throws(() => {
-        style(C, {
-          A: 'StyledA'
-        });
-      }, /Invariant Violation: Unable to style component: <C \/>/);
-    });
-
     it('does not know how to style DOM components', function() {
       assert.throws(() => {
         style('div', {});
-      }, /Invariant Violation: Unable to style component: <div \/>/);
+      }, /Invariant Violation: Found host component <div \/> but options.styleHostComponent\(\.\.\) is not provided/);
     });
 
-    it('allows to specify hook to style DOM components', function() {
+    it('allows to specify hook to style host components', function() {
       let options = {
-        styleDOM(Component, stylesheet) {
+        styleHostComponent(Component, stylesheet) {
           return {ok: true, Component, stylesheet};
         }
       };

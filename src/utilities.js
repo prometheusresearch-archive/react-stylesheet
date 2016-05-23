@@ -2,6 +2,8 @@
  * @copyright 2015, Prometheus Research, LLC
  */
 
+import React from 'react';
+
 /**
  * Loose check if the argument is a valid React component.
  */
@@ -18,6 +20,21 @@ export function isHostComponent(obj) {
   return typeofObj === 'string';
 }
 
+export function isClassComponent(obj) {
+  return (
+    isComponent(obj) &&
+    obj.prototype instanceof React.Component
+  );
+}
+
+export function isFunctionComponent(obj) {
+  return (
+    isComponent(obj) &&
+    !isClassComponent(obj) &&
+    typeof obj === 'function'
+  );
+}
+
 /**
  * Get component display name.
  */
@@ -25,7 +42,7 @@ export function getComponentDisplayName(Component) {
   if (typeof Component === 'string') {
     return Component;
   } else if (Component) {
-    return Component.displayName || Component.name;
+    return Component.displayName || Component.name || null;
   } else {
     return null;
   }
