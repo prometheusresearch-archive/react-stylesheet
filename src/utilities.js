@@ -11,9 +11,9 @@ export function isComponent(obj) {
 }
 
 /**
- * Check if the argument is a native React component.
+ * Check if the argument is a host React component.
  */
-export function isNativeComponent(obj) {
+export function isHostComponent(obj) {
   let typeofObj = typeof obj;
   return typeofObj === 'string';
 }
