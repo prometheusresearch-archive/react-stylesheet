@@ -74,3 +74,30 @@ constructed `variant` prop:
 
 This is very similar to pseudoclass example above and in fact pseudoclasses are
 also variants.
+
+## CSS helpers
+
+There's helpers for producing CSS values:
+
+```
+import * as css from 'react-dom-stylesheet/css'
+
+let Label = style('span', {
+  fontWeight: css.fontWeight.bold,
+  border: css.border(1, css.rgb(167)),
+})
+```
+
+## Component factories
+
+Component factories for DOM components provided for convenience:
+
+```
+import * as css from 'react-dom-stylesheet/css'
+import {span} from 'react-dom-stylesheet/component'
+
+let Label = span({
+  fontWeight: css.fontWeight.bold,
+  border: css.border(1, css.rgb(167)),
+})
+```
