@@ -10,6 +10,13 @@ export function style(Component, stylesheet, displayName = null) {
   if (Component.style) {
     return Component.style(stylesheet, displayName);
   }
+  return wrapWithStylesheet(Component, stylesheet, displayName);
+}
+
+/**
+ * Produce a new component by applying a stylesheet.
+ */
+export function wrapWithStylesheet(Component, stylesheet, displayName = null) {
   if (displayName == null) {
     displayName = getComponentDisplayName(Component);
     displayName = `StyleableDOMComponent(${displayName})`;
