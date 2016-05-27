@@ -6,7 +6,6 @@ import invariant from 'invariant';
 import {
   isComponent,
   isClassComponent,
-  isLegacyReactClassComponent,
   isFunctionComponent,
   isHostComponent,
   getComponentDisplayName
@@ -87,7 +86,7 @@ export function style(Component, stylesheet, options = {}) {
     return options.styleHostComponent(Component, stylesheet);
   } else if (typeof Component.style === 'function') {
     return Component.style(stylesheet, options);
-  } else if (isClassComponent(Component) || isLegacyReactClassComponent(Component)) {
+  } else if (isClassComponent(Component)) {
     let nextStylesheet = override(
       Component.stylesheet || Component.defaultProps && Component.defaultProps.stylesheet,
       stylesheet,

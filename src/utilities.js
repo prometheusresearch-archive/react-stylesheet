@@ -2,12 +2,6 @@
  * @copyright 2015, Prometheus Research, LLC
  */
 
-import React from 'react';
-
-const LegacyReactClassProto = React.createClass({
-  render() {}
-}).prototype.__proto__;
-
 /**
  * Loose check if the argument is a valid React component.
  */
@@ -27,16 +21,8 @@ export function isHostComponent(obj) {
 export function isClassComponent(obj) {
   return (
     isComponent(obj) &&
-    obj.prototype instanceof React.Component
-  );
-}
-
-export function isLegacyReactClassComponent(obj) {
-  return (
-    isComponent(obj) &&
-    typeof obj === 'function' &&
     obj.prototype &&
-    obj.prototype.__proto__  === LegacyReactClassProto
+    obj.prototype.isReactComponent
   );
 }
 
