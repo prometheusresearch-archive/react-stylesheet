@@ -87,6 +87,10 @@ function sizeSeq(...args) {
     .join(' ');
 }
 
+export function multi(...args) {
+  return args.join(', ');
+}
+
 export let padding = sizeSeq;
 export let margin = sizeSeq;
 
