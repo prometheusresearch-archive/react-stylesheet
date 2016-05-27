@@ -214,9 +214,10 @@ function parseSpecToStyle(spec, root = true) {
  * Compile style into CSS string with mapping from variant names to CSS class
  * names.
  */
-function compileStyle(style, id, path = [], variant = null) {
+function compileStyle(style, id, variants = []) {
   let mapping = {};
   let css = [];
+  let variant = variants.length === 0 ? null : variants[variants.length - 1];
   for (let key in style) {
     if (!style.hasOwnProperty(key)) {
       continue;
@@ -224,23 +225,17 @@ function compileStyle(style, id, path = [], variant = null) {
     let value = style[key];
     if (key === BASE) {
       if (variant !== null) {
-        let className = generateClassName(id, path, variant);
+        let selector = compileSelector(id, variants);
+        let [className] = selector;
         mapping[variant] = mapping[variant] || {};
         mapping[variant][CLASSNAME] = className;
-
-        if (SUPPORTED_PSEUDO_CLASSES[variant]) {
-          let pseudoClassName = generateClassName(id, path, variant, true);
-          css.push(compileClass(`.${className}, .${pseudoClassName}`, value));
-        } else {
-          css.push(compileClass(`.${className}`, value));
-        }
+        css.push(compileClass(compileSelector(id, variants), value));
       } else {
-        css.push(compileClass(`.${id}`, value));
+        css.push(compileClass([id], value));
         mapping[CLASSNAME] = id;
       }
     } else {
-      let nextPath = variant === null ? path : path.concat(variant);
-      let subResult = compileStyle(value, id, nextPath, key);
+      let subResult = compileStyle(value, id, variants.concat(key));
       mapping[key] = subResult.mapping;
       css = css.concat(subResult.css);
     }
@@ -251,27 +246,41 @@ function compileStyle(style, id, path = [], variant = null) {
 /**
  * Compile class name and rule set into CSS class.
  */
-function compileClass(className, ruleSet) {
-  let css = `${className} { ${CSSPropertyOperations.createMarkupForStyles(ruleSet)} }`;
+function compileClass(selector, ruleSet) {
+  let css = `${selector.map(item => '.' + item).join(', ')} { ${CSSPropertyOperations.createMarkupForStyles(ruleSet)} }`;
   return css;
 }
 
-/**
- * Create a CSS class name.
- */
-function generateClassName(id, path, variant, asPseudo = false) {
-  let className = `${id}`;
-  if (path.length > 0) {
-    className = className + `--${path.join('--')}`;
+function compileSelector(id, path) {
+  if (path.length === 0) {
+    return [id];
   }
-  if (variant) {
-    if (asPseudo) {
-      className = className + `:${toDashCase(variant)}`;
-    } else {
-      className = className + `--${variant}`;
+
+  if (!SUPPORTED_PSEUDO_CLASSES[path[path.length - 1]]) {
+    return [id + '--' + path.join('--')];
+  }
+
+  let cutIndex = -1;
+  for (let i = path.length - 1; i >= 0; i--) {
+    if (!SUPPORTED_PSEUDO_CLASSES[path[i]]) {
+      cutIndex = i;
+      break;
     }
   }
-  return className;
+
+  let staticPath = path.slice(0, cutIndex + 1);
+  staticPath.unshift(id);
+  let variantPath = path.slice(cutIndex + 1);
+
+  let selector = [];
+
+  selector.push(staticPath.concat(variantPath).join('--'));
+  for (let i = 0; i < variantPath.length; i++) {
+    selector.push(staticPath.join('--') + ':' + variantPath.slice(i).map(toDashCase).join(':'));
+    staticPath.push(variantPath[i]);
+  }
+
+  return selector;
 }
 
 function compileValue(key, value) {

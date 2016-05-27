@@ -144,6 +144,37 @@ describe('DOMStylesheet', function() {
     );
   });
 
+  it('compiles nested pseudoclasses variants', function() {
+    let style = DOMStylesheet.create({
+      firstChild: {
+        color: 'red',
+        hover: {
+          color: 'white'
+        }
+      }
+    }, 'style');
+    assertCSS(style.css,
+      '.Style_styleUNIQ { box-sizing:border-box; }',
+      '.Style_styleUNIQ--firstChild, .Style_styleUNIQ:first-child { color:red; }',
+      '.Style_styleUNIQ--firstChild--hover, .Style_styleUNIQ:first-child:hover, .Style_styleUNIQ--firstChild:hover { color:white; }',
+    );
+    assertClassName(style.asClassName(),
+      'Style_styleUNIQ'
+    );
+    assertClassName(style.asClassName({firstChild: true}),
+      'Style_styleUNIQ',
+      'Style_styleUNIQ--firstChild',
+    );
+    assertClassName(style.asClassName({firstChild: true, hover: true}),
+      'Style_styleUNIQ',
+      'Style_styleUNIQ--firstChild',
+      'Style_styleUNIQ--firstChild--hover',
+    );
+    assertClassName(style.asClassName({y: true}),
+      'Style_styleUNIQ',
+    );
+  });
+
   it('compiles arbitrary variant classes with pseudoclasses', function() {
     let style = DOMStylesheet.create({
       x: {
