@@ -2,7 +2,8 @@
  * @copyright 2015, Prometheus Research, LLC
  */
 
-import {isString, toDashCase} from './utilities';
+import toDashCase from 'lodash/kebabCase';
+import isStrinf from 'lodash/isString';
 
 function keyMirrorDashCase(obj) {
   let result = {};

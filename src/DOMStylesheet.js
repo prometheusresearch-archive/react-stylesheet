@@ -2,13 +2,14 @@
  * @copyright 2015 Prometheus Research, LLC
  */
 
-import memoize                  from 'memoize-decorator';
 import addStyleToDOM            from 'style-loader/addStyles';
 import prefix                   from 'inline-style-prefix-all';
 import CSSPropertyOperations    from 'react/lib/CSSPropertyOperations';
 import dangerousStyleValue      from 'react/lib/dangerousStyleValue';
-import {isArray, isPlainObject,
-        toDashCase, uniqueID}   from './utilities';
+import uniqueID from 'lodash/uniqueId';
+import isArray from 'lodash/isArray';
+import toDashCase from 'lodash/kebabCase';
+import isPlainObject from 'lodash/isPlainObject';
 
 /**
  * Special key which designates the rules which should be applied even if no
@@ -119,11 +120,14 @@ class DOMStylesheet {
     this._remove = null;
     this._disposePerform = this._disposePerform.bind(this);
     this._disposeTimer = null;
+    this._compiled_memoized = null;
   }
 
-  @memoize
   get _compiled() {
-    return compileStyle(this.style, this.id);
+    if (this._compiled_memoized === null) {
+      this._compiled_memoized = compileStyle(this.style, this.id);
+    }
+    return this._compiled_memoized;
   }
 
   get css() {

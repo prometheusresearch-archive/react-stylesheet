@@ -3,7 +3,6 @@
  */
 
 import React, {PropTypes} from 'react';
-import cx from 'classnames';
 import getComponentDisplayName from './getComponentDisplayName';
 
 export default class StyleableDOMComponent extends React.Component {
@@ -30,15 +29,19 @@ export default class StyleableDOMComponent extends React.Component {
   render() {
     let {
       variant,
-      className,
+      className: extraClassName,
       Component = this.constructor.Component,
       stylesheet = this.constructor.stylesheet,
       ...props
     } = this.props;
+    let className = stylesheet.asClassName(variant);
+    if (extraClassName) {
+      className = className + ' ' + extraClassName;
+    }
     return (
       <Component
         {...props}
-        className={cx(stylesheet.asClassName(variant), className)}
+        className={className}
         />
     );
   }

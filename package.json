@@ -52,15 +52,8 @@
     "sinon": "^1.17.3"
   },
   "dependencies": {
-    "amp-unique-id": "^1.0.2",
-    "classnames": "^2.2.1",
     "inline-style-prefix-all": "^2.0.2",
-    "is-array": "^1.0.1",
-    "is-function": "^1.0.1",
-    "is-plain-object": "^2.0.1",
-    "is-string": "^1.0.4",
-    "memoize-decorator": "^1.0.2",
-    "style-loader": "^0.13.0",
-    "to-slug-case": "^0.1.2"
+    "lodash": "^4.13.1",
+    "style-loader": "^0.13.0"
   }
 }
