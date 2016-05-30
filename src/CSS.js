@@ -3,7 +3,7 @@
  */
 
 import toDashCase from 'lodash/kebabCase';
-import isStrinf from 'lodash/isString';
+import isString from 'lodash/isString';
 
 function keyMirrorDashCase(obj) {
   let result = {};
