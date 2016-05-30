@@ -28,7 +28,7 @@ describe('DOMStylesheet', function() {
       color: 'red',
     }, 'style');
     assertCSS(style.css,
-      '.Style_styleUNIQ { box-sizing:border-box;width:10px;color:red; }'
+      '.Style_styleUNIQ { box-sizing:border-box;width:10px;color:red;-moz-box-sizing:border-box; }'
     );
     assertClassName(style.asClassName(),
       'Style_styleUNIQ'
@@ -51,7 +51,7 @@ describe('DOMStylesheet', function() {
         color: ['red', new Color()],
         width: new Width(),
       }, 'style').css,
-      '.Style_styleUNIQ { box-sizing:border-box;color:red;color:white;width:42px; }'
+      '.Style_styleUNIQ { box-sizing:border-box;color:red;color:white;width:42px;-moz-box-sizing:border-box; }'
     );
   });
 
@@ -61,14 +61,14 @@ describe('DOMStylesheet', function() {
         color: ['red', 'white'],
         width: [1, 10],
       }, 'style').css,
-      '.Style_styleUNIQ { box-sizing:border-box;color:red;color:white;width:1px;width:10px; }'
+      '.Style_styleUNIQ { box-sizing:border-box;color:red;color:white;width:1px;width:10px;-moz-box-sizing:border-box; }'
     );
     assertCSS(
       DOMStylesheet.create({
         color: [],
         width: [1, 10],
       }, 'style').css,
-      '.Style_styleUNIQ { box-sizing:border-box;color:;width:1px;width:10px; }'
+      '.Style_styleUNIQ { box-sizing:border-box;color:;width:1px;width:10px;-moz-box-sizing:border-box; }'
     );
   });
 
@@ -79,7 +79,7 @@ describe('DOMStylesheet', function() {
       }
     }, 'style');
     assertCSS(style.css,
-      '.Style_styleUNIQ { box-sizing:border-box; }',
+      '.Style_styleUNIQ { box-sizing:border-box;-moz-box-sizing:border-box; }',
       '.Style_styleUNIQ--focus, .Style_styleUNIQ:focus { color:red; }'
     );
     assertClassName(style.asClassName(),
@@ -101,7 +101,7 @@ describe('DOMStylesheet', function() {
       }
     }, 'style');
     assertCSS(style.css,
-      '.Style_styleUNIQ { box-sizing:border-box; }',
+      '.Style_styleUNIQ { box-sizing:border-box;-moz-box-sizing:border-box; }',
       '.Style_styleUNIQ--x { color:red; }',
     );
     assertClassName(style.asClassName(),
@@ -123,7 +123,7 @@ describe('DOMStylesheet', function() {
       }
     }, 'style');
     assertCSS(style.css,
-      '.Style_styleUNIQ { box-sizing:border-box; }',
+      '.Style_styleUNIQ { box-sizing:border-box;-moz-box-sizing:border-box; }',
       '.Style_styleUNIQ--x { color:red; }',
       '.Style_styleUNIQ--x--y { color:white; }',
     );
@@ -154,7 +154,7 @@ describe('DOMStylesheet', function() {
       }
     }, 'style');
     assertCSS(style.css,
-      '.Style_styleUNIQ { box-sizing:border-box; }',
+      '.Style_styleUNIQ { box-sizing:border-box;-moz-box-sizing:border-box; }',
       '.Style_styleUNIQ--firstChild, .Style_styleUNIQ:first-child { color:red; }',
       '.Style_styleUNIQ--firstChild--hover, .Style_styleUNIQ:first-child:hover, .Style_styleUNIQ--firstChild:hover { color:white; }',
     );
@@ -185,7 +185,7 @@ describe('DOMStylesheet', function() {
       }
     }, 'style');
     assertCSS(style.css,
-      '.Style_styleUNIQ { box-sizing:border-box; }',
+      '.Style_styleUNIQ { box-sizing:border-box;-moz-box-sizing:border-box; }',
       '.Style_styleUNIQ--x { color:red; }',
       '.Style_styleUNIQ--x--hover, .Style_styleUNIQ--x:hover { color:white; }',
     );
@@ -219,7 +219,7 @@ describe('DOMStylesheet', function() {
     }, 'style');
 
     assertCSS(style.css,
-      '.Style_styleUNIQ { box-sizing:border-box;background:white;color:black; }',
+      '.Style_styleUNIQ { box-sizing:border-box;background:white;color:black;-moz-box-sizing:border-box; }',
       '.Style_styleUNIQ--x { color:red; }',
       '.Style_styleUNIQ--y { color:white; }',
     );
@@ -236,7 +236,7 @@ describe('DOMStylesheet', function() {
     }, 'style');
 
     assertCSS(overriden.css,
-      '.Style_styleUNIQ { box-sizing:border-box;background:white;color:yellow; }',
+      '.Style_styleUNIQ { box-sizing:border-box;background:white;color:yellow;-moz-box-sizing:border-box; }',
       '.Style_styleUNIQ--x { color:x;font-size:12pt; }',
       '.Style_styleUNIQ--y { color:white; }',
       '.Style_styleUNIQ--z { x:12px; }',

@@ -4,6 +4,7 @@
 
 import memoize                  from 'memoize-decorator';
 import addStyleToDOM            from 'style-loader/addStyles';
+import prefix                   from 'inline-style-prefix-all';
 import CSSPropertyOperations    from 'react/lib/CSSPropertyOperations';
 import dangerousStyleValue      from 'react/lib/dangerousStyleValue';
 import {isArray, isPlainObject,
@@ -247,6 +248,7 @@ function compileStyle(style, id, variants = []) {
  * Compile class name and rule set into CSS class.
  */
 function compileClass(selector, ruleSet) {
+  ruleSet = prefix(ruleSet);
   let css = `${selector.map(item => '.' + item).join(', ')} { ${CSSPropertyOperations.createMarkupForStyles(ruleSet)} }`;
   return css;
 }
