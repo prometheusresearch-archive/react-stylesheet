@@ -89,7 +89,7 @@ function sizeSeq(...args) {
 }
 
 export function multi(...args) {
-  return args.join(', ');
+  return args.filter(item => item !== none).join(', ');
 }
 
 export let padding = sizeSeq;
