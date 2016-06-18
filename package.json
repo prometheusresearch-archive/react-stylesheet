@@ -60,6 +60,6 @@
     "sinon": "^1.17.3"
   },
   "peerDependencies": {
-    "react": "^0.14.0"
+    "react": "^0.14.0 || ^15.0.0"
   }
 }
