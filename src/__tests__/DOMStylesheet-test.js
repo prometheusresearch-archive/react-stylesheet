@@ -55,6 +55,15 @@ describe('DOMStylesheet', function() {
     );
   });
 
+  it('autoprefixes', function() {
+    assertCSS(
+      DOMStylesheet.create({
+        display: 'flex',
+      }, 'style').css,
+      '.Style_styleUNIQ { box-sizing:border-box;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-moz-box-sizing:border-box; }'
+    );
+  });
+
   it('compiles arrays into multiple values', function() {
     assertCSS(
       DOMStylesheet.create({

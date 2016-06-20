@@ -2,10 +2,10 @@
  * @copyright 2015 Prometheus Research, LLC
  */
 
-import addStyleToDOM            from 'style-loader/addStyles';
-import prefix                   from 'inline-style-prefix-all';
-import CSSPropertyOperations    from 'react/lib/CSSPropertyOperations';
-import dangerousStyleValue      from 'react/lib/dangerousStyleValue';
+import addStyleToDOM from 'style-loader/addStyles';
+import prefix from 'inline-style-prefix-all';
+import CSSPropertyOperations from 'react/lib/CSSPropertyOperations';
+import dangerousStyleValue from 'react/lib/dangerousStyleValue';
 import uniqueID from 'lodash/uniqueId';
 import isArray from 'lodash/isArray';
 import toDashCase from 'lodash/kebabCase';
@@ -209,9 +209,19 @@ function parseSpecToStyle(spec, root = true) {
     if (isPlainObject(item)) {
       style[key] = parseSpecToStyle(item, false);
     } else {
-      styleBase[key] = compileValue(key, item);
+      styleBase[key] = item; //compileValue(key, item);
     }
   }
+
+  style[BASE] = prefix(style[BASE]);
+
+  for (let key in style[BASE]) {
+    if (!style[BASE].hasOwnProperty(key)) {
+      continue;
+    }
+    style[BASE][key] = compileValue(key, style[BASE][key]);
+  }
+
   return style;
 }
 
@@ -252,7 +262,6 @@ function compileStyle(style, id, variants = []) {
  * Compile class name and rule set into CSS class.
  */
 function compileClass(selector, ruleSet) {
-  ruleSet = prefix(ruleSet);
   let css = `${selector.map(item => '.' + item).join(', ')} { ${CSSPropertyOperations.createMarkupForStyles(ruleSet)} }`;
   return css;
 }
