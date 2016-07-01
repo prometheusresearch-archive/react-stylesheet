@@ -15,7 +15,6 @@ export default class StyleableDOMComponent extends React.Component {
     variant: PropTypes.object,
     className: PropTypes.string,
     Component: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    stylesheet: PropTypes.object,
   };
 
   static style(spec) {
@@ -31,10 +30,9 @@ export default class StyleableDOMComponent extends React.Component {
       variant,
       className: extraClassName,
       Component = this.constructor.Component,
-      stylesheet = this.constructor.stylesheet,
       ...props
     } = this.props;
-    let className = stylesheet.asClassName(variant);
+    let className = this.constructor.stylesheet.asClassName(variant);
     if (extraClassName) {
       className = className + ' ' + extraClassName;
     }
@@ -46,34 +44,11 @@ export default class StyleableDOMComponent extends React.Component {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.stylesheet !== this.props.stylesheet) {
-      this._disposeStylesheet(this.props);
-      this._useStylesheet(nextProps);
-    }
-  }
-
   componentWillMount() {
-    this._useStylesheet();
+    this.constructor.stylesheet.use();
   }
 
   componentWillUnmount() {
-    this._disposeStylesheet();
-  }
-
-  _useStylesheet(props = this.props) {
-    if (props.stylesheet) {
-      props.stylesheet.use();
-    } else {
-      this.constructor.stylesheet.use();
-    }
-  }
-
-  _disposeStylesheet(props = this.props) {
-    if (props.stylesheet) {
-      props.stylesheet.dispose();
-    } else {
-      this.constructor.stylesheet.dispose();
-    }
+    this.constructor.stylesheet.dispose();
   }
 }
