@@ -1,6 +1,6 @@
 {
   "name": "react-dom-stylesheet",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Stylesheets for React DOM elements",
   "main": "lib/index.js",
   "scripts": {
