@@ -17,18 +17,21 @@ describe('index', function() {
       assert(Styled.displayName === 'StyleableDOMComponent(div)');
     });
 
-    it('uses stylesheet as-is if it is passed instead of a spec', function() {
-      let Component = 'div';
-      let stylesheet = create({width: 10});
-      let Styled = style(Component, stylesheet);
-      assert(Styled.stylesheet === stylesheet);
-    });
-
     it('allows to override displayName', function() {
       let Component = 'div';
       let Styled = style(Component, {width: 10}, 'CustomDisplayName');
       assert(Styled.displayName === 'CustomDisplayName');
     });
+
+    it('allows to override displayName via stylesheet spec', function() {
+      let Component = 'div';
+      let Styled = style(Component, {
+        width: 10,
+        displayName: 'CustomDisplayName'
+      });
+      assert(Styled.displayName === 'CustomDisplayName');
+    });
+
 
     it('delegates to style() method if component has it', function() {
       class Component extends React.Component {

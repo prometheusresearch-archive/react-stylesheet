@@ -6,11 +6,19 @@ import {isStylesheet, create} from './DOMStylesheet';
 import StyleableDOMComponent from './StyleableDOMComponent';
 import getComponentDisplayName from './getComponentDisplayName';
 
-export function style(Component, stylesheet, displayName = null) {
+export function style(Component, stylesheetSpec, displayName = null) {
+  let {
+    displayName: displayNameFromSpec,
+    ...stylesheet
+  } = stylesheetSpec;
+  if (displayName == null) {
+    displayName = displayNameFromSpec;
+  }
   if (Component.style) {
     return Component.style(stylesheet, displayName);
+  } else {
+    return wrapWithStylesheet(Component, stylesheet, displayName);
   }
-  return wrapWithStylesheet(Component, stylesheet, displayName);
 }
 
 /**
