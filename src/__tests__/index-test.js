@@ -32,7 +32,6 @@ describe('index', function() {
       assert(Styled.displayName === 'CustomDisplayName');
     });
 
-
     it('delegates to style() method if component has it', function() {
       class Component extends React.Component {
 
