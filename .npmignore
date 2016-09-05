@@ -2,3 +2,5 @@ src/
 npm-debug.log
 coverage/
 .nyc_output/
+test_flow/
+Makefile
