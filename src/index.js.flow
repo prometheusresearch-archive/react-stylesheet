@@ -18,7 +18,7 @@ declare export function wrapWithStylesheet<T: Function>(
 export type DOMStylesheet = {
   use(): void;
   dispose(): void;
-  asClassName(variant: Object): string;
+  asClassName(variant?: Object): string;
   override(stylesheetSpec: Object | DOMStylesheet): DOMStylesheet;
 };
 
