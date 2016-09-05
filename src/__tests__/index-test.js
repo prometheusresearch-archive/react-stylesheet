@@ -14,7 +14,7 @@ describe('index', function() {
       let Styled = style(Component, {width: 10});
       assert(Styled.Component === 'div');
       assert(Styled.stylesheet.style.base.width === 10);
-      assert(Styled.displayName === 'StyleableDOMComponent(div)');
+      assert(Styled.displayName === 'Styled(div)');
     });
 
     it('allows to override displayName', function() {

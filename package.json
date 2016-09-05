@@ -58,6 +58,7 @@
   "dependencies": {
     "inline-style-prefix-all": "^2.0.2",
     "lodash": "^4.13.1",
+    "murmurhash-js": "^1.0.0",
     "style-loader": "^0.13.0"
   }
 }

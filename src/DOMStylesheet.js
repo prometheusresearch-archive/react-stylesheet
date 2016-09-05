@@ -3,10 +3,10 @@
  */
 
 import addStyleToDOM from 'style-loader/addStyles';
+import createHash from 'murmurhash-js/murmurhash3_gc';
 import prefix from 'inline-style-prefix-all';
 import CSSPropertyOperations from 'react/lib/CSSPropertyOperations';
 import dangerousStyleValue from 'react/lib/dangerousStyleValue';
-import uniqueID from 'lodash/uniqueId';
 import isArray from 'lodash/isArray';
 import toDashCase from 'lodash/kebabCase';
 import isPlainObject from 'lodash/isPlainObject';
@@ -62,8 +62,7 @@ const SUPPORTED_PSEUDO_CLASSES = {
 /**
  * Create a new stylesheet from stylesheet spec.
  */
-export function create(spec, id = '') {
-  id = uniqueID(id ? `Style_${id}` : 'Style');
+export function create(spec, id = 'style') {
   return new DOMStylesheet(parseSpecToStyle(spec), id);
 }
 
@@ -82,8 +81,10 @@ function overrideStylesheet(stylesheet, override, id) {
   override = isStylesheet(override) ?
     override.style :
     parseSpecToStyle(override);
+  if (id == null) {
+    id = stylesheet.id;
+  }
   let style = overrideStyle(stylesheet.style, override);
-  id = uniqueID(id ? `Style_${id}` : 'Style');
   return new DOMStylesheet(style, id);
 }
 
@@ -115,6 +116,8 @@ class DOMStylesheet {
   constructor(style, id) {
     this.style = style;
     this.id = sanitizeID(id);
+    this.hash = createHash(JSON.stringify(this.style), 42);
+    this.uid = `${this.id}--${this.hash}`;
 
     this._refs = 0;
     this._remove = null;
@@ -125,7 +128,8 @@ class DOMStylesheet {
 
   get _compiled() {
     if (this._compiled_memoized === null) {
-      this._compiled_memoized = compileStyle(this.style, this.id);
+      let {css, mapping} = compileStyle(this.style, this.id, this.hash);
+      this._compiled_memoized = {css: css.join('\n'), mapping};
     }
     return this._compiled_memoized;
   }
@@ -149,7 +153,7 @@ class DOMStylesheet {
       this._disposeTimer = null;
     }
     if (this._remove === null) {
-      this._remove = addStyleToDOM([[this.id, this.css.join('\n')]]);
+      this._remove = addStyleToDOM([[this.uid, this.css]]);
     }
     return this;
   }
@@ -229,7 +233,7 @@ function parseSpecToStyle(spec, root = true) {
  * Compile style into CSS string with mapping from variant names to CSS class
  * names.
  */
-function compileStyle(style, id, variants = []) {
+function compileStyle(style, id, hash, variants = []) {
   let mapping = {};
   let css = [];
   let variant = variants.length === 0 ? null : variants[variants.length - 1];
@@ -239,18 +243,19 @@ function compileStyle(style, id, variants = []) {
     }
     let value = style[key];
     if (key === BASE) {
+      let selector = compileSelector(id, hash, variants);
+      let [className] = selector;
+      css.push(compileClass(selector, value));
+
       if (variant !== null) {
-        let selector = compileSelector(id, variants);
-        let [className] = selector;
         mapping[variant] = mapping[variant] || {};
         mapping[variant][CLASSNAME] = className;
-        css.push(compileClass(compileSelector(id, variants), value));
       } else {
-        css.push(compileClass([id], value));
-        mapping[CLASSNAME] = id;
+        mapping[CLASSNAME] = className;
       }
+
     } else {
-      let subResult = compileStyle(value, id, variants.concat(key));
+      let subResult = compileStyle(value, id, hash, variants.concat(key));
       mapping[key] = subResult.mapping;
       css = css.concat(subResult.css);
     }
@@ -266,13 +271,13 @@ function compileClass(selector, ruleSet) {
   return css;
 }
 
-function compileSelector(id, path) {
+function compileSelector(id, hash, path) {
   if (path.length === 0) {
-    return [id];
+    return [`${id}--${hash}`];
   }
 
   if (!SUPPORTED_PSEUDO_CLASSES[path[path.length - 1]]) {
-    return [id + '--' + path.join('--')];
+    return [`${id}--${path.join('--')}--${hash}`];
   }
 
   let cutIndex = -1;
@@ -289,9 +294,10 @@ function compileSelector(id, path) {
 
   let selector = [];
 
-  selector.push(staticPath.concat(variantPath).join('--'));
+  selector.push(`${staticPath.concat(variantPath).join('--')}--${hash}`);
   for (let i = 0; i < variantPath.length; i++) {
-    selector.push(staticPath.join('--') + ':' + variantPath.slice(i).map(toDashCase).join(':'));
+    let variant = variantPath.slice(i).map(toDashCase).join(':');
+    selector.push(`${staticPath.join('--')}--${hash}:${variant}`);
     staticPath.push(variantPath[i]);
   }
 

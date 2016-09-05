@@ -5,6 +5,6 @@
 export default function getComponentDisplayName(Component) {
   return typeof Component === 'string' ?
     Component :
-    Component.displayName || Component.name;
+    Component.displayName || Component.name || 'Component';
 }
 
