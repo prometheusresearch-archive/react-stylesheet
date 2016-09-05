@@ -41,8 +41,8 @@
     "react": "^0.14.0 || ^15.0.0"
   },
   "devDependencies": {
-    "babel": "^6.5.2",
     "babel-cli": "^6.6.5",
+    "babel-core": "^6.6.5",
     "babel-preset-prometheusresearch": "^0.1.0",
     "eslint": "^2.4.0",
     "eslint-config-prometheusresearch": "^0.2.0",

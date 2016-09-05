@@ -3,7 +3,7 @@
 BIN           = ./node_modules/.bin
 TESTS         = $(shell find src -path '*/__tests__/*-test.js')
 SRC           = $(filter-out $(TESTS), $(shell find src -name '*.js')) $(wildcard src/*.js.flow)
-LIB           = $(SRC:src/%.js=lib/%.js) $(SRC:src/%.js.flow=lib/%.js.flow)
+LIB           = $(SRC:src/%.js=lib/%.js) $(SRC:src/%.js.flow=lib/%.js.flow) lib/CSS.js.flow
 NODE          = $(BIN)/babel-node $(BABEL_OPTIONS)
 MOCHA_OPTIONS = --require ./src/__tests__/setup.js
 MOCHA         = $(BIN)/_mocha $(MOCHA_OPTIONS)
@@ -42,7 +42,7 @@ publish: build test lint
 	@git push --tags origin HEAD:master
 
 clean:
-	@rm -f $(LIB)
+	@rm -rf lib/
 
 lib/%.js: src/%.js
 	@echo "Building $<"
@@ -50,6 +50,11 @@ lib/%.js: src/%.js
 	@$(BIN)/babel $(BABEL_OPTIONS) -o $@ $<
 
 lib/%.js.flow: src/%.js.flow
+	@echo "Building $<"
+	@mkdir -p $(@D)
+	@cp $< $@
+
+lib/CSS.js.flow: src/CSS.js
 	@echo "Building $<"
 	@mkdir -p $(@D)
 	@cp $< $@
