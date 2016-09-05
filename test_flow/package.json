@@ -1,0 +1,11 @@
+{
+  "name": "react-dom-stylesheet-test-flow",
+  "version": "1.0.0",
+  "dependencies": {
+    "react": "^15.2.1",
+    "react-dom-stylesheet": "../"
+  },
+  "devDependencies": {
+    "flow-bin": "^0.31.1"
+  }
+}

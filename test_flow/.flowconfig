@@ -1,0 +1,12 @@
+[ignore]
+<PROJECT_ROOT>/node_modules/fbjs/.*.flow
+<PROJECT_ROOT>/node_modules/fbjs/.*.js
+<PROJECT_ROOT>/node_modules/.store/fbjs@.*/.*.flow
+<PROJECT_ROOT>/node_modules/.store/fbjs@.*/.*.js
+
+[include]
+
+[libs]
+
+[options]
+suppress_comment=\\(.\\|\\n\\)*\\$ExpectError

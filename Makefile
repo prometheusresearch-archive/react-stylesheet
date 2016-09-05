@@ -2,8 +2,8 @@
 
 BIN           = ./node_modules/.bin
 TESTS         = $(shell find src -path '*/__tests__/*-test.js')
-SRC           = $(filter-out $(TESTS), $(shell find src -name '*.js'))
-LIB           = $(SRC:src/%=lib/%)
+SRC           = $(filter-out $(TESTS), $(shell find src -name '*.js')) $(wildcard src/*.js.flow)
+LIB           = $(SRC:src/%.js=lib/%.js) $(SRC:src/%.js.flow=lib/%.js.flow)
 NODE          = $(BIN)/babel-node $(BABEL_OPTIONS)
 MOCHA_OPTIONS = --require ./src/__tests__/setup.js
 MOCHA         = $(BIN)/_mocha $(MOCHA_OPTIONS)
@@ -25,6 +25,9 @@ ci:
 test-cov::
 	@NODE_ENV=test $(NYC) --check-coverage $(MOCHA) -- $(TESTS)
 
+test-flow::
+	@(cd test_flow/ && npm install && $(BIN)/flow check)
+
 report-cov::
 	@$(BIN)/nyc report --reporter html
 
@@ -41,7 +44,12 @@ publish: build test lint
 clean:
 	@rm -f $(LIB)
 
-lib/%: src/%
+lib/%.js: src/%.js
 	@echo "Building $<"
 	@mkdir -p $(@D)
 	@$(BIN)/babel $(BABEL_OPTIONS) -o $@ $<
+
+lib/%.js.flow: src/%.js.flow
+	@echo "Building $<"
+	@mkdir -p $(@D)
+	@cp $< $@

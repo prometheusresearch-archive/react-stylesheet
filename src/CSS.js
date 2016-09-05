@@ -1,60 +1,72 @@
 /**
- * @copyright 2015, Prometheus Research, LLC
+ * @copyright 2015+, Prometheus Research, LLC
+ * @flow
  */
 
-import toDashCase from 'lodash/kebabCase';
-import isString from 'lodash/isString';
+import invariant from 'invariant';
 
-function keyMirrorDashCase(obj) {
-  let result = {};
-  for (let key in obj) {
-    if (!obj.hasOwnProperty(key)) {
-      continue;
-    }
-    result[key] = toDashCase(key);
-  }
-  return result;
-}
-
-export function boxShadow(offsetX, offsetY, blurRadius, spreadRadius, color) {
+export function boxShadow(
+  offsetX: number,
+  offsetY: number,
+  blurRadius: number,
+  spreadRadius: number,
+  color: string
+): string {
   if (color === none || color === null) {
     return none;
   }
   return `${offsetX}px ${offsetY}px ${blurRadius}px ${spreadRadius}px ${color}`;
 }
 
-export function insetBoxShadow(offsetX, offsetY, blurRadius, spreadRadius, color) {
+export function insetBoxShadow(
+  offsetX: number,
+  offsetY: number,
+  blurRadius: number,
+  spreadRadius: number,
+  color: string
+): string {
   if (color === none || color === null) {
     return none;
   }
   return `inset ${boxShadow(offsetX, offsetY, blurRadius, spreadRadius, color)}`;
 }
 
-export function textShadow(offsetX, offsetY, blurRadius, color) {
+export function textShadow(
+  offsetX: number,
+  offsetY: number,
+  blurRadius: number,
+  color: string
+): string {
   if (color === none || color === null) {
     return none;
   }
   return `${offsetX}px ${offsetY}px ${blurRadius}px ${color}`;
 }
 
-export function rgba(r, g, b, a) {
-  if (b === undefined && a === undefined) {
+export function rgba(r: number, g: number, b?: number, a?: number): string {
+  if (b == null && a == null) {
     a = g;
     g = r;
     b = r;
   }
+  if (b == null || a == null) {
+    invariant(false, 'Invalid color format: rgba(%s, %s, %s, %s)', r, g, b, a);
+  }
   return `rgba(${r}, ${g}, ${b}, ${a})`;
 }
 
-export function rgb(r, g, b) {
-  if (g === undefined && b === undefined) {
+export function rgb(r: number, g?: number, b?: number) {
+  if (g == null && b == null) {
     g = r;
     b = r;
+  }
+  if (g == null || b == null) {
+    invariant(false, 'Invalid color format: rgb(%s, %s, %s)', r, g, b);
   }
   return `rgb(${r}, ${g}, ${b})`;
 }
 
-export function border(width, style, color) {
+export function border(width: number, style: string, color: string): string {
   if (color === undefined) {
     color = style;
     style = border.solid;
@@ -67,100 +79,103 @@ export function border(width, style, color) {
 
 border.solid = 'solid';
 
-export function linearGradient(direction, ...colorStops) {
-  colorStops = colorStops
-    .map(p => isString(p) ? p : `${p.color} ${p.value}`)
+export function linearGradient(
+  direction: string,
+  ...colorStops: Array<{color: string; value: string}>
+): string {
+  let colorStopsStr = colorStops
+    .map(p => typeof p === 'string' ? p : `${p.color} ${p.value}`)
     .join(', ');
-  return `linear-gradient(${direction}, ${colorStops})`;
+  return `linear-gradient(${direction}, ${colorStopsStr})`;
 }
 
-export function transform(duration) {
+export function transform(duration: string): string {
   return `transform ${duration}s`;
 }
 
-export function translate3d(x, y, z) {
+export function translate3d(x: number, y: number, z: number): string {
   return `translate3d(${x}px, ${y}px, ${z}px)`;
 }
 
-function sizeSeq(...args) {
+function sizeSeq(...args: Array<number>): string {
   return args
-    .map(arg => isString(arg) ? arg : `${arg}px`)
+    .map(arg => typeof arg === 'string' ? arg : `${arg}px`)
     .join(' ');
 }
 
-export function multi(...args) {
+export function multi(...args: Array<string>): string {
   return args.filter(item => item !== none).join(', ');
 }
 
 export let padding = sizeSeq;
 export let margin = sizeSeq;
 
-export let position = keyMirrorDashCase({
-  absolute: true,
-  relative: true,
-  fixed: true,
-});
+export let position = {
+  absolute: 'absolute',
+  relative: 'relative',
+  fixed: 'fixed',
+};
 
-export let display = keyMirrorDashCase({
-  block: true,
-  inlineBlock: true,
-  flex: true,
-  inlineFlex: true,
-  inline: true,
-});
+export let display = {
+  block: 'block',
+  inlineBlock: 'inline-block',
+  flex: 'flex',
+  inlineFlex: 'inline-flex',
+  inline: 'inline',
+};
 
-export let cursor = keyMirrorDashCase({
-  pointer: true,
-  default: true,
-});
+export let cursor = {
+  pointer: 'pointer',
+  default: 'default',
+};
 
-export let overflow = keyMirrorDashCase({
-  auto: true,
-  hidden: true,
-  scroll: true,
-});
+export let overflow = {
+  auto: 'auto',
+  hidden: 'hidden',
+  scroll: 'scroll',
+};
 
-export let textAlign = keyMirrorDashCase({
-  center: true,
-  left: true,
-  right: true,
-});
+export let textAlign = {
+  center: 'center',
+  left: 'left',
+  right: 'right',
+};
 
-export let verticalAlign = keyMirrorDashCase({
-  middle: true,
-  baseline: true,
-  sub: true,
-  super: true,
-  top: true,
-  bottom: true,
-});
+export let verticalAlign = {
+  middle: 'middle',
+  baseline: 'baseline',
+  sub: 'sub',
+  super: 'super',
+  top: 'top',
+  bottom: 'bottom',
+};
 
-export let fontWeight = keyMirrorDashCase({
-  bold: true,
-  normal: true,
-});
+export let fontWeight = {
+  bold: 'bold',
+  normal: 'normal',
+};
 
-export let touchAction = keyMirrorDashCase({
-  manipulation: true,
-});
+export let touchAction = {
+  manipulation: 'manipulation',
+};
 
 export let none = 'none';
 
 export let auto = 'auto';
 
-export let whiteSpace = keyMirrorDashCase({
-  nowrap: true
-});
+export let whiteSpace = {
+  nowrap: 'nowrap',
+};
 
-export let textDecoration = keyMirrorDashCase({
-  none: true,
-  underline: true,
-});
+export let textDecoration = {
+  none: 'none',
+  underline: 'underline',
+};
 
-export let textOverflow = keyMirrorDashCase({
-  ellipsis: true,
-});
+export let textOverflow = {
+  ellipsis: 'ellipsis',
+};
 
-export let color = keyMirrorDashCase({
-  transparent: true,
-});
+export let color = {
+  transparent: 'transparent',
+};

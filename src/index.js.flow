@@ -1,0 +1,25 @@
+/**
+ * @copyright 2016+ Prometheus Research, LLC
+ * @flow
+ */
+
+declare export function style<T: Function>(
+  Component: T,
+  stylesheetSpec: Object,
+  options?: string | {displayName?: string}
+): T;
+
+declare export function wrapWithStylesheet<T: Function>(
+  Component: T,
+  stylesheet: Object,
+  options: string | {displayName?: string}
+): T;
+
+export type DOMStylesheet = {
+  use(): void;
+  dispose(): void;
+  asClassName(variant: Object): string;
+  override(stylesheetSpec: Object | DOMStylesheet): DOMStylesheet;
+};
+
+declare export function create(stylesheetSpec: Object): DOMStylesheet;

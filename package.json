@@ -47,6 +47,8 @@
     "eslint": "^2.4.0",
     "eslint-config-prometheusresearch": "^0.2.0",
     "eslint-plugin-react": "^6.1.2",
+    "flow-bin": "^0.32.0",
+    "invariant": "^2.2.1",
     "jsdom": "^8.1.0",
     "mocha": "^2.4.5",
     "nyc": "^6.1.1",
