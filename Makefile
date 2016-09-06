@@ -38,6 +38,9 @@ version-major version-minor version-patch: lint test
 push:
 	@git push --tags origin HEAD:master
 
+publish: build
+	npm publish
+
 clean:
 	@rm -rf lib
 
