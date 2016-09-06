@@ -1,5 +1,6 @@
 /**
  * @copyright 2015, Prometheus Research, LLC
+ * @flow
  */
 'use strict';
 
