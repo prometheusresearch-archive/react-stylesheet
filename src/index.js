@@ -77,25 +77,29 @@ export function style(Component, stylesheet, options = {}) {
     'Expected a valid React component, got: %s',
     typeof Component
   );
+  let displayName = getComponentDisplayName(Component);
   if (isHostComponent(Component)) {
     invariant(
       options.styleHostComponent,
       'Found host component <%s /> but options.styleHostComponent(..) is not provided',
-      getComponentDisplayName(Component)
+      displayName
     );
-    return options.styleHostComponent(Component, stylesheet);
+    return options.styleHostComponent(
+      Component,
+      stylesheet,
+      {displayName: options.displayName || displayName}
+    );
   } else if (typeof Component.style === 'function') {
-    return Component.style(stylesheet, options);
+    return Component.style(stylesheet, options.displayName || displayName);
   } else if (isClassComponent(Component)) {
     let nextStylesheet = override(
       Component.stylesheet || Component.defaultProps && Component.defaultProps.stylesheet,
       stylesheet,
       options
     );
-    let displayName = options.displayName || getComponentDisplayName(Component);
 
     return class extends Component {
-      static displayName = displayName;
+      static displayName = options.displayName || displayName;
       static defaultProps = {
         ...Component.defaultProps,
         stylesheet: nextStylesheet,
@@ -109,10 +113,9 @@ export function style(Component, stylesheet, options = {}) {
       stylesheet,
       options
     );
-    let displayName = options.displayName || getComponentDisplayName(Component);
 
     let StyledComponent = props => Component(props);
-    StyledComponent.displayName = displayName;
+    StyledComponent.displayName = options.displayName || displayName;
     StyledComponent.defaultProps = {
       ...StyledComponent.defaultProps,
       stylesheet: nextStylesheet,
