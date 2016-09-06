@@ -35,11 +35,9 @@ report-cov-coveralls::
 version-major version-minor version-patch: lint test
 	@npm version $(@:version-%=%)
 
-push:
-	@git push --tags origin HEAD:master
-
 publish: build
-	npm publish
+	@git push --tags origin HEAD:master
+	@npm publish
 
 clean:
 	@rm -rf lib
