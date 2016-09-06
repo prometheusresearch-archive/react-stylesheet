@@ -27,7 +27,11 @@ export function create(spec, options = {}) {
       stylesheet[key] = item;
     } else {
       let {Component = 'div', ...componentStylesheet} = item;
-      Component = styleComponent(Component, componentStylesheet, options);
+      Component = styleComponent(
+        Component,
+        componentStylesheet,
+        {...options, displayName: options.displayName || key}
+      );
       stylesheet[key] = Component;
     }
   }
