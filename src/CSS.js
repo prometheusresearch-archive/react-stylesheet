@@ -176,6 +176,14 @@ export let textOverflow = {
   ellipsis: 'ellipsis',
 };
 
+export let textTransform = {
+  none: 'none',
+  capitalize: 'capitalize',
+  uppercase: 'uppercase',
+  lowercase: 'lowercase',
+  fullWidth: 'full-width',
+};
+
 export let color = {
   transparent: 'transparent',
 };
