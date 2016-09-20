@@ -42,6 +42,7 @@ const SUPPORTED_PSEUDO_CLASSES = {
   empty: true,
   enabled: true,
   firstChild: true,
+  firstOfType: true,
   fullscreen: true,
   indeterminate: true,
   invalid: true,
