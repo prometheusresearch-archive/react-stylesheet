@@ -3,6 +3,7 @@
  */
 
 import type {CSSPropertySet} from './CSSType';
+import type {CompileResult, ClassNameMapping} from './compile';
 
 import injectStylesheet from 'style-loader/addStyles';
 import React from 'react';
@@ -14,9 +15,13 @@ export type CSSValue = {
   toCSS(): string
 };
 
-type ComponentSpec = {
+export type ComponentSpec = {
   displayName?: string;
   [name: string]: CSSPropertySet;
+};
+
+export type Variant = {
+  [variantName: string]: boolean;
 };
 
 export type Stylesheet = {
@@ -42,15 +47,15 @@ export function css(value: string): CSSValue {
 
 class StylesheetManager {
 
-  id: string;
-  css: string;
+  name: string;
+  _stylesheet: CompileResult;
   _refs: number;
   _remove: ?(() => void);
   _disposeTimer: ?number;
 
-  constructor(id: string, css: string) {
-    this.id = id;
-    this.css = css;
+  constructor(name: string, stylesheet: Stylesheet) {
+    this.name = name;
+    this._stylesheet = compile(name, stylesheet);
     this._refs = 0;
     this._remove = null;
     this._disposeTimer = null;
@@ -63,7 +68,7 @@ class StylesheetManager {
       this._disposeTimer = null;
     }
     if (this._remove === null) {
-      this._remove = injectStylesheet([[this.id, this.css]]);
+      this._remove = injectStylesheet([[this._stylesheet.id, this._stylesheet.css]]);
     }
     return this;
   }
@@ -76,6 +81,10 @@ class StylesheetManager {
     return this;
   }
 
+  toClassName(variant?: Variant = {}): string {
+    return classNameFor(this._stylesheet.mapping, variant);
+  }
+
   _disposePerform() {
     if (this._remove && this._refs < 1) {
       this._remove();
@@ -84,10 +93,20 @@ class StylesheetManager {
   }
 }
 
-export type ClassNameMapping = {
-  className?: string;
-  then?: {[name: string]: ClassNameMapping};
-};
+function classNameFor(mapping: ClassNameMapping, variant: Variant): string {
+  let className = mapping.className != null ? mapping.className : '';
+  for (let variantName in variant) {
+    if (
+      mapping.then &&
+      variant.hasOwnProperty(variantName) &&
+      variant[variantName] &&
+      mapping.then[variantName]
+    ) {
+      className = className + ' ' + classNameFor(mapping.then[variantName], variant);
+    }
+  }
+  return className;
+}
 
 export function style<T: string | ReactClass<*>>(
   ComponentDefault: T,
@@ -104,13 +123,12 @@ export function style<T: string | ReactClass<*>>(
   }
 
 
-  let {id, css} = compile(displayName, stylesheet);
-  let manager = new StylesheetManager(id, css);
+  let manager = new StylesheetManager(displayName, stylesheet);
 
   let StylesheetComponent = class extends React.Component {
 
     props: {
-      variant?: Object;
+      variant?: Variant;
       Component?: T;
       className?: string;
     };
@@ -146,61 +164,3 @@ export function style<T: string | ReactClass<*>>(
 
   return ((StylesheetComponent: any): T);
 }
-
-let Header = style('div', {
-  displayName: 'Header',
-  base: {
-    background: 'red',
-    color: 'red',
-  }
-});
-
-function X({x}: {x: number}) {
-  return <div>{x}</div>;
-}
-
-let XS = style(X, {
-
-  base: {
-    background: 'white'
-  },
-
-  hover: {
-    background: 'red'
-  },
-
-  hover_base: {
-    color: 'red',
-  },
-
-  hover_base_focus: {
-    color: 'red',
-  }
-});
-
-// $ExpectError: ok
-<XS x="some" />;
-
-<XS x={42} />;
-
-class Y extends React.Component {
-
-  props: {
-    x: number;
-  };
-
-  render() {
-    return <div>{this.props.x}</div>;
-  }
-}
-
-let YS = style(Y, {
-  base: {
-    background: 'x'
-  }
-});
-
-// $ExpectError: ok
-<YS x="some" />;
-
-<YS x={42} />;

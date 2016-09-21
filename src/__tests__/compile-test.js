@@ -7,10 +7,63 @@ it('compiles base', function() {
     }
   };
   let {id, css, mapping} = compile('name', stylesheet);
-  expect(id).toEqual(917847219);
   expect(mapping).toEqual({
-    className: 'name-917847219'
+    className: `name-${id}`
   });
+  expect(css).toMatchSnapshot();
+});
+
+it('compiles to hyphenated name', function() {
+  let stylesheet = {
+    base: {
+      textOverflow: 'ellipsis'
+    }
+  };
+  let {css} = compile('name', stylesheet);
+  expect(css).toMatchSnapshot();
+});
+
+it('compiles to numbers to px', function() {
+  let stylesheet = {
+    base: {
+      width: 10
+    }
+  };
+  let {css} = compile('name', stylesheet);
+  expect(css).toMatchSnapshot();
+});
+
+it('keeps numbers for unitless properties', function() {
+  let stylesheet = {
+    base: {
+      order: 10
+    }
+  };
+  let {css} = compile('name', stylesheet);
+  expect(css).toMatchSnapshot();
+});
+
+it('skips empty values', function() {
+  let stylesheet = {
+    base: {
+      color: 'red',
+      background: null,
+      textAlign: false,
+      flex: '',
+      flexDirection: undefined,
+    }
+  };
+  let {css} = compile('name', stylesheet);
+  expect(css).toMatchSnapshot();
+});
+
+it('handles arrays', function() {
+  let stylesheet = {
+    base: {
+      color: ['red', 'white'],
+    }
+  };
+  let {css} = compile('name', stylesheet);
   expect(css).toMatchSnapshot();
 });
 
@@ -24,9 +77,8 @@ it('compiles base w/ variant', function() {
     }
   };
   let {id, css, mapping} = compile('name', stylesheet);
-  expect(id).toEqual(2845490580);
   expect(mapping).toEqual({
-    className: 'name-2845490580',
+    className: `name-${id}`,
     then: {
       em: {
         className: 'name-em-2845490580'
@@ -43,11 +95,11 @@ it('compiles variant', function() {
     }
   };
   let {id, css, mapping} = compile('name', stylesheet);
-  expect(id).toEqual(2439838490);
   expect(mapping).toEqual({
+    className: `name-${id}`,
     then: {
       em: {
-        className: 'name-em-2439838490'
+        className: `name-em-${id}`
       }
     }
   });
@@ -57,30 +109,30 @@ it('compiles variant', function() {
 it('compiles base w/ pseudo', function() {
   let stylesheet = {
     base: {
-      color: 'red'
+      color: 'red',
+      hover: {
+        color: 'white'
+      }
     },
-    hover: {
-      color: 'white'
-    }
   };
   let {id, css, mapping} = compile('name', stylesheet);
-  expect(id).toEqual(3118789586);
   expect(mapping).toEqual({
-    className: 'name-3118789586'
+    className: `name-${id}`
   });
   expect(css).toMatchSnapshot();
 });
 
 it('compiles pseudo', function() {
   let stylesheet = {
-    hover: {
-      color: 'white'
+    base: {
+      hover: {
+        color: 'white'
+      }
     }
   };
   let {id, css, mapping} = compile('name', stylesheet);
-  expect(id).toEqual(3193474632);
   expect(mapping).toEqual({
-    className: 'name-3193474632'
+    className: `name-${id}`
   });
   expect(css).toMatchSnapshot();
 });
@@ -88,16 +140,18 @@ it('compiles pseudo', function() {
 
 it('compiles variant pseudo', function() {
   let stylesheet = {
-    em_hover: {
-      color: 'white'
+    em: {
+      hover: {
+        color: 'white'
+      }
     }
   };
   let {id, css, mapping} = compile('name', stylesheet);
-  expect(id).toEqual(2945197973);
   expect(mapping).toEqual({
+    className: `name-${id}`,
     then: {
       em: {
-        className: 'name-em-2945197973'
+        className: `name-em-${id}`
       }
     }
   });
@@ -107,18 +161,18 @@ it('compiles variant pseudo', function() {
 it('compiles variant w/ variant pseudo', function() {
   let stylesheet = {
     em: {
-      color: 'red'
+      color: 'red',
+      hover: {
+        color: 'white'
+      }
     },
-    em_hover: {
-      color: 'white'
-    }
   };
   let {id, css, mapping} = compile('name', stylesheet);
-  expect(id).toEqual(767874055);
   expect(mapping).toEqual({
+    className: `name-${id}`,
     then: {
       em: {
-        className: 'name-em-767874055'
+        className: `name-em-${id}`
       }
     }
   });
@@ -132,13 +186,13 @@ it('compiles double variant', function() {
     }
   };
   let {id, css, mapping} = compile('name', stylesheet);
-  expect(id).toEqual(88266418);
   expect(mapping).toEqual({
+    className: `name-${id}`,
     then: {
       em: {
         then: {
           it: {
-            className: 'name-em-it-88266418'
+            className: `name-em-it-${id}`
           }
         }
       }
@@ -150,18 +204,20 @@ it('compiles double variant', function() {
 
 it('compiles double variant w/ pseudo', function() {
   let stylesheet = {
-    em_it_hover: {
-      color: 'white'
+    em_it: {
+      hover: {
+        color: 'white'
+      }
     }
   };
   let {id, css, mapping} = compile('name', stylesheet);
-  expect(id).toEqual(88266418);
   expect(mapping).toEqual({
+    className: `name-${id}`,
     then: {
       em: {
         then: {
           it: {
-            className: 'name-em-it-88266418'
+            className: `name-em-it-${id}`
           }
         }
       }
@@ -183,19 +239,79 @@ it('compiles double variant w/ separate variants', function() {
     }
   };
   let {id, css, mapping} = compile('name', stylesheet);
-  expect(id).toEqual(3975713384);
   expect(mapping).toEqual({
+    className: `name-${id}`,
     then: {
       em: {
-        className: 'name-em-3975713384',
+        className: `name-em-${id}`,
         then: {
           it: {
-            className: 'name-em-it-3975713384'
+            className: `name-em-it-${id}`
           }
         }
       },
       it: {
-        className: 'name-it-3975713384',
+        className: `name-it-${id}`,
+      }
+    }
+  });
+  expect(css).toMatchSnapshot();
+});
+
+it('compiles double pseudo', function() {
+  let stylesheet = {
+    base: {
+      hover: {
+        focus: {
+          color: 'red'
+        }
+      }
+    },
+  };
+  let {id, css, mapping} = compile('name', stylesheet);
+  expect(mapping).toEqual({
+    className: `name-${id}`,
+  });
+  expect(css).toMatchSnapshot();
+});
+
+it('compiles double pseudo (intermediate)', function() {
+  let stylesheet = {
+    base: {
+      color: 'black',
+      hover: {
+        color: 'white',
+        focus: {
+          color: 'red'
+        }
+      }
+    },
+  };
+  let {id, css, mapping} = compile('name', stylesheet);
+  expect(mapping).toEqual({
+    className: `name-${id}`,
+  });
+  expect(css).toMatchSnapshot();
+});
+
+it('compiles variant w/ double pseudo (intermediate)', function() {
+  let stylesheet = {
+    em: {
+      color: 'black',
+      hover: {
+        color: 'white',
+        focus: {
+          color: 'red'
+        }
+      }
+    },
+  };
+  let {id, css, mapping} = compile('name', stylesheet);
+  expect(mapping).toEqual({
+    className: `name-${id}`,
+    then: {
+      em: {
+        className: `name-em-${id}`,
       }
     }
   });

@@ -1,8 +1,8 @@
 [ignore]
-<PROJECT_ROOT>/node_modules/fbjs/.*.flow
-<PROJECT_ROOT>/node_modules/fbjs/.*.js
-<PROJECT_ROOT>/node_modules/.store/fbjs@.*/.*.flow
-<PROJECT_ROOT>/node_modules/.store/fbjs@.*/.*.js
+<PROJECT_ROOT>/node_modules/fbjs/Deferred.flow
+<PROJECT_ROOT>/node_modules/fbjs/shallowEqual.js.flow
+<PROJECT_ROOT>/node_modules/.store/fbjs@.*/Deferred.js.flow
+<PROJECT_ROOT>/node_modules/.store/fbjs@.*/shallowEqual.js.flow
 <PROJECT_ROOT>/test_flow/node_modules/fbjs/.*.flow
 <PROJECT_ROOT>/test_flow/node_modules/fbjs/.*.js
 <PROJECT_ROOT>/test_flow/node_modules/.store/fbjs@.*/.*.flow

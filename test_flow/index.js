@@ -15,7 +15,9 @@ function Functional({hello}: {hello: string}) {
 <Functional hello={42} />;
 
 let StyledFunctional = style(Functional, {
-  color: 'red',
+  base: {
+    color: 'red',
+  }
 });
 
 <StyledFunctional hello="here" />;
@@ -40,7 +42,9 @@ class Class extends React.Component {
 <Class hello={42} />;
 
 let StyledClass = style(Class, {
-  color: 'red',
+  base: {
+    color: 'red',
+  }
 });
 
 <StyledClass hello="here" />;
@@ -48,18 +52,9 @@ let StyledClass = style(Class, {
 // $ExpectError
 <StyledClass hello={42} />;
 
-import {create} from 'react-dom-stylesheet';
-
-let stylesheet = create({
-  color: 'red'
-});
-
-stylesheet.use();
-
-stylesheet.dispose();
-
-let className = stylesheet.asClassName({ok: true});
-
-let nextStylesheet = stylesheet.override({
-  background: 'red',
+// $ExpectError
+style(Class, {
+  base: {
+    olor: 'red',
+  }
 });

@@ -1,68 +1,77 @@
-exports[`test compiles base 1`] = `
-".name-917847219 {
-  color:red;
-}"
-`;
+exports[`test compiles base 1`] = `"name-917847219 { box-sizing:border-box;color:red;-moz-box-sizing:border-box; }"`;
 
 exports[`test compiles base w/ pseudo 1`] = `
-".name-3118789586 {
-  color:red;
-}
-.name-3118789586:hover {
-  color:white;
-}"
+"name-2233461878 { box-sizing:border-box;color:red;-moz-box-sizing:border-box; }
+name-2233461878:hover { color:white; }"
 `;
 
 exports[`test compiles base w/ variant 1`] = `
-".name-2845490580 {
-  color:red;
-}
-.name-em-2845490580 {
-  color:green;
-}"
+"name-2845490580 { box-sizing:border-box;color:red;-moz-box-sizing:border-box; }
+name-em-2845490580 { color:green; }"
+`;
+
+exports[`test compiles double pseudo (intermediate) 1`] = `
+"name-2319864360 { box-sizing:border-box;color:black;-moz-box-sizing:border-box; }
+name-2319864360:hover { color:white; }
+name-2319864360:hover:focus { color:red; }"
+`;
+
+exports[`test compiles double pseudo 1`] = `
+"name-412780474 { box-sizing:border-box;-moz-box-sizing:border-box; }
+name-412780474:hover:focus { color:red; }"
 `;
 
 exports[`test compiles double variant 1`] = `
-".name-em-it-88266418 {
-  color:white;
-}"
+"name-88266418 { box-sizing:border-box;-moz-box-sizing:border-box; }
+name-em-it-88266418 { color:white; }"
+`;
+
+exports[`test compiles double variant w/ pseudo 1`] = `
+"name-1352891476 { box-sizing:border-box;-moz-box-sizing:border-box; }
+name-em-it-1352891476:hover { color:white; }"
 `;
 
 exports[`test compiles double variant w/ separate variants 1`] = `
-".name-it-3975713384 {
-  color:green;
-}
-.name-em-3975713384 {
-  color:red;
-}
-.name-em-it-3975713384 {
-  color:white;
-}"
+"name-3975713384 { box-sizing:border-box;-moz-box-sizing:border-box; }
+name-it-3975713384 { color:green; }
+name-em-3975713384 { color:red; }
+name-em-it-3975713384 { color:white; }"
 `;
 
 exports[`test compiles pseudo 1`] = `
-".name-3193474632:hover {
-  color:white;
-}"
+"name-2156999832 { box-sizing:border-box;-moz-box-sizing:border-box; }
+name-2156999832:hover { color:white; }"
 `;
 
+exports[`test compiles to hyphenated name 1`] = `"name-2547837783 { box-sizing:border-box;text-overflow:ellipsis;-moz-box-sizing:border-box; }"`;
+
+exports[`test compiles to numbers to px 1`] = `"name-2380892734 { box-sizing:border-box;width:10px;-moz-box-sizing:border-box; }"`;
+
 exports[`test compiles variant 1`] = `
-".name-em-2439838490 {
-  color:red;
-}"
+"name-2439838490 { box-sizing:border-box;-moz-box-sizing:border-box; }
+name-em-2439838490 { color:red; }"
 `;
 
 exports[`test compiles variant pseudo 1`] = `
-".name-em-2945197973:hover {
-  color:white;
-}"
+"name-2170411812 { box-sizing:border-box;-moz-box-sizing:border-box; }
+name-em-2170411812:hover { color:white; }"
+`;
+
+exports[`test compiles variant w/ double pseudo (intermediate) 1`] = `
+"name-1587164824 { box-sizing:border-box;-moz-box-sizing:border-box; }
+name-em-1587164824 { color:black; }
+name-em-1587164824:hover { color:white; }
+name-em-1587164824:hover:focus { color:red; }"
 `;
 
 exports[`test compiles variant w/ variant pseudo 1`] = `
-".name-em-767874055 {
-  color:red;
-}
-.name-em-767874055:hover {
-  color:white;
-}"
+"name-887113354 { box-sizing:border-box;-moz-box-sizing:border-box; }
+name-em-887113354 { color:red; }
+name-em-887113354:hover { color:white; }"
 `;
+
+exports[`test handles arrays 1`] = `"name-3158404022 { box-sizing:border-box;color:red;color:white;-moz-box-sizing:border-box; }"`;
+
+exports[`test keeps numbers for unitless properties 1`] = `"name-1768927200 { box-sizing:border-box;order:10;-moz-box-sizing:border-box;-webkit-order:10;-ms-flex-order:10; }"`;
+
+exports[`test skips empty values 1`] = `"name-3779141731 { box-sizing:border-box;color:red;-moz-box-sizing:border-box; }"`;

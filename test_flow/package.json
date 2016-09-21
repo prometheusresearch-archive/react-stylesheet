@@ -6,6 +6,6 @@
     "react-dom-stylesheet": "../"
   },
   "devDependencies": {
-    "flow-bin": "^0.31.1"
+    "flow-bin": "^0.32.0"
   }
 }

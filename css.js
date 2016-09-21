@@ -3,4 +3,4 @@
  */
 'use strict';
 
-module.exports = require('./lib/CSS');
+module.exports = require('./lib/css');
