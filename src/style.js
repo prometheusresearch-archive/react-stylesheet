@@ -16,7 +16,7 @@ export type ComponentSpec = {
 };
 
 export default function style<T: string | ReactClass<*>>(
-  ComponentDefault: T,
+  Component: T,
   spec: ComponentSpec
 ): T {
 
@@ -26,24 +26,38 @@ export default function style<T: string | ReactClass<*>>(
   } = spec;
 
   if (displayName == null) {
-    displayName = getComponentDisplayName(ComponentDefault);
+    displayName = getComponentDisplayName(Component);
   }
 
   let stylesheet = new Stylesheet(displayName, stylesheetSpec);
+  return injectStylesheet(Component, stylesheet);
+}
 
+export function injectStylesheet<T: string | ReactClass<*>>(
+  Component: T,
+  stylesheet: Stylesheet
+): T {
   let StylesheetComponent = class extends React.Component {
 
     props: {
-      variant?: Variant;
-      Component?: T;
+      Component: T;
+      stylesheet: Stylesheet;
+      variant: Variant;
       className?: string;
+    };
+
+    static defaultProps = {
+      stylesheet: stylesheet,
+      Component: Component,
+      variant: {},
     };
 
     render() {
       let {
         variant,
         className: extraClassName,
-        Component = ComponentDefault,
+        Component,
+        stylesheet,
         ...props
       } = this.props;
 
@@ -60,11 +74,18 @@ export default function style<T: string | ReactClass<*>>(
     }
 
     componentWillMount() {
-      stylesheet.inject();
+      this.props.stylesheet.inject();
     }
 
     componentWillUnmount() {
-      stylesheet.dispose();
+      this.props.stylesheet.dispose();
+    }
+
+    componentWillReceiveProps(nextProps: {stylesheet: Stylesheet}) {
+      if (nextProps.stylesheet !== this.props.stylesheet) {
+        this.props.stylesheet.dispose();
+        nextProps.stylesheet.inject();
+      }
     }
   };
 
