@@ -3,7 +3,8 @@
 BIN           = ./node_modules/.bin
 TESTS         = $(shell find src -path '*/__tests__/*-test.js')
 SRC           = $(filter-out $(TESTS), $(shell find src -name '*.js')) $(wildcard src/*.js.flow)
-LIB           = $(SRC:src/%.js=lib/%.js) $(SRC:src/%.js.flow=lib/%.js.flow) lib/CSS.js.flow
+FLOW_EXT      = lib/CSS.js.flow lib/CSSType.js.flow
+LIB           = $(SRC:src/%.js=lib/%.js) $(SRC:src/%.js.flow=lib/%.js.flow) $(FLOW_EXT)
 NODE          = $(BIN)/babel-node $(BABEL_OPTIONS)
 MOCHA_OPTIONS = --require ./src/__tests__/setup.js
 MOCHA         = $(BIN)/_mocha $(MOCHA_OPTIONS)
@@ -49,12 +50,15 @@ lib/%.js: src/%.js
 	@mkdir -p $(@D)
 	@$(BIN)/babel $(BABEL_OPTIONS) -o $@ $<
 
-lib/%.js.flow: src/%.js.flow
+lib/%.js.flow: src/%.js
 	@echo "Building $<"
 	@mkdir -p $(@D)
 	@cp $< $@
 
-lib/CSS.js.flow: src/CSS.js
+src/CSSType.js: ./node_modules/css-tree/data/mozilla-cssdata.json
 	@echo "Building $<"
 	@mkdir -p $(@D)
-	@cp $< $@
+	@node ./scripts/make-CSSType.js > $@
+
+./node_modules/css-tree/data/mozilla-cssdata.json:
+	@echo ok

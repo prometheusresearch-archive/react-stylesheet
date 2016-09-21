@@ -1,0 +1,68 @@
+exports[`test compiles base 1`] = `
+".name-917847219 {
+  color:red;
+}"
+`;
+
+exports[`test compiles base w/ pseudo 1`] = `
+".name-3118789586 {
+  color:red;
+}
+.name-3118789586:hover {
+  color:white;
+}"
+`;
+
+exports[`test compiles base w/ variant 1`] = `
+".name-2845490580 {
+  color:red;
+}
+.name-em-2845490580 {
+  color:green;
+}"
+`;
+
+exports[`test compiles double variant 1`] = `
+".name-em-it-88266418 {
+  color:white;
+}"
+`;
+
+exports[`test compiles double variant w/ separate variants 1`] = `
+".name-it-3975713384 {
+  color:green;
+}
+.name-em-3975713384 {
+  color:red;
+}
+.name-em-it-3975713384 {
+  color:white;
+}"
+`;
+
+exports[`test compiles pseudo 1`] = `
+".name-3193474632:hover {
+  color:white;
+}"
+`;
+
+exports[`test compiles variant 1`] = `
+".name-em-2439838490 {
+  color:red;
+}"
+`;
+
+exports[`test compiles variant pseudo 1`] = `
+".name-em-2945197973:hover {
+  color:white;
+}"
+`;
+
+exports[`test compiles variant w/ variant pseudo 1`] = `
+".name-em-767874055 {
+  color:red;
+}
+.name-em-767874055:hover {
+  color:white;
+}"
+`;
