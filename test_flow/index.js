@@ -2,7 +2,7 @@
   * @flow
   */
 
-import {style} from 'react-dom-stylesheet';
+import {style} from 'react-stylesheet';
 import React from 'react';
 
 function Functional({hello}: {hello: string}) {

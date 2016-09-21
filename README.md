@@ -1,11 +1,11 @@
-# React DOM Stylesheet
+# React Stylesheet
 
 A simple yet powerful way to define styled React DOM components.
 
 ## Installation
 
 ```
-% npm install react-dom-stylesheet
+% npm install react-stylesheet
 ```
 
 ## Usage
@@ -13,7 +13,7 @@ A simple yet powerful way to define styled React DOM components.
 Basic usage:
 
 ```
-import {style} from 'react-dom-stylesheet'
+import {style} from 'react-stylesheet'
 
 let Label = style('span', {
   base: {
@@ -93,7 +93,7 @@ style('span', {
 There's helpers for producing CSS values:
 
 ```
-import * as css from 'react-dom-stylesheet/css'
+import * as css from 'react-stylesheet/css'
 
 let Label = style('span', {
   base: {

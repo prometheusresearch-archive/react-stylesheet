@@ -1,9 +1,9 @@
 {
-  "name": "react-dom-stylesheet-test-flow",
+  "name": "react-stylesheet-test-flow",
   "version": "1.0.0",
   "dependencies": {
     "react": "^15.2.1",
-    "react-dom-stylesheet": "../"
+    "react-stylesheet": "../"
   },
   "devDependencies": {
     "flow-bin": "^0.32.0"
