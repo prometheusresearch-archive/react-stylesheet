@@ -16,6 +16,9 @@ build:
 lint:
 	@$(BIN)/eslint src
 
+check:
+	@$(BIN)/flow
+
 test::
 	@NODE_ENV=test $(BIN)/jest
 

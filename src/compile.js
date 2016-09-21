@@ -2,7 +2,7 @@
  * @flow
  */
 
-import type {Stylesheet} from './Stylesheet';
+import type {StylesheetSpec} from './Stylesheet';
 
 import prefix from 'inline-style-prefix-all';
 import createHash from 'murmurhash-js/murmurhash3_gc';
@@ -53,7 +53,7 @@ const PSEUDO_CLASS = {
 
 export default function compile(
   name: string,
-  stylesheet: Stylesheet
+  stylesheet: StylesheetSpec
 ): CompileResult {
 
   let id = createHash(JSON.stringify(stylesheet));
