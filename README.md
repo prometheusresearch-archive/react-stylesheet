@@ -16,8 +16,10 @@ Basic usage:
 import {style} from 'react-dom-stylesheet'
 
 let Label = style('span', {
-  fontWeight: 'bold',
-  fontSize: '12pt',
+  base: {
+    fontWeight: 'bold',
+    fontSize: '12pt',
+  }
 })
 ```
 
@@ -34,22 +36,17 @@ Pseudoclasses are supported:
 
 ```
 let Label = style('span', {
-  fontWeight: 'bold',
-  fontSize: '12pt',
-  hover: {
-    textDecoration: 'underline'
+  base: {
+    fontWeight: 'bold',
+    fontSize: '12pt',
+    hover: {
+      textDecoration: 'underline'
+    }
   }
 })
 ```
 
 Now on hover you can see the underline appears.
-
-But you can always force any pseudoclass to appear from JS by passing a
-specially constructed `variant` prop:
-
-```
-<Label variant={{hover: true}} />
-```
 
 ### Variants
 
@@ -57,11 +54,13 @@ Sometimes you want a set of style variants and toggle them via JS:
 
 ```
 let Label = style('span', {
-  fontWeight: 'bold',
-  fontSize: '12pt',
+  base: {
+    fontWeight: 'bold',
+    fontSize: '12pt',
+  },
   emphasis: {
     textDecoration: 'underline'
-  }
+  },
 })
 ```
 
@@ -72,9 +71,6 @@ constructed `variant` prop:
 <Label variant={{emphasis: true}} />
 ```
 
-This is very similar to pseudoclass example above and in fact pseudoclasses are
-also variants.
-
 ## CSS helpers
 
 There's helpers for producing CSS values:
@@ -83,21 +79,8 @@ There's helpers for producing CSS values:
 import * as css from 'react-dom-stylesheet/css'
 
 let Label = style('span', {
-  fontWeight: css.fontWeight.bold,
-  border: css.border(1, css.rgb(167)),
-})
-```
-
-## Component factories
-
-Component factories for DOM components provided for convenience:
-
-```
-import * as css from 'react-dom-stylesheet/css'
-import {span} from 'react-dom-stylesheet/component'
-
-let Label = span({
-  fontWeight: css.fontWeight.bold,
-  border: css.border(1, css.rgb(167)),
+  base: {
+    border: css.border(1, css.rgb(167)),
+  }
 })
 ```
