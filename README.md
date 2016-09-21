@@ -71,6 +71,23 @@ constructed `variant` prop:
 <Label variant={{emphasis: true}} />
 ```
 
+### Type safety
+
+React DOM Stylesheet comes with Flow typings which precisely describe available
+API.
+
+Some examples of the type errors you can get:
+
+```
+style('span', {
+  display: 'oops' // display can only be "none" | "block" | ...
+})
+
+style('span', {
+  isplay: 'block' // unknown property "isplay"
+})
+```
+
 ## CSS helpers
 
 There's helpers for producing CSS values:
