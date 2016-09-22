@@ -21,7 +21,11 @@
     ]
   },
   "eslintConfig": {
-    "extends": "prometheusresearch"
+    "extends": "prometheusresearch",
+    "globals": {
+      "ReactClass": true,
+      "$Abstract": true
+    }
   },
   "nyc": {
     "exclude": [

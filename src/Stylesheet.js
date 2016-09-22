@@ -67,12 +67,33 @@ export class Stylesheet {
     return classNameFor(this._stylesheet.mapping, variant);
   }
 
+  toJSON() {
+    class Stylesheet {
+      name: string;
+      css: string;
+      constructor(name: string, css: string) {
+        this.name = name;
+        this.css = css;
+      }
+    }
+    return new Stylesheet(this.name, prettyFormatCSS(this._stylesheet.css));
+  }
+
   _disposePerform() {
     if (this._remove && this._refs < 1) {
       this._remove();
       this._remove = null;
     }
   }
+}
+
+function prettyFormatCSS(css) {
+  css = css.slice(css.indexOf('{')+ 1);
+  css = css.slice(0, css.indexOf('}'));
+  css = css.trim();
+  css = css.replace(/;/g, ';\n    ');
+  css = '\n    ' + css;
+  return css;
 }
 
 export function classNameFor(mapping: ClassNameMapping, variant: Variant): string {
