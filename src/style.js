@@ -4,11 +4,11 @@
  */
 
 import type {CSSPropertySet} from './CSSType';
-import type {Stylesheet, Variant} from './Stylesheet';
+import type {Variant} from './Stylesheet';
 
 import React from 'react';
 
-import stylesheet from './Stylesheet';
+import createStylesheet, {Stylesheet, override} from './Stylesheet';
 import getComponentDisplayName from './getComponentDisplayName';
 
 export type ComponentSpec = {
@@ -30,10 +30,17 @@ export default function style<T: string | ReactClass<*>>(
     displayName = getComponentDisplayName(Component);
   }
 
-  return injectStylesheet(
-    Component,
-    stylesheet(displayName, stylesheetSpec)
-  );
+  let stylesheet;
+  if (
+    Component.defaultProps &&
+    Component.defaultProps.stylesheet instanceof Stylesheet
+  ) {
+    stylesheet = Component.defaultProps.stylesheet.override(spec);
+  } else {
+    stylesheet = createStylesheet(displayName, stylesheetSpec);
+  }
+
+  return injectStylesheet(Component, stylesheet);
 }
 
 export function injectStylesheet<T: string | ReactClass<*>>(

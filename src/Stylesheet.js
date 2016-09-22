@@ -8,7 +8,7 @@ import type {CompileResult, ClassNameMapping} from './compile';
 
 import injectStylesheet from 'style-loader/addStyles';
 
-import compile from './compile';
+import compile, {PSEUDO_CLASS} from './compile';
 
 export type Variant = {
   [variantName: string]: boolean;
@@ -21,6 +21,7 @@ export type StylesheetSpec = {
 export class Stylesheet {
 
   name: string;
+  spec: StylesheetSpec;
   _stylesheet: CompileResult;
   _refs: number;
   _remove: ?(() => void);
@@ -28,6 +29,7 @@ export class Stylesheet {
 
   constructor(name: string, spec: StylesheetSpec) {
     this.name = name;
+    this.spec = spec;
     this._stylesheet = compile(name, spec);
     this._refs = 0;
     this._remove = null;
@@ -52,6 +54,13 @@ export class Stylesheet {
       this._disposeTimer = setTimeout(this._disposePerform, 0);
     }
     return this;
+  }
+
+  override(spec: StylesheetSpec, name?: string) {
+    if (name == null) {
+      name = this.name;
+    }
+    return new Stylesheet(name, override(this.spec, spec));
   }
 
   toClassName(variant?: Variant = {}): string {
@@ -79,6 +88,39 @@ export function classNameFor(mapping: ClassNameMapping, variant: Variant): strin
     }
   }
   return className;
+}
+
+export function override(
+  spec: StylesheetSpec,
+  override: StylesheetSpec
+): StylesheetSpec {
+  let result = {...spec};
+  for (let k in override) {
+    if (override.hasOwnProperty(k)) {
+      result[k] = overrideCSSPropertySet(result[k], override[k]);
+    }
+  }
+  return result;
+}
+
+function overrideCSSPropertySet(
+  propSet: ?CSSPropertySet,
+  override: CSSPropertySet
+): CSSPropertySet {
+  if (propSet == null) {
+    return override;
+  }
+  let result: CSSPropertySet = ({...propSet}: any);
+  for (let k in override) {
+    if (override.hasOwnProperty(k)) {
+      if (PSEUDO_CLASS.hasOwnProperty(k) && PSEUDO_CLASS[k]) {
+        result[k] = overrideCSSPropertySet(result[k], override[k]);
+      } else {
+        result[k] = override[k];
+      }
+    }
+  }
+  return result;
 }
 
 export default function stylesheet(name: string, spec: StylesheetSpec): Stylesheet {

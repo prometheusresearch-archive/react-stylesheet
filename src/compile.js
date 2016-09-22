@@ -23,7 +23,7 @@ export type CompileResult = {
 
 const UNITLESS_NUMBER = CSSProperty.isUnitlessNumber;
 
-const PSEUDO_CLASS = {
+export const PSEUDO_CLASS = {
   focus: true,
   hover: true,
   active: true,
