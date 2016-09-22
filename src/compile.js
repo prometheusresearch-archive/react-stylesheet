@@ -143,7 +143,7 @@ function compileStyle(className, style) {
   }
 
   if (css.length > 0) {
-    return [`${className} { ${css.join(';')}; }`].concat(cssList).join('\n');
+    return [`.${className} { ${css.join(';')}; }`].concat(cssList).join('\n');
   } else {
     return cssList.join('\n');
   }
