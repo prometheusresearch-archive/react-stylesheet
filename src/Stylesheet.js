@@ -1,4 +1,5 @@
 /**
+ * @copyright 2015-present Prometheus Research, LLC
  * @flow
  */
 
@@ -17,7 +18,7 @@ export type StylesheetSpec = {
   [name: string]: CSSPropertySet;
 };
 
-export default class Stylesheet {
+export class Stylesheet {
 
   name: string;
   _stylesheet: CompileResult;
@@ -78,4 +79,8 @@ export function classNameFor(mapping: ClassNameMapping, variant: Variant): strin
     }
   }
   return className;
+}
+
+export default function stylesheet(name: string, spec: StylesheetSpec): Stylesheet {
+  return new Stylesheet(name, spec);
 }

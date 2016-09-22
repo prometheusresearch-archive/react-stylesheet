@@ -1,13 +1,14 @@
 /**
+ * @copyright 2015-present Prometheus Research, LLC
  * @flow
  */
 
 import type {CSSPropertySet} from './CSSType';
-import type {Variant} from './Stylesheet';
+import type {Stylesheet, Variant} from './Stylesheet';
 
 import React from 'react';
 
-import Stylesheet from './Stylesheet';
+import stylesheet from './Stylesheet';
 import getComponentDisplayName from './getComponentDisplayName';
 
 export type ComponentSpec = {
@@ -29,8 +30,10 @@ export default function style<T: string | ReactClass<*>>(
     displayName = getComponentDisplayName(Component);
   }
 
-  let stylesheet = new Stylesheet(displayName, stylesheetSpec);
-  return injectStylesheet(Component, stylesheet);
+  return injectStylesheet(
+    Component,
+    stylesheet(displayName, stylesheetSpec)
+  );
 }
 
 export function injectStylesheet<T: string | ReactClass<*>>(
