@@ -1085,6 +1085,7 @@ export type CSSPropertySet = {|
   enabled?: CSSPropertySet;
   firstChild?: CSSPropertySet;
   firstOfType?: CSSPropertySet;
+  lastOfType?: CSSPropertySet;
   fullscreen?: CSSPropertySet;
   indeterminate?: CSSPropertySet;
   invalid?: CSSPropertySet;

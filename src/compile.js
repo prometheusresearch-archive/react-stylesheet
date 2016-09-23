@@ -38,6 +38,7 @@ export const PSEUDO_CLASS = {
   indeterminate: true,
   invalid: true,
   lastChild: true,
+  lastOfType: true,
   left: true,
   link: true,
   onlyChild: true,
