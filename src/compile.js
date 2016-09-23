@@ -120,7 +120,7 @@ function compileStyle(className, style) {
     }
     if (PSEUDO_CLASS.hasOwnProperty(name) && PSEUDO_CLASS[name]) {
       // this is pseudo class, recurse
-      cssList.push(compileStyle(className + ':' + name, value));
+      cssList.push(compileStyle(className + ':' + compileName(name), value));
     } else if (!isEmpty(value)) {
       ownStyle[name] = value;
     }

@@ -122,6 +122,22 @@ it('compiles base w/ pseudo', function() {
   expect(css).toMatchSnapshot();
 });
 
+it('compiles base w/ hyphenated pseudo', function() {
+  let stylesheet = {
+    base: {
+      color: 'red',
+      firstOfType: {
+        color: 'white'
+      }
+    },
+  };
+  let {id, css, mapping} = compile('name', stylesheet);
+  expect(mapping).toEqual({
+    className: `name-${id}`
+  });
+  expect(css).toMatchSnapshot();
+});
+
 it('compiles pseudo', function() {
   let stylesheet = {
     base: {

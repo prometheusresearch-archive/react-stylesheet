@@ -1,5 +1,10 @@
 exports[`test compiles base 1`] = `".name-917847219 { box-sizing:border-box;color:red;-moz-box-sizing:border-box; }"`;
 
+exports[`test compiles base w/ hyphenated pseudo 1`] = `
+".name-1566645038 { box-sizing:border-box;color:red;-moz-box-sizing:border-box; }
+.name-1566645038:first-of-type { color:white; }"
+`;
+
 exports[`test compiles base w/ pseudo 1`] = `
 ".name-2233461878 { box-sizing:border-box;color:red;-moz-box-sizing:border-box; }
 .name-2233461878:hover { color:white; }"
