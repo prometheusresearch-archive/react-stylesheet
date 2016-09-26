@@ -1,6 +1,38 @@
 # React Stylesheet
 
-A simple yet powerful way to define styled React DOM components.
+Style your application with components.
+
+## Motivation
+
+This library implements an approach for styling React applications.
+
+To re-iterate on CSS-in-JS advantages:
+
+* Single language to define UI and to style it—JavaScript.
+
+* Existing tooling for JavaScript can be reused for stylesheets: linters, type
+  checkers, formatters, ...
+
+* A lot of features CSS is missing are present in JavaScript: modules,
+  functions, variables, ...
+
+For more info on CSS-in-JS and its advantages see [the excellent
+talk](css-in-js) by Vjeux.
+
+What makes React Stylesheet special:
+
+* React centric approach: there's no separate abstractions for styles, React
+  Stylesheet produces React components directly. You don't need to pass
+  `className` or `style` props around. The units of reusability are React
+  components.
+
+* Type safety: React Stylesheet is full typesafe. That can help you catch typos
+  and invalid style values.
+
+* React Stylesheet compiles to CSS classes under the hood: that means `hover`,
+  `focus` states are supported.
+
+[css-in-js]: http://blog.vjeux.com/2014/javascript/react-css-in-js-nationjs.html
 
 ## Installation
 
