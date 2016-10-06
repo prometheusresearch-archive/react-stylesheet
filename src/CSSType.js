@@ -1090,12 +1090,10 @@ export type CSSPropertySet = {|
   indeterminate?: CSSPropertySet;
   invalid?: CSSPropertySet;
   lastChild?: CSSPropertySet;
-  left?: CSSPropertySet;
   link?: CSSPropertySet;
   onlyChild?: CSSPropertySet;
   optional?: CSSPropertySet;
   required?: CSSPropertySet;
-  right?: CSSPropertySet;
   root?: CSSPropertySet;
   scope?: CSSPropertySet;
   target?: CSSPropertySet;
