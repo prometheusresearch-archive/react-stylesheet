@@ -818,6 +818,10 @@ export type CSSPropertySet = {|
   paddingLeft?: paddingLeft;
   paddingRight?: paddingRight;
   paddingTop?: paddingTop;
+  paddingH?: number | string;
+  paddingV?: number | string;
+  marginH?: number | string;
+  marginV?: number | string;
   pageBreakAfter?: pageBreakAfter;
   pageBreakBefore?: pageBreakBefore;
   pageBreakInside?: pageBreakInside;

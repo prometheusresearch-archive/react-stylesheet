@@ -333,3 +333,43 @@ it('compiles variant w/ double pseudo (intermediate)', function() {
   });
   expect(css).toMatchSnapshot();
 });
+
+it('compiles paddingH', function() {
+  let stylesheet = {
+    base: {
+      paddingH: 10
+    },
+  };
+  let {css} = compile('name', stylesheet);
+  expect(css).toMatchSnapshot();
+});
+
+it('compiles paddingV', function() {
+  let stylesheet = {
+    base: {
+      paddingV: 10
+    },
+  };
+  let {css} = compile('name', stylesheet);
+  expect(css).toMatchSnapshot();
+});
+
+it('compiles marginH', function() {
+  let stylesheet = {
+    base: {
+      marginH: 10
+    },
+  };
+  let {css} = compile('name', stylesheet);
+  expect(css).toMatchSnapshot();
+});
+
+it('compiles marginV', function() {
+  let stylesheet = {
+    base: {
+      marginV: 10
+    },
+  };
+  let {css} = compile('name', stylesheet);
+  expect(css).toMatchSnapshot();
+});

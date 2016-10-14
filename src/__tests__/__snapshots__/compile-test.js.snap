@@ -43,6 +43,14 @@ exports[`test compiles double variant w/ separate variants 1`] = `
 .name-em-it-3975713384 { color:white; }"
 `;
 
+exports[`test compiles marginH 1`] = `".name-1803550422 { box-sizing:border-box;margin-left:10px;margin-right:10px;-moz-box-sizing:border-box; }"`;
+
+exports[`test compiles marginV 1`] = `".name-555011719 { box-sizing:border-box;margin-top:10px;margin-bottom:10px;-moz-box-sizing:border-box; }"`;
+
+exports[`test compiles paddingH 1`] = `".name-641300805 { box-sizing:border-box;padding-left:10px;padding-right:10px;-moz-box-sizing:border-box; }"`;
+
+exports[`test compiles paddingV 1`] = `".name-3636671476 { box-sizing:border-box;padding-top:10px;padding-bottom:10px;-moz-box-sizing:border-box; }"`;
+
 exports[`test compiles pseudo 1`] = `
 ".name-2156999832 { box-sizing:border-box;-moz-box-sizing:border-box; }
 .name-2156999832:hover { color:white; }"

@@ -129,15 +129,12 @@ function compileStyle(className, style) {
 
   for (let name in ownStyle) {
     let value = ownStyle[name];
-    let cssName = compileName(name);
     if (Array.isArray(value)) {
       for (let i = 0; i < value.length; i++) {
-        let cssValue = compileValue(name, value[i]);
-        css.push(`${cssName}:${cssValue}`);
+        css.push(...compileItem(name, value[i]));
       }
     } else {
-      let cssValue = compileValue(name, value);
-      css.push(`${cssName}:${cssValue}`);
+      css.push(...compileItem(name, value));
     }
   }
 
@@ -154,6 +151,39 @@ function isEmpty(value) {
     value === '' ||
     value === false
   );
+}
+
+/**
+ * Compile item.
+ */
+function compileItem(name, value) {
+  switch (name) {
+    case 'paddingH':
+      return [
+        compileItem('paddingLeft', value),
+        compileItem('paddingRight', value)
+      ];
+    case 'paddingV':
+      return [
+        compileItem('paddingTop', value),
+        compileItem('paddingBottom', value)
+      ];
+    case 'marginH':
+      return [
+        compileItem('marginLeft', value),
+        compileItem('marginRight', value)
+      ];
+    case 'marginV':
+      return [
+        compileItem('marginTop', value),
+        compileItem('marginBottom', value)
+      ];
+    default: {
+      let cssName = compileName(name);
+      let cssValue = compileValue(name, value);
+      return [`${cssName}:${cssValue}`];
+    }
+  }
 }
 
 /**
