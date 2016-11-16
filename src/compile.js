@@ -1,4 +1,7 @@
 /**
+ * Copyright 2016-present, Prometheus Research, LLC. MIT License
+ * Copyright 2013-2016, Facebook, Inc. MIT License
+ *
  * @flow
  */
 
@@ -58,6 +61,18 @@ const UNITLESS_NUMBER = {
   strokeOpacity: true,
   strokeWidth: true
 };
+
+var prefixes = ['Webkit', 'ms', 'Moz', 'O'];
+
+function prefixKey(prefix, key) {
+  return prefix + key.charAt(0).toUpperCase() + key.substring(1);
+}
+
+Object.keys(UNITLESS_NUMBER).forEach(function (prop) {
+  prefixes.forEach(function (prefix) {
+    UNITLESS_NUMBER[prefixKey(prefix, prop)] = UNITLESS_NUMBER[prop];
+  });
+});
 
 export const PSEUDO_CLASS = {
   focus: true,

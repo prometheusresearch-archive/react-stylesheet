@@ -50,8 +50,3 @@ lib/%.js.flow: src/%.js
 	@echo "Building $@"
 	@mkdir -p $(@D)
 	@cp $< $@
-
-src/CSSType.js: ./node_modules/css-tree/data/mozilla-cssdata.json
-	@echo "Building $@"
-	@mkdir -p $(@D)
-	@node ./scripts/make-CSSType.js > $@
