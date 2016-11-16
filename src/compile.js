@@ -62,7 +62,7 @@ const UNITLESS_NUMBER = {
   strokeWidth: true
 };
 
-var prefixes = ['Webkit', 'ms', 'Moz', 'O'];
+const prefixes = ['Webkit', 'ms', 'Moz', 'O'];
 
 function prefixKey(prefix, key) {
   return prefix + key.charAt(0).toUpperCase() + key.substring(1);
