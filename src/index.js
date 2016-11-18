@@ -5,5 +5,6 @@
 
 import style from './style';
 import stylesheet from './Stylesheet';
+import * as css from './css';
 
-export {style, stylesheet};
+export {style, stylesheet, css};
