@@ -373,3 +373,83 @@ it('compiles marginV', function() {
   let {css} = compile('name', stylesheet);
   expect(css).toMatchSnapshot();
 });
+
+it('compiles padding: {top: 10, left: 20}', function() {
+  let stylesheet = {
+    base: {
+      padding: {top: 10, left: 20}
+    },
+  };
+  let {css} = compile('name', stylesheet);
+  expect(css).toMatchSnapshot();
+});
+
+it('compiles margin: {top: 10, left: 20}', function() {
+  let stylesheet = {
+    base: {
+      margin: {top: 10, left: 20}
+    },
+  };
+  let {css} = compile('name', stylesheet);
+  expect(css).toMatchSnapshot();
+});
+
+it('compiles background: {color: "#aaa"}', function() {
+  let stylesheet = {
+    base: {
+      background: {color: '#aaa'}
+    },
+  };
+  let {css} = compile('name', stylesheet);
+  expect(css).toMatchSnapshot();
+});
+
+it('compiles border: {width: 1, color: "#aaa"}', function() {
+  let stylesheet = {
+    base: {
+      border: {width: 1, color: '#aaa'}
+    },
+  };
+  let {css} = compile('name', stylesheet);
+  expect(css).toMatchSnapshot();
+});
+
+it('compiles borderLeft: {width: 1, color: "#aaa"}', function() {
+  let stylesheet = {
+    base: {
+      borderLeft: {width: 1, color: '#aaa'}
+    },
+  };
+  let {css} = compile('name', stylesheet);
+  expect(css).toMatchSnapshot();
+});
+
+it('compiles boxShadow: {x: 10, y: 10, blur: 2}', function() {
+  let stylesheet = {
+    base: {
+      boxShadow: {x: 10, y: 10, blur: 2},
+    },
+  };
+  let {css} = compile('name', stylesheet);
+  expect(css).toMatchSnapshot();
+});
+
+it('compiles boxShadow: {inset: true, x: 10, y: 10, blur: 2}', function() {
+  let stylesheet = {
+    base: {
+      boxShadow: {inset: true, x: 10, y: 10, blur: 2},
+    },
+  };
+  let {css} = compile('name', stylesheet);
+  expect(css).toMatchSnapshot();
+});
+
+it('compiles textShadow: {x: 10, y: 10}', function() {
+  let stylesheet = {
+    base: {
+      textShadow: {x: 10, y: 10},
+    },
+  };
+  let {css} = compile('name', stylesheet);
+  expect(css).toMatchSnapshot();
+});

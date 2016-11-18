@@ -1,6 +1,5 @@
 /**
  * Copyright 2016-present, Prometheus Research, LLC. MIT License
- * Copyright 2013-2016, Facebook, Inc. MIT License
  *
  * @flow
  */
@@ -11,6 +10,9 @@ import prefix from 'inline-style-prefix-all';
 import createHash from 'murmurhash-js/murmurhash3_gc';
 import hyphenateStyleName from 'fbjs/lib/hyphenateStyleName';
 import memoizeStringOnly from 'fbjs/lib/memoizeStringOnly';
+import UnitlessNumberPropSet from './UnitlessNumberPropSet';
+import PseudoClassSet from './PseudoClassSet';
+import compileProp from './compileProp';
 
 export type ClassNameMapping = {
   className: string;
@@ -21,84 +23,6 @@ export type CompileResult = {
   id: string;
   css: string;
   mapping: ClassNameMapping;
-};
-
-const UNITLESS_NUMBER = {
-  animationIterationCount: true,
-  borderImageOutset: true,
-  borderImageSlice: true,
-  borderImageWidth: true,
-  boxFlex: true,
-  boxFlexGroup: true,
-  boxOrdinalGroup: true,
-  columnCount: true,
-  flex: true,
-  flexGrow: true,
-  flexPositive: true,
-  flexShrink: true,
-  flexNegative: true,
-  flexOrder: true,
-  gridRow: true,
-  gridColumn: true,
-  fontWeight: true,
-  lineClamp: true,
-  lineHeight: true,
-  opacity: true,
-  order: true,
-  orphans: true,
-  tabSize: true,
-  widows: true,
-  zIndex: true,
-  zoom: true,
-
-  // SVG-related properties
-  fillOpacity: true,
-  floodOpacity: true,
-  stopOpacity: true,
-  strokeDasharray: true,
-  strokeDashoffset: true,
-  strokeMiterlimit: true,
-  strokeOpacity: true,
-  strokeWidth: true
-};
-
-const prefixes = ['Webkit', 'ms', 'Moz', 'O'];
-
-function prefixKey(prefix, key) {
-  return prefix + key.charAt(0).toUpperCase() + key.substring(1);
-}
-
-Object.keys(UNITLESS_NUMBER).forEach(function (prop) {
-  prefixes.forEach(function (prefix) {
-    UNITLESS_NUMBER[prefixKey(prefix, prop)] = UNITLESS_NUMBER[prop];
-  });
-});
-
-export const PSEUDO_CLASS = {
-  focus: true,
-  hover: true,
-  active: true,
-  checked: true,
-  default: true,
-  disabled: true,
-  empty: true,
-  enabled: true,
-  firstChild: true,
-  firstOfType: true,
-  fullscreen: true,
-  indeterminate: true,
-  invalid: true,
-  lastChild: true,
-  lastOfType: true,
-  link: true,
-  onlyChild: true,
-  optional: true,
-  required: true,
-  root: true,
-  scope: true,
-  target: true,
-  valid: true,
-  visited: true,
 };
 
 export default function compile(
@@ -168,7 +92,7 @@ function compileStyle(className, style) {
     if (!style.hasOwnProperty(name)) {
       continue;
     }
-    if (PSEUDO_CLASS.hasOwnProperty(name) && PSEUDO_CLASS[name]) {
+    if (PseudoClassSet.hasOwnProperty(name) && PseudoClassSet[name]) {
       // this is pseudo class, recurse
       cssList.push(compileStyle(className + ':' + compileName(name), value));
     } else if (!isEmpty(value)) {
@@ -182,10 +106,10 @@ function compileStyle(className, style) {
     let value = ownStyle[name];
     if (Array.isArray(value)) {
       for (let i = 0; i < value.length; i++) {
-        css.push(...compileItem(name, value[i]));
+        css.push(...compileProp(name, value[i], compileName, compileValue));
       }
     } else {
-      css.push(...compileItem(name, value));
+      css.push(...compileProp(name, value, compileName, compileValue));
     }
   }
 
@@ -205,44 +129,15 @@ function isEmpty(value) {
 }
 
 /**
- * Compile item.
- */
-function compileItem(name, value) {
-  switch (name) {
-    case 'paddingH':
-      return [
-        compileItem('paddingLeft', value),
-        compileItem('paddingRight', value)
-      ];
-    case 'paddingV':
-      return [
-        compileItem('paddingTop', value),
-        compileItem('paddingBottom', value)
-      ];
-    case 'marginH':
-      return [
-        compileItem('marginLeft', value),
-        compileItem('marginRight', value)
-      ];
-    case 'marginV':
-      return [
-        compileItem('marginTop', value),
-        compileItem('marginBottom', value)
-      ];
-    default: {
-      let cssName = compileName(name);
-      let cssValue = compileValue(name, value);
-      return [`${cssName}:${cssValue}`];
-    }
-  }
-}
-
-/**
  * Compile style prop name.
  *
  * Based on code in React, see react/lib/CSSPropertyOperations module.
  */
-let compileName = memoizeStringOnly(name => hyphenateStyleName(name));
+function compileName(name) {
+  return hyphenateStyleName(name);
+}
+
+compileName = memoizeStringOnly(compileName); // eslint-disable-line
 
 /**
  * Compile style prop value.
@@ -254,7 +149,7 @@ function compileValue(name: string, value: mixed): string {
   if (
     isNonNumeric ||
     value === 0 ||
-    UNITLESS_NUMBER.hasOwnProperty(name) && UNITLESS_NUMBER[name]
+    UnitlessNumberPropSet.hasOwnProperty(name) && UnitlessNumberPropSet[name]
   ) {
     return '' + ((value: any): string); // cast to string
   } else {

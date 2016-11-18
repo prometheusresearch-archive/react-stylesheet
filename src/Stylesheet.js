@@ -8,7 +8,8 @@ import type {CompileResult, ClassNameMapping} from './compiler';
 
 import injectStylesheet from 'style-loader/addStyles';
 
-import compile, {PSEUDO_CLASS} from './compiler';
+import compile from './compiler';
+import PseudoClassSet from './compiler/PseudoClassSet';
 
 export type Variant = {
   [variantName: string]: boolean;
@@ -134,7 +135,7 @@ function overrideCSSPropertySet(
   let result: CSSPropertySet = ({...propSet}: any);
   for (let k in override) {
     if (override.hasOwnProperty(k)) {
-      if (PSEUDO_CLASS.hasOwnProperty(k) && PSEUDO_CLASS[k]) {
+      if (PseudoClassSet.hasOwnProperty(k) && PseudoClassSet[k]) {
         result[k] = overrideCSSPropertySet(result[k], override[k]);
       } else {
         result[k] = override[k];
