@@ -1,4 +1,4 @@
-import compile from '../compile';
+import compile from '../index';
 
 it('compiles base', function() {
   let stylesheet = {

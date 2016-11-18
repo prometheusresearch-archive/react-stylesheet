@@ -5,7 +5,7 @@
  * @flow
  */
 
-import type {StylesheetSpec} from './Stylesheet';
+import type {StylesheetSpec} from '../Stylesheet';
 
 import prefix from 'inline-style-prefix-all';
 import createHash from 'murmurhash-js/murmurhash3_gc';

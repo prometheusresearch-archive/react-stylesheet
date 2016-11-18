@@ -4,11 +4,11 @@
  */
 
 import type {CSSPropertySet} from './CSSType';
-import type {CompileResult, ClassNameMapping} from './compile';
+import type {CompileResult, ClassNameMapping} from './compiler';
 
 import injectStylesheet from 'style-loader/addStyles';
 
-import compile, {PSEUDO_CLASS} from './compile';
+import compile, {PSEUDO_CLASS} from './compiler';
 
 export type Variant = {
   [variantName: string]: boolean;
