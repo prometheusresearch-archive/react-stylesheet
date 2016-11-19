@@ -245,6 +245,8 @@ export type listStyleImage = string | "none";
 export type listStylePosition = "inside" | "outside";
 export type listStyleType = string | "none";
 type marginSyntax = {|
+  vertical?: number | string;
+  horizontal?: number | string;
   top?: number | string;
   left?: number | string;
   right?: number | string;
@@ -308,6 +310,8 @@ export type overflowWrap = "normal" | "break-word";
 export type overflowX = "visible" | "hidden" | "scroll" | "auto";
 export type overflowY = "visible" | "hidden" | "scroll" | "auto";
 type paddingSyntax = {|
+  vertical?: number | string;
+  horizontal?: number | string;
   top?: number | string;
   left?: number | string;
   right?: number | string;
