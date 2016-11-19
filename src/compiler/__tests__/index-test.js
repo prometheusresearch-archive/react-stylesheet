@@ -334,46 +334,6 @@ it('compiles variant w/ double pseudo (intermediate)', function() {
   expect(css).toMatchSnapshot();
 });
 
-it('compiles paddingH', function() {
-  let stylesheet = {
-    base: {
-      paddingH: 10
-    },
-  };
-  let {css} = compile('name', stylesheet);
-  expect(css).toMatchSnapshot();
-});
-
-it('compiles paddingV', function() {
-  let stylesheet = {
-    base: {
-      paddingV: 10
-    },
-  };
-  let {css} = compile('name', stylesheet);
-  expect(css).toMatchSnapshot();
-});
-
-it('compiles marginH', function() {
-  let stylesheet = {
-    base: {
-      marginH: 10
-    },
-  };
-  let {css} = compile('name', stylesheet);
-  expect(css).toMatchSnapshot();
-});
-
-it('compiles marginV', function() {
-  let stylesheet = {
-    base: {
-      marginV: 10
-    },
-  };
-  let {css} = compile('name', stylesheet);
-  expect(css).toMatchSnapshot();
-});
-
 it('compiles padding: {top: 10, left: 20}', function() {
   let stylesheet = {
     base: {
@@ -384,20 +344,40 @@ it('compiles padding: {top: 10, left: 20}', function() {
   expect(css).toMatchSnapshot();
 });
 
-it('compiles margin: {top: 10, left: 20}', function() {
+it('compiles padding: {vertical: 10}', function() {
   let stylesheet = {
     base: {
-      margin: {top: 10, left: 20}
+      padding: {vertical: 10}
     },
   };
   let {css} = compile('name', stylesheet);
   expect(css).toMatchSnapshot();
 });
 
-it('compiles background: {color: "#aaa"}', function() {
+it('compiles padding: {horizontal: 10}', function() {
   let stylesheet = {
     base: {
-      background: {color: '#aaa'}
+      padding: {horizontal: 10}
+    },
+  };
+  let {css} = compile('name', stylesheet);
+  expect(css).toMatchSnapshot();
+});
+
+it('compiles padding: {vertical: 10, top: 5}', function() {
+  let stylesheet = {
+    base: {
+      padding: {vertical: 10, top: 5}
+    },
+  };
+  let {css} = compile('name', stylesheet);
+  expect(css).toMatchSnapshot();
+});
+
+it('compiles margin: {top: 10, left: 20}', function() {
+  let stylesheet = {
+    base: {
+      margin: {top: 10, left: 20}
     },
   };
   let {css} = compile('name', stylesheet);
@@ -443,6 +423,43 @@ it('compiles boxShadow: {inset: true, x: 10, y: 10, blur: 2}', function() {
   let {css} = compile('name', stylesheet);
   expect(css).toMatchSnapshot();
 });
+
+it('compiles boxShadow: [...]', function() {
+  let stylesheet = {
+    base: {
+      boxShadow: [
+        {inset: true, x: 10, y: 10, blur: 2},
+        {inset: false, x: 10, y: 10, blur: 2},
+      ]
+    },
+  };
+  let {css} = compile('name', stylesheet);
+  expect(css).toMatchSnapshot();
+});
+
+it('compiles transition: {property: "margin", duration: 10}', function() {
+  let stylesheet = {
+    base: {
+      transition: {property: 'margin', duration: 10},
+    },
+  };
+  let {css} = compile('name', stylesheet);
+  expect(css).toMatchSnapshot();
+});
+
+it('compiles transition: [...]', function() {
+  let stylesheet = {
+    base: {
+      transition: [
+        {property: 'margin', duration: 10},
+        {property: 'top', duration: 2},
+      ]
+    },
+  };
+  let {css} = compile('name', stylesheet);
+  expect(css).toMatchSnapshot();
+});
+
 
 it('compiles textShadow: {x: 10, y: 10}', function() {
   let stylesheet = {

@@ -1,5 +1,3 @@
-exports[`test compiles background: {color: "#aaa"} 1`] = `".name-1427790775 { box-sizing:border-box;background-color:#aaa;-moz-box-sizing:border-box; }"`;
-
 exports[`test compiles base 1`] = `".name-917847219 { box-sizing:border-box;color:red;-moz-box-sizing:border-box; }"`;
 
 exports[`test compiles base w/ hyphenated pseudo 1`] = `
@@ -17,9 +15,11 @@ exports[`test compiles base w/ variant 1`] = `
 .name-em-2845490580 { color:green; }"
 `;
 
-exports[`test compiles border: {width: 1, color: "#aaa"} 1`] = `".name-1877212110 { box-sizing:border-box;border-width:1px;border-color:#aaa;-moz-box-sizing:border-box; }"`;
+exports[`test compiles border: {width: 1, color: "#aaa"} 1`] = `".name-1877212110 { box-sizing:border-box;border:1px none #aaa;-moz-box-sizing:border-box; }"`;
 
-exports[`test compiles borderLeft: {width: 1, color: "#aaa"} 1`] = `".name-3941833314 { box-sizing:border-box;border-left-width:1px;border-left-color:#aaa;-moz-box-sizing:border-box; }"`;
+exports[`test compiles borderLeft: {width: 1, color: "#aaa"} 1`] = `".name-3941833314 { box-sizing:border-box;border-left:1px none #aaa;-moz-box-sizing:border-box; }"`;
+
+exports[`test compiles boxShadow: [...] 1`] = `".name-1541599391 { box-sizing:border-box;box-shadow:inset 10px 10px 2px 0px #000, 10px 10px 2px 0px #000;-moz-box-sizing:border-box; }"`;
 
 exports[`test compiles boxShadow: {inset: true, x: 10, y: 10, blur: 2} 1`] = `".name-852133784 { box-sizing:border-box;box-shadow:inset 10px 10px 2px 0px #000;-moz-box-sizing:border-box; }"`;
 
@@ -53,17 +53,15 @@ exports[`test compiles double variant w/ separate variants 1`] = `
 .name-em-it-3975713384 { color:white; }"
 `;
 
-exports[`test compiles margin: {top: 10, left: 20} 1`] = `".name-3870247771 { box-sizing:border-box;margin-top:10px;margin-left:20px;-moz-box-sizing:border-box; }"`;
+exports[`test compiles margin: {top: 10, left: 20} 1`] = `".name-3870247771 { box-sizing:border-box;margin:10px 0  0 20px;-moz-box-sizing:border-box; }"`;
 
-exports[`test compiles marginH 1`] = `".name-1803550422 { box-sizing:border-box;margin-left:10px;margin-right:10px;-moz-box-sizing:border-box; }"`;
+exports[`test compiles padding: {horizontal: 10} 1`] = `".name-4271658450 { box-sizing:border-box;padding:0 10px  0 10px;-moz-box-sizing:border-box; }"`;
 
-exports[`test compiles marginV 1`] = `".name-555011719 { box-sizing:border-box;margin-top:10px;margin-bottom:10px;-moz-box-sizing:border-box; }"`;
+exports[`test compiles padding: {top: 10, left: 20} 1`] = `".name-1841606720 { box-sizing:border-box;padding:10px 0  0 20px;-moz-box-sizing:border-box; }"`;
 
-exports[`test compiles padding: {top: 10, left: 20} 1`] = `".name-1841606720 { box-sizing:border-box;padding-top:10px;padding-left:20px;-moz-box-sizing:border-box; }"`;
+exports[`test compiles padding: {vertical: 10, top: 5} 1`] = `".name-3888212147 { box-sizing:border-box;padding:5px 0  10px 0;-moz-box-sizing:border-box; }"`;
 
-exports[`test compiles paddingH 1`] = `".name-641300805 { box-sizing:border-box;padding-left:10px;padding-right:10px;-moz-box-sizing:border-box; }"`;
-
-exports[`test compiles paddingV 1`] = `".name-3636671476 { box-sizing:border-box;padding-top:10px;padding-bottom:10px;-moz-box-sizing:border-box; }"`;
+exports[`test compiles padding: {vertical: 10} 1`] = `".name-2758546622 { box-sizing:border-box;padding:10px 0  10px 0;-moz-box-sizing:border-box; }"`;
 
 exports[`test compiles pseudo 1`] = `
 ".name-2156999832 { box-sizing:border-box;-moz-box-sizing:border-box; }
@@ -75,6 +73,10 @@ exports[`test compiles textShadow: {x: 10, y: 10} 1`] = `".name-2860912185 { box
 exports[`test compiles to hyphenated name 1`] = `".name-2547837783 { box-sizing:border-box;text-overflow:ellipsis;-moz-box-sizing:border-box; }"`;
 
 exports[`test compiles to numbers to px 1`] = `".name-2380892734 { box-sizing:border-box;width:10px;-moz-box-sizing:border-box; }"`;
+
+exports[`test compiles transition: [...] 1`] = `".name-3026480385 { box-sizing:border-box;transition:margin 10s ease 0s, top 2s ease 0s;-moz-box-sizing:border-box;-webkit-transition:margin 10s ease 0s, top 2s ease 0s; }"`;
+
+exports[`test compiles transition: {property: "margin", duration: 10} 1`] = `".name-2218216753 { box-sizing:border-box;transition:margin 10s ease 0s;-moz-box-sizing:border-box;-webkit-transition:margin 10s ease 0s; }"`;
 
 exports[`test compiles variant 1`] = `
 ".name-2439838490 { box-sizing:border-box;-moz-box-sizing:border-box; }

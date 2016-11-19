@@ -10,9 +10,8 @@ import prefix from 'inline-style-prefix-all';
 import createHash from 'murmurhash-js/murmurhash3_gc';
 import hyphenateStyleName from 'fbjs/lib/hyphenateStyleName';
 import memoizeStringOnly from 'fbjs/lib/memoizeStringOnly';
-import UnitlessNumberPropSet from './UnitlessNumberPropSet';
 import PseudoClassSet from './PseudoClassSet';
-import compileProp from './compileProp';
+import expand from './expand';
 
 export type ClassNameMapping = {
   className: string;
@@ -100,16 +99,18 @@ function compileStyle(className, style) {
     }
   }
 
+  ownStyle = expand(ownStyle);
   ownStyle = prefix(ownStyle);
 
   for (let name in ownStyle) {
     let value = ownStyle[name];
+    name = compileName(name);
     if (Array.isArray(value)) {
       for (let i = 0; i < value.length; i++) {
-        css.push(...compileProp(name, value[i], compileName, compileValue));
+        css.push(`${name}:${value[i]}`);
       }
     } else {
-      css.push(...compileProp(name, value, compileName, compileValue));
+      css.push(`${name}:${value}`);
     }
   }
 
@@ -133,26 +134,8 @@ function isEmpty(value) {
  *
  * Based on code in React, see react/lib/CSSPropertyOperations module.
  */
-function compileName(name) {
+export function compileName(name: string): string {
   return hyphenateStyleName(name);
 }
 
 compileName = memoizeStringOnly(compileName); // eslint-disable-line
-
-/**
- * Compile style prop value.
- *
- * Based on code in React, see react/lib/dangerousStyleValue module.
- */
-function compileValue(name: string, value: mixed): string {
-  let isNonNumeric = isNaN(value);
-  if (
-    isNonNumeric ||
-    value === 0 ||
-    UnitlessNumberPropSet.hasOwnProperty(name) && UnitlessNumberPropSet[name]
-  ) {
-    return '' + ((value: any): string); // cast to string
-  } else {
-    return ((value: any): string) + 'px';
-  }
-}
