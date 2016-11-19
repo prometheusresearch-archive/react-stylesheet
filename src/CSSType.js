@@ -61,13 +61,13 @@ export type appearance = "auto" | "none";
 export type azimuth = number | string | "leftwards" | "rightwards";
 export type backdropFilter = "none" | string;
 export type backfaceVisibility = "visible" | "hidden";
-type backgroundSyntax = {
+type backgroundSyntax = {|
   attachment?: attachmentT;
   color?: colorT;
   image?: bgImageT;
   position?: string;
   repeat?: repeatStyleT;
-};
+|};
 export type background = string | finalBgLayerT | backgroundSyntax;
 export type backgroundAttachment = attachmentT;
 export type backgroundBlendMode = blendModeT;
@@ -81,11 +81,11 @@ export type backgroundPositionY = string;
 export type backgroundRepeat = repeatStyleT;
 export type backgroundSize = bgSizeT;
 export type blockSize = width;
-type borderSyntax = {
+type borderSyntax = {|
   width?: brWidthT;
   style?: brStyleT;
   color?: colorT;
-};
+|};
 export type border = brWidthT | brStyleT | colorT | borderSyntax;
 export type borderBlockEnd = borderWidth | borderStyle | color;
 export type borderBlockEndColor = color;
@@ -138,14 +138,14 @@ export type boxLines = "single" | "multiple";
 export type boxOrdinalGroup = number;
 export type boxOrient = "horizontal" | "vertical" | "inline-axis" | "block-axis" | "inherit";
 export type boxPack = "start" | "center" | "end" | "justify";
-type boxShadowSyntax = {
+type boxShadowSyntax = {|
   x?: number;
   y?: number;
   blur?: number;
   spread?: number;
   color?: string;
   inset?: boolean;
-};
+|};
 export type boxShadow =
   | "none"
   | string
@@ -244,12 +244,12 @@ export type listStyle = listStyleType | listStylePosition | listStyleImage;
 export type listStyleImage = string | "none";
 export type listStylePosition = "inside" | "outside";
 export type listStyleType = string | "none";
-type marginSyntax = {
+type marginSyntax = {|
   top?: number | string;
   left?: number | string;
   right?: number | string;
   bottom?: number | string;
-};
+|};
 export type margin = number | string | marginSyntax;
 export type marginBlockEnd = marginLeft;
 export type marginBlockStart = marginLeft;
@@ -292,11 +292,11 @@ export type offsetInlineStart = string;
 export type opacity = number;
 export type order = number;
 export type orphans = number;
-type outlineSyntax = {
+type outlineSyntax = {|
   width?: brWidthT;
   style?: brStyleT;
   color?: colorT;
-};
+|};
 export type outline = string | outlineSyntax;
 export type outlineColor = colorT | "invert";
 export type outlineOffset = number;
@@ -307,12 +307,12 @@ export type overflowClipBox = "padding-box" | "content-box";
 export type overflowWrap = "normal" | "break-word";
 export type overflowX = "visible" | "hidden" | "scroll" | "auto";
 export type overflowY = "visible" | "hidden" | "scroll" | "auto";
-type paddingSyntax = {
+type paddingSyntax = {|
   top?: number | string;
   left?: number | string;
   right?: number | string;
   bottom?: number | string;
-};
+|};
 export type padding = number | string | paddingSyntax;
 export type paddingBlockEnd = paddingLeft;
 export type paddingBlockStart = paddingLeft;
@@ -363,12 +363,12 @@ export type textIndent = string | "hanging" | "each-line";
 export type textOrientation = "mixed" | "upright" | "sideways";
 export type textOverflow = string;
 export type textRendering = "auto" | "optimizeSpeed" | "optimizeLegibility" | "geometricPrecision";
-type textShadowSyntax = {
+type textShadowSyntax = {|
   x?: number;
   y?: number;
   blur?: number;
   color?: string;
-};
+|};
 export type textShadow = "none" | string | textShadowSyntax;
 export type textSizeAdjust = "none" | "auto" | string;
 export type textTransform = "none" | "capitalize" | "uppercase" | "lowercase" | "full-width";
@@ -378,12 +378,12 @@ export type transform = "none" | string;
 export type transformBox = "border-box" | "fill-box" | "view-box";
 export type transformOrigin = string | number;
 export type transformStyle = "flat" | "preserve-3d";
-type transitionSyntax = {
+type transitionSyntax = {|
   property?: 'none' | singleTransitionPropertyT;
   duration?: number;
   timingFunction?: singleTransitionTimingFunctionT;
   delay?: number;
-};
+|};
 export type transition =
   | singleTransitionT
   | transitionSyntax
