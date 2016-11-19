@@ -21,6 +21,8 @@ exports[`test compiles borderLeft: {width: 1, color: "#aaa"} 1`] = `".name-39418
 
 exports[`test compiles boxShadow: [...] 1`] = `".name-1541599391 { box-sizing:border-box;box-shadow:inset 10px 10px 2px 0px #000, 10px 10px 2px 0px #000;-moz-box-sizing:border-box; }"`;
 
+exports[`test compiles boxShadow: [string, syntax] 1`] = `".name-1307827675 { box-sizing:border-box;box-shadow:inset 10px 10px 2px 0px #000000, 10px 10px 2px 0px #000;-moz-box-sizing:border-box; }"`;
+
 exports[`test compiles boxShadow: {inset: true, x: 10, y: 10, blur: 2} 1`] = `".name-852133784 { box-sizing:border-box;box-shadow:inset 10px 10px 2px 0px #000;-moz-box-sizing:border-box; }"`;
 
 exports[`test compiles boxShadow: {x: 10, y: 10, blur: 2} 1`] = `".name-3203728316 { box-sizing:border-box;box-shadow:10px 10px 2px 0px #000;-moz-box-sizing:border-box; }"`;

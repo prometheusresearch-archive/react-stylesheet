@@ -437,6 +437,19 @@ it('compiles boxShadow: [...]', function() {
   expect(css).toMatchSnapshot();
 });
 
+it('compiles boxShadow: [string, syntax]', function() {
+  let stylesheet = {
+    base: {
+      boxShadow: [
+        'inset 10px 10px 2px 0px #000000',
+        {inset: false, x: 10, y: 10, blur: 2},
+      ]
+    },
+  };
+  let {css} = compile('name', stylesheet);
+  expect(css).toMatchSnapshot();
+});
+
 it('compiles transition: {property: "margin", duration: 10}', function() {
   let stylesheet = {
     base: {

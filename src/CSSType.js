@@ -146,7 +146,11 @@ type boxShadowSyntax = {
   color?: string;
   inset?: boolean;
 };
-export type boxShadow = "none" | string | boxShadowSyntax;
+export type boxShadow =
+  | "none"
+  | string
+  | boxShadowSyntax
+  | Array<string | boxShadowSyntax>;
 export type boxSizing = "content-box" | "border-box";
 export type boxSuppress = "show" | "discard" | "hide";
 export type breakAfter = "auto" | "avoid" | "avoid-page" | "page" | "left" | "right" | "recto" | "verso" | "avoid-column" | "column" | "avoid-region" | "region";
@@ -374,7 +378,16 @@ export type transform = "none" | string;
 export type transformBox = "border-box" | "fill-box" | "view-box";
 export type transformOrigin = string | number;
 export type transformStyle = "flat" | "preserve-3d";
-export type transition = singleTransitionT;
+type transitionSyntax = {
+  property?: 'none' | singleTransitionPropertyT;
+  duration?: number;
+  timingFunction?: singleTransitionTimingFunctionT;
+  delay?: number;
+};
+export type transition =
+  | singleTransitionT
+  | transitionSyntax
+  | Array<singleTransitionT | transitionSyntax>;
 export type transitionDelay = number;
 export type transitionDuration = number;
 export type transitionProperty = "none" | singleTransitionPropertyT;

@@ -166,7 +166,12 @@ function compileTransitionValueSyntax(value) {
 function compileValueWith(name, value, compileValue) {
   if (typeof value === 'object' && value != null) {
     let css = Array.isArray(value)
-      ? value.map(compileValue).join(', ')
+      ? value
+        .map(value =>
+          typeof value === 'string'
+            ? value
+            : compileValue(value))
+        .join(', ')
       : compileValue(value);
     return expandSingleProp(name, css);
   } else {
