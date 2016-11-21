@@ -10,9 +10,9 @@ export function boxShadow(
   offsetY: number,
   blurRadius: number,
   spreadRadius: number,
-  color: string
+  color?: ?string
 ): string {
-  if (color === none || color === null) {
+  if (color === none || color == null) {
     return none;
   }
   return `${offsetX}px ${offsetY}px ${blurRadius}px ${spreadRadius}px ${color}`;
@@ -23,9 +23,9 @@ export function insetBoxShadow(
   offsetY: number,
   blurRadius: number,
   spreadRadius: number,
-  color: string
+  color?: ?string
 ): string {
-  if (color === none || color === null) {
+  if (color === none || color == null) {
     return none;
   }
   return `inset ${boxShadow(offsetX, offsetY, blurRadius, spreadRadius, color)}`;
@@ -35,9 +35,9 @@ export function textShadow(
   offsetX: number,
   offsetY: number,
   blurRadius: number,
-  color: string
+  color?: ?string
 ): string {
-  if (color === none || color === null) {
+  if (color === none || color == null) {
     return none;
   }
   return `${offsetX}px ${offsetY}px ${blurRadius}px ${color}`;
