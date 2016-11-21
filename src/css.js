@@ -66,7 +66,7 @@ export function rgb(r: number, g?: number, b?: number) {
   return `rgb(${r}, ${g}, ${b})`;
 }
 
-export function border(width: number, style: string, color?: string): string {
+export function border(width: number, style: string, color?: ?string): string {
   if (color === undefined) {
     color = style;
     style = border.solid;
