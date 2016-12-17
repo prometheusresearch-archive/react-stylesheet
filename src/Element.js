@@ -50,30 +50,30 @@ const STYLE_STATIC_VALUE_SET = {
 const STYLE_PROP_SPEC: StylePropSpec = {};
 
 function defineDynamicStyleProp(spec, name) {
-  let nameOnHover = `${name}OnHover`;
-  let nameOnFocus = `${name}OnFocus`;
-  let nameOnActive = `${name}OnActive`;
-  let nameOnDisabled= `${name}OnDisabled`;
+  let nameOnHover     = `${name}OnHover`;
+  let nameOnFocus     = `${name}OnFocus`;
+  let nameOnActive    = `${name}OnActive`;
+  let nameOnDisabled  = `${name}OnDisabled`;
   Object.assign(spec, {
-    [name]: new PropSpec(name, 'normal', 'dynamic-inline'),
-    [nameOnHover]: new PropSpec(name, 'hover', 'dynamic'),
-    [nameOnFocus]: new PropSpec(name, 'focus', 'dynamic'),
-    [nameOnActive]: new PropSpec(name, 'active', 'dynamic'),
+    [name]:           new PropSpec(name, 'normal', 'dynamic-inline'),
+    [nameOnHover]:    new PropSpec(name, 'hover', 'dynamic'),
+    [nameOnFocus]:    new PropSpec(name, 'focus', 'dynamic'),
+    [nameOnActive]:   new PropSpec(name, 'active', 'dynamic'),
     [nameOnDisabled]: new PropSpec(name, 'disabled', 'dynamic'),
   });
 }
 
 function defineStaticStyleProp(spec, name) {
-  let nameOnHover = `${name}OnHover`;
-  let nameOnFocus = `${name}OnFocus`;
-  let nameOnActive = `${name}OnActive`;
-  let nameOnDisabled= `${name}OnDisabled`;
+  let nameOnHover     = `${name}OnHover`;
+  let nameOnFocus     = `${name}OnFocus`;
+  let nameOnActive    = `${name}OnActive`;
+  let nameOnDisabled  = `${name}OnDisabled`;
   Object.assign(spec, {
-    [name]:         new PropSpec(name, 'normal', 'static'),
-    [nameOnHover]:  new PropSpec(name, 'hover', 'static'),
-    [nameOnFocus]:  new PropSpec(name, 'focus', 'static'),
-    [nameOnActive]: new PropSpec(name, 'active', 'static'),
-    [nameOnDisabled]: new PropSpec(name, 'disabled', 'dynamic'),
+    [name]:           new PropSpec(name, 'normal', 'static'),
+    [nameOnHover]:    new PropSpec(name, 'hover', 'static'),
+    [nameOnFocus]:    new PropSpec(name, 'focus', 'static'),
+    [nameOnActive]:   new PropSpec(name, 'active', 'static'),
+    [nameOnDisabled]: new PropSpec(name, 'disabled', 'static'),
   });
 }
 
@@ -214,7 +214,7 @@ export default class Element extends React.Component<*, ElementProps, void> {
         {...props}
         style={expand(style)}
         className={className.join(' ')}
-      />
+        />
     );
   }
 }
