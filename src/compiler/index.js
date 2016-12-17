@@ -81,7 +81,7 @@ export default function compile(
   return {id, css: css.join('\n'), mapping};
 }
 
-function compileStyle(className, style) {
+export function compileStyle(className, style, important?: boolean = false) {
   let css = [];
   let cssList = [];
   let ownStyle = {};
@@ -93,7 +93,7 @@ function compileStyle(className, style) {
     }
     if (PseudoClassSet.hasOwnProperty(name) && PseudoClassSet[name]) {
       // this is pseudo class, recurse
-      cssList.push(compileStyle(className + ':' + compileName(name), value));
+      cssList.push(compileStyle(className + ':' + compileName(name), value, important));
     } else if (!isEmpty(value)) {
       ownStyle[name] = value;
     }
@@ -107,10 +107,10 @@ function compileStyle(className, style) {
     name = compileName(name);
     if (Array.isArray(value)) {
       for (let i = 0; i < value.length; i++) {
-        css.push(`${name}:${value[i]}`);
+        css.push(`${name}:${value[i]}${important ? ' !important' : ''}`);
       }
     } else {
-      css.push(`${name}:${value}`);
+      css.push(`${name}:${value}${important ? ' !important' : ''}`);
     }
   }
 
@@ -137,5 +137,7 @@ function isEmpty(value) {
 export function compileName(name: string): string {
   return hyphenateStyleName(name);
 }
+
+export {expand};
 
 compileName = memoizeStringOnly(compileName); // eslint-disable-line
