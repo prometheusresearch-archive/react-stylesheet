@@ -138,6 +138,6 @@ export function compileName(name: string): string {
   return hyphenateStyleName(name);
 }
 
-export {expand};
+export let expandStyle = expand;
 
 compileName = memoizeStringOnly(compileName); // eslint-disable-line
