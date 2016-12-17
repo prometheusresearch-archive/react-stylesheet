@@ -115,6 +115,10 @@ defineDynamicStyleProp(STYLE_PROP_SPEC, 'flexGrow');
 defineDynamicStyleProp(STYLE_PROP_SPEC, 'flexBasis');
 defineDynamicStyleProp(STYLE_PROP_SPEC, 'flexFlow');
 defineDynamicStyleProp(STYLE_PROP_SPEC, 'order');
+defineDynamicStyleProp(STYLE_PROP_SPEC, 'boxShadow');
+defineDynamicStyleProp(STYLE_PROP_SPEC, 'textShadow');
+defineDynamicStyleProp(STYLE_PROP_SPEC, 'transition');
+defineDynamicStyleProp(STYLE_PROP_SPEC, 'outline');
 
 defineStaticStyleProp(STYLE_PROP_SPEC, 'display');
 defineStaticStyleProp(STYLE_PROP_SPEC, 'position');
