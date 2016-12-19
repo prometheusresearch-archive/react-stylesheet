@@ -504,12 +504,14 @@ class StaticStylesheetManager {
   ): void {
     for (let i = 0; i < valueSet.length; i++) {
       let value = valueSet[i];
+      let className = `rs-${name}-${value}-${state}`;
+      let important = true;
       cssList.push(compileStyle(
-        `rs-${name}-${value}-${state}`,
-          state === 'normal'
-          ? {[name]: value}
-          : {[state]: {[name]: value}},
-        true
+        className,
+        state === 'normal'
+        ? {[name]: value}
+        : {[state]: {[name]: value}},
+        important
       ));
     }
   }
