@@ -3,6 +3,10 @@
   "version": "2.0.0-beta.7",
   "description": "Style React component",
   "main": "lib/index.js",
+  "files": [
+    "lib/",
+    "css.js"
+  ],
   "scripts": {
     "test": "make test",
     "storybook": "start-storybook -p 6006",
