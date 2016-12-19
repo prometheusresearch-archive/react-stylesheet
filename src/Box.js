@@ -7,7 +7,6 @@ import stylesheet from './Stylesheet';
 
 let boxStylesheet = stylesheet('Box', {
   base: {
-    boxSizing: 'border-box',
     position: 'relative',
 
     overflow: 'hidden',
@@ -35,6 +34,7 @@ class Box extends Element {
 export class VBox extends Box {
 
   static defaultProps = {
+    ...Box.defaultProps,
     flexDirection: 'column',
   };
 
@@ -43,6 +43,7 @@ export class VBox extends Box {
 export class HBox extends Box {
 
   static defaultProps = {
+    ...Box.defaultProps,
     flexDirection: 'row',
   };
 }
