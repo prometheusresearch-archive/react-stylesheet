@@ -508,7 +508,8 @@ class StaticStylesheetManager {
         `rs-${name}-${value}-${state}`,
           state === 'normal'
           ? {[name]: value}
-          : {[state]: {[name]: value}}
+          : {[state]: {[name]: value}},
+        true
       ));
     }
   }
