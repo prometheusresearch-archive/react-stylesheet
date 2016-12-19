@@ -181,3 +181,7 @@ defineStyleProp(Spec,
     'ns-resize', 'nesw-resize', 'nwse-resize', 'col-resize', 'row-resize',
     'all-scroll', 'zoom-in', 'zoom-out', 'grab', 'grabbing']
 );
+defineStyleProp(Spec,
+  'boxSizing',
+  ['content-box', 'border-box']
+);

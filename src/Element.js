@@ -85,11 +85,23 @@ export type ElementProps = {
   bottomOnActive?: number | string;
   bottomOnDisabled?: number | string;
 
+  boxSizing?: CSSType.boxSizing;
+  boxSizingOnHover?: CSSType.boxSizing;
+  boxSizingOnFocus?: CSSType.boxSizing;
+  boxSizingOnActive?: CSSType.boxSizing;
+  boxSizingOnDisabled?: CSSType.boxSizing;
+
   color?: CSSType.color;
   colorOnHover?: CSSType.color;
   colorOnFocus?: CSSType.color;
   colorOnActive?: CSSType.color;
   colorOnDisabled?: CSSType.color;
+
+  cursor?: CSSType.cursor;
+  cursorOnHover?: CSSType.cursor;
+  cursorOnFocus?: CSSType.cursor;
+  cursorOnActive?: CSSType.cursor;
+  cursorOnDisabled?: CSSType.cursor;
 
   display?: CSSType.display;
   displayOnHover?: CSSType.display;
@@ -387,6 +399,10 @@ export type ElementProps = {
 };
 
 export default class Element<P: ElementProps = ElementProps> extends React.Component<*, P, void> {
+
+  static defaultProps = {
+    boxSizing: 'border-box',
+  };
 
   static Component = 'div';
   static className: ?string = null;
