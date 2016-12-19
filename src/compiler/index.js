@@ -81,7 +81,11 @@ export default function compile(
   return {id, css: css.join('\n'), mapping};
 }
 
-export function compileStyle(className, style, important?: boolean = false) {
+export function compileStyle(
+  className: string,
+  style: Object,
+  important?: boolean = false
+): string {
   let css = [];
   let cssList = [];
   let ownStyle = {};

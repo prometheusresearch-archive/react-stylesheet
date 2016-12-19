@@ -1,4 +1,6 @@
 [ignore]
+<PROJECT_ROOT>/lib/.*\.js
+<PROJECT_ROOT>/lib/.*\.js\.flow
 <PROJECT_ROOT>/node_modules/fbjs/Deferred.flow
 <PROJECT_ROOT>/node_modules/fbjs/shallowEqual.js.flow
 <PROJECT_ROOT>/node_modules/.store/fbjs@.*/Deferred.js.flow
