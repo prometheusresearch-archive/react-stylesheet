@@ -25,11 +25,7 @@ let boxStylesheet = stylesheet('Box', {
   }
 });
 
-export class VBox extends Element {
-
-  static defaultProps = {
-    flexDirection: 'column',
-  };
+class Box extends Element {
 
   static className = boxStylesheet.toClassName();
 
@@ -38,15 +34,17 @@ export class VBox extends Element {
   }
 }
 
-export class HBox extends Element {
+export class VBox extends Box {
+
+  static defaultProps = {
+    flexDirection: 'column',
+  };
+
+}
+
+export class HBox extends Box {
 
   static defaultProps = {
     flexDirection: 'row',
   };
-
-  static className = boxStylesheet.toClassName();
-
-  componentWillMount() {
-    boxStylesheet.inject();
-  }
 }

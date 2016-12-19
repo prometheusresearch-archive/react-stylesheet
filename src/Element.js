@@ -386,15 +386,16 @@ export type ElementProps = {
   zIndexOnDisabled?: CSSType.zIndex;
 };
 
-export default class Element extends React.Component<*, ElementProps, void> {
+export default class Element<P: ElementProps = ElementProps> extends React.Component<*, P, void> {
 
   static Component = 'div';
   static className: ?string = null;
 
   render() {
+    let ownProps = this.transformProps(this.props);
     let Component = this.constructor.Component;
     let className = [];
-    let style = this.props.style || {};
+    let style = ownProps.style || {};
     let dynamicStyle = {};
     let dynamicStyleKey = [];
     let props = {};
@@ -403,11 +404,11 @@ export default class Element extends React.Component<*, ElementProps, void> {
       className.push(this.constructor.className);
     }
 
-    for (let k in this.props) {
-      if (!this.props.hasOwnProperty(k)) {
+    for (let k in ownProps) {
+      if (!ownProps.hasOwnProperty(k)) {
         continue;
       }
-      let v = this.props[k];
+      let v = ownProps[k];
 
       if (k === 'Component') {
         Component = v;
@@ -451,6 +452,10 @@ export default class Element extends React.Component<*, ElementProps, void> {
         className={className.join(' ')}
         />
     );
+  }
+
+  transformProps(props: P): P {
+    return props;
   }
 }
 
