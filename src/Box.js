@@ -25,13 +25,11 @@ let boxStylesheet = stylesheet('Box', {
   }
 });
 
+boxStylesheet.inject();
+
 class Box extends Element {
 
   static className = boxStylesheet.toClassName();
-
-  componentWillMount() {
-    boxStylesheet.inject();
-  }
 }
 
 export class VBox extends Box {
