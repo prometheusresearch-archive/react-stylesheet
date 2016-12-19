@@ -51,6 +51,9 @@ function defineStyleProp(spec, name, valueSet?: Array<string>) {
   });
 }
 
+/**
+ * Define props for which a stylesheet will be generated dynamically.
+ */
 defineStyleProp(Spec, 'margin');
 defineStyleProp(Spec, 'marginTop');
 defineStyleProp(Spec, 'marginRight');
@@ -63,6 +66,7 @@ defineStyleProp(Spec, 'paddingRight');
 defineStyleProp(Spec, 'paddingBottom');
 defineStyleProp(Spec, 'paddingLeft');
 defineStyleProp(Spec, 'border');
+defineStyleProp(Spec, 'borderRadius');
 defineStyleProp(Spec, 'borderTop');
 defineStyleProp(Spec, 'borderRight');
 defineStyleProp(Spec, 'borderBottom');
@@ -79,6 +83,7 @@ defineStyleProp(Spec, 'top');
 defineStyleProp(Spec, 'right');
 defineStyleProp(Spec, 'bottom');
 defineStyleProp(Spec, 'left');
+defineStyleProp(Spec, 'lineHeight');
 defineStyleProp(Spec, 'fontSize');
 defineStyleProp(Spec, 'fontWeight');
 defineStyleProp(Spec, 'fontFamily');
@@ -93,7 +98,12 @@ defineStyleProp(Spec, 'boxShadow');
 defineStyleProp(Spec, 'textShadow');
 defineStyleProp(Spec, 'transition');
 defineStyleProp(Spec, 'outline');
+defineStyleProp(Spec, 'zIndex');
 
+/**
+ * Now we define props which have some predefined values so we can precompile a
+ * stylesheet for them.
+ */
 defineStyleProp(Spec,
   'display',
   ['none', 'block', 'inline', 'inline-block', 'flex', 'inline-flex', 'table']
@@ -157,4 +167,8 @@ defineStyleProp(Spec,
 defineStyleProp(Spec,
   'textTransform',
   ['none', 'capitalize', 'uppercase', 'lowercase', 'full-width']
+);
+defineStyleProp(Spec,
+  'userSelect',
+  ['auto', 'text', 'none', 'contain', 'all']
 );
