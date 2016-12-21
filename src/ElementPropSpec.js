@@ -96,6 +96,7 @@ defineStyleProp(Spec, 'flexFlow');
 defineStyleProp(Spec, 'order');
 defineStyleProp(Spec, 'boxShadow');
 defineStyleProp(Spec, 'textShadow');
+defineStyleProp(Spec, 'textOverflow');
 defineStyleProp(Spec, 'transition');
 defineStyleProp(Spec, 'outline');
 defineStyleProp(Spec, 'zIndex');
