@@ -99,6 +99,7 @@ defineStyleProp(Spec, 'textShadow');
 defineStyleProp(Spec, 'textOverflow');
 defineStyleProp(Spec, 'transition');
 defineStyleProp(Spec, 'outline');
+defineStyleProp(Spec, 'verticalAlign');
 defineStyleProp(Spec, 'zIndex');
 
 /**
