@@ -6,10 +6,9 @@
 import type {CSSPropertySet} from './CSSType';
 import type {CompileResult, ClassNameMapping} from './compiler';
 
-import injectStylesheet from 'style-loader/addStyles';
-
 import compile from './compiler';
 import PseudoClassSet from './compiler/PseudoClassSet';
+import {StylesheetManager} from './StylesheetManager';
 
 export type Variant = {
   [variantName: string]: boolean;
@@ -19,7 +18,7 @@ export type StylesheetSpec = {
   [name: string]: CSSPropertySet;
 };
 
-export class Stylesheet {
+export class Stylesheet extends StylesheetManager {
 
   name: string;
   spec: StylesheetSpec;
@@ -29,6 +28,7 @@ export class Stylesheet {
   _disposeTimer: ?number;
 
   constructor(name: string, spec: StylesheetSpec) {
+    super();
     this.name = name;
     this.spec = spec;
     this._stylesheet = compile(name, spec);
@@ -44,7 +44,7 @@ export class Stylesheet {
       this._disposeTimer = null;
     }
     if (this._remove === null) {
-      this._remove = injectStylesheet([[this._stylesheet.id, this._stylesheet.css]]);
+      this._remove = this.injectStylesheet([[this._stylesheet.id, this._stylesheet.css]]);
     }
     return this;
   }

@@ -2,17 +2,13 @@
  * @flow
  */
 
-import type {StyleState} from './ElementPropSpec';
 import * as CSSType from './CSSType';
 
 import React from 'react';
-import createHash from 'murmurhash-js/murmurhash3_gc';
-import injectStylesheet from 'style-loader/addStyles';
 
-import {compileStyle, expandStyle} from './compiler';
+import {expandStyle} from './compiler';
 import {Spec} from './ElementPropSpec';
-
-type Style = Object;
+import {staticStylesheetManager, dynamicStylesheetManager} from './StylesheetManager';
 
 export type ElementProps = {
   Component?: string;
@@ -474,69 +470,3 @@ export default class Element<P: ElementProps = ElementProps> extends React.Compo
     return props;
   }
 }
-
-class DynamicStylesheetManager {
-
-  _stylesheetCache: Map<string, string> = new Map();
-
-  toClassName(key: mixed, style: Style): string {
-    key = `rs-${String(createHash(String(key)))}`;
-    let className = this._stylesheetCache.get(key);
-    if (className == null) {
-      let css = compileStyle(key, style, true);
-      className = key;
-      injectStylesheet([[key, css]]);
-      this._stylesheetCache.set(key, className);
-    }
-    return className;
-  }
-
-}
-
-class StaticStylesheetManager {
-
-  constructor() {
-    this._precompile();
-  }
-
-  toClassName(state: StyleState, name: string, value: string): string {
-    return `rs-${name}-${value}-${state}`;
-  }
-
-  _precompile(): void {
-    let cssList = [];
-    for (let k in Spec) {
-      if (!Spec.hasOwnProperty(k)) {
-        continue;
-      }
-      let spec = Spec[k];
-      if (spec.applyStrategy === 'static') {
-        this._generateRuleSet(cssList, spec.name, spec.state, spec.valueSet);
-      }
-    }
-    injectStylesheet([['static', cssList.join('\n')]]);
-  }
-
-  _generateRuleSet(
-    cssList: Array<string>,
-    name: string,
-    state: string,
-    valueSet: Array<string>
-  ): void {
-    for (let i = 0; i < valueSet.length; i++) {
-      let value = valueSet[i];
-      let className = `rs-${name}-${value}-${state}`;
-      let important = true;
-      cssList.push(compileStyle(
-        className,
-        state === 'normal'
-        ? {[name]: value}
-        : {[state]: {[name]: value}},
-        important
-      ));
-    }
-  }
-}
-
-export const dynamicStylesheetManager = new DynamicStylesheetManager();
-export const staticStylesheetManager = new StaticStylesheetManager();
