@@ -1,25 +1,23 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**
-
-- [React Stylesheet](#react-stylesheet)
-  - [Motivation](#motivation)
-  - [Installation](#installation)
-  - [Usage](#usage)
-    - [`<Element />`](#element-)
-    - [`<VBox />` and `<HBox />`](#vbox--and-hbox-)
-    - [Styled component factories](#styled-component-factories)
-      - [Pseudoclasses](#pseudoclasses)
-      - [Variants](#variants)
-      - [Type safety](#type-safety)
-    - [CSS helpers](#css-helpers)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # React Stylesheet
 
 Component based styling approach for React applications.
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
+
+- [Motivation](#motivation)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [`<Element />`](#element-)
+  - [`<VBox />` and `<HBox />`](#vbox--and-hbox-)
+  - [Styled component factories](#styled-component-factories)
+    - [Pseudoclasses](#pseudoclasses)
+    - [Variants](#variants)
+    - [Type safety](#type-safety)
+  - [CSS helpers](#css-helpers)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Motivation
 
