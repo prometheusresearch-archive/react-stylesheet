@@ -65,7 +65,7 @@ What makes React Stylesheet special:
 
 ### `<Element />`
 
-`<Element />` component is a basic building block:
+`<Element />` component is a basic building block for styling:
 
 ```
 import {Element} from 'react-stylesheet'
@@ -73,19 +73,59 @@ import {Element} from 'react-stylesheet'
 <Element
   background="red"
   color="yellow"
-  padding={10}
-  hoverBackground="black"
-  hoverColor="white">
+  padding={10}>
   I'm styled!
 </Element>
 ```
 
+#### Styling based on state (hover, focus, ...)
+
+For each prop like `color`, `background`, ... there are versions with suffixes
+`*OnHover`, `*onActive`, `*onActive`, and `*onDisabled` which activate its style
+values when the corresponding state is being active.
+
+For example there's an `<Element />` which changes its background and text color
+on hover:
+
+```
+import {Element} from 'react-stylesheet'
+
+<Element
+  background="red"
+  backgroundOnHover="yellow"
+  color="yellow"
+  colorOnHover="red"
+  padding={10}>
+  I'm styled!
+</Element>
+```
+
+#### Overriding component
+
+By default `<Element />` renders into `<div />` DOM component but you can
+override this with `Component` prop:
+
+```
+<Element
+  Component="button"
+  padding={10}>
+  click me!
+</Element>
+```
+
+It can be a composite component but the requirement is that it takes `style` and
+`className` props.
 
 ### `<VBox />` and `<HBox />`
 
 `<VBox />` and `<HBox />` are thin wrappers on top of `<Element />` which
-implement [flexbox][] layout mechanism. `<VBox />` corresponds to a flex
-container with `flex-direction: column` and `<HBox />` — `flex-direction: row`.
+implement [flexbox][] layout mechanism.
+
+`<VBox />` corresponds to a flex container with `flex-direction: column` and
+`<HBox />` — `flex-direction: row`.
+
+All properties which are supported by `<Element />` are also supported by `<VBox />`
+and `<HBox />`.
 
 ```
 import {VBox, HBox} from 'react-stylesheet'
@@ -143,9 +183,9 @@ Now `Label` is a regular React component styled with `fontWeight` and
 <Label />
 ```
 
-#### Pseudoclasses
+#### Styling based on state (hover, focus, ...)
 
-Pseudoclasses are supported:
+You can specify styling for states (hover, focus, ...):
 
 ```
 let Label = style('span', {
