@@ -25,6 +25,12 @@ test::
 ci:
 	@NODE_ENV=test $(BIN)/jest --watch
 
+storybook:
+	@$(BIN)/start-storybook -p 6006
+
+storybook-build:
+	@$(BIN)/build-storybook
+
 doctoc:
 	@$(BIN)/doctoc --title '**Table of Contents**' ./README.md
 
