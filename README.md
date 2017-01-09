@@ -1,5 +1,8 @@
 # React Stylesheet
 
+[![Build Status](https://img.shields.io/travis/prometheusresearch/react-stylesheet.svg)](https://travis-ci.org/prometheusresearch/react-stylesheet)
+[![NPM Version](https://img.shields.io/npm/v/react-stylesheet.svg)](https://npmjs.org/packages/react-stylesheet)
+
 Component based styling approach for React applications.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
