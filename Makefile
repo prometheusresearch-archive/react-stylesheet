@@ -25,6 +25,9 @@ test::
 ci:
 	@NODE_ENV=test $(BIN)/jest --watch
 
+doctoc:
+	@$(BIN)/doctoc --title '**Table of Contents**' ./README.md
+
 test-cov::
 	@NODE_ENV=test $(BIN)/jest --coverage
 

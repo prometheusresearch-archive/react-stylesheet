@@ -62,6 +62,7 @@
     "babel-preset-prometheusresearch": "^0.1.0",
     "babel-types": "^6.15.0",
     "css-tree": "^1.0.0-alpha5",
+    "doctoc": "^1.2.0",
     "eslint": "^2.4.0",
     "eslint-config-prometheusresearch": "^0.2.0",
     "eslint-plugin-react": "^6.1.2",
