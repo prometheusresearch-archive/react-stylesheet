@@ -38,7 +38,7 @@ To re-iterate on CSS-in-JS advantages:
   functions, variables, ...
 
 For more info on CSS-in-JS and its advantages see [the excellent
-talk](css-in-js) by Vjeux.
+talk][css-in-js] by Vjeux.
 
 What makes React Stylesheet special:
 
