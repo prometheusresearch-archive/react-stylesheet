@@ -394,7 +394,9 @@ export type ElementProps = {
   zIndexOnDisabled?: CSSType.zIndex;
 };
 
-export default class Element<P: ElementProps = ElementProps> extends React.Component<*, P, void> {
+export default class Element extends React.Component {
+
+  props: ElementProps;
 
   static defaultProps = {
     boxSizing: 'border-box',
@@ -466,7 +468,7 @@ export default class Element<P: ElementProps = ElementProps> extends React.Compo
     );
   }
 
-  transformProps(props: P): P {
+  transformProps(props: ElementProps): ElementProps {
     return props;
   }
 }

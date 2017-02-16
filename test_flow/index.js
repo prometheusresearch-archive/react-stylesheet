@@ -58,3 +58,17 @@ style(Class, {
     olor: 'red',
   }
 });
+
+import {Element} from 'react-stylesheet';
+
+<Element justifyContent="space-between" />;
+
+// $ExpectError
+<Element justifyContent="space-between-oops" />;
+
+import {HBox} from 'react-stylesheet';
+
+<HBox justifyContent="space-between" />;
+
+// $ExpectError
+<HBox justifyContent="space-between-oops" />;
