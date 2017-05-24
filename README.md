@@ -59,7 +59,7 @@ What makes React Stylesheet special:
 ## Installation
 
 ```
-% npm install react-stylesheet@2-beta
+% npm install react-stylesheet
 ```
 
 
