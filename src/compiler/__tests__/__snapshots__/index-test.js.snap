@@ -1,110 +1,112 @@
-exports[`test compiles base 1`] = `".name-917847219 { box-sizing:border-box;color:red;-moz-box-sizing:border-box; }"`;
+// Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test compiles base w/ hyphenated pseudo 1`] = `
+exports[`compiles base 1`] = `".name-917847219 { box-sizing:border-box;color:red;-moz-box-sizing:border-box; }"`;
+
+exports[`compiles base w/ hyphenated pseudo 1`] = `
 ".name-1566645038 { box-sizing:border-box;color:red;-moz-box-sizing:border-box; }
 .name-1566645038:first-of-type { color:white; }"
 `;
 
-exports[`test compiles base w/ pseudo 1`] = `
+exports[`compiles base w/ pseudo 1`] = `
 ".name-2233461878 { box-sizing:border-box;color:red;-moz-box-sizing:border-box; }
 .name-2233461878:hover { color:white; }"
 `;
 
-exports[`test compiles base w/ variant 1`] = `
+exports[`compiles base w/ variant 1`] = `
 ".name-2845490580 { box-sizing:border-box;color:red;-moz-box-sizing:border-box; }
 .name-em-2845490580 { color:green; }"
 `;
 
-exports[`test compiles border: {width: 1, color: "#aaa"} 1`] = `".name-1877212110 { box-sizing:border-box;border:1px none #aaa;-moz-box-sizing:border-box; }"`;
+exports[`compiles border: {width: 1, color: "#aaa"} 1`] = `".name-1877212110 { box-sizing:border-box;border:1px none #aaa;-moz-box-sizing:border-box; }"`;
 
-exports[`test compiles borderLeft: {width: 1, color: "#aaa"} 1`] = `".name-3941833314 { box-sizing:border-box;border-left:1px none #aaa;-moz-box-sizing:border-box; }"`;
+exports[`compiles borderLeft: {width: 1, color: "#aaa"} 1`] = `".name-3941833314 { box-sizing:border-box;border-left:1px none #aaa;-moz-box-sizing:border-box; }"`;
 
-exports[`test compiles boxShadow: [...] 1`] = `".name-1541599391 { box-sizing:border-box;box-shadow:inset 10px 10px 2px 0px #000, 10px 10px 2px 0px #000;-moz-box-sizing:border-box; }"`;
+exports[`compiles boxShadow: [...] 1`] = `".name-1541599391 { box-sizing:border-box;box-shadow:inset 10px 10px 2px 0px #000, 10px 10px 2px 0px #000;-moz-box-sizing:border-box; }"`;
 
-exports[`test compiles boxShadow: [string, syntax] 1`] = `".name-1307827675 { box-sizing:border-box;box-shadow:inset 10px 10px 2px 0px #000000, 10px 10px 2px 0px #000;-moz-box-sizing:border-box; }"`;
+exports[`compiles boxShadow: [string, syntax] 1`] = `".name-1307827675 { box-sizing:border-box;box-shadow:inset 10px 10px 2px 0px #000000, 10px 10px 2px 0px #000;-moz-box-sizing:border-box; }"`;
 
-exports[`test compiles boxShadow: {inset: true, x: 10, y: 10, blur: 2} 1`] = `".name-852133784 { box-sizing:border-box;box-shadow:inset 10px 10px 2px 0px #000;-moz-box-sizing:border-box; }"`;
+exports[`compiles boxShadow: {inset: true, x: 10, y: 10, blur: 2} 1`] = `".name-852133784 { box-sizing:border-box;box-shadow:inset 10px 10px 2px 0px #000;-moz-box-sizing:border-box; }"`;
 
-exports[`test compiles boxShadow: {x: 10, y: 10, blur: 2} 1`] = `".name-3203728316 { box-sizing:border-box;box-shadow:10px 10px 2px 0px #000;-moz-box-sizing:border-box; }"`;
+exports[`compiles boxShadow: {x: 10, y: 10, blur: 2} 1`] = `".name-3203728316 { box-sizing:border-box;box-shadow:10px 10px 2px 0px #000;-moz-box-sizing:border-box; }"`;
 
-exports[`test compiles double pseudo (intermediate) 1`] = `
+exports[`compiles double pseudo (intermediate) 1`] = `
 ".name-2319864360 { box-sizing:border-box;color:black;-moz-box-sizing:border-box; }
 .name-2319864360:hover { color:white; }
 .name-2319864360:hover:focus { color:red; }"
 `;
 
-exports[`test compiles double pseudo 1`] = `
+exports[`compiles double pseudo 1`] = `
 ".name-412780474 { box-sizing:border-box;-moz-box-sizing:border-box; }
 .name-412780474:hover:focus { color:red; }"
 `;
 
-exports[`test compiles double variant 1`] = `
+exports[`compiles double variant 1`] = `
 ".name-88266418 { box-sizing:border-box;-moz-box-sizing:border-box; }
 .name-em-it-88266418 { color:white; }"
 `;
 
-exports[`test compiles double variant w/ pseudo 1`] = `
+exports[`compiles double variant w/ pseudo 1`] = `
 ".name-1352891476 { box-sizing:border-box;-moz-box-sizing:border-box; }
 .name-em-it-1352891476:hover { color:white; }"
 `;
 
-exports[`test compiles double variant w/ separate variants 1`] = `
+exports[`compiles double variant w/ separate variants 1`] = `
 ".name-3975713384 { box-sizing:border-box;-moz-box-sizing:border-box; }
 .name-it-3975713384 { color:green; }
 .name-em-3975713384 { color:red; }
 .name-em-it-3975713384 { color:white; }"
 `;
 
-exports[`test compiles margin: {top: 10, left: 20} 1`] = `".name-3870247771 { box-sizing:border-box;margin:10px 0  0 20px;-moz-box-sizing:border-box; }"`;
+exports[`compiles margin: {top: 10, left: 20} 1`] = `".name-3870247771 { box-sizing:border-box;margin:10px 0  0 20px;-moz-box-sizing:border-box; }"`;
 
-exports[`test compiles padding: {horizontal: 10} 1`] = `".name-4271658450 { box-sizing:border-box;padding:0 10px  0 10px;-moz-box-sizing:border-box; }"`;
+exports[`compiles padding: {horizontal: 10} 1`] = `".name-4271658450 { box-sizing:border-box;padding:0 10px  0 10px;-moz-box-sizing:border-box; }"`;
 
-exports[`test compiles padding: {top: 10, left: 20} 1`] = `".name-1841606720 { box-sizing:border-box;padding:10px 0  0 20px;-moz-box-sizing:border-box; }"`;
+exports[`compiles padding: {top: 10, left: 20} 1`] = `".name-1841606720 { box-sizing:border-box;padding:10px 0  0 20px;-moz-box-sizing:border-box; }"`;
 
-exports[`test compiles padding: {vertical: 10, top: 5} 1`] = `".name-3888212147 { box-sizing:border-box;padding:5px 0  10px 0;-moz-box-sizing:border-box; }"`;
+exports[`compiles padding: {vertical: 10, top: 5} 1`] = `".name-3888212147 { box-sizing:border-box;padding:5px 0  10px 0;-moz-box-sizing:border-box; }"`;
 
-exports[`test compiles padding: {vertical: 10} 1`] = `".name-2758546622 { box-sizing:border-box;padding:10px 0  10px 0;-moz-box-sizing:border-box; }"`;
+exports[`compiles padding: {vertical: 10} 1`] = `".name-2758546622 { box-sizing:border-box;padding:10px 0  10px 0;-moz-box-sizing:border-box; }"`;
 
-exports[`test compiles pseudo 1`] = `
+exports[`compiles pseudo 1`] = `
 ".name-2156999832 { box-sizing:border-box;-moz-box-sizing:border-box; }
 .name-2156999832:hover { color:white; }"
 `;
 
-exports[`test compiles textShadow: {x: 10, y: 10} 1`] = `".name-2860912185 { box-sizing:border-box;text-shadow:10px 10px 0px #000;-moz-box-sizing:border-box; }"`;
+exports[`compiles textShadow: {x: 10, y: 10} 1`] = `".name-2860912185 { box-sizing:border-box;text-shadow:10px 10px 0px #000;-moz-box-sizing:border-box; }"`;
 
-exports[`test compiles to hyphenated name 1`] = `".name-2547837783 { box-sizing:border-box;text-overflow:ellipsis;-moz-box-sizing:border-box; }"`;
+exports[`compiles to hyphenated name 1`] = `".name-2547837783 { box-sizing:border-box;text-overflow:ellipsis;-moz-box-sizing:border-box; }"`;
 
-exports[`test compiles to numbers to px 1`] = `".name-2380892734 { box-sizing:border-box;width:10px;-moz-box-sizing:border-box; }"`;
+exports[`compiles to numbers to px 1`] = `".name-2380892734 { box-sizing:border-box;width:10px;-moz-box-sizing:border-box; }"`;
 
-exports[`test compiles transition: [...] 1`] = `".name-3026480385 { box-sizing:border-box;transition:margin 10s ease 0s, top 2s ease 0s;-moz-box-sizing:border-box;-webkit-transition:margin 10s ease 0s, top 2s ease 0s; }"`;
+exports[`compiles transition: [...] 1`] = `".name-3026480385 { box-sizing:border-box;transition:margin 10s ease 0s, top 2s ease 0s;-moz-box-sizing:border-box;-webkit-transition:margin 10s ease 0s, top 2s ease 0s; }"`;
 
-exports[`test compiles transition: {property: "margin", duration: 10} 1`] = `".name-2218216753 { box-sizing:border-box;transition:margin 10s ease 0s;-moz-box-sizing:border-box;-webkit-transition:margin 10s ease 0s; }"`;
+exports[`compiles transition: {property: "margin", duration: 10} 1`] = `".name-2218216753 { box-sizing:border-box;transition:margin 10s ease 0s;-moz-box-sizing:border-box;-webkit-transition:margin 10s ease 0s; }"`;
 
-exports[`test compiles variant 1`] = `
+exports[`compiles variant 1`] = `
 ".name-2439838490 { box-sizing:border-box;-moz-box-sizing:border-box; }
 .name-em-2439838490 { color:red; }"
 `;
 
-exports[`test compiles variant pseudo 1`] = `
+exports[`compiles variant pseudo 1`] = `
 ".name-2170411812 { box-sizing:border-box;-moz-box-sizing:border-box; }
 .name-em-2170411812:hover { color:white; }"
 `;
 
-exports[`test compiles variant w/ double pseudo (intermediate) 1`] = `
+exports[`compiles variant w/ double pseudo (intermediate) 1`] = `
 ".name-1587164824 { box-sizing:border-box;-moz-box-sizing:border-box; }
 .name-em-1587164824 { color:black; }
 .name-em-1587164824:hover { color:white; }
 .name-em-1587164824:hover:focus { color:red; }"
 `;
 
-exports[`test compiles variant w/ variant pseudo 1`] = `
+exports[`compiles variant w/ variant pseudo 1`] = `
 ".name-887113354 { box-sizing:border-box;-moz-box-sizing:border-box; }
 .name-em-887113354 { color:red; }
 .name-em-887113354:hover { color:white; }"
 `;
 
-exports[`test handles arrays 1`] = `".name-3158404022 { box-sizing:border-box;color:red;color:white;-moz-box-sizing:border-box; }"`;
+exports[`handles arrays 1`] = `".name-3158404022 { box-sizing:border-box;color:red;color:white;-moz-box-sizing:border-box; }"`;
 
-exports[`test keeps numbers for unitless properties 1`] = `".name-1768927200 { box-sizing:border-box;order:10;-moz-box-sizing:border-box;-webkit-order:10;-ms-flex-order:10; }"`;
+exports[`keeps numbers for unitless properties 1`] = `".name-1768927200 { box-sizing:border-box;order:10;-moz-box-sizing:border-box;-webkit-order:10;-ms-flex-order:10; }"`;
 
-exports[`test skips empty values 1`] = `".name-3779141731 { box-sizing:border-box;color:red;-moz-box-sizing:border-box; }"`;
+exports[`skips empty values 1`] = `".name-3779141731 { box-sizing:border-box;color:red;-moz-box-sizing:border-box; }"`;

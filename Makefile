@@ -53,7 +53,7 @@ clean:
 lib/%.js: src/%.js
 	@echo "Building $@"
 	@mkdir -p $(@D)
-	@$(BIN)/babel $(BABEL_OPTIONS) -o $@ $<
+	@NODE_ENV="production" $(BIN)/babel $(BABEL_OPTIONS) -o $@ $<
 
 lib/%.js.flow: src/%.js
 	@echo "Building $@"
