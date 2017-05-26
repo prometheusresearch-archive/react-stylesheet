@@ -1,3 +1,4 @@
+//@flow
 import style from '../style';
 
 test('styles host component with a stylesheet', function() {

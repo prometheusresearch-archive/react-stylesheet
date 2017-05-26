@@ -1,3 +1,5 @@
+//@flow
+
 import {classNameFor} from '../Stylesheet';
 
 describe('classNameFor()', function() {

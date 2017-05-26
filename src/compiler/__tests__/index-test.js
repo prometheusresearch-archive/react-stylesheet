@@ -1,3 +1,4 @@
+//@flow
 import compile from '../index';
 
 it('compiles base', function() {
