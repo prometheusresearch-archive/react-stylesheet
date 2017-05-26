@@ -12,19 +12,15 @@ import createStylesheet, {Stylesheet} from './Stylesheet';
 import getComponentDisplayName from './getComponentDisplayName';
 
 export type ComponentSpec = {
-  displayName?: string;
-  [name: string]: CSSPropertySet;
+  displayName?: string,
+  [name: string]: CSSPropertySet,
 };
 
 export default function style<T: string | ReactClass<*>>(
   Component: T,
-  spec: ComponentSpec
+  spec: ComponentSpec,
 ): T {
-
-  let {
-    displayName,
-    ...stylesheetSpec
-  } = spec;
+  let {displayName, ...stylesheetSpec} = spec;
 
   if (displayName == null) {
     displayName = getComponentDisplayName(Component);
@@ -37,20 +33,19 @@ export default function style<T: string | ReactClass<*>>(
   ) {
     let stylesheet = Component.defaultProps.stylesheet.override(
       stylesheetSpec,
-      spec.displayName
+      spec.displayName,
     );
     return overrideStylesheet(Component, displayName, stylesheet);
   } else {
     let stylesheet = createStylesheet(displayName, stylesheetSpec);
     return injectStylesheet(Component, displayName, stylesheet);
   }
-
 }
 
 export function overrideStylesheet<T: ReactClass<*>>(
   Component: T,
   displayName: string,
-  stylesheet: Stylesheet
+  stylesheet: Stylesheet,
 ): T {
   let defaultProps = Component.defaultProps;
   let C = class extends Component {
@@ -63,9 +58,8 @@ export function overrideStylesheet<T: ReactClass<*>>(
 export function injectStylesheet<T: string | ReactClass<*>>(
   Component: T,
   displayName: string,
-  stylesheet: Stylesheet
+  stylesheet: Stylesheet,
 ): T {
-
   let C = class extends ComponentWithStylesheet {
     static displayName = displayName;
     static defaultProps = {
@@ -79,12 +73,11 @@ export function injectStylesheet<T: string | ReactClass<*>>(
 }
 
 class ComponentWithStylesheet<DP> extends React.Component<DP, *, *> {
-
   props: {
-    stylesheet: Stylesheet;
-    variant: Variant;
-    Component: string | ReactClass<*>;
-    className?: string;
+    stylesheet: Stylesheet,
+    variant: Variant,
+    Component: string | ReactClass<*>,
+    className?: string,
   };
 
   static defaultProps: $Abstract<DP>;
@@ -102,12 +95,7 @@ class ComponentWithStylesheet<DP> extends React.Component<DP, *, *> {
     if (extraClassName) {
       className = className + ' ' + extraClassName;
     }
-    return (
-      <Component
-        {...props}
-        className={className}
-        />
-    );
+    return <Component {...props} className={className} />;
   }
 
   componentWillMount() {

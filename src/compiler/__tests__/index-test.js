@@ -3,12 +3,12 @@ import compile from '../index';
 it('compiles base', function() {
   let stylesheet = {
     base: {
-      color: 'red'
-    }
+      color: 'red',
+    },
   };
   let {id, css, mapping} = compile('name', stylesheet);
   expect(mapping).toEqual({
-    className: `name-${id}`
+    className: `name-${id}`,
   });
   expect(css).toMatchSnapshot();
 });
@@ -16,8 +16,8 @@ it('compiles base', function() {
 it('compiles to hyphenated name', function() {
   let stylesheet = {
     base: {
-      textOverflow: 'ellipsis'
-    }
+      textOverflow: 'ellipsis',
+    },
   };
   let {css} = compile('name', stylesheet);
   expect(css).toMatchSnapshot();
@@ -26,8 +26,8 @@ it('compiles to hyphenated name', function() {
 it('compiles to numbers to px', function() {
   let stylesheet = {
     base: {
-      width: 10
-    }
+      width: 10,
+    },
   };
   let {css} = compile('name', stylesheet);
   expect(css).toMatchSnapshot();
@@ -36,8 +36,8 @@ it('compiles to numbers to px', function() {
 it('keeps numbers for unitless properties', function() {
   let stylesheet = {
     base: {
-      order: 10
-    }
+      order: 10,
+    },
   };
   let {css} = compile('name', stylesheet);
   expect(css).toMatchSnapshot();
@@ -51,7 +51,7 @@ it('skips empty values', function() {
       textAlign: false,
       flex: '',
       flexDirection: undefined,
-    }
+    },
   };
   let {css} = compile('name', stylesheet);
   expect(css).toMatchSnapshot();
@@ -61,7 +61,7 @@ it('handles arrays', function() {
   let stylesheet = {
     base: {
       color: ['red', 'white'],
-    }
+    },
   };
   let {css} = compile('name', stylesheet);
   expect(css).toMatchSnapshot();
@@ -70,20 +70,20 @@ it('handles arrays', function() {
 it('compiles base w/ variant', function() {
   let stylesheet = {
     base: {
-      color: 'red'
+      color: 'red',
     },
     em: {
-      color: 'green'
-    }
+      color: 'green',
+    },
   };
   let {id, css, mapping} = compile('name', stylesheet);
   expect(mapping).toEqual({
     className: `name-${id}`,
     then: {
       em: {
-        className: 'name-em-2845490580'
-      }
-    }
+        className: 'name-em-2845490580',
+      },
+    },
   });
   expect(css).toMatchSnapshot();
 });
@@ -91,17 +91,17 @@ it('compiles base w/ variant', function() {
 it('compiles variant', function() {
   let stylesheet = {
     em: {
-      color: 'red'
-    }
+      color: 'red',
+    },
   };
   let {id, css, mapping} = compile('name', stylesheet);
   expect(mapping).toEqual({
     className: `name-${id}`,
     then: {
       em: {
-        className: `name-em-${id}`
-      }
-    }
+        className: `name-em-${id}`,
+      },
+    },
   });
   expect(css).toMatchSnapshot();
 });
@@ -111,13 +111,13 @@ it('compiles base w/ pseudo', function() {
     base: {
       color: 'red',
       hover: {
-        color: 'white'
-      }
+        color: 'white',
+      },
     },
   };
   let {id, css, mapping} = compile('name', stylesheet);
   expect(mapping).toEqual({
-    className: `name-${id}`
+    className: `name-${id}`,
   });
   expect(css).toMatchSnapshot();
 });
@@ -127,13 +127,13 @@ it('compiles base w/ hyphenated pseudo', function() {
     base: {
       color: 'red',
       firstOfType: {
-        color: 'white'
-      }
+        color: 'white',
+      },
     },
   };
   let {id, css, mapping} = compile('name', stylesheet);
   expect(mapping).toEqual({
-    className: `name-${id}`
+    className: `name-${id}`,
   });
   expect(css).toMatchSnapshot();
 });
@@ -142,34 +142,33 @@ it('compiles pseudo', function() {
   let stylesheet = {
     base: {
       hover: {
-        color: 'white'
-      }
-    }
+        color: 'white',
+      },
+    },
   };
   let {id, css, mapping} = compile('name', stylesheet);
   expect(mapping).toEqual({
-    className: `name-${id}`
+    className: `name-${id}`,
   });
   expect(css).toMatchSnapshot();
 });
-
 
 it('compiles variant pseudo', function() {
   let stylesheet = {
     em: {
       hover: {
-        color: 'white'
-      }
-    }
+        color: 'white',
+      },
+    },
   };
   let {id, css, mapping} = compile('name', stylesheet);
   expect(mapping).toEqual({
     className: `name-${id}`,
     then: {
       em: {
-        className: `name-em-${id}`
-      }
-    }
+        className: `name-em-${id}`,
+      },
+    },
   });
   expect(css).toMatchSnapshot();
 });
@@ -179,8 +178,8 @@ it('compiles variant w/ variant pseudo', function() {
     em: {
       color: 'red',
       hover: {
-        color: 'white'
-      }
+        color: 'white',
+      },
     },
   };
   let {id, css, mapping} = compile('name', stylesheet);
@@ -188,9 +187,9 @@ it('compiles variant w/ variant pseudo', function() {
     className: `name-${id}`,
     then: {
       em: {
-        className: `name-em-${id}`
-      }
-    }
+        className: `name-em-${id}`,
+      },
+    },
   });
   expect(css).toMatchSnapshot();
 });
@@ -198,8 +197,8 @@ it('compiles variant w/ variant pseudo', function() {
 it('compiles double variant', function() {
   let stylesheet = {
     em_it: {
-      color: 'white'
-    }
+      color: 'white',
+    },
   };
   let {id, css, mapping} = compile('name', stylesheet);
   expect(mapping).toEqual({
@@ -208,23 +207,22 @@ it('compiles double variant', function() {
       em: {
         then: {
           it: {
-            className: `name-em-it-${id}`
-          }
-        }
-      }
-    }
+            className: `name-em-it-${id}`,
+          },
+        },
+      },
+    },
   });
   expect(css).toMatchSnapshot();
 });
-
 
 it('compiles double variant w/ pseudo', function() {
   let stylesheet = {
     em_it: {
       hover: {
-        color: 'white'
-      }
-    }
+        color: 'white',
+      },
+    },
   };
   let {id, css, mapping} = compile('name', stylesheet);
   expect(mapping).toEqual({
@@ -233,11 +231,11 @@ it('compiles double variant w/ pseudo', function() {
       em: {
         then: {
           it: {
-            className: `name-em-it-${id}`
-          }
-        }
-      }
-    }
+            className: `name-em-it-${id}`,
+          },
+        },
+      },
+    },
   });
   expect(css).toMatchSnapshot();
 });
@@ -251,8 +249,8 @@ it('compiles double variant w/ separate variants', function() {
       color: 'red',
     },
     em_it: {
-      color: 'white'
-    }
+      color: 'white',
+    },
   };
   let {id, css, mapping} = compile('name', stylesheet);
   expect(mapping).toEqual({
@@ -262,14 +260,14 @@ it('compiles double variant w/ separate variants', function() {
         className: `name-em-${id}`,
         then: {
           it: {
-            className: `name-em-it-${id}`
-          }
-        }
+            className: `name-em-it-${id}`,
+          },
+        },
       },
       it: {
         className: `name-it-${id}`,
-      }
-    }
+      },
+    },
   });
   expect(css).toMatchSnapshot();
 });
@@ -279,9 +277,9 @@ it('compiles double pseudo', function() {
     base: {
       hover: {
         focus: {
-          color: 'red'
-        }
-      }
+          color: 'red',
+        },
+      },
     },
   };
   let {id, css, mapping} = compile('name', stylesheet);
@@ -298,9 +296,9 @@ it('compiles double pseudo (intermediate)', function() {
       hover: {
         color: 'white',
         focus: {
-          color: 'red'
-        }
-      }
+          color: 'red',
+        },
+      },
     },
   };
   let {id, css, mapping} = compile('name', stylesheet);
@@ -317,9 +315,9 @@ it('compiles variant w/ double pseudo (intermediate)', function() {
       hover: {
         color: 'white',
         focus: {
-          color: 'red'
-        }
-      }
+          color: 'red',
+        },
+      },
     },
   };
   let {id, css, mapping} = compile('name', stylesheet);
@@ -328,8 +326,8 @@ it('compiles variant w/ double pseudo (intermediate)', function() {
     then: {
       em: {
         className: `name-em-${id}`,
-      }
-    }
+      },
+    },
   });
   expect(css).toMatchSnapshot();
 });
@@ -337,7 +335,7 @@ it('compiles variant w/ double pseudo (intermediate)', function() {
 it('compiles padding: {top: 10, left: 20}', function() {
   let stylesheet = {
     base: {
-      padding: {top: 10, left: 20}
+      padding: {top: 10, left: 20},
     },
   };
   let {css} = compile('name', stylesheet);
@@ -347,7 +345,7 @@ it('compiles padding: {top: 10, left: 20}', function() {
 it('compiles padding: {vertical: 10}', function() {
   let stylesheet = {
     base: {
-      padding: {vertical: 10}
+      padding: {vertical: 10},
     },
   };
   let {css} = compile('name', stylesheet);
@@ -357,7 +355,7 @@ it('compiles padding: {vertical: 10}', function() {
 it('compiles padding: {horizontal: 10}', function() {
   let stylesheet = {
     base: {
-      padding: {horizontal: 10}
+      padding: {horizontal: 10},
     },
   };
   let {css} = compile('name', stylesheet);
@@ -367,7 +365,7 @@ it('compiles padding: {horizontal: 10}', function() {
 it('compiles padding: {vertical: 10, top: 5}', function() {
   let stylesheet = {
     base: {
-      padding: {vertical: 10, top: 5}
+      padding: {vertical: 10, top: 5},
     },
   };
   let {css} = compile('name', stylesheet);
@@ -377,7 +375,7 @@ it('compiles padding: {vertical: 10, top: 5}', function() {
 it('compiles margin: {top: 10, left: 20}', function() {
   let stylesheet = {
     base: {
-      margin: {top: 10, left: 20}
+      margin: {top: 10, left: 20},
     },
   };
   let {css} = compile('name', stylesheet);
@@ -387,7 +385,7 @@ it('compiles margin: {top: 10, left: 20}', function() {
 it('compiles border: {width: 1, color: "#aaa"}', function() {
   let stylesheet = {
     base: {
-      border: {width: 1, color: '#aaa'}
+      border: {width: 1, color: '#aaa'},
     },
   };
   let {css} = compile('name', stylesheet);
@@ -397,7 +395,7 @@ it('compiles border: {width: 1, color: "#aaa"}', function() {
 it('compiles borderLeft: {width: 1, color: "#aaa"}', function() {
   let stylesheet = {
     base: {
-      borderLeft: {width: 1, color: '#aaa'}
+      borderLeft: {width: 1, color: '#aaa'},
     },
   };
   let {css} = compile('name', stylesheet);
@@ -430,7 +428,7 @@ it('compiles boxShadow: [...]', function() {
       boxShadow: [
         {inset: true, x: 10, y: 10, blur: 2},
         {inset: false, x: 10, y: 10, blur: 2},
-      ]
+      ],
     },
   };
   let {css} = compile('name', stylesheet);
@@ -443,7 +441,7 @@ it('compiles boxShadow: [string, syntax]', function() {
       boxShadow: [
         'inset 10px 10px 2px 0px #000000',
         {inset: false, x: 10, y: 10, blur: 2},
-      ]
+      ],
     },
   };
   let {css} = compile('name', stylesheet);
@@ -463,16 +461,12 @@ it('compiles transition: {property: "margin", duration: 10}', function() {
 it('compiles transition: [...]', function() {
   let stylesheet = {
     base: {
-      transition: [
-        {property: 'margin', duration: 10},
-        {property: 'top', duration: 2},
-      ]
+      transition: [{property: 'margin', duration: 10}, {property: 'top', duration: 2}],
     },
   };
   let {css} = compile('name', stylesheet);
   expect(css).toMatchSnapshot();
 });
-
 
 it('compiles textShadow: {x: 10, y: 10}', function() {
   let stylesheet = {

@@ -13,11 +13,10 @@ import {compileStyle} from './compiler';
 type Style = Object;
 
 export class StylesheetManager {
-
   _canInject: boolean;
 
   constructor() {
-    this._canInject = (typeof window !== 'undefined');
+    this._canInject = typeof window !== 'undefined';
   }
 
   injectStylesheet(compiledStylesheet: Array<[string, string]>): void {
@@ -28,7 +27,6 @@ export class StylesheetManager {
 }
 
 export class DynamicStylesheetManager extends StylesheetManager {
-
   _stylesheetCache: Map<string, string> = new Map();
 
   toClassName(key: mixed, style: Style): string {
@@ -42,11 +40,9 @@ export class DynamicStylesheetManager extends StylesheetManager {
     }
     return className;
   }
-
 }
 
 export class StaticStylesheetManager extends StylesheetManager {
-
   constructor() {
     super();
     this._precompile();
@@ -74,19 +70,19 @@ export class StaticStylesheetManager extends StylesheetManager {
     cssList: Array<string>,
     name: string,
     state: string,
-    valueSet: Array<string>
+    valueSet: Array<string>,
   ): void {
     for (let i = 0; i < valueSet.length; i++) {
       let value = valueSet[i];
       let className = `rs-${name}-${value}-${state}`;
       let important = true;
-      cssList.push(compileStyle(
-        className,
-        state === 'normal'
-        ? {[name]: value}
-        : {[state]: {[name]: value}},
-        important
-      ));
+      cssList.push(
+        compileStyle(
+          className,
+          state === 'normal' ? {[name]: value} : {[state]: {[name]: value}},
+          important,
+        ),
+      );
     }
   }
 }

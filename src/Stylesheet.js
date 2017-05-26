@@ -11,20 +11,19 @@ import PseudoClassSet from './compiler/PseudoClassSet';
 import {StylesheetManager} from './StylesheetManager';
 
 export type Variant = {
-  [variantName: string]: boolean;
+  [variantName: string]: boolean,
 };
 
 export type StylesheetSpec = {
-  [name: string]: CSSPropertySet;
+  [name: string]: CSSPropertySet,
 };
 
 export class Stylesheet extends StylesheetManager {
-
   name: string;
   spec: StylesheetSpec;
   _stylesheet: CompileResult;
   _refs: number;
-  _remove: ?(() => void);
+  _remove: ?() => void;
   _disposeTimer: ?number;
 
   constructor(name: string, spec: StylesheetSpec) {
@@ -89,7 +88,7 @@ export class Stylesheet extends StylesheetManager {
 }
 
 function prettyFormatCSS(css) {
-  css = css.slice(css.indexOf('{')+ 1);
+  css = css.slice(css.indexOf('{') + 1);
   css = css.slice(0, css.indexOf('}'));
   css = css.trim();
   css = css.replace(/;/g, ';\n    ');
@@ -112,10 +111,7 @@ export function classNameFor(mapping: ClassNameMapping, variant: Variant): strin
   return className;
 }
 
-export function override(
-  spec: StylesheetSpec,
-  override: StylesheetSpec
-): StylesheetSpec {
+export function override(spec: StylesheetSpec, override: StylesheetSpec): StylesheetSpec {
   let result = {...spec};
   for (let k in override) {
     if (override.hasOwnProperty(k)) {
@@ -127,7 +123,7 @@ export function override(
 
 function overrideCSSPropertySet(
   propSet: ?CSSPropertySet,
-  override: CSSPropertySet
+  override: CSSPropertySet,
 ): CSSPropertySet {
   if (propSet == null) {
     return override;

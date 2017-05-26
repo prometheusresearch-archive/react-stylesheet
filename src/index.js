@@ -9,9 +9,4 @@ import * as css from './css';
 import Element from './Element';
 import {VBox, HBox} from './Box';
 
-export {
-  style, stylesheet,
-  css,
-  Element,
-  VBox, HBox
-};
+export {style, stylesheet, css, Element, VBox, HBox};

@@ -6,8 +6,8 @@ test('styles host component with a stylesheet', function() {
   expect(SC.defaultProps.stylesheet.name).toBe('div');
   expect(SC.defaultProps.stylesheet.spec).toEqual({
     base: {
-      color: 'something'
-    }
+      color: 'something',
+    },
   });
 });
 
@@ -15,16 +15,16 @@ test('sets the displayName', function() {
   let SC = style('div', {
     displayName: 'custom',
     base: {
-      color: 'something'
-    }
+      color: 'something',
+    },
   });
   expect(SC.defaultProps.stylesheet).toBeTruthy();
   expect(SC.defaultProps.stylesheet.name).toBe('custom');
   expect(SC.displayName).toBe('custom');
   expect(SC.defaultProps.stylesheet.spec).toEqual({
     base: {
-      color: 'something'
-    }
+      color: 'something',
+    },
   });
 });
 
@@ -37,8 +37,8 @@ test('styles composite component with a stylesheet', function() {
   expect(SC.defaultProps.stylesheet.name).toBe('C');
   expect(SC.defaultProps.stylesheet.spec).toEqual({
     base: {
-      color: 'something'
-    }
+      color: 'something',
+    },
   });
 });
 
@@ -47,17 +47,17 @@ test('overrides stylesheet of an already styled component', function() {
   expect(SC.defaultProps.stylesheet).toBeTruthy();
   expect(SC.defaultProps.stylesheet.spec).toEqual({
     base: {
-      color: 'something'
-    }
+      color: 'something',
+    },
   });
   let SC2 = style('div', {
     displayName: 'custom',
     base: {
       color: 'something',
       hover: {
-        color: 'red'
-      }
-    }
+        color: 'red',
+      },
+    },
   });
   expect(SC2.displayName).toBe('custom');
   expect(SC2.defaultProps.stylesheet.name).toBe('custom');
@@ -65,8 +65,8 @@ test('overrides stylesheet of an already styled component', function() {
     base: {
       color: 'something',
       hover: {
-        color: 'red'
-      }
-    }
+        color: 'red',
+      },
+    },
   });
 });
