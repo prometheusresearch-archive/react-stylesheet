@@ -22,7 +22,6 @@ export default function expand(style: Object): Object {
  */
 function expandProp(name: string, value: mixed): Object {
   switch (name) {
-
     // extended variants
 
     case 'padding':
@@ -101,18 +100,14 @@ function expandProp(name: string, value: mixed): Object {
 
 function expandSingleProp(name, value) {
   return {
-    [name]: Array.isArray(value) ? value : compileValue(name, value)
+    [name]: Array.isArray(value) ? value : compileValue(name, value),
   };
 }
 
 function expandBorderSyntax(name, value) {
-  let {
-    width = 'medium',
-    style = 'none',
-    color = 'currentColor',
-  } = value;
+  let {width = 'medium', style = 'none', color = 'currentColor'} = value;
   return {
-    [name]: `${compileValue('borderWidth', width)} ${String(style)} ${String(color)}`
+    [name]: `${compileValue('borderWidth', width)} ${String(style)} ${String(color)}`,
   };
 }
 
@@ -126,7 +121,7 @@ function compileLayoutSyntax(name, value) {
     left = horizontal,
   } = value;
   return {
-    [name]: `${compileValue('margin', top)} ${compileValue('margin', right)}  ${compileValue('margin', bottom)} ${compileValue('margin', left)}`
+    [name]: `${compileValue('margin', top)} ${compileValue('margin', right)}  ${compileValue('margin', bottom)} ${compileValue('margin', left)}`,
   };
 }
 
@@ -154,12 +149,7 @@ function compileTransition(value) {
 }
 
 function compileTransitionValueSyntax(value) {
-  let {
-    property = 'all',
-    duration = 0,
-    timingFunction = 'ease',
-    delay = 0,
-  } = value;
+  let {property = 'all', duration = 0, timingFunction = 'ease', delay = 0} = value;
   return `${String(property)} ${String(duration)}s ${String(timingFunction)} ${String(delay)}s`;
 }
 
@@ -167,11 +157,8 @@ function compileValueWith(name, value, compileValue) {
   if (typeof value === 'object' && value != null) {
     let css = Array.isArray(value)
       ? value
-        .map(value =>
-          typeof value === 'string'
-            ? value
-            : compileValue(value))
-        .join(', ')
+          .map(value => (typeof value === 'string' ? value : compileValue(value)))
+          .join(', ')
       : compileValue(value);
     return expandSingleProp(name, css);
   } else {
@@ -189,7 +176,7 @@ function compileValue(name: string, value: mixed): string {
   if (
     isNonNumeric ||
     value === 0 ||
-    UnitlessNumberPropSet.hasOwnProperty(name) && UnitlessNumberPropSet[name]
+    (UnitlessNumberPropSet.hasOwnProperty(name) && UnitlessNumberPropSet[name])
   ) {
     return '' + ((value: any): string); // cast to string
   } else {

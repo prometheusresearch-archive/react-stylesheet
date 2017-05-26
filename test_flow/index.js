@@ -1,4 +1,4 @@
- /**
+/**
   * @flow
   */
 
@@ -17,7 +17,7 @@ function Functional({hello}: {hello: string}) {
 let StyledFunctional = style(Functional, {
   base: {
     color: 'red',
-  }
+  },
 });
 
 <StyledFunctional hello="here" />;
@@ -26,9 +26,8 @@ let StyledFunctional = style(Functional, {
 <StyledFunctional hello={42} />;
 
 class Class extends React.Component {
-
   props: {
-    hello: string;
+    hello: string,
   };
 
   render() {
@@ -44,7 +43,7 @@ class Class extends React.Component {
 let StyledClass = style(Class, {
   base: {
     color: 'red',
-  }
+  },
 });
 
 <StyledClass hello="here" />;
@@ -56,7 +55,7 @@ let StyledClass = style(Class, {
 style(Class, {
   base: {
     olor: 'red',
-  }
+  },
 });
 
 import {Element} from 'react-stylesheet';

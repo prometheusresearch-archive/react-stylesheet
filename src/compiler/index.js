@@ -14,21 +14,17 @@ import PseudoClassSet from './PseudoClassSet';
 import expand from './expand';
 
 export type ClassNameMapping = {
-  className: string;
-  then?: {[name: string]: ClassNameMapping};
+  className: string,
+  then?: {[name: string]: ClassNameMapping},
 };
 
 export type CompileResult = {
-  id: string;
-  css: string;
-  mapping: ClassNameMapping;
+  id: string,
+  css: string,
+  mapping: ClassNameMapping,
 };
 
-export default function compile(
-  name: string,
-  stylesheet: StylesheetSpec
-): CompileResult {
-
+export default function compile(name: string, stylesheet: StylesheetSpec): CompileResult {
   let id = createHash(JSON.stringify(stylesheet));
   let mapping = {};
   let css = [];
@@ -42,7 +38,6 @@ export default function compile(
   }
 
   for (let variant in stylesheet) {
-
     let style = stylesheet[variant];
     if (variant.indexOf('_') > -1) {
       variant = variant.split('_');
@@ -75,7 +70,6 @@ export default function compile(
         variantMapping.className = className;
       }
     }
-
   }
 
   return {id, css: css.join('\n'), mapping};
@@ -84,7 +78,7 @@ export default function compile(
 export function compileStyle(
   className: string,
   style: Object,
-  important?: boolean = false
+  important?: boolean = false,
 ): string {
   let css = [];
   let cssList = [];
@@ -126,11 +120,7 @@ export function compileStyle(
 }
 
 function isEmpty(value) {
-  return (
-    value == null ||
-    value === '' ||
-    value === false
-  );
+  return value == null || value === '' || value === false;
 }
 
 /**

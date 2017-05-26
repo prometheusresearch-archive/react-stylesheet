@@ -10,7 +10,7 @@ export function boxShadow(
   offsetY: number,
   blurRadius: number,
   spreadRadius: number,
-  color?: ?string
+  color?: ?string,
 ): string {
   if (color === none || color == null) {
     return none;
@@ -23,7 +23,7 @@ export function insetBoxShadow(
   offsetY: number,
   blurRadius: number,
   spreadRadius: number,
-  color?: ?string
+  color?: ?string,
 ): string {
   if (color === none || color == null) {
     return none;
@@ -35,7 +35,7 @@ export function textShadow(
   offsetX: number,
   offsetY: number,
   blurRadius: number,
-  color?: ?string
+  color?: ?string,
 ): string {
   if (color === none || color == null) {
     return none;
@@ -81,10 +81,10 @@ border.solid = 'solid';
 
 export function linearGradient(
   direction: string,
-  ...colorStops: Array<{color: string; value: string}>
+  ...colorStops: Array<{color: string, value: string}>
 ): string {
   let colorStopsStr = colorStops
-    .map(p => typeof p === 'string' ? p : `${p.color} ${p.value}`)
+    .map(p => (typeof p === 'string' ? p : `${p.color} ${p.value}`))
     .join(', ');
   return `linear-gradient(${direction}, ${colorStopsStr})`;
 }
@@ -98,9 +98,7 @@ export function translate3d(x: number, y: number, z: number): string {
 }
 
 function sizeSeq(...args: Array<number>): string {
-  return args
-    .map(arg => typeof arg === 'string' ? arg : `${arg}px`)
-    .join(' ');
+  return args.map(arg => (typeof arg === 'string' ? arg : `${arg}px`)).join(' ');
 }
 
 export function multi(...args: Array<string>): string {

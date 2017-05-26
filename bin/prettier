@@ -1,0 +1,2 @@
+#!/bin/sh
+../node_modules/.bin/prettier --no-bracket-spacing --single-quote --trailing-comma=all --print-width=90 --jsx-bracket-same-line $*

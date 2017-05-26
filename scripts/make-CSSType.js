@@ -8,27 +8,27 @@ let number = t.identifier('number');
 let string = t.identifier('string');
 
 const TYPE = {
-  'uri': string,
-  'url': string,
-  'length': number,
-  'integer': number,
-  'percentage': string,
+  uri: string,
+  url: string,
+  length: number,
+  integer: number,
+  percentage: string,
   'positive-integer': number,
-  'decibel': number,
-  'frequency': number,
+  decibel: number,
+  frequency: number,
   'custom-ident': string,
-  'dimension': string,
+  dimension: string,
   'hex-color': string,
-  'ident': string,
-  'resolution': string,
-  'flex': string,
+  ident: string,
+  resolution: string,
+  flex: string,
   'number-one-or-greater': number,
   'unicode-range': string,
   'number-zero-one': number,
-  'number': number,
-  'string': string,
-  'time': number,
-  'angle': number,
+  number: number,
+  string: string,
+  time: number,
+  angle: number,
 };
 
 function buildType(syntax, key) {
@@ -102,7 +102,7 @@ function propertyName(name) {
 }
 
 let statementList = [];
-let propList = []
+let propList = [];
 
 for (let key in cssData.properties) {
   let prop = parseSyntax(cssData.properties[key]);
@@ -112,50 +112,37 @@ for (let key in cssData.properties) {
       t.typeAlias(
         t.identifier(propertyName(key)),
         null,
-        normalizeType(buildType(prop, key))
+        normalizeType(buildType(prop, key)),
       ),
       [],
-      t.stringLiteral('type')
-    )
+      t.stringLiteral('type'),
+    ),
   );
-  let typeProp = t.objectTypeProperty(
-    t.identifier(key),
-    t.identifier(propertyName(key))
-  );
+  let typeProp = t.objectTypeProperty(t.identifier(key), t.identifier(propertyName(key)));
   typeProp.optional = true;
-  propList.push(
-    typeProp
-  );
+  propList.push(typeProp);
 }
 
 for (let key in cssData.types) {
   let type = parseSyntax(cssData.types[key]);
   statementList.push(
     t.exportNamedDeclaration(
-      t.typeAlias(
-        t.identifier(typeName(key)),
-        null,
-        normalizeType(buildType(type, key))
-      ),
+      t.typeAlias(t.identifier(typeName(key)), null, normalizeType(buildType(type, key))),
       [],
-      t.stringLiteral('type')
-    )
+      t.stringLiteral('type'),
+    ),
   );
 }
 
-let CSSPropertySetType = t.objectTypeAnnotation(propList)
+let CSSPropertySetType = t.objectTypeAnnotation(propList);
 CSSPropertySetType.exact = true;
 
 statementList.push(
   t.exportNamedDeclaration(
-    t.typeAlias(
-      t.identifier('CSSPropertySet'),
-      null,
-      CSSPropertySetType
-    ),
+    t.typeAlias(t.identifier('CSSPropertySet'), null, CSSPropertySetType),
     [],
-    t.stringLiteral('type')
-  )
+    t.stringLiteral('type'),
+  ),
 );
 
 console.log(generate(t.program(statementList)).code);

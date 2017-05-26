@@ -41,7 +41,7 @@ const UnitlessNumberPropSet = {
   strokeDashoffset: true,
   strokeMiterlimit: true,
   strokeOpacity: true,
-  strokeWidth: true
+  strokeWidth: true,
 };
 
 const prefixes = ['Webkit', 'ms', 'Moz', 'O'];
