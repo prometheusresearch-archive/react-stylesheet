@@ -8,7 +8,7 @@
     "css.js"
   ],
   "scripts": {
-    "test": "make test"
+    "test": "make test test-flow"
   },
   "repository": {
     "type": "git",
