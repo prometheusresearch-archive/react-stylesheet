@@ -6,6 +6,6 @@
     "react-stylesheet": "file:../"
   },
   "devDependencies": {
-    "flow-bin": "^0.39.0"
+    "flow-bin": "^0.47.0"
   }
 }

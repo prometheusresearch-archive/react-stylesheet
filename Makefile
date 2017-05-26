@@ -37,8 +37,8 @@ doctoc:
 test-cov::
 	@NODE_ENV=test $(BIN)/jest --coverage
 
-test-flow:: build
-	@(cd test_flow/ && npm install && $(BIN)/flow check)
+test-flow::build
+	@(cd test_flow/ && rm -rf node_modules && npm install && $(BIN)/flow check)
 
 version-major version-minor version-patch: lint test
 	@npm version $(@:version-%=%)
