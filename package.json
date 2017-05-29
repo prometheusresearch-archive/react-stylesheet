@@ -8,6 +8,7 @@
     "css.js"
   ],
   "scripts": {
+    "lint": "node_modules/.bin/eslint src --color",
     "test": "make test test-flow"
   },
   "repository": {
