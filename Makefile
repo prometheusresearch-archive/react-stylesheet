@@ -22,6 +22,9 @@ check:
 test::
 	@NODE_ENV=test $(BIN)/jest
 
+flow::
+	@$(BIN)/flow
+
 ci:
 	@NODE_ENV=test $(BIN)/jest --watch
 
