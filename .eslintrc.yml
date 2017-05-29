@@ -1,20 +1,10 @@
-env:
-  browser: true
-  commonjs: true
-  es6: true
 extends:
   - 'eslint-config-prometheusresearch'
-parserOptions:
-  ecmaFeatures:
-    experimentalObjectRestSpread: true
-    jsx: true
-  sourceType: module
 parser: 'babel-eslint'
 plugins:
   - react
 settings:
   flowtype:
     onlyFilesWithFlowAnnotation: true
-globals:
-  moment$Moment: true
-  
+rules:
+  no-extra-boolean-cast: off

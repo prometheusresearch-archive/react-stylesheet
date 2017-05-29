@@ -97,8 +97,6 @@ class ComponentWithStylesheet<DP> extends React.Component<DP, *, *> {
       defaultComponent: this.props.Component,
     });
 
-    console.log('style component', style);
-
     return <Component {...props} style={style} className={className} />;
   }
 

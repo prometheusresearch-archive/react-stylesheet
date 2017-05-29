@@ -69,6 +69,5 @@ export const resolve = ({
     className: className.join(' '),
   };
 
-  console.log('res', res);
   return res;
 };
