@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDomServer from 'react-dom/server';
 import {style, Element} from '../';
 
-import {Spec} from '../ElementPropSpec';
+import {Spec} from '../Strategy';
 
 let origSpec;
 

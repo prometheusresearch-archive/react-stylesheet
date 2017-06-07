@@ -2,12 +2,12 @@
  * @flow
  */
 
-import type {StyleState} from './ElementPropSpec';
+import type {StyleState} from './Strategy';
 
 import injectStylesheet from 'style-loader/addStyles';
 import createHash from 'murmurhash-js/murmurhash3_gc';
 
-import {Spec} from './ElementPropSpec';
+import {Spec} from './Strategy';
 import {compileStyle} from './compiler';
 
 type Style = Object;

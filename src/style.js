@@ -10,7 +10,7 @@ import React from 'react';
 
 import createStylesheet, {Stylesheet} from './Stylesheet';
 import getComponentDisplayName from './getComponentDisplayName';
-import {resolve} from './Strategy';
+import {resolve} from './Resolver';
 
 export type ComponentSpec = {
   displayName?: string,

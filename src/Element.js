@@ -4,7 +4,7 @@
 
 import * as CSSType from './CSSType';
 import React from 'react';
-import {resolve} from './Strategy';
+import {resolve} from './Resolver';
 
 export type ElementProps = {
   Component?: string,
