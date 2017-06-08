@@ -25,7 +25,7 @@ export type CompileResult = {
 };
 
 export default function compile(name: string, stylesheet: StylesheetSpec): CompileResult {
-  let id = createHash(JSON.stringify(stylesheet));
+  let id = createHash(name + JSON.stringify(stylesheet));
   let mapping = {};
   let css = [];
 
