@@ -81,7 +81,7 @@ it('compiles base w/ variant', function() {
     className: `name-${id}`,
     then: {
       em: {
-        className: 'name-em-2845490580',
+        className: 'name-em-3787234260',
       },
     },
   });
