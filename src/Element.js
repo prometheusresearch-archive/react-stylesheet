@@ -410,7 +410,7 @@ export default class Element extends React.Component {
     }
 
     const {Component, props, style, className} = resolve({
-      ownProps,
+      props: ownProps,
       defaultClassName,
       defaultComponent,
     });

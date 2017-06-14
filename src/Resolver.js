@@ -7,24 +7,24 @@ import {staticStylesheetManager, dynamicStylesheetManager} from './StylesheetMan
 export const resolve = ({
   defaultClassName,
   defaultComponent,
-  ownProps,
+  props,
 }: {
   defaultClassName: Array<string>,
   defaultComponent: *,
-  ownProps: *,
+  props: *,
 }) => {
   let Component = defaultComponent;
   const className = defaultClassName;
-  let style = ownProps.style || {};
+  let style = props.style || {};
   let dynamicStyle = {};
   let dynamicStyleKey = [];
-  let props = {};
+  let resultProps = {};
 
-  for (let k in ownProps) {
-    if (!ownProps.hasOwnProperty(k)) {
+  for (let k in props) {
+    if (!props.hasOwnProperty(k)) {
       continue;
     }
-    let v = ownProps[k];
+    let v = props[k];
 
     if (k === 'Component') {
       Component = v;
@@ -56,7 +56,7 @@ export const resolve = ({
         className.push(staticStylesheetManager.toClassName(spec.state, spec.name, v));
       }
     } else {
-      props[k] = v;
+      resultProps[k] = v;
     }
   }
 
@@ -64,7 +64,7 @@ export const resolve = ({
 
   const res = {
     Component,
-    props,
+    props: resultProps,
     style: expandStyle(style),
     className: className.join(' '),
   };

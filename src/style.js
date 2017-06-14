@@ -92,7 +92,7 @@ class ComponentWithStylesheet<DP> extends React.Component<DP, *, *> {
     }
 
     const {Component, props, style, className} = resolve({
-      ownProps: {...this.props, style: this.props.stylesheet.spec.base},
+      props: {...this.props, style: this.props.stylesheet.spec.base},
       defaultClassName,
       defaultComponent: this.props.Component,
     });
