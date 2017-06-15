@@ -1,3 +1,5 @@
+//@flow
+
 import {classNameFor} from '../Stylesheet';
 
 describe('classNameFor()', function() {
@@ -5,6 +7,7 @@ describe('classNameFor()', function() {
     let mapping = {
       className: 'base',
     };
+    //$FlowIssue
     expect(classNameFor(mapping)).toBe('base');
     expect(classNameFor(mapping, {})).toBe('base');
   });

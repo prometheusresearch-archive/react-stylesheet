@@ -67,6 +67,15 @@ export class Stylesheet extends StylesheetManager {
     return classNameFor(this._stylesheet.mapping, variant);
   }
 
+  toStyle(variant?: Variant = {}): Object {
+    return Object.keys(variant).reduce((prev, next) => {
+      if (variant[next]) {
+        return {...prev, ...this.spec[next]};
+      }
+      return prev;
+    }, {});
+  }
+
   toJSON() {
     class Stylesheet {
       name: string;

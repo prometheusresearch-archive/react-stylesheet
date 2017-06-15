@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SSR dynamic-inline strategy hello world button Element  1`] = `"<div style=\\"background:yellow;color:red;box-sizing:border-box;\\" class=\\"rs-0\\" data-reactroot=\\"\\" data-reactid=\\"1\\" data-react-checksum=\\"309733784\\"></div>"`;
+
+exports[`SSR dynamic-inline strategy hello world button Style  1`] = `"<div style=\\"font-size:16px;line-height:20;color:#ffffff;text-decoration:none;background-color:#b6a809;border-top:20px solid #b6a809;border-bottom:20px solid #b6a809;border-left:60px solid #b6a809;border-right:60px solid #b6a809;border-radius:3px;display:inline-block;\\" class=\\"div-856143221 rs-0\\" data-reactroot=\\"\\" data-reactid=\\"1\\" data-react-checksum=\\"-1622838613\\"></div>"`;

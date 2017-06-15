@@ -1,0 +1,10 @@
+extends:
+  - 'eslint-config-prometheusresearch'
+parser: 'babel-eslint'
+plugins:
+  - react
+settings:
+  flowtype:
+    onlyFilesWithFlowAnnotation: true
+rules:
+  no-extra-boolean-cast: off

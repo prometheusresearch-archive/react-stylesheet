@@ -10,6 +10,7 @@ import React from 'react';
 
 import createStylesheet, {Stylesheet} from './Stylesheet';
 import getComponentDisplayName from './getComponentDisplayName';
+import {resolve} from './Resolver';
 
 export type ComponentSpec = {
   displayName?: string,
@@ -63,7 +64,7 @@ export function injectStylesheet<T: string | ReactClass<*>>(
   let C = class extends ComponentWithStylesheet {
     static displayName = displayName;
     static defaultProps = {
-      variant: {},
+      variant: {base: true},
       Component: Component,
       stylesheet: stylesheet,
     };
@@ -83,19 +84,9 @@ class ComponentWithStylesheet<DP> extends React.Component<DP, *, *> {
   static defaultProps: $Abstract<DP>;
 
   render() {
-    let {
-      variant,
-      className: extraClassName,
-      Component,
-      stylesheet,
-      ...props
-    } = this.props;
+    const {Component, ...props} = resolve(this.props);
 
-    let className = stylesheet.toClassName(variant);
-    if (extraClassName) {
-      className = className + ' ' + extraClassName;
-    }
-    return <Component {...props} className={className} />;
+    return <Component {...props} />;
   }
 
   componentWillMount() {

@@ -106,6 +106,15 @@ defineStyleProp(Spec, 'display', [
   'inline-flex',
   'table',
 ]);
+
+defineStyleProp(Spec, 'textDecoration', [
+  'none',
+  'underline',
+  'line-through',
+  'initial',
+  'inherit',
+]);
+
 defineStyleProp(Spec, 'position', ['absolute', 'relative', 'static', 'fixed', 'sticky']);
 defineStyleProp(Spec, 'textAlign', [
   'start',

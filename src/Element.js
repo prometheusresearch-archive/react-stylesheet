@@ -3,12 +3,8 @@
  */
 
 import * as CSSType from './CSSType';
-
 import React from 'react';
-
-import {expandStyle} from './compiler';
-import {Spec} from './ElementPropSpec';
-import {staticStylesheetManager, dynamicStylesheetManager} from './StylesheetManager';
+import {resolve} from './Resolver';
 
 export type ElementProps = {
   Component?: string,
@@ -399,68 +395,13 @@ export default class Element extends React.Component {
 
   static defaultProps = {
     boxSizing: 'border-box',
+    Component: 'div',
   };
 
-  static Component = 'div';
-  static className: ?string = null;
-
   render() {
-    let ownProps = this.transformProps(this.props);
-    let Component = this.constructor.Component;
-    let className = [];
-    let style = ownProps.style || {};
-    let dynamicStyle = {};
-    let dynamicStyleKey = [];
-    let props = {};
+    const {Component, ...props} = resolve(this.transformProps(this.props));
 
-    if (this.constructor.className != null) {
-      className.push(this.constructor.className);
-    }
-
-    for (let k in ownProps) {
-      if (!ownProps.hasOwnProperty(k)) {
-        continue;
-      }
-      let v = ownProps[k];
-
-      if (k === 'Component') {
-        Component = v;
-        continue;
-      } else if (k === 'className') {
-        className.push(v);
-        continue;
-      } else if (k === 'style') {
-        continue;
-      }
-
-      let spec = Spec[k];
-      if (spec != null) {
-        if (v == null) {
-          continue;
-        }
-        if (spec.applyStrategy === 'dynamic-inline') {
-          style[spec.name] = v;
-        } else if (spec.applyStrategy === 'dynamic') {
-          if (spec.state === 'normal') {
-            dynamicStyle[spec.name] = v;
-          } else {
-            dynamicStyle[spec.state] = dynamicStyle[spec.state] || {};
-            dynamicStyle[spec.state][spec.name] = v;
-          }
-          dynamicStyleKey[spec.index] = v;
-        } else if (spec.applyStrategy === 'static') {
-          className.push(staticStylesheetManager.toClassName(spec.state, spec.name, v));
-        }
-      } else {
-        props[k] = v;
-      }
-    }
-
-    className.push(dynamicStylesheetManager.toClassName(dynamicStyleKey, dynamicStyle));
-
-    return (
-      <Component {...props} style={expandStyle(style)} className={className.join(' ')} />
-    );
+    return <Component {...props} />;
   }
 
   transformProps(props: ElementProps): ElementProps {

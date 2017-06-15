@@ -1,3 +1,4 @@
+//@flow
 import compile from '../index';
 
 it('compiles base', function() {
@@ -45,8 +46,10 @@ it('keeps numbers for unitless properties', function() {
 
 it('skips empty values', function() {
   let stylesheet = {
+    //$FlowIssue
     base: {
       color: 'red',
+      //$FlowIssue
       background: null,
       textAlign: false,
       flex: '',
@@ -59,6 +62,7 @@ it('skips empty values', function() {
 
 it('handles arrays', function() {
   let stylesheet = {
+    //$FlowIssue
     base: {
       color: ['red', 'white'],
     },
