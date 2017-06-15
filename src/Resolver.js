@@ -13,7 +13,6 @@ export const resolve = (props: *) => {
   if (!!stylesheet && !!variant) {
     variantClassName = stylesheet.toClassName(variant);
     styleProps = stylesheet.toStyle(variant);
-    console.log(styleProps);
   }
 
   const classNameArray = [
