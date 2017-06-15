@@ -64,7 +64,7 @@ export function injectStylesheet<T: string | ReactClass<*>>(
   let C = class extends ComponentWithStylesheet {
     static displayName = displayName;
     static defaultProps = {
-      variant: {},
+      variant: {base: true},
       Component: Component,
       stylesheet: stylesheet,
     };
@@ -84,20 +84,9 @@ class ComponentWithStylesheet<DP> extends React.Component<DP, *, *> {
   static defaultProps: $Abstract<DP>;
 
   render() {
-    let {variant, className: extraClassName, stylesheet} = this.props;
+    const {Component, ...props} = resolve(this.props);
 
-    let defaultClassName = [stylesheet.toClassName(variant)];
-    if (extraClassName) {
-      defaultClassName.push(extraClassName);
-    }
-
-    const {Component, props, style, className} = resolve({
-      props: {...this.props, style: this.props.stylesheet.spec.base},
-      defaultClassName,
-      defaultComponent: this.props.Component,
-    });
-
-    return <Component {...props} style={style} className={className} />;
+    return <Component {...props} />;
   }
 
   componentWillMount() {

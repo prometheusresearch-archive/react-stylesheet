@@ -395,27 +395,13 @@ export default class Element extends React.Component {
 
   static defaultProps = {
     boxSizing: 'border-box',
+    Component: 'div',
   };
 
-  static Component = 'div';
-  static className: ?string = null;
-
   render() {
-    let ownProps = this.transformProps(this.props);
-    let defaultComponent = this.constructor.Component;
+    const {Component, ...props} = resolve(this.transformProps(this.props));
 
-    let defaultClassName = [];
-    if (!!this.constructor.className) {
-      defaultClassName.push(this.constructor.className);
-    }
-
-    const {Component, props, style, className} = resolve({
-      props: ownProps,
-      defaultClassName,
-      defaultComponent,
-    });
-
-    return <Component {...props} style={style} className={className} />;
+    return <Component {...props} />;
   }
 
   transformProps(props: ElementProps): ElementProps {

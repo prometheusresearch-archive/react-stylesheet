@@ -4,70 +4,89 @@ import {expandStyle} from './compiler';
 import {Spec} from './Strategy';
 import {staticStylesheetManager, dynamicStylesheetManager} from './StylesheetManager';
 
-export const resolve = ({
-  defaultClassName,
-  defaultComponent,
-  props,
-}: {
-  defaultClassName: Array<string>,
-  defaultComponent: *,
-  props: *,
-}) => {
-  let Component = defaultComponent;
-  const className = defaultClassName;
-  let style = props.style || {};
-  let dynamicStyle = {};
-  let dynamicStyleKey = [];
-  let resultProps = {};
+export const resolve = (props: *) => {
+  let {Component, className, style, stylesheet, variant} = props;
 
-  for (let k in props) {
-    if (!props.hasOwnProperty(k)) {
+  let variantClassName;
+  let styleProps = props;
+
+  if (!!stylesheet && !!variant) {
+    variantClassName = stylesheet.toClassName(variant);
+
+    styleProps = Object.keys(variant).reduce((prev, next) => {
+      if (variant[next]) {
+        return {...prev, ...stylesheet.spec[next]};
+      }
+      return prev;
+    }, {});
+  }
+
+  const classNameArray = [
+    ...(variantClassName ? [variantClassName] : []),
+    ...(className ? [className] : []),
+  ];
+
+  style = style ? {...style} : {};
+  const dynamicStyle = {};
+  const dynamicStyleKey = [];
+  const resultProps = {};
+
+  for (const propName in styleProps) {
+    if (
+      !styleProps.hasOwnProperty(propName) ||
+      ['Component', 'className', 'style'].indexOf(propName) !== -1
+    ) {
       continue;
     }
-    let v = props[k];
 
-    if (k === 'Component') {
-      Component = v;
-      continue;
-    } else if (k === 'className') {
-      className.push(v);
-      continue;
-    } else if (k === 'style') {
+    const stylePropName = propName;
+
+    const value = styleProps[stylePropName];
+    const spec = Spec[stylePropName];
+
+    if (spec == null) {
+      resultProps[stylePropName] = value;
       continue;
     }
 
-    let spec = Spec[k];
-    if (spec != null) {
-      if (v == null) {
-        continue;
-      }
+    if (value == null) {
+      continue;
+    }
 
-      if (spec.applyStrategy === 'dynamic-inline') {
-        style[spec.name] = v;
-      } else if (spec.applyStrategy === 'dynamic') {
-        if (spec.state === 'normal') {
-          dynamicStyle[spec.name] = v;
-        } else {
-          dynamicStyle[spec.state] = dynamicStyle[spec.state] || {};
-          dynamicStyle[spec.state][spec.name] = v;
-        }
-        dynamicStyleKey[spec.index] = v;
-      } else if (spec.applyStrategy === 'static') {
-        className.push(staticStylesheetManager.toClassName(spec.state, spec.name, v));
+    if (spec.applyStrategy === 'dynamic-inline') {
+      style[spec.name] = value;
+      continue;
+    }
+
+    if (spec.applyStrategy === 'dynamic') {
+      if (spec.state === 'normal') {
+        dynamicStyle[spec.name] = value;
+      } else {
+        dynamicStyle[spec.state] = dynamicStyle[spec.state] || {};
+        dynamicStyle[spec.state][spec.name] = value;
       }
-    } else {
-      resultProps[k] = v;
+      dynamicStyleKey[spec.index] = value;
+      continue;
+    }
+
+    if (spec.applyStrategy === 'static') {
+      classNameArray.push(
+        staticStylesheetManager.toClassName(spec.state, spec.name, value),
+      );
+      continue;
     }
   }
 
-  className.push(dynamicStylesheetManager.toClassName(dynamicStyleKey, dynamicStyle));
-
+  classNameArray.push(
+    dynamicStylesheetManager.toClassName(dynamicStyleKey, dynamicStyle),
+  );
   const res = {
     Component,
-    props: resultProps,
+    ...resultProps,
     style: expandStyle(style),
-    className: className.join(' '),
+    className: classNameArray.join(' '),
   };
 
+  console.log(resultProps);
   return res;
 };
