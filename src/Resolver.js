@@ -12,13 +12,8 @@ export const resolve = (props: *) => {
 
   if (!!stylesheet && !!variant) {
     variantClassName = stylesheet.toClassName(variant);
-
-    styleProps = Object.keys(variant).reduce((prev, next) => {
-      if (variant[next]) {
-        return {...prev, ...stylesheet.spec[next]};
-      }
-      return prev;
-    }, {});
+    styleProps = stylesheet.toStyle(variant);
+    console.log(styleProps);
   }
 
   const classNameArray = [
