@@ -9,6 +9,8 @@ import type {CompileResult, ClassNameMapping} from './compiler';
 import compile from './compiler';
 import PseudoClassSet from './compiler/PseudoClassSet';
 import {StylesheetManager} from './StylesheetManager';
+import {CSSClassRepr} from './CSSClassRepr';
+import * as Environment from './Environment';
 
 export type Variant = {
   [variantName: string]: boolean,
@@ -64,7 +66,19 @@ export class Stylesheet extends StylesheetManager {
   }
 
   toClassName(variant?: Variant = {}): string {
-    return classNameFor(this._stylesheet.mapping, variant);
+    const className = classNameFor(this._stylesheet.mapping, variant);
+    if (Environment.isTest) {
+      const activeNames = activeVariantNames(this._stylesheet.mapping, variant);
+      const style = {...this.spec};
+      for (const k in style) {
+        if (activeNames.indexOf(k) === -1) {
+          delete style[k];
+        }
+      }
+      return new CSSClassRepr(className, style, 'CompiledCSSWithVariants');
+    } else {
+      return className;
+    }
   }
 
   toJSON() {
@@ -109,6 +123,27 @@ export function classNameFor(mapping: ClassNameMapping, variant: Variant): strin
     }
   }
   return className;
+}
+
+export function activeVariantNames(
+  mapping: ClassNameMapping,
+  variant: Variant,
+): Array<string> {
+  let names = ['base'];
+  for (let variantName in variant) {
+    if (
+      mapping.then &&
+      variant.hasOwnProperty(variantName) &&
+      variant[variantName] &&
+      mapping.then[variantName]
+    ) {
+      names = names.concat(
+        variantName,
+        activeVariantNames(mapping.then[variantName], variant),
+      );
+    }
+  }
+  return names;
 }
 
 export function override(spec: StylesheetSpec, override: StylesheetSpec): StylesheetSpec {

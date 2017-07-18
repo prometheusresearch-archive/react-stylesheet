@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BBox /> render 1`] = `
+<div
+  className={
+    StyleJoin [
+      CompiledCSSWithVariants {
+        "base": Object {
+          "alignItems": "stretch",
+          "display": "flex",
+          "flexBasis": "auto",
+          "flexShrink": 0,
+          "margin": 0,
+          "minHeight": 0,
+          "minWidth": 0,
+          "overflow": "hidden",
+          "padding": 0,
+          "position": "relative",
+        },
+      },
+      PrecompiledCSS {
+        "boxSizing": "border-box",
+      },
+      PrecompiledCSS {
+        "flexDirection": "column",
+      },
+      DynamicallyGeneratedCSS {},
+    ]
+  }
+  style={Object {}}
+>
+  Hello
+</div>
+`;
+
+exports[`<HBox /> render 1`] = `
+<div
+  className={
+    StyleJoin [
+      CompiledCSSWithVariants {
+        "base": Object {
+          "alignItems": "stretch",
+          "display": "flex",
+          "flexBasis": "auto",
+          "flexShrink": 0,
+          "margin": 0,
+          "minHeight": 0,
+          "minWidth": 0,
+          "overflow": "hidden",
+          "padding": 0,
+          "position": "relative",
+        },
+      },
+      PrecompiledCSS {
+        "boxSizing": "border-box",
+      },
+      PrecompiledCSS {
+        "flexDirection": "row",
+      },
+      DynamicallyGeneratedCSS {},
+    ]
+  }
+  style={Object {}}
+>
+  Hello
+</div>
+`;

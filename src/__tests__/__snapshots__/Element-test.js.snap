@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Element /> render color="red" 1`] = `
+<div
+  className={
+    StyleJoin [
+      PrecompiledCSS {
+        "boxSizing": "border-box",
+      },
+      DynamicallyGeneratedCSS {},
+    ]
+  }
+  style={
+    Object {
+      "color": "red",
+    }
+  }
+>
+  Hello
+</div>
+`;
+
+exports[`<Element /> render colorOnHover="red" 1`] = `
+<div
+  className={
+    StyleJoin [
+      PrecompiledCSS {
+        "boxSizing": "border-box",
+      },
+      DynamicallyGeneratedCSS {
+        "hover": Object {
+          "color": "red",
+        },
+      },
+    ]
+  }
+  style={Object {}}
+>
+  Hello
+</div>
+`;
+
+exports[`<Element /> render position="fixed" 1`] = `
+<div
+  className={
+    StyleJoin [
+      PrecompiledCSS {
+        "position": "fixed",
+      },
+      PrecompiledCSS {
+        "boxSizing": "border-box",
+      },
+      DynamicallyGeneratedCSS {},
+    ]
+  }
+  style={Object {}}
+>
+  Hello
+</div>
+`;

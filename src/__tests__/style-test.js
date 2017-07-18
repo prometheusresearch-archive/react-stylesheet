@@ -1,4 +1,36 @@
+import React from 'react';
+import renderer from 'react-test-renderer';
+
+import * as TestUtils from '../TestUtils';
 import style from '../style';
+
+expect.addSnapshotSerializer(TestUtils.snapshotSerializer);
+
+test('render', function() {
+  let SC = style('div', {
+    base: {color: 'red'},
+  });
+  const tree = renderer.create(<SC>Hello</SC>).toJSON();
+  expect(tree).toMatchSnapshot();
+});
+
+test('render w/ variant (inactive)', function() {
+  let SC = style('div', {
+    base: {color: 'red'},
+    em: {fontWeight: 'bold'},
+  });
+  const tree = renderer.create(<SC>Hello</SC>).toJSON();
+  expect(tree).toMatchSnapshot();
+});
+
+test('render w/ variant (active)', function() {
+  let SC = style('div', {
+    base: {color: 'red'},
+    em: {fontWeight: 'bold'},
+  });
+  const tree = renderer.create(<SC variant={{em: true}}>Hello</SC>).toJSON();
+  expect(tree).toMatchSnapshot();
+});
 
 test('styles host component with a stylesheet', function() {
   let SC = style('div', {base: {color: 'something'}});

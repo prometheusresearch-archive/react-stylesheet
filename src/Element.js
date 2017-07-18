@@ -9,6 +9,8 @@ import React from 'react';
 import {expandStyle} from './compiler';
 import {Spec} from './ElementPropSpec';
 import {staticStylesheetManager, dynamicStylesheetManager} from './StylesheetManager';
+import {CSSClassJoinRepr} from './CSSClassRepr';
+import * as Environment from './Environment';
 
 export type ElementProps = {
   Component?: string,
@@ -458,9 +460,13 @@ export default class Element extends React.Component {
 
     className.push(dynamicStylesheetManager.toClassName(dynamicStyleKey, dynamicStyle));
 
-    return (
-      <Component {...props} style={expandStyle(style)} className={className.join(' ')} />
-    );
+    if (Environment.isTest) {
+      className = new CSSClassJoinRepr(className);
+    } else {
+      className = className.join(' ');
+    }
+
+    return <Component {...props} style={expandStyle(style)} className={className} />;
   }
 
   transformProps(props: ElementProps): ElementProps {
