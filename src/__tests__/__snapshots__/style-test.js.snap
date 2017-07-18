@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render 1`] = `
+<div
+  className={
+    CompiledCSSWithVariants {
+      "base": Object {
+        "color": "red",
+      },
+    }
+  }
+>
+  Hello
+</div>
+`;
+
+exports[`render w/ variant (active) 1`] = `
+<div
+  className={
+    CompiledCSSWithVariants {
+      "base": Object {
+        "color": "red",
+      },
+      "em": Object {
+        "fontWeight": "bold",
+      },
+    }
+  }
+>
+  Hello
+</div>
+`;
+
+exports[`render w/ variant (inactive) 1`] = `
+<div
+  className={
+    CompiledCSSWithVariants {
+      "base": Object {
+        "color": "red",
+      },
+    }
+  }
+>
+  Hello
+</div>
+`;

@@ -9,32 +9,32 @@ import createHash from 'murmurhash-js/murmurhash3_gc';
 
 import {Spec} from './ElementPropSpec';
 import {compileStyle} from './compiler';
+import {CSSClassRepr} from './CSSClassRepr';
+import * as Environment from './Environment';
 
 type Style = Object;
 
 export class StylesheetManager {
-  _canInject: boolean;
-
-  constructor() {
-    this._canInject = typeof window !== 'undefined';
-  }
-
   injectStylesheet(compiledStylesheet: Array<[string, string]>): void {
-    if (this._canInject) {
+    if (Environment.canInject) {
       injectStylesheet(compiledStylesheet);
     }
   }
 }
 
 export class DynamicStylesheetManager extends StylesheetManager {
-  _stylesheetCache: Map<string, string> = new Map();
+  _stylesheetCache: Map<string, string | CSSClassRepr> = new Map();
 
-  toClassName(key: mixed, style: Style): string {
+  toClassName(key: mixed, style: Style): CSSClassRepr | string {
     key = `rs-${String(createHash(String(key)))}`;
     let className = this._stylesheetCache.get(key);
     if (className == null) {
       let css = compileStyle(key, style, true);
-      className = key;
+      if (Environment.isTest) {
+        className = new CSSClassRepr(key, style, 'DynamicallyGeneratedCSS');
+      } else {
+        className = key;
+      }
       this.injectStylesheet([[key, css]]);
       this._stylesheetCache.set(key, className);
     }
@@ -49,7 +49,12 @@ export class StaticStylesheetManager extends StylesheetManager {
   }
 
   toClassName(state: StyleState, name: string, value: string): string {
-    return `rs-${name}-${value}-${state}`;
+    const className = `rs-${name}-${value}-${state}`;
+    if (Environment.isTest) {
+      return new CSSClassRepr(className, {[name]: value}, 'PrecompiledCSS');
+    } else {
+      return className;
+    }
   }
 
   _precompile(): void {

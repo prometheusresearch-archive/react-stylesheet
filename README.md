@@ -257,3 +257,50 @@ let Label = style('span', {
   }
 })
 ```
+
+### Test utilities
+
+React Stylesheet comes with snapshot serializers for [Jest][] test framework.
+
+The example test setup looks like this:
+
+    import React from 'react';
+    import renderer from 'react-test-renderer';
+
+    import {Element} from 'react-stylesheet';
+    import * as TestUtils from 'react-stylesheet/testutils';
+
+    expect.addSnapshotSerializer(TestUtils.snapshotSerializer);
+
+    function Hello() {
+      return <Element color="red" colorOnHover="black">HEllo!</Element>
+    }
+
+    test('rendering <Hello />', function() {
+      const tree = renderer.create(<Hello />).toJSON();
+      expect(tree).toMatchSnapshot();
+    });
+
+Which produces the following snapshot:
+
+    <div
+      className={
+        StyleJoin [
+          PrecompiledCSS {
+            "boxSizing": "border-box",
+          },
+          DynamicallyGeneratedCSS {
+            "hover": Object {
+              "color": "black",
+            },
+          },
+        ]
+      }
+      style={Object {
+        "hover": "red",
+      }}
+    >
+      Hello
+    </div>
+
+[Jest]: https://facebook.github.io/jest/

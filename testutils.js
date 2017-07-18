@@ -3,5 +3,4 @@
  * @flow
  */
 'use strict';
-
-module.exports = require('./lib/css');
+module.exports = require('./lib/TestUtils');
