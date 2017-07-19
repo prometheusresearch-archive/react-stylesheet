@@ -9,7 +9,7 @@ import type {CompileResult, ClassNameMapping} from './compiler';
 import compile from './compiler';
 import PseudoClassSet from './compiler/PseudoClassSet';
 import {StylesheetManager} from './StylesheetManager';
-import {CSSClassRepr} from './CSSClassRepr';
+import {CSSClassRepresentation} from './StyleRepresentation';
 import * as Environment from './Environment';
 
 export type Variant = {
@@ -75,7 +75,7 @@ export class Stylesheet extends StylesheetManager {
           delete style[k];
         }
       }
-      return new CSSClassRepr(className, style, 'CompiledCSSWithVariants');
+      return new CSSClassRepresentation(className, style, 'CompiledCSSWithVariants');
     } else {
       return className;
     }

@@ -2,15 +2,15 @@
  * @flow
  */
 
-import {CSSClassRepr, CSSClassJoinRepr} from './CSSClassRepr';
+import {CSSClassRepresentation, CSSClassJoinRepresentation} from './StyleRepresentation';
 
 export const snapshotSerializer = {
   // $ExpectError: ...
   print(val, serialize, _indent) {
-    if (val instanceof CSSClassRepr) {
-      const repr = serialize(val.repr);
-      return repr.replace(/^Object {/, `${val.reprName} {`);
-    } else if (val instanceof CSSClassJoinRepr) {
+    if (val instanceof CSSClassRepresentation) {
+      const repr = serialize(val.representation);
+      return repr.replace(/^Object {/, `${val.representationName} {`);
+    } else if (val instanceof CSSClassJoinRepresentation) {
       const repr = serialize(val.styles);
       return repr.replace(/^Array \[/, 'StyleJoin [');
     } else {
@@ -20,6 +20,8 @@ export const snapshotSerializer = {
 
   // $ExpectError: ...
   test(val) {
-    return val instanceof CSSClassRepr || val instanceof CSSClassJoinRepr;
+    return (
+      val instanceof CSSClassRepresentation || val instanceof CSSClassJoinRepresentation
+    );
   },
 };
