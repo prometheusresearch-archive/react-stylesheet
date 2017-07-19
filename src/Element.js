@@ -9,7 +9,7 @@ import React from 'react';
 import {expandStyle} from './compiler';
 import {Spec} from './ElementPropSpec';
 import {staticStylesheetManager, dynamicStylesheetManager} from './StylesheetManager';
-import {CSSClassJoinRepr} from './CSSClassRepr';
+import {CSSClassJoinRepresentation} from './StyleRepresentation';
 import * as Environment from './Environment';
 
 export type ElementProps = {
@@ -461,7 +461,7 @@ export default class Element extends React.Component {
     className.push(dynamicStylesheetManager.toClassName(dynamicStyleKey, dynamicStyle));
 
     if (Environment.isTest) {
-      className = new CSSClassJoinRepr(className);
+      className = new CSSClassJoinRepresentation(className);
     } else {
       className = className.join(' ');
     }

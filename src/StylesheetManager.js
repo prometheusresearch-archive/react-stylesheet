@@ -9,7 +9,7 @@ import createHash from 'murmurhash-js/murmurhash3_gc';
 
 import {Spec} from './ElementPropSpec';
 import {compileStyle} from './compiler';
-import {CSSClassRepr} from './CSSClassRepr';
+import {CSSClassRepresentation} from './StyleRepresentation';
 import * as Environment from './Environment';
 
 type Style = Object;
@@ -23,15 +23,15 @@ export class StylesheetManager {
 }
 
 export class DynamicStylesheetManager extends StylesheetManager {
-  _stylesheetCache: Map<string, string | CSSClassRepr> = new Map();
+  _stylesheetCache: Map<string, string | CSSClassRepresentation> = new Map();
 
-  toClassName(key: mixed, style: Style): CSSClassRepr | string {
+  toClassName(key: mixed, style: Style): CSSClassRepresentation | string {
     key = `rs-${String(createHash(String(key)))}`;
     let className = this._stylesheetCache.get(key);
     if (className == null) {
       let css = compileStyle(key, style, true);
       if (Environment.isTest) {
-        className = new CSSClassRepr(key, style, 'DynamicallyGeneratedCSS');
+        className = new CSSClassRepresentation(key, style, 'DynamicallyGeneratedCSS');
       } else {
         className = key;
       }
@@ -51,7 +51,7 @@ export class StaticStylesheetManager extends StylesheetManager {
   toClassName(state: StyleState, name: string, value: string): string {
     const className = `rs-${name}-${value}-${state}`;
     if (Environment.isTest) {
-      return new CSSClassRepr(className, {[name]: value}, 'PrecompiledCSS');
+      return new CSSClassRepresentation(className, {[name]: value}, 'PrecompiledCSS');
     } else {
       return className;
     }
