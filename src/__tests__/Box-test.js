@@ -17,7 +17,7 @@ describe('<HBox />', function() {
   });
 });
 
-describe('<BBox />', function() {
+describe('<VBox />', function() {
   test('render', function() {
     const tree = renderer.create(<VBox>Hello</VBox>).toJSON();
     expect(tree).toMatchSnapshot();
