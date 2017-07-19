@@ -24,7 +24,6 @@ exports[`<BBox /> render 1`] = `
       PrecompiledCSS {
         "flexDirection": "column",
       },
-      DynamicallyGeneratedCSS {},
     ]
   }
   style={Object {}}
@@ -57,7 +56,6 @@ exports[`<HBox /> render 1`] = `
       PrecompiledCSS {
         "flexDirection": "row",
       },
-      DynamicallyGeneratedCSS {},
     ]
   }
   style={Object {}}
