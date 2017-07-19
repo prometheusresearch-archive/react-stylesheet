@@ -303,4 +303,13 @@ Which produces the following snapshot:
       Hello
     </div>
 
+Alternatively if you don't want to call `expect.addSnapshotSerializer(..)` line
+in each of your test files you can the following config to your `package.json`:
+
+    "jest": {
+      "snapshotSerializers": ["react-stylesheet/testutils-snapshot-serializer"]
+    }
+
+This will enable snapshot serializers for each of your test files.
+
 [Jest]: https://facebook.github.io/jest/
