@@ -419,6 +419,8 @@ export default class Element extends React.Component {
       className.push(this.constructor.className);
     }
 
+    let hasDynamicStyle = false;
+
     for (let k in ownProps) {
       if (!ownProps.hasOwnProperty(k)) {
         continue;
@@ -443,6 +445,7 @@ export default class Element extends React.Component {
         if (spec.applyStrategy === 'dynamic-inline') {
           style[spec.name] = v;
         } else if (spec.applyStrategy === 'dynamic') {
+          hasDynamicStyle = true;
           if (spec.state === 'normal') {
             dynamicStyle[spec.name] = v;
           } else {
@@ -458,7 +461,9 @@ export default class Element extends React.Component {
       }
     }
 
-    className.push(dynamicStylesheetManager.toClassName(dynamicStyleKey, dynamicStyle));
+    if (hasDynamicStyle) {
+      className.push(dynamicStylesheetManager.toClassName(dynamicStyleKey, dynamicStyle));
+    }
 
     if (Environment.isTest) {
       className = new CSSClassJoinRepresentation(className);
