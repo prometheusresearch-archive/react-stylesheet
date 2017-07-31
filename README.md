@@ -13,12 +13,15 @@ Component based styling approach for React applications.
 - [Installation](#installation)
 - [Usage](#usage)
   - [`<Element />`](#element-)
+    - [Styling based on state (hover, focus, ...)](#styling-based-on-state-hover-focus-)
+    - [Overriding component](#overriding-component)
   - [`<VBox />` and `<HBox />`](#vbox--and-hbox-)
   - [Styled component factories](#styled-component-factories)
-    - [Pseudoclasses](#pseudoclasses)
+    - [Styling based on state (hover, focus, ...)](#styling-based-on-state-hover-focus--1)
     - [Variants](#variants)
     - [Type safety](#type-safety)
   - [CSS helpers](#css-helpers)
+  - [Test utilities](#test-utilities)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
