@@ -5,7 +5,9 @@
   "main": "lib/index.js",
   "files": [
     "lib/",
-    "css.js"
+    "css.js",
+    "testutils.js",
+    "testutils-snapshot-serializer.js"
   ],
   "scripts": {
     "test": "make test test-flow"
