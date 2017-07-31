@@ -1,5 +1,6 @@
 [ignore]
 <PROJECT_ROOT>/testutils.js
+<PROJECT_ROOT>/testutils-snapshot-serializer.js
 <PROJECT_ROOT>/css.js
 <PROJECT_ROOT>/test_flow/.*\.js
 <PROJECT_ROOT>/lib/.*\.js
