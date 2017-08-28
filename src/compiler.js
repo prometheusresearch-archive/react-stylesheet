@@ -14,35 +14,44 @@ export type CompiledStylesheet = {
   id: string,
   rules: Array<{selector: string, props: string}>,
   spec: StylesheetSpec,
+  variantToClassName: {[variantName: string]: string},
 };
+
+export const RTL_CLASS_NAME = 'RTL';
 
 export function compile(spec: StylesheetSpec): CompiledStylesheet {
   const displayName = spec.displayName || 'Component';
+  const variantToClassName = {};
   const rules = [];
   let id = [];
   for (const key in spec) {
     if (key === 'displayName') {
       continue;
     }
+
     // compile variant
     const variant = [];
     compileVariant(variant, [], spec[key]);
+
     // now turn variant into rule
     const hash = computeHash(displayName + '||' + JSON.stringify(variant));
     id.push(hash);
+
+    let variantSelector = displayName;
+    if (key !== 'base') {
+      variantSelector = `${variantSelector}-${key}`;
+    }
+    variantSelector = `${variantSelector}-${hash}`;
+
     for (let i = 0; i < variant.length; i++) {
       const rule = variant[i];
       if (rule.props.length === 0) {
         continue;
       }
       // selector
-      let selector = displayName;
-      if (key !== 'base') {
-        selector = `${selector}-${key}`;
-      }
-      selector = `${selector}-${hash}`;
+      let selector = variantSelector;
       if (rule.rightToLeft) {
-        selector = `${selector}.RTL`;
+        selector = `${selector}.${RTL_CLASS_NAME}`;
       }
       if (rule.selector.length > 0) {
         selector = `${selector}:${rule.selector.join(':')}`;
@@ -51,12 +60,15 @@ export function compile(spec: StylesheetSpec): CompiledStylesheet {
       const props = rule.props.join(';\n') + ';';
       rules.push({selector, props});
     }
+
+    variantToClassName[key] = variantSelector;
   }
 
   return {
     id: computeHash(id.join('||')),
     rules,
     spec,
+    variantToClassName,
   };
 }
 

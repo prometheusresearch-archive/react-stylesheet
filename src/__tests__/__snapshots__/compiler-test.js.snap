@@ -18,6 +18,9 @@ Object {
       "marginStart": 12,
     },
   },
+  "variantToClassName": Object {
+    "base": "Component-4100871942",
+  },
 }
 `;
 
@@ -39,6 +42,9 @@ Object {
       "marginEnd": 12,
     },
   },
+  "variantToClassName": Object {
+    "base": "Component-1522872987",
+  },
 }
 `;
 
@@ -57,6 +63,9 @@ margin-bottom: 12px;",
       "marginVertical": 12,
     },
   },
+  "variantToClassName": Object {
+    "base": "Component-2127533042",
+  },
 }
 `;
 
@@ -74,6 +83,9 @@ margin-right: 12px;",
     "base": Object {
       "marginHorizontal": 12,
     },
+  },
+  "variantToClassName": Object {
+    "base": "Component-2856744843",
   },
 }
 `;
@@ -96,6 +108,9 @@ Object {
       "paddingStart": 12,
     },
   },
+  "variantToClassName": Object {
+    "base": "Component-1749670398",
+  },
 }
 `;
 
@@ -117,6 +132,9 @@ Object {
       "paddingEnd": 12,
     },
   },
+  "variantToClassName": Object {
+    "base": "Component-1864011970",
+  },
 }
 `;
 
@@ -135,6 +153,9 @@ padding-bottom: 12px;",
       "paddingVertical": 12,
     },
   },
+  "variantToClassName": Object {
+    "base": "Component-3658477728",
+  },
 }
 `;
 
@@ -152,6 +173,9 @@ padding-right: 12px;",
     "base": Object {
       "paddingHorizontal": 12,
     },
+  },
+  "variantToClassName": Object {
+    "base": "Component-1749467061",
   },
 }
 `;
@@ -174,6 +198,9 @@ Object {
       "startOffset": 12,
     },
   },
+  "variantToClassName": Object {
+    "base": "Component-4111961331",
+  },
 }
 `;
 
@@ -195,6 +222,9 @@ Object {
       "endOffset": 12,
     },
   },
+  "variantToClassName": Object {
+    "base": "Component-2672255561",
+  },
 }
 `;
 
@@ -212,6 +242,9 @@ Object {
       "color": "red",
     },
   },
+  "variantToClassName": Object {
+    "base": "Component-2808132786",
+  },
 }
 `;
 
@@ -228,6 +261,9 @@ Object {
     "something": Object {
       "color": "red",
     },
+  },
+  "variantToClassName": Object {
+    "something": "Component-something-2808132786",
   },
 }
 `;
@@ -252,6 +288,9 @@ Object {
         "color": "black",
       },
     },
+  },
+  "variantToClassName": Object {
+    "base": "Component-2281268226",
   },
 }
 `;
@@ -284,6 +323,9 @@ Object {
       },
     },
   },
+  "variantToClassName": Object {
+    "base": "Component-147224304",
+  },
 }
 `;
 
@@ -307,6 +349,9 @@ Object {
         "color": "black",
       },
     },
+  },
+  "variantToClassName": Object {
+    "something": "Component-something-2281268226",
   },
 }
 `;
