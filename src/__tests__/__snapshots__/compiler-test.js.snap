@@ -1,5 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`compile() empty rulesets 1`] = `
+Object {
+  "id": "<HASH>",
+  "rules": Array [],
+  "spec": Object {
+    "base": Object {},
+  },
+  "variantToClassName": Object {
+    "base": "Component-<HASH>",
+  },
+}
+`;
+
 exports[`compile() empty values 1`] = `
 Object {
   "id": "<HASH>",
@@ -324,6 +337,35 @@ Object {
   },
   "variantToClassName": Object {
     "something": "Component-something-<HASH>",
+  },
+}
+`;
+
+exports[`compile() w/ custom displayName 1`] = `
+Object {
+  "id": "<HASH>",
+  "rules": Array [
+    Object {
+      "props": "color: red;",
+      "selector": "Fancy-<HASH>",
+    },
+    Object {
+      "props": "color: yellow;",
+      "selector": "Fancy-some-<HASH>",
+    },
+  ],
+  "spec": Object {
+    "base": Object {
+      "color": "red",
+    },
+    "displayName": "Fancy",
+    "some": Object {
+      "color": "yellow",
+    },
+  },
+  "variantToClassName": Object {
+    "base": "Fancy-<HASH>",
+    "some": "Fancy-some-<HASH>",
   },
 }
 `;

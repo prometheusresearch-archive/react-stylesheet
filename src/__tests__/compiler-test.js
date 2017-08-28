@@ -184,3 +184,21 @@ test('compile() empty values', function() {
     }),
   ).toMatchSnapshot();
 });
+
+test('compile() empty rulesets', function() {
+  expect(
+    Compiler.compile({
+      base: {},
+    }),
+  ).toMatchSnapshot();
+});
+
+test('compile() w/ custom displayName', function() {
+  expect(
+    Compiler.compile({
+      displayName: 'Fancy',
+      base: {color: 'red'},
+      some: {color: 'yellow'},
+    }),
+  ).toMatchSnapshot();
+});
