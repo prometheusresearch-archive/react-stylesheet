@@ -12,7 +12,7 @@ import UnitlessNumberPropSet from './UnitlessNumberPropSet';
 
 export type CompiledStylesheet = {
   id: string,
-  rules: Array<{selector: string, props: string}>,
+  rules: Array<{cssText: string}>,
   spec: StylesheetSpec,
   variantToClassName: {[variantName: string]: string},
 };
@@ -49,7 +49,7 @@ export function compile(spec: StylesheetSpec): CompiledStylesheet {
         continue;
       }
       // selector
-      let selector = variantSelector;
+      let selector = `.${variantSelector}`;
       if (rule.rightToLeft) {
         selector = `${selector}.${RTL_CLASS_NAME}`;
       }
@@ -58,7 +58,7 @@ export function compile(spec: StylesheetSpec): CompiledStylesheet {
       }
       // props
       const props = rule.props.join(';\n') + ';';
-      rules.push({selector, props});
+      rules.push({cssText: `${selector} { ${props} }`});
     }
 
     variantToClassName[key] = variantSelector;

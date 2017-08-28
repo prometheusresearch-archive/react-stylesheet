@@ -8,6 +8,9 @@
   },
   "author": "Andrey Popp <8mayday@gmail.com>",
   "license": "ISC",
+  "jest": {
+    "testEnvironment": "node"
+  },
   "babel": {
     "presets": [
       [

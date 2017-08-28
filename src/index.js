@@ -4,8 +4,10 @@
 
 import invariant from 'invariant';
 import * as React from 'react';
+
 import * as CSS from './css';
 import * as Compiler from './compiler';
+import * as Environment from './environment';
 import PseudoClassSet from './PseudoClassSet';
 
 /**
@@ -32,11 +34,17 @@ export const defaultContext = {
   rightToLeft: false,
 };
 
+export const staticEnvironment = Environment.create();
+
 /**
  * Produce a stylesheet from a spec.
  */
 export function createStylesheet(spec: StylesheetSpec): Stylesheet {
   return Compiler.compile(spec);
+}
+
+export function createEnvironment(): Environment.Environment {
+  return Environment.create();
 }
 
 /**
@@ -66,11 +74,10 @@ export function overrideStylesheet(
   return createStylesheet(nextSpec);
 }
 
-export function injectStylesheet(stylesheet: Stylesheet): void {
-  return (null: any);
-}
-
-export function removeStylesheet(stylesheet: Stylesheet): void {
+export function injectStylesheet(stylesheet: Stylesheet, env = staticEnvironment): void {
+  for (const rule of stylesheet.rules) {
+    staticEnvironment.insert(rule.cssText);
+  }
   return (null: any);
 }
 
@@ -82,9 +89,15 @@ export function toClassName(
   let className = stylesheet.variantToClassName.base || '';
   if (context.rightToLeft) {
     className = className + ' ' + Compiler.RTL_CLASS_NAME;
+    if (stylesheet.variantToClassName.rightToLeft != null) {
+      className = className + ' ' + stylesheet.variantToClassName.rightToLeft;
+    }
   }
   for (const key in variant) {
     if (key === 'base') {
+      continue;
+    }
+    if (key === 'rightToLeft' && context.rightToLeft) {
       continue;
     }
     if (variant[key] != null && variant[key] !== false) {
@@ -112,6 +125,7 @@ export function styleComponent<P: {}>(
   spec: StylesheetSpec,
 ): React.ComponentType<P & StyledComponentProps> {
   const stylesheet = createStylesheet(spec);
+  injectStylesheet(stylesheet);
   const defaultProps = getDefaultProps(Component);
   const StyledComponent = class extends StyledComponentImpl<P> {
     static defaultProps = {
@@ -168,21 +182,6 @@ class StyledComponentImpl<P: {}> extends React.Component<P & StyledComponentImpl
     }
     return <Component {...props} className={className} />;
   }
-
-  componentWillMount() {
-    injectStylesheet(this.props.stylesheet);
-  }
-
-  componentWillUnmount() {
-    removeStylesheet(this.props.stylesheet);
-  }
-
-  componentWillReceiveProps(nextProps, nextContext: StyledComponentContext) {
-    if (nextProps.stylesheet.id !== this.props.stylesheet.id) {
-      removeStylesheet(this.props.stylesheet);
-      injectStylesheet(nextProps.stylesheet);
-    }
-  }
 }
 
 /**
@@ -201,6 +200,8 @@ export class Element<P: {}> extends React.Component<
   static defaultProps = {
     Component: 'div',
   };
+
+  environment = createEnvironment();
 
   render() {
     const {Component, ...props} = this.props;

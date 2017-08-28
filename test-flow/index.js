@@ -7,7 +7,6 @@ import {
   styleComponent,
   createStylesheet,
   injectStylesheet,
-  removeStylesheet,
   toClassName,
   Element,
   VBox,
