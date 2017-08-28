@@ -7,20 +7,26 @@ import memoizeStringOnly from 'fbjs/lib/memoizeStringOnly';
 import computeHashImpl from 'murmurhash-js/murmurhash3_gc';
 
 import type {StylesheetSpec} from './index';
-import PseudoClassSet from './PseudoClassSet';
-import UnitlessNumberPropSet from './UnitlessNumberPropSet';
+import CSSPseudoClassSet from './CSSPseudoClassSet';
+import CSSUnitlessNumberPropSet from './CSSUnitlessNumberPropSet';
+import * as Environment from './environment';
 
 export type CompiledStylesheet = {
   id: string,
   rules: Array<{cssText: string}>,
   spec: StylesheetSpec,
-  variantToClassName: {[variantName: string]: string},
+  variantToClassName: {
+    [variantName: string]: {
+      className: string,
+      repr: ?{selector: string, props: Array<string>},
+    },
+  },
 };
 
 export const RTL_CLASS_NAME = 'RTL';
 
 export function compile(spec: StylesheetSpec): CompiledStylesheet {
-  const displayName = spec.displayName || 'Component';
+  const displayName = spec.displayName != null ? spec.displayName : 'Component';
   const variantToClassName = {};
   const rules = [];
   let id = [];
@@ -43,6 +49,8 @@ export function compile(spec: StylesheetSpec): CompiledStylesheet {
     }
     variantSelector = `${variantSelector}-${hash}`;
 
+    const repr = Environment.isTest ? [] : null;
+
     for (let i = 0; i < variant.length; i++) {
       const rule = variant[i];
       if (rule.props.length === 0) {
@@ -59,9 +67,17 @@ export function compile(spec: StylesheetSpec): CompiledStylesheet {
       // props
       const props = rule.props.join(';\n') + ';';
       rules.push({cssText: `${selector} { ${props} }`});
+      // repr
+      if (repr !== null) {
+        let reprSelector = key;
+        if (rule.selector.length > 0) {
+          reprSelector = reprSelector + ':' + rule.selector.join(':');
+        }
+        repr.push({selector: reprSelector, props: rule.props});
+      }
     }
 
-    variantToClassName[key] = variantSelector;
+    variantToClassName[key] = {className: variantSelector, repr};
   }
 
   return {
@@ -78,7 +94,7 @@ function compileVariant(rules, selector, variant) {
   const variantRules = [];
   for (const name in variant) {
     const value = variant[name];
-    if (PseudoClassSet[name]) {
+    if (CSSPseudoClassSet[name]) {
       compileVariant(variantRules, selector.concat(name), value);
     } else if (!isEmpty(value)) {
       compileProperty(props, propsRTL, name, value);
@@ -169,7 +185,7 @@ export function compileValue(name: string, value: mixed): string {
   if (
     isNonNumeric ||
     value === 0 ||
-    (UnitlessNumberPropSet.hasOwnProperty(name) && UnitlessNumberPropSet[name])
+    (CSSUnitlessNumberPropSet.hasOwnProperty(name) && CSSUnitlessNumberPropSet[name])
   ) {
     return '' + ((value: any): string); // cast to string
   } else {
@@ -177,7 +193,6 @@ export function compileValue(name: string, value: mixed): string {
   }
 }
 
-const computeHash = value =>
-  process.env.NODE_ENV === 'test' ? '<HASH>' : computeHashImpl(value);
+const computeHash = value => (Environment.isTest ? '<HASH>' : computeHashImpl(value));
 const isEmpty = value => value == null || value === '' || value === false;
 export const compileName = memoizeStringOnly(name => hyphenateStyleName(name));

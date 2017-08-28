@@ -34,15 +34,18 @@ function sheetForTag(tag): StylesheetTag {
   invariant(false, 'Cannot get the HTMLStyleElement for the stylesheet');
 }
 
-const isBrowser: boolean = typeof window !== 'undefined';
-const isDev: boolean = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV;
-const isTest: boolean = process.env.NODE_ENV === 'test';
+export const isBrowser: boolean = typeof window !== 'undefined';
+export const isDev: boolean =
+  process.env.NODE_ENV === 'development' || !process.env.NODE_ENV;
+export const isTest: boolean = process.env.NODE_ENV === 'test';
 
 const oldIE = (() => {
   if (isBrowser) {
     let div = document.createElement('div');
     div.innerHTML = '<!--[if lt IE 10]><i></i><![endif]-->';
     return div.getElementsByTagName('i').length === 1;
+  } else {
+    return false;
   }
 })();
 

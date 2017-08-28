@@ -36,7 +36,9 @@
     "flow-bin": "^0.53.1",
     "jest": "^20.0.4",
     "prettier": "file:../../prettier",
-    "react": "^15.6.1"
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-test-renderer": "^15.6.1"
   },
   "dependencies": {
     "fbjs": "^0.8.14",

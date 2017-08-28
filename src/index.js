@@ -8,7 +8,9 @@ import * as React from 'react';
 import * as CSS from './css';
 import * as Compiler from './compiler';
 import * as Environment from './environment';
-import PseudoClassSet from './PseudoClassSet';
+import CSSPseudoClassSet from './CSSPseudoClassSet';
+import CSSPropertySet from './CSSPropertySet';
+import {CSSClassJoin, CSSClass} from './StyleRepresentation';
 
 /**
  * This is how you define your stylesheet.
@@ -28,6 +30,7 @@ export opaque type Stylesheet = Compiler.CompiledStylesheet;
  */
 export type StylesheetContext = {
   rightToLeft: boolean,
+  className?: string,
 };
 
 export const defaultContext = {
@@ -57,7 +60,7 @@ export function overrideStylesheet(
   function overrideVariant(variant, override) {
     const nextVariant = {...variant};
     for (const k in override) {
-      if (PseudoClassSet[k]) {
+      if (CSSPseudoClassSet[k]) {
         nextVariant[k] = overrideVariant(nextVariant[k], override[k]);
       } else {
         nextVariant[k] = override[k];
@@ -85,13 +88,22 @@ export function toClassName(
   stylesheet: Stylesheet,
   variant: Object,
   context?: StylesheetContext = defaultContext,
-): ?string {
-  let className = stylesheet.variantToClassName.base || '';
-  if (context.rightToLeft) {
-    className = className + ' ' + Compiler.RTL_CLASS_NAME;
-    if (stylesheet.variantToClassName.rightToLeft != null) {
-      className = className + ' ' + stylesheet.variantToClassName.rightToLeft;
+): null | string | CSSClassJoin {
+  const styles = [];
+  const addStyle = style => {
+    if (style != null) {
+      if (Environment.isTest) {
+        styles.push(new CSSClass(style.className, style.repr));
+      } else {
+        styles.push(style.className);
+      }
     }
+  };
+
+  addStyle(stylesheet.variantToClassName.base);
+  if (context.rightToLeft) {
+    styles.push(Compiler.RTL_CLASS_NAME);
+    addStyle(stylesheet.variantToClassName.rightToLeft);
   }
   for (const key in variant) {
     if (key === 'base') {
@@ -101,12 +113,13 @@ export function toClassName(
       continue;
     }
     if (variant[key] != null && variant[key] !== false) {
-      if (stylesheet.variantToClassName[key] != null) {
-        className = className + ' ' + stylesheet.variantToClassName[key];
-      }
+      addStyle(stylesheet.variantToClassName[key]);
     }
   }
-  return className !== '' ? className : undefined;
+  if (context.className != null) {
+    styles.push(context.className);
+  }
+  return styles.length > 0 ? new CSSClassJoin(styles) : null;
 }
 
 /**
@@ -172,14 +185,8 @@ class StyledComponentImpl<P: {}> extends React.Component<P & StyledComponentImpl
     } = this.props;
     let className = toClassName(stylesheet, variant, {
       rightToLeft: this.context.rightToLeft,
+      className: extraClassName,
     });
-    if (extraClassName != null) {
-      if (className != null) {
-        className = className + ' ' + extraClassName;
-      } else {
-        className = extraClassName;
-      }
-    }
     return <Component {...props} className={className} />;
   }
 }
@@ -190,22 +197,70 @@ class StyledComponentImpl<P: {}> extends React.Component<P & StyledComponentImpl
 
 type ElementProps<P: {}> = {
   Component: string | React.ComponentType<P>,
+  className?: string,
 };
 
-export class Element<P: {}> extends React.Component<
-  CSS.CSSStylesheet & P & ElementProps<P>,
-> {
+export class Element<
+  P: {},
+  Props: CSS.CSSStylesheet & P & ElementProps<P>,
+> extends React.Component<Props> {
   context: StyledComponentContext;
 
   static defaultProps = {
     Component: 'div',
   };
 
-  environment = createEnvironment();
+  environment: Environment.Environment = createEnvironment();
+  stylesheet: Stylesheet;
+  restProps: P;
+
+  constructor(props: Props) {
+    super(props);
+    const [restProps, stylesheet] = this.createStylesheetFromProps(props);
+    this.restProps = restProps;
+    this.stylesheet = stylesheet;
+    this.environment = Environment.create();
+  }
 
   render() {
-    const {Component, ...props} = this.props;
-    return <Component {...props} />;
+    const {Component, className: extraClassName} = this.props;
+    const className = toClassName(
+      this.stylesheet,
+      {},
+      {rightToLeft: this.context.rightToLeft, className: extraClassName},
+    );
+    return <Component {...this.restProps} className={className} />;
+  }
+
+  componentWillMount() {
+    injectStylesheet(this.stylesheet, this.environment);
+  }
+
+  componentWillReceiveProps(nextProps: Props) {
+    const [restProps, stylesheet] = this.createStylesheetFromProps(nextProps);
+    if (this.stylesheet == null || stylesheet.id !== this.stylesheet.id) {
+      this.environment.dispose();
+      injectStylesheet(stylesheet, this.environment);
+      this.restProps = restProps;
+      this.stylesheet = stylesheet;
+    }
+  }
+
+  componentWillUnmount() {
+    this.environment.dispose();
+  }
+
+  createStylesheetFromProps(props: Props): [P, Stylesheet] {
+    const restProps: any = {};
+    const spec = {base: {}};
+    for (const key in props) {
+      if (CSSPseudoClassSet[key] || CSSPropertySet[key]) {
+        spec.base[key] = props[key];
+      } else {
+        restProps[key] = props[key];
+      }
+    }
+    return [restProps, createStylesheet(spec)];
   }
 }
 
@@ -232,7 +287,7 @@ const defaultBoxStyle = {
   minWidth: 0,
 };
 
-export class VBox<P: {}> extends Element<P> {
+export class VBox<P: {}> extends Element<P, *> {
   static defaultProps = {
     Component: 'div',
     ...defaultBoxStyle,
@@ -240,7 +295,7 @@ export class VBox<P: {}> extends Element<P> {
   };
 }
 
-export class HBox<P: {}> extends Element<P> {
+export class HBox<P: {}> extends Element<P, *> {
   static defaultProps = {
     Component: 'div',
     ...defaultBoxStyle,
