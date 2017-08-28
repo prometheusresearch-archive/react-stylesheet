@@ -153,3 +153,34 @@ test('compile() startOffset/endOffset', function() {
     }),
   ).toMatchSnapshot();
 });
+
+test('compile() empty values', function() {
+  expect(
+    Compiler.compile({
+      base: {
+        color: null,
+      },
+    }),
+  ).toMatchSnapshot();
+  expect(
+    Compiler.compile({
+      base: {
+        color: undefined,
+      },
+    }),
+  ).toMatchSnapshot();
+  expect(
+    Compiler.compile({
+      base: {
+        color: ('': any),
+      },
+    }),
+  ).toMatchSnapshot();
+  expect(
+    Compiler.compile({
+      base: {
+        color: (false: any),
+      },
+    }),
+  ).toMatchSnapshot();
+});

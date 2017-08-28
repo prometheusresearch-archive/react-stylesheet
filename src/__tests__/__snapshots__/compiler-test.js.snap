@@ -1,16 +1,76 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`compile() empty values 1`] = `
+Object {
+  "id": "<HASH>",
+  "rules": Array [],
+  "spec": Object {
+    "base": Object {
+      "color": null,
+    },
+  },
+  "variantToClassName": Object {
+    "base": "Component-<HASH>",
+  },
+}
+`;
+
+exports[`compile() empty values 2`] = `
+Object {
+  "id": "<HASH>",
+  "rules": Array [],
+  "spec": Object {
+    "base": Object {
+      "color": undefined,
+    },
+  },
+  "variantToClassName": Object {
+    "base": "Component-<HASH>",
+  },
+}
+`;
+
+exports[`compile() empty values 3`] = `
+Object {
+  "id": "<HASH>",
+  "rules": Array [],
+  "spec": Object {
+    "base": Object {
+      "color": "",
+    },
+  },
+  "variantToClassName": Object {
+    "base": "Component-<HASH>",
+  },
+}
+`;
+
+exports[`compile() empty values 4`] = `
+Object {
+  "id": "<HASH>",
+  "rules": Array [],
+  "spec": Object {
+    "base": Object {
+      "color": false,
+    },
+  },
+  "variantToClassName": Object {
+    "base": "Component-<HASH>",
+  },
+}
+`;
+
 exports[`compile() marginStart/marginEnd 1`] = `
 Object {
-  "id": 3854612195,
+  "id": "<HASH>",
   "rules": Array [
     Object {
       "props": "margin-left: 12px;",
-      "selector": "Component-4100871942",
+      "selector": "Component-<HASH>",
     },
     Object {
       "props": "margin-right: 12px;",
-      "selector": "Component-4100871942.RTL",
+      "selector": "Component-<HASH>.RTL",
     },
   ],
   "spec": Object {
@@ -19,22 +79,22 @@ Object {
     },
   },
   "variantToClassName": Object {
-    "base": "Component-4100871942",
+    "base": "Component-<HASH>",
   },
 }
 `;
 
 exports[`compile() marginStart/marginEnd 2`] = `
 Object {
-  "id": 3489670315,
+  "id": "<HASH>",
   "rules": Array [
     Object {
       "props": "margin-right: 12px;",
-      "selector": "Component-1522872987",
+      "selector": "Component-<HASH>",
     },
     Object {
       "props": "margin-left: 12px;",
-      "selector": "Component-1522872987.RTL",
+      "selector": "Component-<HASH>.RTL",
     },
   ],
   "spec": Object {
@@ -43,19 +103,19 @@ Object {
     },
   },
   "variantToClassName": Object {
-    "base": "Component-1522872987",
+    "base": "Component-<HASH>",
   },
 }
 `;
 
 exports[`compile() marginVertical/marginHorizontal 1`] = `
 Object {
-  "id": 1807630354,
+  "id": "<HASH>",
   "rules": Array [
     Object {
       "props": "margin-top: 12px;
 margin-bottom: 12px;",
-      "selector": "Component-2127533042",
+      "selector": "Component-<HASH>",
     },
   ],
   "spec": Object {
@@ -64,19 +124,19 @@ margin-bottom: 12px;",
     },
   },
   "variantToClassName": Object {
-    "base": "Component-2127533042",
+    "base": "Component-<HASH>",
   },
 }
 `;
 
 exports[`compile() marginVertical/marginHorizontal 2`] = `
 Object {
-  "id": 1388465887,
+  "id": "<HASH>",
   "rules": Array [
     Object {
       "props": "margin-left: 12px;
 margin-right: 12px;",
-      "selector": "Component-2856744843",
+      "selector": "Component-<HASH>",
     },
   ],
   "spec": Object {
@@ -85,22 +145,22 @@ margin-right: 12px;",
     },
   },
   "variantToClassName": Object {
-    "base": "Component-2856744843",
+    "base": "Component-<HASH>",
   },
 }
 `;
 
 exports[`compile() paddingStart/paddingEnd 1`] = `
 Object {
-  "id": 2782882808,
+  "id": "<HASH>",
   "rules": Array [
     Object {
       "props": "padding-left: 12px;",
-      "selector": "Component-1749670398",
+      "selector": "Component-<HASH>",
     },
     Object {
       "props": "padding-right: 12px;",
-      "selector": "Component-1749670398.RTL",
+      "selector": "Component-<HASH>.RTL",
     },
   ],
   "spec": Object {
@@ -109,22 +169,22 @@ Object {
     },
   },
   "variantToClassName": Object {
-    "base": "Component-1749670398",
+    "base": "Component-<HASH>",
   },
 }
 `;
 
 exports[`compile() paddingStart/paddingEnd 2`] = `
 Object {
-  "id": 419523180,
+  "id": "<HASH>",
   "rules": Array [
     Object {
       "props": "padding-right: 12px;",
-      "selector": "Component-1864011970",
+      "selector": "Component-<HASH>",
     },
     Object {
       "props": "padding-left: 12px;",
-      "selector": "Component-1864011970.RTL",
+      "selector": "Component-<HASH>.RTL",
     },
   ],
   "spec": Object {
@@ -133,19 +193,19 @@ Object {
     },
   },
   "variantToClassName": Object {
-    "base": "Component-1864011970",
+    "base": "Component-<HASH>",
   },
 }
 `;
 
 exports[`compile() paddingVertical/paddingHorizontal 1`] = `
 Object {
-  "id": 1772353193,
+  "id": "<HASH>",
   "rules": Array [
     Object {
       "props": "padding-top: 12px;
 padding-bottom: 12px;",
-      "selector": "Component-3658477728",
+      "selector": "Component-<HASH>",
     },
   ],
   "spec": Object {
@@ -154,19 +214,19 @@ padding-bottom: 12px;",
     },
   },
   "variantToClassName": Object {
-    "base": "Component-3658477728",
+    "base": "Component-<HASH>",
   },
 }
 `;
 
 exports[`compile() paddingVertical/paddingHorizontal 2`] = `
 Object {
-  "id": 3288951138,
+  "id": "<HASH>",
   "rules": Array [
     Object {
       "props": "padding-left: 12px;
 padding-right: 12px;",
-      "selector": "Component-1749467061",
+      "selector": "Component-<HASH>",
     },
   ],
   "spec": Object {
@@ -175,22 +235,22 @@ padding-right: 12px;",
     },
   },
   "variantToClassName": Object {
-    "base": "Component-1749467061",
+    "base": "Component-<HASH>",
   },
 }
 `;
 
 exports[`compile() startOffset/endOffset 1`] = `
 Object {
-  "id": 2257361630,
+  "id": "<HASH>",
   "rules": Array [
     Object {
       "props": "left: 12px;",
-      "selector": "Component-4111961331",
+      "selector": "Component-<HASH>",
     },
     Object {
       "props": "right: 12px;",
-      "selector": "Component-4111961331.RTL",
+      "selector": "Component-<HASH>.RTL",
     },
   ],
   "spec": Object {
@@ -199,22 +259,22 @@ Object {
     },
   },
   "variantToClassName": Object {
-    "base": "Component-4111961331",
+    "base": "Component-<HASH>",
   },
 }
 `;
 
 exports[`compile() startOffset/endOffset 2`] = `
 Object {
-  "id": 2960308138,
+  "id": "<HASH>",
   "rules": Array [
     Object {
       "props": "right: 12px;",
-      "selector": "Component-2672255561",
+      "selector": "Component-<HASH>",
     },
     Object {
       "props": "left: 12px;",
-      "selector": "Component-2672255561.RTL",
+      "selector": "Component-<HASH>.RTL",
     },
   ],
   "spec": Object {
@@ -223,18 +283,18 @@ Object {
     },
   },
   "variantToClassName": Object {
-    "base": "Component-2672255561",
+    "base": "Component-<HASH>",
   },
 }
 `;
 
 exports[`compile() variants 1`] = `
 Object {
-  "id": 2594978201,
+  "id": "<HASH>",
   "rules": Array [
     Object {
       "props": "color: red;",
-      "selector": "Component-2808132786",
+      "selector": "Component-<HASH>",
     },
   ],
   "spec": Object {
@@ -243,18 +303,18 @@ Object {
     },
   },
   "variantToClassName": Object {
-    "base": "Component-2808132786",
+    "base": "Component-<HASH>",
   },
 }
 `;
 
 exports[`compile() variants 2`] = `
 Object {
-  "id": 2594978201,
+  "id": "<HASH>",
   "rules": Array [
     Object {
       "props": "color: red;",
-      "selector": "Component-something-2808132786",
+      "selector": "Component-something-<HASH>",
     },
   ],
   "spec": Object {
@@ -263,22 +323,22 @@ Object {
     },
   },
   "variantToClassName": Object {
-    "something": "Component-something-2808132786",
+    "something": "Component-something-<HASH>",
   },
 }
 `;
 
 exports[`compile() w/ pseudoclasses 1`] = `
 Object {
-  "id": 865716088,
+  "id": "<HASH>",
   "rules": Array [
     Object {
       "props": "color: red;",
-      "selector": "Component-2281268226",
+      "selector": "Component-<HASH>",
     },
     Object {
       "props": "color: black;",
-      "selector": "Component-2281268226:hover",
+      "selector": "Component-<HASH>:hover",
     },
   ],
   "spec": Object {
@@ -290,26 +350,26 @@ Object {
     },
   },
   "variantToClassName": Object {
-    "base": "Component-2281268226",
+    "base": "Component-<HASH>",
   },
 }
 `;
 
 exports[`compile() w/ pseudoclasses 2`] = `
 Object {
-  "id": 164222277,
+  "id": "<HASH>",
   "rules": Array [
     Object {
       "props": "color: red;",
-      "selector": "Component-147224304",
+      "selector": "Component-<HASH>",
     },
     Object {
       "props": "color: black;",
-      "selector": "Component-147224304:hover",
+      "selector": "Component-<HASH>:hover",
     },
     Object {
       "props": "color: yellow;",
-      "selector": "Component-147224304:hover:focus",
+      "selector": "Component-<HASH>:hover:focus",
     },
   ],
   "spec": Object {
@@ -324,22 +384,22 @@ Object {
     },
   },
   "variantToClassName": Object {
-    "base": "Component-147224304",
+    "base": "Component-<HASH>",
   },
 }
 `;
 
 exports[`compile() w/ pseudoclasses 3`] = `
 Object {
-  "id": 865716088,
+  "id": "<HASH>",
   "rules": Array [
     Object {
       "props": "color: red;",
-      "selector": "Component-something-2281268226",
+      "selector": "Component-something-<HASH>",
     },
     Object {
       "props": "color: black;",
-      "selector": "Component-something-2281268226:hover",
+      "selector": "Component-something-<HASH>:hover",
     },
   ],
   "spec": Object {
@@ -351,7 +411,7 @@ Object {
     },
   },
   "variantToClassName": Object {
-    "something": "Component-something-2281268226",
+    "something": "Component-something-<HASH>",
   },
 }
 `;

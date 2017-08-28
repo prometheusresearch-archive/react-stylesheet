@@ -4,7 +4,7 @@
 
 import hyphenateStyleName from 'fbjs/lib/hyphenateStyleName';
 import memoizeStringOnly from 'fbjs/lib/memoizeStringOnly';
-import computeHash from 'murmurhash-js/murmurhash3_gc';
+import computeHashImpl from 'murmurhash-js/murmurhash3_gc';
 
 import type {StylesheetSpec} from './index';
 import PseudoClassSet from './PseudoClassSet';
@@ -76,12 +76,12 @@ function compileVariant(rules, selector, variant) {
   const props = [];
   const propsRTL = [];
   const variantRules = [];
-  for (const key in variant) {
-    const val = variant[key];
-    if (PseudoClassSet[key]) {
-      compileVariant(variantRules, selector.concat(key), val);
-    } else {
-      compileProperty(props, propsRTL, key, val);
+  for (const name in variant) {
+    const value = variant[name];
+    if (PseudoClassSet[name]) {
+      compileVariant(variantRules, selector.concat(name), value);
+    } else if (!isEmpty(value)) {
+      compileProperty(props, propsRTL, name, value);
     }
   }
   if (props.length > 0) {
@@ -177,5 +177,7 @@ export function compileValue(name: string, value: mixed): string {
   }
 }
 
+const computeHash = value =>
+  process.env.NODE_ENV === 'test' ? '<HASH>' : computeHashImpl(value);
 const isEmpty = value => value == null || value === '' || value === false;
 export const compileName = memoizeStringOnly(name => hyphenateStyleName(name));

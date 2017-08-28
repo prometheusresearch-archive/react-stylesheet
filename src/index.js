@@ -78,8 +78,22 @@ export function toClassName(
   stylesheet: Stylesheet,
   variant: Object,
   context?: StylesheetContext = defaultContext,
-): string {
-  return (null: any);
+): ?string {
+  let className = stylesheet.variantToClassName.base || '';
+  if (context.rightToLeft) {
+    className = className + ' ' + Compiler.RTL_CLASS_NAME;
+  }
+  for (const key in variant) {
+    if (key === 'base') {
+      continue;
+    }
+    if (variant[key] != null && variant[key] !== false) {
+      if (stylesheet.variantToClassName[key] != null) {
+        className = className + ' ' + stylesheet.variantToClassName[key];
+      }
+    }
+  }
+  return className !== '' ? className : undefined;
 }
 
 /**
@@ -146,7 +160,11 @@ class StyledComponentImpl<P: {}> extends React.Component<P & StyledComponentImpl
       rightToLeft: this.context.rightToLeft,
     });
     if (extraClassName != null) {
-      className = className + ' ' + extraClassName;
+      if (className != null) {
+        className = className + ' ' + extraClassName;
+      } else {
+        className = extraClassName;
+      }
     }
     return <Component {...props} className={className} />;
   }
