@@ -1,0 +1,312 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`compile() marginStart/marginEnd 1`] = `
+Object {
+  "id": 3854612195,
+  "rules": Array [
+    Object {
+      "props": "margin-left: 12px;",
+      "selector": "Component-4100871942",
+    },
+    Object {
+      "props": "margin-right: 12px;",
+      "selector": "Component-4100871942.RTL",
+    },
+  ],
+  "spec": Object {
+    "base": Object {
+      "marginStart": 12,
+    },
+  },
+}
+`;
+
+exports[`compile() marginStart/marginEnd 2`] = `
+Object {
+  "id": 3489670315,
+  "rules": Array [
+    Object {
+      "props": "margin-right: 12px;",
+      "selector": "Component-1522872987",
+    },
+    Object {
+      "props": "margin-left: 12px;",
+      "selector": "Component-1522872987.RTL",
+    },
+  ],
+  "spec": Object {
+    "base": Object {
+      "marginEnd": 12,
+    },
+  },
+}
+`;
+
+exports[`compile() marginVertical/marginHorizontal 1`] = `
+Object {
+  "id": 1807630354,
+  "rules": Array [
+    Object {
+      "props": "margin-top: 12px;
+margin-bottom: 12px;",
+      "selector": "Component-2127533042",
+    },
+  ],
+  "spec": Object {
+    "base": Object {
+      "marginVertical": 12,
+    },
+  },
+}
+`;
+
+exports[`compile() marginVertical/marginHorizontal 2`] = `
+Object {
+  "id": 1388465887,
+  "rules": Array [
+    Object {
+      "props": "margin-left: 12px;
+margin-right: 12px;",
+      "selector": "Component-2856744843",
+    },
+  ],
+  "spec": Object {
+    "base": Object {
+      "marginHorizontal": 12,
+    },
+  },
+}
+`;
+
+exports[`compile() paddingStart/paddingEnd 1`] = `
+Object {
+  "id": 2782882808,
+  "rules": Array [
+    Object {
+      "props": "padding-left: 12px;",
+      "selector": "Component-1749670398",
+    },
+    Object {
+      "props": "padding-right: 12px;",
+      "selector": "Component-1749670398.RTL",
+    },
+  ],
+  "spec": Object {
+    "base": Object {
+      "paddingStart": 12,
+    },
+  },
+}
+`;
+
+exports[`compile() paddingStart/paddingEnd 2`] = `
+Object {
+  "id": 419523180,
+  "rules": Array [
+    Object {
+      "props": "padding-right: 12px;",
+      "selector": "Component-1864011970",
+    },
+    Object {
+      "props": "padding-left: 12px;",
+      "selector": "Component-1864011970.RTL",
+    },
+  ],
+  "spec": Object {
+    "base": Object {
+      "paddingEnd": 12,
+    },
+  },
+}
+`;
+
+exports[`compile() paddingVertical/paddingHorizontal 1`] = `
+Object {
+  "id": 1772353193,
+  "rules": Array [
+    Object {
+      "props": "padding-top: 12px;
+padding-bottom: 12px;",
+      "selector": "Component-3658477728",
+    },
+  ],
+  "spec": Object {
+    "base": Object {
+      "paddingVertical": 12,
+    },
+  },
+}
+`;
+
+exports[`compile() paddingVertical/paddingHorizontal 2`] = `
+Object {
+  "id": 3288951138,
+  "rules": Array [
+    Object {
+      "props": "padding-left: 12px;
+padding-right: 12px;",
+      "selector": "Component-1749467061",
+    },
+  ],
+  "spec": Object {
+    "base": Object {
+      "paddingHorizontal": 12,
+    },
+  },
+}
+`;
+
+exports[`compile() startOffset/endOffset 1`] = `
+Object {
+  "id": 2257361630,
+  "rules": Array [
+    Object {
+      "props": "left: 12px;",
+      "selector": "Component-4111961331",
+    },
+    Object {
+      "props": "right: 12px;",
+      "selector": "Component-4111961331.RTL",
+    },
+  ],
+  "spec": Object {
+    "base": Object {
+      "startOffset": 12,
+    },
+  },
+}
+`;
+
+exports[`compile() startOffset/endOffset 2`] = `
+Object {
+  "id": 2960308138,
+  "rules": Array [
+    Object {
+      "props": "right: 12px;",
+      "selector": "Component-2672255561",
+    },
+    Object {
+      "props": "left: 12px;",
+      "selector": "Component-2672255561.RTL",
+    },
+  ],
+  "spec": Object {
+    "base": Object {
+      "endOffset": 12,
+    },
+  },
+}
+`;
+
+exports[`compile() variants 1`] = `
+Object {
+  "id": 2594978201,
+  "rules": Array [
+    Object {
+      "props": "color: red;",
+      "selector": "Component-2808132786",
+    },
+  ],
+  "spec": Object {
+    "base": Object {
+      "color": "red",
+    },
+  },
+}
+`;
+
+exports[`compile() variants 2`] = `
+Object {
+  "id": 2594978201,
+  "rules": Array [
+    Object {
+      "props": "color: red;",
+      "selector": "Component-something-2808132786",
+    },
+  ],
+  "spec": Object {
+    "something": Object {
+      "color": "red",
+    },
+  },
+}
+`;
+
+exports[`compile() w/ pseudoclasses 1`] = `
+Object {
+  "id": 865716088,
+  "rules": Array [
+    Object {
+      "props": "color: red;",
+      "selector": "Component-2281268226",
+    },
+    Object {
+      "props": "color: black;",
+      "selector": "Component-2281268226:hover",
+    },
+  ],
+  "spec": Object {
+    "base": Object {
+      "color": "red",
+      "hover": Object {
+        "color": "black",
+      },
+    },
+  },
+}
+`;
+
+exports[`compile() w/ pseudoclasses 2`] = `
+Object {
+  "id": 164222277,
+  "rules": Array [
+    Object {
+      "props": "color: red;",
+      "selector": "Component-147224304",
+    },
+    Object {
+      "props": "color: black;",
+      "selector": "Component-147224304:hover",
+    },
+    Object {
+      "props": "color: yellow;",
+      "selector": "Component-147224304:hover:focus",
+    },
+  ],
+  "spec": Object {
+    "base": Object {
+      "color": "red",
+      "hover": Object {
+        "color": "black",
+        "focus": Object {
+          "color": "yellow",
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`compile() w/ pseudoclasses 3`] = `
+Object {
+  "id": 865716088,
+  "rules": Array [
+    Object {
+      "props": "color: red;",
+      "selector": "Component-something-2281268226",
+    },
+    Object {
+      "props": "color: black;",
+      "selector": "Component-something-2281268226:hover",
+    },
+  ],
+  "spec": Object {
+    "something": Object {
+      "color": "red",
+      "hover": Object {
+        "color": "black",
+      },
+    },
+  },
+}
+`;

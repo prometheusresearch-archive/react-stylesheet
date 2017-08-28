@@ -1,0 +1,17 @@
+[ignore]
+<PROJECT_ROOT>/testutils.js
+<PROJECT_ROOT>/testutils-snapshot-serializer.js
+<PROJECT_ROOT>/css.js
+<PROJECT_ROOT>/test_flow/.*\.js
+<PROJECT_ROOT>/lib/.*\.js
+<PROJECT_ROOT>/lib/.*\.js\.flow
+<PROJECT_ROOT>/node_modules/.*/fbjs/lib/partitionObjectByKey.js.flow
+<PROJECT_ROOT>/node_modules/prettier/.*
+<PROJECT_ROOT>/test_flow/node_modules/fbjs/.*.flow
+<PROJECT_ROOT>/test_flow/node_modules/fbjs/.*.js
+<PROJECT_ROOT>/test_flow/node_modules/.store/fbjs@.*/.*.flow
+<PROJECT_ROOT>/test_flow/node_modules/.store/fbjs@.*/.*.js
+
+[include]
+
+[libs]
