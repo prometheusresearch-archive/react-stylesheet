@@ -92,7 +92,9 @@ export function toClassName(
   const styles = [];
   const addStyle = style => {
     if (style != null) {
-      if (Environment.isTest) {
+      if (typeof style === 'string') {
+        styles.push(style);
+      } else if (Environment.isTest) {
         styles.push(new CSSClass(style.className, style.repr));
       } else {
         styles.push(style.className);
@@ -102,7 +104,7 @@ export function toClassName(
 
   addStyle(stylesheet.variantToClassName.base);
   if (context.rightToLeft) {
-    styles.push(Compiler.RTL_CLASS_NAME);
+    addStyle(Compiler.RTL_CLASS_NAME);
     addStyle(stylesheet.variantToClassName.rightToLeft);
   }
   for (const key in variant) {
@@ -117,7 +119,7 @@ export function toClassName(
     }
   }
   if (context.className != null) {
-    styles.push(context.className);
+    addStyle(context.className);
   }
   return styles.length > 0 ? new CSSClassJoin(styles) : null;
 }

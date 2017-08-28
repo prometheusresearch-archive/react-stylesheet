@@ -97,4 +97,16 @@ describe('<Element />', function() {
     );
     expect(component.toJSON()).toMatchSnapshot();
   });
+
+  test('<Element className={...} />', function() {
+    const component = renderer.create(<ReactStylesheet.Element className="bootstrap" />);
+    expect(component.toJSON()).toMatchSnapshot();
+  });
+
+  test('<Element color="red" className={...} />', function() {
+    const component = renderer.create(
+      <ReactStylesheet.Element color="red" className="bootstrap" />,
+    );
+    expect(component.toJSON()).toMatchSnapshot();
+  });
 });

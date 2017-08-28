@@ -1,5 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<Element /> <Element className={...} /> 1`] = `
+<div
+  Component="div"
+  className={
+    CSSClassJoin [
+      "bootstrap"
+    ]
+  }
+/>
+`;
+
+exports[`<Element /> <Element color="red" className={...} /> 1`] = `
+<div
+  Component="div"
+  className={
+    CSSClassJoin [
+      CSSClass base {
+        color: red
+      }
+      "bootstrap"
+    ]
+  }
+/>
+`;
+
 exports[`<Element /> <Element color={...} /> 1`] = `
 <div
   Component="div"

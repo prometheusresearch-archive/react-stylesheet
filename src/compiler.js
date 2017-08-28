@@ -50,12 +50,14 @@ export function compile(spec: StylesheetSpec): CompiledStylesheet {
     variantSelector = `${variantSelector}-${hash}`;
 
     const repr = Environment.isTest ? [] : null;
+    let variantHasStyles = false;
 
     for (let i = 0; i < variant.length; i++) {
       const rule = variant[i];
       if (rule.props.length === 0) {
         continue;
       }
+      variantHasStyles = true;
       // selector
       let selector = `.${variantSelector}`;
       if (rule.rightToLeft) {
@@ -77,7 +79,9 @@ export function compile(spec: StylesheetSpec): CompiledStylesheet {
       }
     }
 
-    variantToClassName[key] = {className: variantSelector, repr};
+    if (variantHasStyles) {
+      variantToClassName[key] = {className: variantSelector, repr};
+    }
   }
 
   return {

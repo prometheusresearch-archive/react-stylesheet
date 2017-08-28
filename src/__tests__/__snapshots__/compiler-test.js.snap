@@ -7,9 +7,7 @@ Object {
   "spec": Object {
     "base": Object {},
   },
-  "variantToClassName": Object {
-    "base": "Component-<HASH>",
-  },
+  "variantToClassName": Object {},
 }
 `;
 
@@ -22,9 +20,7 @@ Object {
       "color": null,
     },
   },
-  "variantToClassName": Object {
-    "base": "Component-<HASH>",
-  },
+  "variantToClassName": Object {},
 }
 `;
 
@@ -37,9 +33,7 @@ Object {
       "color": undefined,
     },
   },
-  "variantToClassName": Object {
-    "base": "Component-<HASH>",
-  },
+  "variantToClassName": Object {},
 }
 `;
 
@@ -52,9 +46,7 @@ Object {
       "color": "",
     },
   },
-  "variantToClassName": Object {
-    "base": "Component-<HASH>",
-  },
+  "variantToClassName": Object {},
 }
 `;
 
@@ -67,9 +59,7 @@ Object {
       "color": false,
     },
   },
-  "variantToClassName": Object {
-    "base": "Component-<HASH>",
-  },
+  "variantToClassName": Object {},
 }
 `;
 
@@ -90,7 +80,23 @@ Object {
     },
   },
   "variantToClassName": Object {
-    "base": "Component-<HASH>",
+    "base": Object {
+      "className": "Component-<HASH>",
+      "repr": Array [
+        Object {
+          "props": Array [
+            "margin-left: 12px",
+          ],
+          "selector": "base",
+        },
+        Object {
+          "props": Array [
+            "margin-right: 12px",
+          ],
+          "selector": "base",
+        },
+      ],
+    },
   },
 }
 `;
@@ -112,7 +118,23 @@ Object {
     },
   },
   "variantToClassName": Object {
-    "base": "Component-<HASH>",
+    "base": Object {
+      "className": "Component-<HASH>",
+      "repr": Array [
+        Object {
+          "props": Array [
+            "margin-right: 12px",
+          ],
+          "selector": "base",
+        },
+        Object {
+          "props": Array [
+            "margin-left: 12px",
+          ],
+          "selector": "base",
+        },
+      ],
+    },
   },
 }
 `;
@@ -132,7 +154,18 @@ margin-bottom: 12px; }",
     },
   },
   "variantToClassName": Object {
-    "base": "Component-<HASH>",
+    "base": Object {
+      "className": "Component-<HASH>",
+      "repr": Array [
+        Object {
+          "props": Array [
+            "margin-top: 12px",
+            "margin-bottom: 12px",
+          ],
+          "selector": "base",
+        },
+      ],
+    },
   },
 }
 `;
@@ -152,7 +185,18 @@ margin-right: 12px; }",
     },
   },
   "variantToClassName": Object {
-    "base": "Component-<HASH>",
+    "base": Object {
+      "className": "Component-<HASH>",
+      "repr": Array [
+        Object {
+          "props": Array [
+            "margin-left: 12px",
+            "margin-right: 12px",
+          ],
+          "selector": "base",
+        },
+      ],
+    },
   },
 }
 `;
@@ -174,7 +218,23 @@ Object {
     },
   },
   "variantToClassName": Object {
-    "base": "Component-<HASH>",
+    "base": Object {
+      "className": "Component-<HASH>",
+      "repr": Array [
+        Object {
+          "props": Array [
+            "padding-left: 12px",
+          ],
+          "selector": "base",
+        },
+        Object {
+          "props": Array [
+            "padding-right: 12px",
+          ],
+          "selector": "base",
+        },
+      ],
+    },
   },
 }
 `;
@@ -196,7 +256,23 @@ Object {
     },
   },
   "variantToClassName": Object {
-    "base": "Component-<HASH>",
+    "base": Object {
+      "className": "Component-<HASH>",
+      "repr": Array [
+        Object {
+          "props": Array [
+            "padding-right: 12px",
+          ],
+          "selector": "base",
+        },
+        Object {
+          "props": Array [
+            "padding-left: 12px",
+          ],
+          "selector": "base",
+        },
+      ],
+    },
   },
 }
 `;
@@ -216,7 +292,18 @@ padding-bottom: 12px; }",
     },
   },
   "variantToClassName": Object {
-    "base": "Component-<HASH>",
+    "base": Object {
+      "className": "Component-<HASH>",
+      "repr": Array [
+        Object {
+          "props": Array [
+            "padding-top: 12px",
+            "padding-bottom: 12px",
+          ],
+          "selector": "base",
+        },
+      ],
+    },
   },
 }
 `;
@@ -236,7 +323,18 @@ padding-right: 12px; }",
     },
   },
   "variantToClassName": Object {
-    "base": "Component-<HASH>",
+    "base": Object {
+      "className": "Component-<HASH>",
+      "repr": Array [
+        Object {
+          "props": Array [
+            "padding-left: 12px",
+            "padding-right: 12px",
+          ],
+          "selector": "base",
+        },
+      ],
+    },
   },
 }
 `;
@@ -258,7 +356,23 @@ Object {
     },
   },
   "variantToClassName": Object {
-    "base": "Component-<HASH>",
+    "base": Object {
+      "className": "Component-<HASH>",
+      "repr": Array [
+        Object {
+          "props": Array [
+            "left: 12px",
+          ],
+          "selector": "base",
+        },
+        Object {
+          "props": Array [
+            "right: 12px",
+          ],
+          "selector": "base",
+        },
+      ],
+    },
   },
 }
 `;
@@ -280,7 +394,23 @@ Object {
     },
   },
   "variantToClassName": Object {
-    "base": "Component-<HASH>",
+    "base": Object {
+      "className": "Component-<HASH>",
+      "repr": Array [
+        Object {
+          "props": Array [
+            "right: 12px",
+          ],
+          "selector": "base",
+        },
+        Object {
+          "props": Array [
+            "left: 12px",
+          ],
+          "selector": "base",
+        },
+      ],
+    },
   },
 }
 `;
@@ -299,7 +429,17 @@ Object {
     },
   },
   "variantToClassName": Object {
-    "base": "Component-<HASH>",
+    "base": Object {
+      "className": "Component-<HASH>",
+      "repr": Array [
+        Object {
+          "props": Array [
+            "color: red",
+          ],
+          "selector": "base",
+        },
+      ],
+    },
   },
 }
 `;
@@ -318,7 +458,17 @@ Object {
     },
   },
   "variantToClassName": Object {
-    "something": "Component-something-<HASH>",
+    "something": Object {
+      "className": "Component-something-<HASH>",
+      "repr": Array [
+        Object {
+          "props": Array [
+            "color: red",
+          ],
+          "selector": "something",
+        },
+      ],
+    },
   },
 }
 `;
@@ -344,8 +494,28 @@ Object {
     },
   },
   "variantToClassName": Object {
-    "base": "Fancy-<HASH>",
-    "some": "Fancy-some-<HASH>",
+    "base": Object {
+      "className": "Fancy-<HASH>",
+      "repr": Array [
+        Object {
+          "props": Array [
+            "color: red",
+          ],
+          "selector": "base",
+        },
+      ],
+    },
+    "some": Object {
+      "className": "Fancy-some-<HASH>",
+      "repr": Array [
+        Object {
+          "props": Array [
+            "color: yellow",
+          ],
+          "selector": "some",
+        },
+      ],
+    },
   },
 }
 `;
@@ -370,7 +540,23 @@ Object {
     },
   },
   "variantToClassName": Object {
-    "base": "Component-<HASH>",
+    "base": Object {
+      "className": "Component-<HASH>",
+      "repr": Array [
+        Object {
+          "props": Array [
+            "color: red",
+          ],
+          "selector": "base",
+        },
+        Object {
+          "props": Array [
+            "color: black",
+          ],
+          "selector": "base:hover",
+        },
+      ],
+    },
   },
 }
 `;
@@ -401,7 +587,29 @@ Object {
     },
   },
   "variantToClassName": Object {
-    "base": "Component-<HASH>",
+    "base": Object {
+      "className": "Component-<HASH>",
+      "repr": Array [
+        Object {
+          "props": Array [
+            "color: red",
+          ],
+          "selector": "base",
+        },
+        Object {
+          "props": Array [
+            "color: black",
+          ],
+          "selector": "base:hover",
+        },
+        Object {
+          "props": Array [
+            "color: yellow",
+          ],
+          "selector": "base:hover:focus",
+        },
+      ],
+    },
   },
 }
 `;
@@ -426,7 +634,23 @@ Object {
     },
   },
   "variantToClassName": Object {
-    "something": "Component-something-<HASH>",
+    "something": Object {
+      "className": "Component-something-<HASH>",
+      "repr": Array [
+        Object {
+          "props": Array [
+            "color: red",
+          ],
+          "selector": "something",
+        },
+        Object {
+          "props": Array [
+            "color: black",
+          ],
+          "selector": "something:hover",
+        },
+      ],
+    },
   },
 }
 `;
