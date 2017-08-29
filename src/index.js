@@ -5,9 +5,9 @@
 const React = require('react');
 const invariant = require('invariant');
 
-import * as CSS from './css';
-import * as Compiler from './compiler';
-import * as Environment from './environment';
+import * as CSS from './CSS';
+import * as Compiler from './Compiler';
+import * as Environment from './Environment';
 import CSSPseudoClassSet from './CSSPseudoClassSet';
 import CSSPropertySet from './CSSPropertySet';
 import {CSSClassJoin, CSSClass} from './CSSStyleRepr';

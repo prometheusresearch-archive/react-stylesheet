@@ -9,7 +9,7 @@ const computeHashImpl = require('murmurhash-js/murmurhash3_gc');
 import type {StylesheetSpec} from './index';
 import CSSPseudoClassSet from './CSSPseudoClassSet';
 import CSSUnitlessNumberPropSet from './CSSUnitlessNumberPropSet';
-import * as Environment from './environment';
+import * as Environment from './Environment';
 
 export type CompiledStylesheet = {
   id: string,
