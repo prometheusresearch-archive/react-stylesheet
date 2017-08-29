@@ -2,6 +2,8 @@
  * @flow
  */
 
+import * as Environment from './Environment';
+
 type CSSRuleRepr = {selector: string, props: Array<string>};
 
 export class CSSClass {
@@ -27,5 +29,23 @@ export class CSSClassJoin {
 
   valueOf() {
     return this.styles.map(style => style.valueOf()).join(' ');
+  }
+}
+
+const isTest = Environment.isTest;
+
+export function className(className: string, repr: ?CSSRuleRepr): CSSClass | string {
+  if (isTest) {
+    return new CSSClass(className, repr);
+  } else {
+    return className;
+  }
+}
+
+export function classNameJoin(styles: Array<CSSClass | string>): CSSClassJoin | string {
+  if (isTest) {
+    return new CSSClassJoin(styles);
+  } else {
+    return className.join(' ');
   }
 }

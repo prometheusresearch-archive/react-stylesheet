@@ -5,10 +5,10 @@
 const React = require('react');
 const invariant = require('invariant');
 
-import * as CSS from './CSS';
 import CSSPseudoClassSet from './CSSPseudoClassSet';
 import CSSPropertySet from './CSSPropertySet';
-import {CSSClassJoin, CSSClass} from './CSSStyleRepr';
+import * as CSS from './CSS';
+import * as CSSStyleRepr from './CSSStyleRepr';
 import * as Compiler from './Compiler';
 import * as Environment from './Environment';
 
@@ -21,10 +21,19 @@ export type StylesheetSpec = {
 };
 
 /**
- * This is how styles are being inserted.
+ * Defines a stretegy for how styles are being inserted.
+ *
+ * Single manager can host multiple styles.
  */
 export interface StylesheetManager {
-  inject(rule: string, index?: number): void,
+  /**
+   * Inject a CSS rule.
+   */
+  inject(rule: string): void,
+
+  /**
+   * Dispose manager along with all injected styles.
+   */
   dispose(): void,
 }
 
@@ -45,7 +54,7 @@ export const defaultContext = {
   rightToLeft: false,
 };
 
-export const staticEnvironment = Environment.createStylesheetManager();
+export const staticStyles = Environment.createStylesheetManager();
 
 /**
  * Produce a stylesheet from a spec.
@@ -85,9 +94,9 @@ export function overrideStylesheet(
   return createStylesheet(nextSpec);
 }
 
-export function injectStylesheet(stylesheet: Stylesheet, env = staticEnvironment): void {
+export function injectStylesheet(stylesheet: Stylesheet, manager = staticStyles): void {
   for (const rule of stylesheet.rules) {
-    staticEnvironment.inject(rule.cssText);
+    manager.inject(rule.cssText);
   }
 }
 
@@ -95,16 +104,14 @@ export function toClassName(
   stylesheet: Stylesheet,
   variant: Object,
   context?: StylesheetContext = defaultContext,
-): null | string | CSSClassJoin {
+): null | string | CSSStyleRepr.CSSClassJoin {
   const styles = [];
   const addStyle = style => {
     if (style != null) {
       if (typeof style === 'string') {
         styles.push(style);
-      } else if (Environment.isTest) {
-        styles.push(new CSSClass(style.className, style.repr));
       } else {
-        styles.push(style.className);
+        styles.push(CSSStyleRepr.className(style.className, style.repr));
       }
     }
   };
@@ -128,7 +135,7 @@ export function toClassName(
   if (context.className != null) {
     addStyle(context.className);
   }
-  return styles.length > 0 ? new CSSClassJoin(styles) : null;
+  return styles.length > 0 ? CSSStyleRepr.classNameJoin(styles) : null;
 }
 
 /**

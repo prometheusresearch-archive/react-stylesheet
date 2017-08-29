@@ -58,11 +58,11 @@ test('toClassName()', function() {
 });
 
 beforeEach(function() {
-  ReactStylesheet.staticEnvironment.dispose();
+  ReactStylesheet.staticStyles.dispose();
 });
 
 afterEach(function() {
-  ReactStylesheet.staticEnvironment.dispose();
+  ReactStylesheet.staticStyles.dispose();
 });
 
 test('styleComponent() inserts a stylesheet into DOM', function() {
@@ -71,10 +71,10 @@ test('styleComponent() inserts a stylesheet into DOM', function() {
       color: 'red',
     },
   });
-  expect(ReactStylesheet.staticEnvironment.rules.length).toBe(1);
+  expect(ReactStylesheet.staticStyles.rules.length).toBe(1);
 });
 
-describe('<Element />', function() {
+describe('<Element /> inserts styles', function() {
   test('<Element color={...} />', function() {
     const component = renderer.create(<ReactStylesheet.Element color="red" />);
     expect(component.toJSON()).toMatchSnapshot();
