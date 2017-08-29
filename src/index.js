@@ -2,15 +2,15 @@
  * @flow
  */
 
-import invariant from 'invariant';
-import * as React from 'react';
+const React = require('react');
+const invariant = require('invariant');
 
 import * as CSS from './css';
 import * as Compiler from './compiler';
 import * as Environment from './environment';
 import CSSPseudoClassSet from './CSSPseudoClassSet';
 import CSSPropertySet from './CSSPropertySet';
-import {CSSClassJoin, CSSClass} from './StyleRepresentation';
+import {CSSClassJoin, CSSClass} from './CSSStyleRepr';
 
 /**
  * This is how you define your stylesheet.

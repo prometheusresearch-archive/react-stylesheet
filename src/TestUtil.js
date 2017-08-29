@@ -2,7 +2,7 @@
  * @flow
  */
 
-import {CSSClassJoin, CSSClass} from './StyleRepresentation';
+import {CSSClassJoin, CSSClass} from './CSSStyleRepr';
 
 export const snapshotSerializer = {
   // $FlowFixMe: ...

@@ -2,9 +2,9 @@
  * @flow
  */
 
-import hyphenateStyleName from 'fbjs/lib/hyphenateStyleName';
-import memoizeStringOnly from 'fbjs/lib/memoizeStringOnly';
-import computeHashImpl from 'murmurhash-js/murmurhash3_gc';
+const hyphenateStyleName = require('fbjs/lib/hyphenateStyleName');
+const memoizeStringOnly = require('fbjs/lib/memoizeStringOnly');
+const computeHashImpl = require('murmurhash-js/murmurhash3_gc');
 
 import type {StylesheetSpec} from './index';
 import CSSPseudoClassSet from './CSSPseudoClassSet';

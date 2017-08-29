@@ -2,8 +2,9 @@
  * @flow
  */
 
-import * as React from 'react';
-import * as renderer from 'react-test-renderer';
+const React = require('react');
+const renderer = require('react-test-renderer');
+
 import * as ReactStylesheet from '../index';
 import * as TestUtil from '../TestUtil';
 
