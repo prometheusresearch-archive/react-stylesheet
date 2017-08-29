@@ -86,8 +86,15 @@ export function overrideStylesheet(
     return nextVariant;
   }
 
-  const nextSpec = {...stylesheet.spec};
+  const nextSpec = {
+    ...stylesheet.spec,
+    displayName:
+      override.displayName != null ? override.displayName : stylesheet.spec.displayName,
+  };
   for (const variant in override) {
+    if (variant === 'displayName') {
+      continue;
+    }
     nextSpec[variant] = overrideVariant(nextSpec[variant], override[variant]);
   }
 

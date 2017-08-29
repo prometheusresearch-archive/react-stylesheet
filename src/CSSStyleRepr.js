@@ -46,6 +46,6 @@ export function classNameJoin(styles: Array<CSSClass | string>): CSSClassJoin | 
   if (isTest) {
     return new CSSClassJoin(styles);
   } else {
-    return className.join(' ');
+    return styles.join(' ');
   }
 }
