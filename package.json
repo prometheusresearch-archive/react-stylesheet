@@ -9,6 +9,7 @@
   "author": "Andrey Popp <8mayday@gmail.com>",
   "license": "ISC",
   "jest": {
+    "rootDir": "src",
     "testEnvironment": "node"
   },
   "babel": {
