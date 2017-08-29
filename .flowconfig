@@ -7,6 +7,8 @@
 <PROJECT_ROOT>/lib/.*\.js\.flow
 <PROJECT_ROOT>/node_modules/.*/fbjs/lib/partitionObjectByKey.js.flow
 <PROJECT_ROOT>/node_modules/prettier/.*
+<PROJECT_ROOT>/node_modules/babel-plugin-transform-react-remove-prop-types/.*
+<PROJECT_ROOT>/node_modules/nwb/.*
 <PROJECT_ROOT>/test_flow/node_modules/fbjs/.*.flow
 <PROJECT_ROOT>/test_flow/node_modules/fbjs/.*.js
 <PROJECT_ROOT>/test_flow/node_modules/.store/fbjs@.*/.*.flow
