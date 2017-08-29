@@ -73,7 +73,7 @@ What makes React Stylesheet special:
 
 `<Element />` component is a basic building block for styling:
 
-```javascript
+```jsx
 import {Element} from 'react-stylesheet'
 
 <Element
@@ -93,7 +93,7 @@ values when the corresponding state is being active.
 For example there's an `<Element />` which changes its background and text color
 on hover:
 
-```javascript
+```jsx
 import {Element} from 'react-stylesheet'
 
 <Element
@@ -110,7 +110,7 @@ import {Element} from 'react-stylesheet'
 By default `<Element />` renders into `<div />` DOM component but you can
 override this with `Component` prop:
 
-```javascript
+```jsx
 <Element
   Component="button"
   padding={10}>
@@ -132,7 +132,7 @@ implement [flexbox][] layout mechanism.
 All properties which are supported by `<Element />` are also supported by `<VBox />`
 and `<HBox />`.
 
-```javascript
+```jsx
 import {VBox, HBox} from 'react-stylesheet'
 
 <VBox justifyContent="space-around">
@@ -168,7 +168,7 @@ HBox, VBox {
 There's a way to produce styled components out of common components using
 `style(Component, stylesheet)` function:
 
-```javascript
+```jsx
 import {style} from 'react-stylesheet'
 
 let Label = style('span', {
@@ -182,7 +182,7 @@ let Label = style('span', {
 Now `Label` is a regular React component styled with `fontWeight` and
 `fontSize`. You can render into DOM and use as a part of React element tree:
 
-```javascript
+```jsx
 <Label />
 ```
 
@@ -190,7 +190,7 @@ Now `Label` is a regular React component styled with `fontWeight` and
 
 You can specify styling for states (hover, focus, ...):
 
-```javascript
+```jsx
 let Label = style('span', {
   base: {
     fontWeight: 'bold',
@@ -208,7 +208,7 @@ Now on hover you can see the underline appears.
 
 Sometimes you want a set of style variants and toggle them via JS:
 
-```javascript
+```jsx
 let Label = style('span', {
   base: {
     fontWeight: 'bold',
@@ -223,7 +223,7 @@ let Label = style('span', {
 Now to toggle any particular variant you need to pass a component a specially
 constructed `variant` prop:
 
-```javascript
+```jsx
 <Label variant={{emphasis: true}} />
 ```
 
@@ -234,7 +234,7 @@ API.
 
 Some examples of the type errors you can get:
 
-```javascript
+```jsx
 style('span', {
   display: 'oops' // display can only be "none" | "block" | ...
 })
@@ -248,7 +248,7 @@ style('span', {
 
 There's helpers for producing CSS values:
 
-```javascript
+```jsx
 import {css} from 'react-stylesheet'
 
 let Label = style('span', {
@@ -265,7 +265,7 @@ React Stylesheet comes with snapshot serializers for [Jest][] test framework.
 The example test setup looks like this:
 
 
-```javascript
+```jsx
 import React from 'react';
 import renderer from 'react-test-renderer';
 
