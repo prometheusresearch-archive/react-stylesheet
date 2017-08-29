@@ -6,11 +6,11 @@ const React = require('react');
 const invariant = require('invariant');
 
 import * as CSS from './CSS';
-import * as Compiler from './Compiler';
-import * as Environment from './Environment';
 import CSSPseudoClassSet from './CSSPseudoClassSet';
 import CSSPropertySet from './CSSPropertySet';
 import {CSSClassJoin, CSSClass} from './CSSStyleRepr';
+import * as Compiler from './Compiler';
+import * as Environment from './Environment';
 
 /**
  * This is how you define your stylesheet.
@@ -19,6 +19,14 @@ export type StylesheetSpec = {
   displayName?: string,
   [key: string]: CSS.CSSStylesheet,
 };
+
+/**
+ * This is how styles are being inserted.
+ */
+export interface StylesheetManager {
+  inject(rule: string, index?: number): void,
+  dispose(): void,
+}
 
 /**
  * This is the opaque type which represents the compiled stylesheet.
@@ -37,7 +45,7 @@ export const defaultContext = {
   rightToLeft: false,
 };
 
-export const staticEnvironment = Environment.create();
+export const staticEnvironment = Environment.createStylesheetManager();
 
 /**
  * Produce a stylesheet from a spec.
@@ -46,8 +54,8 @@ export function createStylesheet(spec: StylesheetSpec): Stylesheet {
   return Compiler.compile(spec);
 }
 
-export function createEnvironment(): Environment.Environment {
-  return Environment.create();
+export function createStylesheetManager(): StylesheetManager {
+  return Environment.createStylesheetManager();
 }
 
 /**
@@ -79,9 +87,8 @@ export function overrideStylesheet(
 
 export function injectStylesheet(stylesheet: Stylesheet, env = staticEnvironment): void {
   for (const rule of stylesheet.rules) {
-    staticEnvironment.insert(rule.cssText);
+    staticEnvironment.inject(rule.cssText);
   }
-  return (null: any);
 }
 
 export function toClassName(
@@ -212,7 +219,7 @@ export class Element<
     Component: 'div',
   };
 
-  environment: Environment.Environment = createEnvironment();
+  manager: StylesheetManager;
   stylesheet: Stylesheet;
   restProps: P;
 
@@ -221,7 +228,7 @@ export class Element<
     const [restProps, stylesheet] = this.createStylesheetFromProps(props);
     this.restProps = restProps;
     this.stylesheet = stylesheet;
-    this.environment = Environment.create();
+    this.manager = createStylesheetManager();
   }
 
   render() {
@@ -235,21 +242,21 @@ export class Element<
   }
 
   componentWillMount() {
-    injectStylesheet(this.stylesheet, this.environment);
+    injectStylesheet(this.stylesheet, this.manager);
   }
 
   componentWillReceiveProps(nextProps: Props) {
     const [restProps, stylesheet] = this.createStylesheetFromProps(nextProps);
     if (this.stylesheet == null || stylesheet.id !== this.stylesheet.id) {
-      this.environment.dispose();
-      injectStylesheet(stylesheet, this.environment);
+      this.manager.dispose();
+      injectStylesheet(stylesheet, this.manager);
       this.restProps = restProps;
       this.stylesheet = stylesheet;
     }
   }
 
   componentWillUnmount() {
-    this.environment.dispose();
+    this.manager.dispose();
   }
 
   createStylesheetFromProps(props: Props): [P, Stylesheet] {

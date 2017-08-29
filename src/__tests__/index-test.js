@@ -71,7 +71,7 @@ test('styleComponent() inserts a stylesheet into DOM', function() {
       color: 'red',
     },
   });
-  expect(ReactStylesheet.staticEnvironment.sheet.cssRules.length).toBe(1);
+  expect(ReactStylesheet.staticEnvironment.rules.length).toBe(1);
 });
 
 describe('<Element />', function() {
