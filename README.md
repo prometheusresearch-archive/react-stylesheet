@@ -73,7 +73,7 @@ What makes React Stylesheet special:
 
 `<Element />` component is a basic building block for styling:
 
-```
+```javascript
 import {Element} from 'react-stylesheet'
 
 <Element
@@ -93,7 +93,7 @@ values when the corresponding state is being active.
 For example there's an `<Element />` which changes its background and text color
 on hover:
 
-```
+```javascript
 import {Element} from 'react-stylesheet'
 
 <Element
@@ -110,7 +110,7 @@ import {Element} from 'react-stylesheet'
 By default `<Element />` renders into `<div />` DOM component but you can
 override this with `Component` prop:
 
-```
+```javascript
 <Element
   Component="button"
   padding={10}>
@@ -132,7 +132,7 @@ implement [flexbox][] layout mechanism.
 All properties which are supported by `<Element />` are also supported by `<VBox />`
 and `<HBox />`.
 
-```
+```javascript
 import {VBox, HBox} from 'react-stylesheet'
 
 <VBox justifyContent="space-around">
@@ -143,7 +143,7 @@ import {VBox, HBox} from 'react-stylesheet'
 
 Note that the following defaults are applied:
 
-```
+```css
 HBox, VBox {
   position: relative;
 
@@ -168,7 +168,7 @@ HBox, VBox {
 There's a way to produce styled components out of common components using
 `style(Component, stylesheet)` function:
 
-```
+```javascript
 import {style} from 'react-stylesheet'
 
 let Label = style('span', {
@@ -182,7 +182,7 @@ let Label = style('span', {
 Now `Label` is a regular React component styled with `fontWeight` and
 `fontSize`. You can render into DOM and use as a part of React element tree:
 
-```
+```javascript
 <Label />
 ```
 
@@ -190,7 +190,7 @@ Now `Label` is a regular React component styled with `fontWeight` and
 
 You can specify styling for states (hover, focus, ...):
 
-```
+```javascript
 let Label = style('span', {
   base: {
     fontWeight: 'bold',
@@ -208,7 +208,7 @@ Now on hover you can see the underline appears.
 
 Sometimes you want a set of style variants and toggle them via JS:
 
-```
+```javascript
 let Label = style('span', {
   base: {
     fontWeight: 'bold',
@@ -223,7 +223,7 @@ let Label = style('span', {
 Now to toggle any particular variant you need to pass a component a specially
 constructed `variant` prop:
 
-```
+```javascript
 <Label variant={{emphasis: true}} />
 ```
 
@@ -234,7 +234,7 @@ API.
 
 Some examples of the type errors you can get:
 
-```
+```javascript
 style('span', {
   display: 'oops' // display can only be "none" | "block" | ...
 })
@@ -248,7 +248,7 @@ style('span', {
 
 There's helpers for producing CSS values:
 
-```
+```javascript
 import {css} from 'react-stylesheet'
 
 let Label = style('span', {
@@ -264,38 +264,43 @@ React Stylesheet comes with snapshot serializers for [Jest][] test framework.
 
 The example test setup looks like this:
 
-    import React from 'react';
-    import renderer from 'react-test-renderer';
 
-    import {Element} from 'react-stylesheet';
-    import * as TestUtils from 'react-stylesheet/testutils';
+```javascript
+import React from 'react';
+import renderer from 'react-test-renderer';
 
-    expect.addSnapshotSerializer(TestUtils.snapshotSerializer);
+import {Element} from 'react-stylesheet';
+import * as TestUtils from 'react-stylesheet/testutils';
 
-    function Hello() {
-      return <Element color="red" colorOnHover="black">HEllo!</Element>
-    }
+expect.addSnapshotSerializer(TestUtils.snapshotSerializer);
 
-    test('rendering <Hello />', function() {
-      const tree = renderer.create(<Hello />).toJSON();
-      expect(tree).toMatchSnapshot();
-    });
+function Hello() {
+  return <Element color="red" colorOnHover="black">HEllo!</Element>
+}
+
+test('rendering <Hello />', function() {
+  const tree = renderer.create(<Hello />).toJSON();
+  expect(tree).toMatchSnapshot();
+});
+```
 
 Which produces the following snapshot:
 
-    <div
-      className={
-        CSSClassJoin [
-          CSSClass base {
-            box-sizing: border-box;
-          }
-          CSSClass base:hover {
-            color: black;
-          }
-        ]
+```
+<div
+  className={
+    CSSClassJoin [
+      CSSClass base {
+        box-sizing: border-box;
       }
-    >
-      Hello
-    </div>
+      CSSClass base:hover {
+        color: black;
+      }
+    ]
+  }
+>
+  Hello
+</div>
+```
 
 [Jest]: https://facebook.github.io/jest/
