@@ -43,8 +43,6 @@ export default {
   marginVertical: true,
   marginHorizontal: true,
 
-  all: true,
-
   animation: true,
   animationDelay: true,
   animationDirection: true,
@@ -54,10 +52,6 @@ export default {
   animationName: true,
   animationPlayState: true,
   animationTimingFunction: true,
-
-  appearance: true,
-  backdropFilter: true,
-  backfaceVisibility: true,
 
   background: true,
   backgroundAttachment: true,
@@ -166,7 +160,6 @@ export default {
   textTransform: true,
 
   transform: true,
-  transformBox: true,
   transformOrigin: true,
   transformStyle: true,
   transition: true,

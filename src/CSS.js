@@ -163,10 +163,6 @@ export type CSSMeasure = number | CSSMeasureUnit;
 export type CSSDisplay = 'block' | 'inline-block' | 'flex' | 'inline-flex' | 'inline';
 export type CSSPosition = 'absolute' | 'relative' | 'fixed' | 'sticky';
 
-export type CSSAll = 'initial' | 'inherit' | 'unset';
-
-export type CSSAppearance = 'auto' | 'none';
-
 export type CSSBackfaceVisibility = 'visible' | 'hidden';
 
 export type CSSBoxSizing = 'content-box' | 'border-box';
@@ -349,8 +345,6 @@ export type CSSPropertySet = {
   marginVertical?: ?CSSMeasure,
   marginHorizontal?: ?CSSMeasure,
 
-  all?: ?CSSAll,
-
   animation?: ?CSSUntypedString,
   animationDelay?: ?CSSUntypedString,
   animationDirection?: ?CSSUntypedString,
@@ -360,10 +354,6 @@ export type CSSPropertySet = {
   animationName?: ?CSSUntypedString,
   animationPlayState?: ?CSSUntypedString,
   animationTimingFunction?: ?CSSUntypedString,
-
-  appearance?: ?CSSAppearance,
-  backdropFilter?: ?CSSUntypedString,
-  backfaceVisibility?: ?CSSBackfaceVisibility,
 
   background?: ?CSSUntypedString,
   backgroundAttachment?: ?CSSUntypedString,
@@ -472,7 +462,6 @@ export type CSSPropertySet = {
   textTransform?: ?CSSUntypedString,
 
   transform?: ?CSSUntypedString,
-  transformBox?: ?CSSUntypedString,
   transformOrigin?: ?CSSUntypedString,
   transformStyle?: ?CSSUntypedString,
   transition?: ?CSSUntypedString,
