@@ -8,7 +8,7 @@ import CSSPseudoClassSet from './CSSPseudoClassSet';
 import CSSPropertySet from './CSSPropertySet';
 import * as CSS from './CSS';
 import * as Stylesheet from './Stylesheet';
-import * as defaultBoxStyle from './DefaultBoxStyle';
+import defaultBoxStyle from './DefaultBoxStyle';
 
 /**
  * <Element /> API
