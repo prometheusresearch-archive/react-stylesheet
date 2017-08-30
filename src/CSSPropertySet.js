@@ -44,27 +44,8 @@ export default {
   marginHorizontal: true,
 
   animation: true,
-  animationDelay: true,
-  animationDirection: true,
-  animationDuration: true,
-  animationFillMode: true,
-  animationIterationCount: true,
-  animationName: true,
-  animationPlayState: true,
-  animationTimingFunction: true,
 
   background: true,
-  backgroundAttachment: true,
-  backgroundBlendMode: true,
-  backgroundClip: true,
-  backgroundColor: true,
-  backgroundImage: true,
-  backgroundOrigin: true,
-  backgroundPosition: true,
-  backgroundPositionX: true,
-  backgroundPositionY: true,
-  backgroundRepeat: true,
-  backgroundSize: true,
 
   borderRadius: true,
   borderBottomLeftRadius: true,
@@ -93,7 +74,6 @@ export default {
   cursor: true,
   direction: true,
 
-  flex: true,
   flexBasis: true,
   flexDirection: true,
   flexFlow: true,
@@ -106,7 +86,6 @@ export default {
   alignContent: true,
   order: true,
 
-  font: true,
   fontFamily: true,
   fontSize: true,
   fontStyle: true,
@@ -115,19 +94,11 @@ export default {
   lineHeight: true,
 
   listStyle: true,
-  listStyleImage: true,
-  listStylePosition: true,
-  listStyleType: true,
 
   opacity: true,
 
   outline: true,
-  outlineColor: true,
-  outlineOffset: true,
-  outlineStyle: true,
-  outlineWidth: true,
 
-  overflow: true,
   overflowX: true,
   overflowY: true,
 
@@ -141,13 +112,7 @@ export default {
   textTransform: true,
 
   transform: true,
-  transformOrigin: true,
-  transformStyle: true,
   transition: true,
-  transitionDelay: true,
-  transitionDuration: true,
-  transitionProperty: true,
-  transitionTimingFunction: true,
 
   userSelect: true,
 

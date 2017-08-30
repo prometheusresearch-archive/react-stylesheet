@@ -346,27 +346,8 @@ export type CSSPropertySet = {
   marginHorizontal?: ?CSSMeasure,
 
   animation?: ?CSSUntypedString,
-  animationDelay?: ?CSSUntypedString,
-  animationDirection?: ?CSSUntypedString,
-  animationDuration?: ?CSSUntypedString,
-  animationFillMode?: ?CSSUntypedString,
-  animationIterationCount?: ?CSSUntypedString,
-  animationName?: ?CSSUntypedString,
-  animationPlayState?: ?CSSUntypedString,
-  animationTimingFunction?: ?CSSUntypedString,
 
   background?: ?CSSUntypedString,
-  backgroundAttachment?: ?CSSUntypedString,
-  backgroundBlendMode?: ?CSSUntypedString,
-  backgroundClip?: ?CSSUntypedString,
-  backgroundColor?: ?CSSColor,
-  backgroundImage?: ?CSSUntypedString,
-  backgroundOrigin?: ?CSSUntypedString,
-  backgroundPosition?: ?CSSUntypedString,
-  backgroundPositionX?: ?CSSUntypedString,
-  backgroundPositionY?: ?CSSUntypedString,
-  backgroundRepeat?: ?CSSUntypedString,
-  backgroundSize?: ?CSSUntypedString,
 
   borderRadius?: ?CSSUntypedString,
   borderBottomLeftRadius?: ?CSSUntypedString,
@@ -395,7 +376,6 @@ export type CSSPropertySet = {
   cursor?: ?CSSCursor,
   direction?: ?CSSDirection,
 
-  flex?: ?CSSUntypedString,
   flexBasis?: ?CSSFlexBasis,
   flexDirection?: ?CSSFlexDirection,
   flexFlow?: ?CSSUntypedString,
@@ -408,7 +388,6 @@ export type CSSPropertySet = {
   alignContent?: ?CSSAlignContent,
   order?: ?CSSOrder,
 
-  font?: ?CSSUntypedString,
   fontFamily?: ?CSSUntypedString,
   fontSize?: ?CSSUntypedString,
   fontStyle?: ?CSSUntypedString,
@@ -417,19 +396,11 @@ export type CSSPropertySet = {
   lineHeight?: ?CSSUntypedString,
 
   listStyle?: ?CSSUntypedString,
-  listStyleImage?: ?CSSUntypedString,
-  listStylePosition?: ?CSSUntypedString,
-  listStyleType?: ?CSSUntypedString,
 
   opacity?: ?CSSOpacity,
 
   outline?: ?CSSUntypedString,
-  outlineColor?: ?CSSUntypedString,
-  outlineOffset?: ?CSSUntypedString,
-  outlineStyle?: ?CSSUntypedString,
-  outlineWidth?: ?CSSUntypedString,
 
-  overflow?: ?CSSOverflow,
   overflowX?: ?CSSOverflow,
   overflowY?: ?CSSOverflow,
 
@@ -443,13 +414,7 @@ export type CSSPropertySet = {
   textTransform?: ?CSSUntypedString,
 
   transform?: ?CSSUntypedString,
-  transformOrigin?: ?CSSUntypedString,
-  transformStyle?: ?CSSUntypedString,
   transition?: ?CSSUntypedString,
-  transitionDelay?: ?CSSUntypedString,
-  transitionDuration?: ?CSSUntypedString,
-  transitionProperty?: ?CSSUntypedString,
-  transitionTimingFunction?: ?CSSUntypedString,
 
   userSelect?: ?CSSUserSelect,
 

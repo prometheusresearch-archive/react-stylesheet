@@ -8,10 +8,7 @@ import {Element, VBox, HBox} from '../src';
 export default function CSSVariableElementExample() {
   return (
     <div>
-      <Element
-        color="red"
-        backgroundColor="green"
-        hover={{color: 'green', backgroundColor: 'red'}}>
+      <Element color="red" background="green" hover={{color: 'green', background: 'red'}}>
         OK
       </Element>
       <HBox>

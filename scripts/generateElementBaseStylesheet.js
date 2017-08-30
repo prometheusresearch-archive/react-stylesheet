@@ -53,13 +53,23 @@ function variable(prop, scope) {
   }
   const [vars, val] = fallback;
   if (scope === 'base') {
-    fallback = `var(${variableName(prop, 'default')}, ${val})`;
+    fallback = val;
+    fallback = vars.reduceRight(
+      (fallback, v) => `var(${variableName(v, 'default')}, ${fallback})`,
+      fallback,
+    );
+    fallback = `var(${variableName(prop, 'default')}, ${fallback})`;
     fallback = vars.reduceRight(
       (fallback, v) => `var(${variableName(v, scope)}, ${fallback})`,
       fallback,
     );
   } else {
-    fallback = `var(${variableName(prop, 'default')}, ${val})`;
+    fallback = val;
+    fallback = vars.reduceRight(
+      (fallback, v) => `var(${variableName(v, 'default')}, ${fallback})`,
+      fallback,
+    );
+    fallback = `var(${variableName(prop, 'default')}, ${fallback})`;
     fallback = vars.reduceRight(
       (fallback, v) => `var(${variableName(v, 'base')}, ${fallback})`,
       fallback,
