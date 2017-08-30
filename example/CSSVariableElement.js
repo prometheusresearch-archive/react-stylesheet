@@ -15,8 +15,12 @@ export default function CSSVariableElementExample() {
         OK
       </Element>
       <HBox>
-        <VBox padding="10px">1</VBox>
-        <VBox padding="10px">2</VBox>
+        <VBox flexGrow={1} padding={10}>
+          1
+        </VBox>
+        <VBox flexGrow={1} padding={10}>
+          2
+        </VBox>
       </HBox>
     </div>
   );
