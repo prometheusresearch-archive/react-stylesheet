@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component-<HASH> RTL 1`] = `
+CSSClassJoin [
+  CSSClass base {
+    color: red
+  }
+  "RTL"
+]
+`;
+
+exports[`toClassName() 1`] = `
+CSSClassJoin [
+  CSSClass base {
+    color: red
+  }
+]
+`;
+
+exports[`toClassName() 2`] = `
+CSSClassJoin [
+  CSSClass base {
+    color: red
+  }
+]
+`;
+
+exports[`toClassName() 3`] = `
+CSSClassJoin [
+  CSSClass base {
+    color: red
+  }
+]
+`;
+
+exports[`toClassName() 4`] = `
+CSSClassJoin [
+  CSSClass base {
+    color: red
+  }
+  CSSClass some {
+    color: black
+  }
+]
+`;
+
+exports[`toClassName() 5`] = `
+CSSClassJoin [
+  CSSClass base {
+    color: red
+  }
+]
+`;
+
+exports[`toClassName() 6`] = `
+CSSClassJoin [
+  CSSClass base {
+    color: red
+  }
+  "RTL"
+  CSSClass some {
+    color: black
+  }
+]
+`;
+
+exports[`toClassName() 7`] = `
+CSSClassJoin [
+  CSSClass base {
+    color: red
+  }
+]
+`;
+
+exports[`toClassName() 8`] = `
+CSSClassJoin [
+  CSSClass base {
+    color: red
+  }
+  "RTL"
+  CSSClass rightToLeft {
+    color: black
+  }
+]
+`;
+
+exports[`toClassName() 9`] = `
+CSSClassJoin [
+  CSSClass base {
+    color: red
+  }
+  "RTL"
+  CSSClass rightToLeft {
+    color: black
+  }
+]
+`;
+
+exports[`toClassName() 10`] = `
+CSSClassJoin [
+  CSSClass base {
+    color: red
+  }
+  CSSClass rightToLeft {
+    color: black
+  }
+]
+`;
