@@ -40,7 +40,7 @@ function sheetForTag(tag): StylesheetTag {
 function createHTMLStyleElement(): HTMLStyleElement {
   let tag = document.createElement('style');
   tag.type = 'text/css';
-  tag.setAttribute('data-emotion', '');
+  tag.setAttribute('data-react-stylesheet', '');
   tag.appendChild(document.createTextNode(''));
   (document.head || document.getElementsByTagName('head')[0]).appendChild(tag);
   return tag;
