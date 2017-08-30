@@ -68,10 +68,14 @@ Object {
   "id": "<HASH>",
   "rules": Array [
     Object {
-      "cssText": ".Component-<HASH> { margin-left: 12px; }",
+      "cssText": ".Component-<HASH> {
+margin-left: 12px;
+}",
     },
     Object {
-      "cssText": ".Component-<HASH>.RTL { margin-right: 12px; }",
+      "cssText": ".Component-<HASH>.RTL {
+margin-right: 12px;
+}",
     },
   ],
   "spec": Object {
@@ -106,10 +110,14 @@ Object {
   "id": "<HASH>",
   "rules": Array [
     Object {
-      "cssText": ".Component-<HASH> { margin-right: 12px; }",
+      "cssText": ".Component-<HASH> {
+margin-right: 12px;
+}",
     },
     Object {
-      "cssText": ".Component-<HASH>.RTL { margin-left: 12px; }",
+      "cssText": ".Component-<HASH>.RTL {
+margin-left: 12px;
+}",
     },
   ],
   "spec": Object {
@@ -144,8 +152,10 @@ Object {
   "id": "<HASH>",
   "rules": Array [
     Object {
-      "cssText": ".Component-<HASH> { margin-top: 12px;
-margin-bottom: 12px; }",
+      "cssText": ".Component-<HASH> {
+margin-top: 12px;
+margin-bottom: 12px;
+}",
     },
   ],
   "spec": Object {
@@ -175,8 +185,10 @@ Object {
   "id": "<HASH>",
   "rules": Array [
     Object {
-      "cssText": ".Component-<HASH> { margin-left: 12px;
-margin-right: 12px; }",
+      "cssText": ".Component-<HASH> {
+margin-left: 12px;
+margin-right: 12px;
+}",
     },
   ],
   "spec": Object {
@@ -206,10 +218,14 @@ Object {
   "id": "<HASH>",
   "rules": Array [
     Object {
-      "cssText": ".Component-<HASH> { padding-left: 12px; }",
+      "cssText": ".Component-<HASH> {
+padding-left: 12px;
+}",
     },
     Object {
-      "cssText": ".Component-<HASH>.RTL { padding-right: 12px; }",
+      "cssText": ".Component-<HASH>.RTL {
+padding-right: 12px;
+}",
     },
   ],
   "spec": Object {
@@ -244,10 +260,14 @@ Object {
   "id": "<HASH>",
   "rules": Array [
     Object {
-      "cssText": ".Component-<HASH> { padding-right: 12px; }",
+      "cssText": ".Component-<HASH> {
+padding-right: 12px;
+}",
     },
     Object {
-      "cssText": ".Component-<HASH>.RTL { padding-left: 12px; }",
+      "cssText": ".Component-<HASH>.RTL {
+padding-left: 12px;
+}",
     },
   ],
   "spec": Object {
@@ -282,8 +302,10 @@ Object {
   "id": "<HASH>",
   "rules": Array [
     Object {
-      "cssText": ".Component-<HASH> { padding-top: 12px;
-padding-bottom: 12px; }",
+      "cssText": ".Component-<HASH> {
+padding-top: 12px;
+padding-bottom: 12px;
+}",
     },
   ],
   "spec": Object {
@@ -313,8 +335,10 @@ Object {
   "id": "<HASH>",
   "rules": Array [
     Object {
-      "cssText": ".Component-<HASH> { padding-left: 12px;
-padding-right: 12px; }",
+      "cssText": ".Component-<HASH> {
+padding-left: 12px;
+padding-right: 12px;
+}",
     },
   ],
   "spec": Object {
@@ -344,10 +368,14 @@ Object {
   "id": "<HASH>",
   "rules": Array [
     Object {
-      "cssText": ".Component-<HASH> { left: 12px; }",
+      "cssText": ".Component-<HASH> {
+left: 12px;
+}",
     },
     Object {
-      "cssText": ".Component-<HASH>.RTL { right: 12px; }",
+      "cssText": ".Component-<HASH>.RTL {
+right: 12px;
+}",
     },
   ],
   "spec": Object {
@@ -382,10 +410,14 @@ Object {
   "id": "<HASH>",
   "rules": Array [
     Object {
-      "cssText": ".Component-<HASH> { right: 12px; }",
+      "cssText": ".Component-<HASH> {
+right: 12px;
+}",
     },
     Object {
-      "cssText": ".Component-<HASH>.RTL { left: 12px; }",
+      "cssText": ".Component-<HASH>.RTL {
+left: 12px;
+}",
     },
   ],
   "spec": Object {
@@ -420,7 +452,9 @@ Object {
   "id": "<HASH>",
   "rules": Array [
     Object {
-      "cssText": ".Component-<HASH> { color: red; }",
+      "cssText": ".Component-<HASH> {
+color: red;
+}",
     },
   ],
   "spec": Object {
@@ -449,7 +483,9 @@ Object {
   "id": "<HASH>",
   "rules": Array [
     Object {
-      "cssText": ".Component-something-<HASH> { color: red; }",
+      "cssText": ".Component-something-<HASH> {
+color: red;
+}",
     },
   ],
   "spec": Object {
@@ -478,10 +514,14 @@ Object {
   "id": "<HASH>",
   "rules": Array [
     Object {
-      "cssText": ".Fancy-<HASH> { color: red; }",
+      "cssText": ".Fancy-<HASH> {
+color: red;
+}",
     },
     Object {
-      "cssText": ".Fancy-some-<HASH> { color: yellow; }",
+      "cssText": ".Fancy-some-<HASH> {
+color: yellow;
+}",
     },
   ],
   "spec": Object {
@@ -525,10 +565,14 @@ Object {
   "id": "<HASH>",
   "rules": Array [
     Object {
-      "cssText": ".Component-<HASH> { color: red; }",
+      "cssText": ".Component-<HASH> {
+color: red;
+}",
     },
     Object {
-      "cssText": ".Component-<HASH>:hover { color: black; }",
+      "cssText": ".Component-<HASH>:hover {
+color: black;
+}",
     },
   ],
   "spec": Object {
@@ -566,13 +610,19 @@ Object {
   "id": "<HASH>",
   "rules": Array [
     Object {
-      "cssText": ".Component-<HASH> { color: red; }",
+      "cssText": ".Component-<HASH> {
+color: red;
+}",
     },
     Object {
-      "cssText": ".Component-<HASH>:hover { color: black; }",
+      "cssText": ".Component-<HASH>:hover {
+color: black;
+}",
     },
     Object {
-      "cssText": ".Component-<HASH>:hover:focus { color: yellow; }",
+      "cssText": ".Component-<HASH>:hover:focus {
+color: yellow;
+}",
     },
   ],
   "spec": Object {
@@ -619,10 +669,14 @@ Object {
   "id": "<HASH>",
   "rules": Array [
     Object {
-      "cssText": ".Component-something-<HASH> { color: red; }",
+      "cssText": ".Component-something-<HASH> {
+color: red;
+}",
     },
     Object {
-      "cssText": ".Component-something-<HASH>:hover { color: black; }",
+      "cssText": ".Component-something-<HASH>:hover {
+color: black;
+}",
     },
   ],
   "spec": Object {
