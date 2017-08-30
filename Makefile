@@ -5,7 +5,7 @@ OUT = ./lib
 SRC_FILES = $(shell find $(SRC) -name '*.js')
 OUT_FLOW_FILES = $(SRC_FILES:./src/%=./lib/%.flow)
 
-build: build-js build-flow
+build: ElementBase.css build-js build-flow
 
 build-js:
 	@$(BIN)/babel --out-dir $(OUT) $(SRC)
@@ -44,3 +44,6 @@ lib/%.js.flow: src/%.js
 	@echo "$< -> $@"
 	@mkdir -p $(@D)
 	@cp $< $@
+
+ElementBase.css: $(SRC_FILES) scripts/generateElementBaseStylesheet.js
+	@$(BIN)/babel-node ./scripts/generateElementBaseStylesheet.js > $(@)

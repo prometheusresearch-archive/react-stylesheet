@@ -16,6 +16,7 @@ import * as Environment from './Environment';
  */
 export type StylesheetSpec = {
   displayName?: string,
+  className?: string,
   [key: string]: CSS.CSSStylesheet,
 };
 
@@ -142,4 +143,8 @@ export function toClassName(
     addStyle(context.className);
   }
   return styles.length > 0 ? CSSStyleRepr.classNameJoin(styles) : null;
+}
+
+export function renderStylesheet(stylesheet: Stylesheet): string {
+  return stylesheet.rules.map(rule => rule.cssText).join('\n');
 }

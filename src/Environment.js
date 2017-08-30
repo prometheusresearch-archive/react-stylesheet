@@ -11,6 +11,19 @@ export const isBrowser = typeof window !== 'undefined';
 export const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV;
 export const isTest = process.env.NODE_ENV === 'test';
 export const isOldIE = detectOldIE();
+export const isCSSVariablesSupported = detectCSSVariables();
+
+function detectCSSVariables() {
+  if (
+    typeof window !== 'undefined' &&
+    window.CSS != null &&
+    window.CSS.supports != null
+  ) {
+    return window.CSS.supports('--fake-var', 0);
+  } else {
+    return false;
+  }
+}
 
 function detectOldIE() {
   if (isBrowser) {

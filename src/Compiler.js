@@ -6,10 +6,10 @@ const hyphenateStyleName = require('fbjs/lib/hyphenateStyleName');
 const memoizeStringOnly = require('fbjs/lib/memoizeStringOnly');
 const computeHashImpl = require('murmurhash-js/murmurhash3_gc');
 
-import type {StylesheetSpec} from './index';
+import type {StylesheetSpec} from './Stylesheet';
+import * as Environment from './Environment';
 import CSSPseudoClassSet from './CSSPseudoClassSet';
 import CSSUnitlessNumberPropSet from './CSSUnitlessNumberPropSet';
-import * as Environment from './Environment';
 
 export type CompiledStylesheet = {
   id: string,
@@ -31,7 +31,7 @@ export function compile(spec: StylesheetSpec): CompiledStylesheet {
   const rules = [];
   let id = [];
   for (const key in spec) {
-    if (key === 'displayName') {
+    if (key === 'displayName' || key === 'className') {
       continue;
     }
 
@@ -43,11 +43,15 @@ export function compile(spec: StylesheetSpec): CompiledStylesheet {
     const hash = computeHash(displayName + '||' + JSON.stringify(variant));
     id.push(hash);
 
-    let variantSelector = displayName;
-    if (key !== 'base') {
-      variantSelector = `${variantSelector}-${key}`;
+    let variantSelector = spec.className;
+
+    if (variantSelector == null) {
+      variantSelector = displayName;
+      if (key !== 'base') {
+        variantSelector = `${variantSelector}-${key}`;
+      }
+      variantSelector = `${variantSelector}-${hash}`;
     }
-    variantSelector = `${variantSelector}-${hash}`;
 
     const repr = Environment.isTest ? [] : null;
     let variantHasStyles = false;
@@ -68,7 +72,7 @@ export function compile(spec: StylesheetSpec): CompiledStylesheet {
       }
       // props
       const props = rule.props.join(';\n') + ';';
-      rules.push({cssText: `${selector} { ${props} }`});
+      rules.push({cssText: `${selector} {\n${props}\n}`});
       // repr
       if (repr !== null) {
         let reprSelector = key;

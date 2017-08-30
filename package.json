@@ -8,6 +8,10 @@
   },
   "author": "Andrey Popp <8mayday@gmail.com>",
   "license": "ISC",
+  "files": [
+    "ElementBase.css",
+    "lib/"
+  ],
   "jest": {
     "rootDir": "src",
     "testEnvironment": "node"

@@ -8,6 +8,7 @@ import CSSPseudoClassSet from './CSSPseudoClassSet';
 import CSSPropertySet from './CSSPropertySet';
 import * as CSS from './CSS';
 import * as Stylesheet from './Stylesheet';
+import * as defaultBoxStyle from './DefaultBoxStyle';
 
 /**
  * <Element /> API
@@ -18,7 +19,7 @@ type ElementProps<P: {}> = {
   className?: string,
 };
 
-export default class Element<
+export class Element<
   P: {},
   Props: CSS.CSSStylesheet & P & ElementProps<P>,
 > extends React.Component<Props> {
@@ -80,4 +81,20 @@ export default class Element<
     }
     return [restProps, Stylesheet.createStylesheet(spec)];
   }
+}
+
+export class VBox<P: {}> extends Element<P, *> {
+  static defaultProps = {
+    Component: 'div',
+    ...defaultBoxStyle,
+    flexDirection: 'column',
+  };
+}
+
+export class HBox<P: {}> extends Element<P, *> {
+  static defaultProps = {
+    Component: 'div',
+    ...defaultBoxStyle,
+    flexDirection: 'row',
+  };
 }
