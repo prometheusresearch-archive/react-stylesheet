@@ -378,29 +378,10 @@ export type CSSPropertySet = {
   borderSpacing?: ?CSSUntypedString,
 
   border?: ?CSSUntypedString,
-  borderColor?: ?CSSUntypedString,
-  borderStyle?: ?CSSUntypedString,
-  borderWidth?: ?CSSUntypedString,
-
   borderBottom?: ?CSSUntypedString,
-  borderBottomColor?: ?CSSUntypedString,
-  borderBottomStyle?: ?CSSUntypedString,
-  borderBottomWidth?: ?CSSUntypedString,
-
   borderLeft?: ?CSSUntypedString,
-  borderLeftColor?: ?CSSUntypedString,
-  borderLeftStyle?: ?CSSUntypedString,
-  borderLeftWidth?: ?CSSUntypedString,
-
   borderRight?: ?CSSUntypedString,
-  borderRightColor?: ?CSSUntypedString,
-  borderRightStyle?: ?CSSUntypedString,
-  borderRightWidth?: ?CSSUntypedString,
-
   borderTop?: ?CSSUntypedString,
-  borderTopColor?: ?CSSUntypedString,
-  borderTopStyle?: ?CSSUntypedString,
-  borderTopWidth?: ?CSSUntypedString,
 
   boxShadow?: ?CSSUntypedString,
 

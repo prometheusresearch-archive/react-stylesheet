@@ -14,6 +14,8 @@ import {
 } from '../src/CSSVariableElement';
 
 const CSSPropertyMask = {
+  flex: true,
+  border: true,
   padding: true,
   paddingHorizontal: true,
   paddingVertical: true,
@@ -38,32 +40,35 @@ const CSSPropertyFallback = {
   marginRight: [['marginHorizontal', 'margin'], 0],
   marginTop: [['marginVertical', 'margin'], 0],
   marginBottom: [['marginVertical', 'margin'], 0],
+  borderLeft: [['borderHorizontal', 'border'], 0],
+  borderRight: [['borderHorizontal', 'border'], 0],
+  borderTop: [['borderVertical', 'border'], 0],
+  borderBottom: [['borderVertical', 'border'], 0],
 };
 
 function variable(prop, scope) {
   let fallback = CSSPropertyFallback[prop];
   if (fallback == null) {
-    fallback = 'initial';
+    fallback = [[], 'initial'];
+  }
+  const [vars, val] = fallback;
+  if (scope === 'base') {
+    fallback = `var(${variableName(prop, 'default')}, ${val})`;
+    fallback = vars.reduceRight(
+      (fallback, v) => `var(${variableName(v, scope)}, ${fallback})`,
+      fallback,
+    );
   } else {
-    const [vars, val] = fallback;
-    if (scope === 'base') {
-      fallback = `var(${variableName(prop, 'default')}, ${val})`;
-      fallback = vars.reduceRight(
-        (fallback, v) => `var(${variableName(v, scope)}, ${fallback})`,
-        fallback,
-      );
-    } else {
-      fallback = `var(${variableName(prop, 'default')}, ${val})`;
-      fallback = vars.reduceRight(
-        (fallback, v) => `var(${variableName(v, 'base')}, ${fallback})`,
-        fallback,
-      );
-      fallback = `var(${variableName(prop, 'base')}, ${fallback})`;
-      fallback = vars.reduceRight(
-        (fallback, v) => `var(${variableName(v, scope)}, ${fallback})`,
-        fallback,
-      );
-    }
+    fallback = `var(${variableName(prop, 'default')}, ${val})`;
+    fallback = vars.reduceRight(
+      (fallback, v) => `var(${variableName(v, 'base')}, ${fallback})`,
+      fallback,
+    );
+    fallback = `var(${variableName(prop, 'base')}, ${fallback})`;
+    fallback = vars.reduceRight(
+      (fallback, v) => `var(${variableName(v, scope)}, ${fallback})`,
+      fallback,
+    );
   }
   return (`var(${variableName(prop, scope)}, ${fallback})`: any);
 }

@@ -76,29 +76,10 @@ export default {
   borderSpacing: true,
 
   border: true,
-  borderColor: true,
-  borderStyle: true,
-  borderWidth: true,
-
   borderBottom: true,
-  borderBottomColor: true,
-  borderBottomStyle: true,
-  borderBottomWidth: true,
-
   borderLeft: true,
-  borderLeftColor: true,
-  borderLeftStyle: true,
-  borderLeftWidth: true,
-
   borderRight: true,
-  borderRightColor: true,
-  borderRightStyle: true,
-  borderRightWidth: true,
-
   borderTop: true,
-  borderTopColor: true,
-  borderTopStyle: true,
-  borderTopWidth: true,
 
   boxShadow: true,
 

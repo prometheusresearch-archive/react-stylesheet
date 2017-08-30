@@ -12,6 +12,8 @@ import * as Compiler from './Compiler';
 import CSSPropertySet from './CSSPropertySet';
 import defaultBoxStyle from './DefaultBoxStyle';
 
+const {compileName, compileValue} = Compiler;
+
 const CSSPseudoClassSet = {
   focus: true,
   hover: true,
@@ -41,7 +43,7 @@ export function visitCSSPropertyDomain(f: (string, string, string) => void) {
 }
 
 export function variableName(name: string, scope: string) {
-  name = Compiler.compileName(name);
+  name = compileName(name);
   return `--${scope}-${name}`;
 }
 
@@ -61,14 +63,14 @@ function prepareProps(props: any) {
   for (const key in props) {
     if (CSSPropertySet[key] === true) {
       const varName = scopesLookup.base[key];
-      restProps.style[varName] = props[key];
+      restProps.style[varName] = compileValue(key, props[key]);
     } else if (CSSPseudoClassSet[key] === true) {
       const scope = key;
       const scopeProps = props[key];
       for (const key in scopeProps) {
         if (CSSPropertySet[key] === true) {
           const varName = scopesLookup.base[scope][key];
-          restProps.style[varName] = scopeProps[key];
+          restProps.style[varName] = compileValue(key, scopeProps[key]);
         }
       }
     } else {
