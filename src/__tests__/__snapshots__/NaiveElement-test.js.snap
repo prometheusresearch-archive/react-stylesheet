@@ -2,7 +2,6 @@
 
 exports[`<Element /> inserts styles <Element className={...} /> 1`] = `
 <div
-  Component="div"
   className={
     CSSClassJoin [
       "bootstrap"
@@ -13,7 +12,6 @@ exports[`<Element /> inserts styles <Element className={...} /> 1`] = `
 
 exports[`<Element /> inserts styles <Element color="red" className={...} /> 1`] = `
 <div
-  Component="div"
   className={
     CSSClassJoin [
       CSSClass base {
@@ -27,7 +25,6 @@ exports[`<Element /> inserts styles <Element color="red" className={...} /> 1`] 
 
 exports[`<Element /> inserts styles <Element color={...} /> 1`] = `
 <div
-  Component="div"
   className={
     CSSClassJoin [
       CSSClass base {
@@ -40,7 +37,6 @@ exports[`<Element /> inserts styles <Element color={...} /> 1`] = `
 
 exports[`<Element /> inserts styles <Element color={...} hover={...} /> 1`] = `
 <div
-  Component="div"
   className={
     CSSClassJoin [
       CSSClass base {
@@ -56,7 +52,6 @@ exports[`<Element /> inserts styles <Element color={...} hover={...} /> 1`] = `
 
 exports[`<Element /> inserts styles <Element focus={...} hover={...} /> 1`] = `
 <div
-  Component="div"
   className={
     CSSClassJoin [
       CSSClass base:focus {
@@ -72,7 +67,6 @@ exports[`<Element /> inserts styles <Element focus={...} hover={...} /> 1`] = `
 
 exports[`<Element /> inserts styles <Element hover={...} /> 1`] = `
 <div
-  Component="div"
   className={
     CSSClassJoin [
       CSSClass base:hover {

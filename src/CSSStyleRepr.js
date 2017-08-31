@@ -4,6 +4,8 @@
 
 import * as Environment from './Environment';
 
+export type ClassName = CSSClass | CSSClassJoin | string | null | void;
+
 type CSSRuleRepr = {selector: string, props: Array<string>};
 
 export class CSSClass {
@@ -21,14 +23,21 @@ export class CSSClass {
 }
 
 export class CSSClassJoin {
-  styles: Array<CSSClass | string>;
+  styles: Array<ClassName>;
 
-  constructor(styles: Array<CSSClass | string>) {
+  constructor(styles: Array<ClassName>) {
     this.styles = styles;
   }
 
   valueOf() {
-    return this.styles.map(style => style.valueOf()).join(' ');
+    let className = '';
+    for (let i = 0; i < this.styles.length; i++) {
+      let s = this.styles[i];
+      if (s != null) {
+        className += ' ' + s.valueOf();
+      }
+    }
+    return className;
   }
 }
 
@@ -42,7 +51,7 @@ export function className(className: string, repr: ?CSSRuleRepr): CSSClass | str
   }
 }
 
-export function classNameJoin(styles: Array<CSSClass | string>): CSSClassJoin | string {
+export function classNameJoin(styles: Array<ClassName>): CSSClassJoin | string {
   if (isTest) {
     return new CSSClassJoin(styles);
   } else {

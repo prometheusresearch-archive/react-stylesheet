@@ -4,6 +4,7 @@
 
 const React = require('react');
 
+import type {ClassName} from './CSSStyleRepr';
 import CSSPseudoClassSet from './CSSPseudoClassSet';
 import CSSPropertySet from './CSSPropertySet';
 import * as CSS from './CSS';
@@ -16,7 +17,7 @@ import defaultBoxStyle from './DefaultBoxStyle';
 
 type ElementProps<P: {}> = {
   Component: string | React.ComponentType<P>,
-  className?: string,
+  className?: ClassName,
 };
 
 export class Element<
@@ -29,7 +30,7 @@ export class Element<
     Component: 'div',
   };
 
-  manager: Stylesheet.StylesheetManager;
+  dispose: null | (() => void);
   stylesheet: Stylesheet.Stylesheet;
   restProps: P;
 
@@ -38,7 +39,7 @@ export class Element<
     const [restProps, stylesheet] = this.createStylesheetFromProps(props);
     this.restProps = restProps;
     this.stylesheet = stylesheet;
-    this.manager = Stylesheet.createStylesheetManager();
+    this.dispose = null;
   }
 
   render() {
@@ -52,21 +53,25 @@ export class Element<
   }
 
   componentWillMount() {
-    Stylesheet.injectStylesheet(this.stylesheet, this.manager);
+    this.dispose = Stylesheet.injectDisposableStylesheet(this.stylesheet);
   }
 
   componentWillReceiveProps(nextProps: Props) {
     const [restProps, stylesheet] = this.createStylesheetFromProps(nextProps);
     if (this.stylesheet == null || stylesheet.id !== this.stylesheet.id) {
-      this.manager.dispose();
-      Stylesheet.injectStylesheet(stylesheet, this.manager);
+      if (this.dispose != null) {
+        this.dispose();
+      }
+      this.dispose = Stylesheet.injectDisposableStylesheet(stylesheet);
       this.restProps = restProps;
       this.stylesheet = stylesheet;
     }
   }
 
   componentWillUnmount() {
-    this.manager.dispose();
+    if (this.dispose != null) {
+      this.dispose();
+    }
   }
 
   createStylesheetFromProps(props: Props): [P, Stylesheet.Stylesheet] {
@@ -75,7 +80,7 @@ export class Element<
     for (const key in props) {
       if (CSSPseudoClassSet[key] || CSSPropertySet[key]) {
         spec.base[key] = props[key];
-      } else {
+      } else if (key !== 'Component') {
         restProps[key] = props[key];
       }
     }
@@ -83,18 +88,29 @@ export class Element<
   }
 }
 
+const VBoxStylesheet = Stylesheet.createStylesheet({
+  displayName: 'VBoxBase',
+  base: {...defaultBoxStyle, flexDirection: 'column'},
+});
+
+const HBoxStylesheet = Stylesheet.createStylesheet({
+  displayName: 'HBoxBase',
+  base: {...defaultBoxStyle, flexDirection: 'row'},
+});
+
+Stylesheet.injectStylesheet(VBoxStylesheet);
+Stylesheet.injectStylesheet(HBoxStylesheet);
+
 export class VBox<P: {}> extends Element<P, *> {
   static defaultProps = {
     Component: 'div',
-    ...defaultBoxStyle,
-    flexDirection: 'column',
+    className: Stylesheet.toClassName(VBoxStylesheet, {}),
   };
 }
 
 export class HBox<P: {}> extends Element<P, *> {
   static defaultProps = {
     Component: 'div',
-    ...defaultBoxStyle,
-    flexDirection: 'row',
+    className: Stylesheet.toClassName(HBoxStylesheet, {}),
   };
 }

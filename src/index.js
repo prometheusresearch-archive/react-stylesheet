@@ -18,7 +18,7 @@ export type {StylesheetSpec, StylesheetContext, StylesheetManager};
 export {
   createStylesheet,
   injectStylesheet,
-  staticStyles,
+  injectDisposableStylesheet,
   toClassName,
   createStylesheetManager,
   renderStylesheet,
@@ -27,7 +27,6 @@ export {
 export {default as styleComponent} from './styleComponent';
 
 import * as NaiveElement from './NaiveElement';
-import * as CSSVariableElement from './CSSVariableElement';
 
 export const Element = NaiveElement.Element;
 export const VBox = NaiveElement.VBox;

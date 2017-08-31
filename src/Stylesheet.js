@@ -47,14 +47,89 @@ export type Stylesheet = Compiler.CompiledStylesheet;
  */
 export type StylesheetContext = {
   rightToLeft: boolean,
-  className?: string,
+  className?: CSSStyleRepr.ClassName,
 };
 
 export const defaultContext = {
   rightToLeft: false,
 };
 
-export const staticStyles = Environment.createStylesheetManager();
+function noop() {}
+
+type StylesheetRecord = {
+  manager: StylesheetManager,
+  dispose: () => void,
+  useCount: number,
+};
+
+class StylesheetEnvironment {
+  injected: {[id: string]: ?StylesheetRecord};
+  staticRecord: StylesheetRecord;
+
+  constructor() {
+    this.injected = {};
+    this.staticRecord = {
+      manager: Environment.createStylesheetManager(),
+      dispose: noop,
+      useCount: Infinity,
+    };
+  }
+
+  injectDisposable(stylesheet: Stylesheet) {
+    const rec = this.injected[stylesheet.id];
+    if (rec == null) {
+      if (stylesheet.rules.length > 0) {
+        const manager = Environment.createStylesheetManager();
+        for (const rule of stylesheet.rules) {
+          manager.inject(rule.cssText);
+        }
+        const dispose = () => {
+          const rec = this.injected[stylesheet.id];
+          if (rec != null) {
+            if (rec.useCount === 0) {
+              rec.manager.dispose();
+              this.injected[stylesheet.id] = null;
+            } else {
+              this.injected[stylesheet.id] = {...rec, useCount: rec.useCount - 1};
+            }
+          }
+        };
+        this.injected[stylesheet.id] = {manager, dispose, useCount: 1};
+        return dispose;
+      } else {
+        return {manager: null, dispose: noop, useCount: Infinity};
+      }
+    } else {
+      return rec.dispose;
+    }
+  }
+
+  inject(stylesheet: Stylesheet) {
+    const rec = this.injected[stylesheet.id];
+    if (rec == null) {
+      this.injected[stylesheet.id] = this.staticRecord;
+      for (const rule of stylesheet.rules) {
+        this.staticRecord.manager.inject(rule.cssText);
+      }
+    } else if (rec !== this.staticRecord) {
+      // "upgrade" stylesheet to be static
+      this.injected[stylesheet.id] = this.staticRecord;
+    }
+  }
+
+  disposeAll() {
+    const ids = Object.keys(this.injected);
+    for (let i = 0; i < ids.length; i++) {
+      const id = ids[i];
+      const rec = this.injected[id];
+      if (rec != null) {
+        rec.dispose();
+      }
+    }
+  }
+}
+
+export const stylesheetEnvironment = new StylesheetEnvironment();
 
 /**
  * Produce a stylesheet from a spec.
@@ -98,13 +173,15 @@ export function overrideStylesheet(
     nextSpec[variant] = overrideVariant(nextSpec[variant], override[variant]);
   }
 
-  return createStylesheet(nextSpec);
+  return Compiler.compile(nextSpec);
 }
 
-export function injectStylesheet(stylesheet: Stylesheet, manager = staticStyles): void {
-  for (const rule of stylesheet.rules) {
-    manager.inject(rule.cssText);
-  }
+export function injectStylesheet(stylesheet: Stylesheet): void {
+  stylesheetEnvironment.inject(stylesheet);
+}
+
+export function injectDisposableStylesheet(stylesheet: Stylesheet): () => void {
+  return stylesheetEnvironment.injectDisposable(stylesheet);
 }
 
 export function toClassName(
@@ -140,7 +217,7 @@ export function toClassName(
     }
   }
   if (context.className != null) {
-    addStyle(context.className);
+    addStyle(context.className.valueOf());
   }
   return styles.length > 0 ? CSSStyleRepr.classNameJoin(styles) : null;
 }

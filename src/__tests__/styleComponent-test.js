@@ -13,11 +13,11 @@ import * as TestUtil from '../TestUtil';
 expect.addSnapshotSerializer(TestUtil.snapshotSerializer);
 
 beforeEach(function() {
-  Stylesheet.staticStyles.dispose();
+  Stylesheet.stylesheetEnvironment.disposeAll();
 });
 
 afterEach(function() {
-  Stylesheet.staticStyles.dispose();
+  Stylesheet.stylesheetEnvironment.disposeAll();
 });
 
 test('styleComponent() inserts a stylesheet into DOM', function() {
@@ -26,5 +26,6 @@ test('styleComponent() inserts a stylesheet into DOM', function() {
       color: 'red',
     },
   });
-  expect(Stylesheet.staticStyles.rules.length).toBe(1);
+  // $FlowFixMe: ...
+  expect(Stylesheet.stylesheetEnvironment.staticRecord.manager.rules.length).toBe(1);
 });

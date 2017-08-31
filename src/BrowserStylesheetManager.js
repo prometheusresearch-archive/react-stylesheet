@@ -1,4 +1,4 @@
-/*
+/**
  * @flow
  *
  * Implementation adapted from emotion.
