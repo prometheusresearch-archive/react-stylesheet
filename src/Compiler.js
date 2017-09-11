@@ -7,7 +7,7 @@ const memoizeStringOnly = require('fbjs/lib/memoizeStringOnly');
 const computeHashImpl = require('murmurhash-js/murmurhash3_gc');
 
 import type {StylesheetSpec} from './Stylesheet';
-import * as Environment from './Environment';
+import * as Runtime from './Runtime';
 import CSSPseudoClassSet from './CSSPseudoClassSet';
 import CSSUnitlessNumberPropSet from './CSSUnitlessNumberPropSet';
 
@@ -53,7 +53,7 @@ export function compile(spec: StylesheetSpec): CompiledStylesheet {
       variantSelector = `${variantSelector}-${hash}`;
     }
 
-    const repr = Environment.isTest ? [] : null;
+    const repr = Runtime.isTest ? [] : null;
     let variantHasStyles = false;
 
     for (let i = 0; i < variant.length; i++) {
@@ -201,6 +201,6 @@ export function compileValue(name: string, value: mixed): string {
   }
 }
 
-const computeHash = value => (Environment.isTest ? '<HASH>' : computeHashImpl(value));
+const computeHash = value => (Runtime.isTest ? '<HASH>' : computeHashImpl(value));
 const isEmpty = value => value == null || value === '' || value === false;
 export const compileName = memoizeStringOnly(name => hyphenateStyleName(name));

@@ -6,28 +6,24 @@ import type {
   Stylesheet as StylesheetPrivate,
   StylesheetSpec,
   StylesheetContext,
-  StylesheetManager,
 } from './Stylesheet';
+
+import type {StylesheetEnvironment} from './environment';
 
 /**
  * We export StylesheetPrivate as opaque type.
  */
 export opaque type Stylesheet = StylesheetPrivate;
-export type {StylesheetSpec, StylesheetContext, StylesheetManager};
+export type {StylesheetSpec, StylesheetContext, StylesheetEnvironment};
 
 export {
   createStylesheet,
   injectStylesheet,
   injectDisposableStylesheet,
   toClassName,
-  createStylesheetManager,
+  createEnvironment,
   renderStylesheet,
 } from './Stylesheet';
 
 export {default as styleComponent} from './styleComponent';
-
-import * as NaiveElement from './NaiveElement';
-
-export const Element = NaiveElement.Element;
-export const VBox = NaiveElement.VBox;
-export const HBox = NaiveElement.HBox;
+export {Element, VBox, HBox} from './Element';

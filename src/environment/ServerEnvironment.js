@@ -2,9 +2,9 @@
  * @flow
  */
 
-import type {StylesheetManager} from './index';
+import type {StylesheetEnvironment} from './index';
 
-class ServerStylesheetManager implements StylesheetManager {
+class ServerEnvironment implements StylesheetEnvironment {
   rules: Array<string>;
 
   constructor() {
@@ -21,5 +21,5 @@ class ServerStylesheetManager implements StylesheetManager {
 }
 
 export function create() {
-  return new ServerStylesheetManager();
+  return new ServerEnvironment();
 }

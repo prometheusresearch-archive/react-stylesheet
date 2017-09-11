@@ -5,11 +5,13 @@
 const React = require('react');
 const invariant = require('invariant');
 
+import type {StylesheetEnvironment} from './environment';
+
 import CSSPseudoClassSet from './CSSPseudoClassSet';
 import * as CSS from './CSS';
 import * as CSSStyleRepr from './CSSStyleRepr';
 import * as Compiler from './Compiler';
-import * as Environment from './Environment';
+import * as Runtime from './Runtime';
 
 /**
  * This is how you define your stylesheet.
@@ -19,23 +21,6 @@ export type StylesheetSpec = {
   className?: string,
   [key: string]: CSS.CSSStylesheet,
 };
-
-/**
- * Defines a stretegy for how styles are being inserted.
- *
- * Single manager can host multiple styles.
- */
-export interface StylesheetManager {
-  /**
-   * Inject a CSS rule.
-   */
-  inject(rule: string): void,
-
-  /**
-   * Dispose manager along with all injected styles.
-   */
-  dispose(): void,
-}
 
 /**
  * This is the opaque type which represents the compiled stylesheet.
@@ -57,19 +42,19 @@ export const defaultContext = {
 function noop() {}
 
 type StylesheetRecord = {
-  manager: StylesheetManager,
+  manager: StylesheetEnvironment,
   dispose: () => void,
   useCount: number,
 };
 
-class StylesheetEnvironment {
+class StylesheetManager {
   injected: {[id: string]: ?StylesheetRecord};
   staticRecord: StylesheetRecord;
 
   constructor() {
     this.injected = {};
     this.staticRecord = {
-      manager: Environment.createStylesheetManager(),
+      manager: Runtime.createEnvironment(),
       dispose: noop,
       useCount: Infinity,
     };
@@ -79,7 +64,7 @@ class StylesheetEnvironment {
     const rec = this.injected[stylesheet.id];
     if (rec == null) {
       if (stylesheet.rules.length > 0) {
-        const manager = Environment.createStylesheetManager();
+        const manager = Runtime.createEnvironment();
         for (const rule of stylesheet.rules) {
           manager.inject(rule.cssText);
         }
@@ -97,7 +82,7 @@ class StylesheetEnvironment {
         this.injected[stylesheet.id] = {manager, dispose, useCount: 1};
         return dispose;
       } else {
-        return {manager: null, dispose: noop, useCount: Infinity};
+        return noop;
       }
     } else {
       return rec.dispose;
@@ -129,7 +114,7 @@ class StylesheetEnvironment {
   }
 }
 
-export const stylesheetEnvironment = new StylesheetEnvironment();
+export const stylesheetManager = new StylesheetManager();
 
 /**
  * Produce a stylesheet from a spec.
@@ -138,8 +123,8 @@ export function createStylesheet(spec: StylesheetSpec): Stylesheet {
   return Compiler.compile(spec);
 }
 
-export function createStylesheetManager(): StylesheetManager {
-  return Environment.createStylesheetManager();
+export function createEnvironment(): StylesheetEnvironment {
+  return Runtime.createEnvironment();
 }
 
 /**
@@ -177,11 +162,11 @@ export function overrideStylesheet(
 }
 
 export function injectStylesheet(stylesheet: Stylesheet): void {
-  stylesheetEnvironment.inject(stylesheet);
+  stylesheetManager.inject(stylesheet);
 }
 
 export function injectDisposableStylesheet(stylesheet: Stylesheet): () => void {
-  return stylesheetEnvironment.injectDisposable(stylesheet);
+  return stylesheetManager.injectDisposable(stylesheet);
 }
 
 export function toClassName(

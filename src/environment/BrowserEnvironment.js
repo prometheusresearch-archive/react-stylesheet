@@ -10,8 +10,8 @@
 
 const invariant = require('invariant');
 
-import type {StylesheetManager} from './index';
-import * as Environment from './Environment';
+import type {StylesheetEnvironment} from './index';
+import * as Runtime from '../Runtime';
 
 type StylesheetTag = {
   cssRules: Array<mixed>,
@@ -46,7 +46,7 @@ function createHTMLStyleElement(): HTMLStyleElement {
   return tag;
 }
 
-export class BrowserStylesheetManager implements StylesheetManager {
+export class BrowserStylesheetManager implements StylesheetEnvironment {
   isSpeedy: boolean;
   sheet: StylesheetTag;
   tags: Array<HTMLStyleElement>;
@@ -56,8 +56,8 @@ export class BrowserStylesheetManager implements StylesheetManager {
 
   constructor(
     {
-      speedy = !Environment.isDev && !Environment.isTest,
-      maxLength = Environment.isOldIE ? 4000 : 65000,
+      speedy = !Runtime.isDev && !Runtime.isTest,
+      maxLength = Runtime.isOldIE ? 4000 : 65000,
     }: {speedy: boolean, maxLength: number} = {},
   ) {
     this.isSpeedy = speedy; // the big drawback here is that the css won't be editable in devtools
@@ -78,7 +78,7 @@ export class BrowserStylesheetManager implements StylesheetManager {
       const sheet = this.getSheet();
       sheet.insertRule(rule, rule.indexOf('@import') !== -1 ? 0 : sheet.cssRules.length);
     } catch (e) {
-      if (Environment.isDev) {
+      if (Runtime.isDev) {
         // might need beter dx for this
         console.warn('illegal rule', rule); // eslint-disable-line no-console
       }

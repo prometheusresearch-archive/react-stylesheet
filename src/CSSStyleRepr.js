@@ -2,7 +2,7 @@
  * @flow
  */
 
-import * as Environment from './Environment';
+import * as Runtime from './Runtime';
 
 export type ClassName = CSSClass | CSSClassJoin | string | null | void;
 
@@ -41,7 +41,7 @@ export class CSSClassJoin {
   }
 }
 
-const isTest = Environment.isTest;
+const isTest = Runtime.isTest;
 
 export function className(className: string, repr: ?CSSRuleRepr): CSSClass | string {
   if (isTest) {

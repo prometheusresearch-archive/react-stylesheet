@@ -2,15 +2,15 @@
  * @flow
  */
 
-import '../ElementBase.css';
+import './CSSVariableElement.css';
 
 const React = require('react');
 
-import * as ReactStylesheet from './index';
-import * as CSS from './CSS';
-import * as Compiler from './Compiler';
-import CSSPropertySet from './CSSPropertySet';
-import defaultBoxStyle from './DefaultBoxStyle';
+import * as ReactStylesheet from '../index';
+import * as CSS from '../CSS';
+import * as Compiler from '../Compiler';
+import CSSPropertySet from '../CSSPropertySet';
+import defaultBoxStyle from '../DefaultBoxStyle';
 
 const {compileName, compileValue} = Compiler;
 

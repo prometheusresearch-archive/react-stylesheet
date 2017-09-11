@@ -5,7 +5,7 @@
 const React = require('react');
 const renderer = require('react-test-renderer');
 
-import {Element} from '../NaiveElement';
+import {Element} from '../Element';
 import * as TestUtil from '../TestUtil';
 
 // $FlowFixMe: ...

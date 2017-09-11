@@ -11,7 +11,7 @@ import {
   HBoxBaseClassName,
   visitCSSPropertyDomain,
   variableName,
-} from '../src/CSSVariableElement';
+} from '../src/experimental/CSSVariableElement';
 
 const CSSPropertyMask = {
   flex: true,

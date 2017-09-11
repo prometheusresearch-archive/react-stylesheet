@@ -5,7 +5,7 @@
 import * as React from 'react';
 import {Element, VBox, HBox} from '../src';
 
-export default function CSSVariableElementExample() {
+export default function ElementExample() {
   return (
     <div>
       <Element color="red" background="green" hover={{color: 'green', background: 'red'}}>

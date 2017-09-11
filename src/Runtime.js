@@ -1,11 +1,13 @@
-/*
+/**
+ * This module defines the runtime configuration.
+ *
  * @flow
  */
 
 import invariant from 'invariant';
 
-import * as BrowserStylesheetManager from './BrowserStylesheetManager';
-import * as ServerStylesheetManager from './ServerStylesheetManager';
+import * as BrowserEnvironment from './environment/BrowserEnvironment';
+import * as ServerEnvironment from './environment/ServerEnvironment';
 
 export const isBrowser = typeof window !== 'undefined';
 export const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV;
@@ -35,10 +37,10 @@ function detectOldIE() {
   }
 }
 
-export function createStylesheetManager() {
+export function createEnvironment() {
   if (isBrowser) {
-    return BrowserStylesheetManager.create();
+    return BrowserEnvironment.create();
   } else {
-    return ServerStylesheetManager.create();
+    return ServerEnvironment.create();
   }
 }

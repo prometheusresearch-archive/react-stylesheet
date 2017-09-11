@@ -13,11 +13,11 @@ import * as TestUtil from '../TestUtil';
 expect.addSnapshotSerializer(TestUtil.snapshotSerializer);
 
 beforeEach(function() {
-  Stylesheet.stylesheetEnvironment.disposeAll();
+  Stylesheet.stylesheetManager.disposeAll();
 });
 
 afterEach(function() {
-  Stylesheet.stylesheetEnvironment.disposeAll();
+  Stylesheet.stylesheetManager.disposeAll();
 });
 
 test('styleComponent() inserts a stylesheet into DOM', function() {
@@ -27,5 +27,5 @@ test('styleComponent() inserts a stylesheet into DOM', function() {
     },
   });
   // $FlowFixMe: ...
-  expect(Stylesheet.stylesheetEnvironment.staticRecord.manager.rules.length).toBe(1);
+  expect(Stylesheet.stylesheetManager.staticRecord.manager.rules.length).toBe(1);
 });
