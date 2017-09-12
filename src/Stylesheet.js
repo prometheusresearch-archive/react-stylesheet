@@ -170,11 +170,16 @@ export function injectDisposableStylesheet(stylesheet: Stylesheet): () => void {
 }
 
 export function toClassName(
-  stylesheet: Stylesheet,
+  stylesheet: ?Stylesheet,
   variant: Object,
   context?: StylesheetContext = defaultContext,
 ): null | string | CSSStyleRepr.CSSClassJoin {
   const styles = [];
+
+  if (stylesheet == null) {
+    return null;
+  }
+
   const addStyle = style => {
     if (style != null) {
       if (typeof style === 'string') {
