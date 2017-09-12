@@ -30,34 +30,12 @@ export class Element<
     Component: 'div',
   };
 
-  dispose: null | (() => void);
-  stylesheet: Stylesheet.Stylesheet;
-  restProps: P;
-
-  constructor(props: Props) {
-    super(props);
-    const [restProps, stylesheet] = this.createStylesheetFromProps(props);
-    this.restProps = restProps;
-    this.stylesheet = stylesheet;
-    this.dispose = null;
-  }
+  dispose: null | (() => void) = null;
+  stylesheet: ?Stylesheet.Stylesheet = null;
 
   render() {
-    const {Component, className: extraClassName} = this.props;
-    const className = Stylesheet.toClassName(
-      this.stylesheet,
-      {},
-      {rightToLeft: this.context.rightToLeft, className: extraClassName},
-    );
-    return <Component {...this.restProps} className={className} />;
-  }
-
-  componentWillMount() {
-    this.dispose = Stylesheet.injectDisposableStylesheet(this.stylesheet);
-  }
-
-  componentWillReceiveProps(nextProps: Props) {
-    const [restProps, stylesheet] = this.createStylesheetFromProps(nextProps);
+    const {Component, className: extraClassName, ...props} = this.props;
+    const [restProps, stylesheet] = this.createStylesheetFromProps(props);
     if (this.stylesheet == null || stylesheet.id !== this.stylesheet.id) {
       if (this.dispose != null) {
         this.dispose();
@@ -65,7 +43,12 @@ export class Element<
       this.stylesheet = stylesheet;
       this.dispose = Stylesheet.injectDisposableStylesheet(this.stylesheet);
     }
-    this.restProps = restProps;
+    const className = Stylesheet.toClassName(
+      this.stylesheet,
+      {},
+      {rightToLeft: this.context.rightToLeft, className: extraClassName},
+    );
+    return <Component {...restProps} className={className} />;
   }
 
   componentWillUnmount() {
@@ -77,7 +60,7 @@ export class Element<
   createStylesheetFromProps(props: any): [P, Stylesheet.Stylesheet] {
     const style = {...props.style};
     const restProps: any = {};
-    const spec = {base: {}};
+    const spec = {displayName: 'Element', base: {}};
     let needStyle = false;
     for (const key in props) {
       if (CSSPropertySet[key]) {
