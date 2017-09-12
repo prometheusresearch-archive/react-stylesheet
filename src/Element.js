@@ -85,7 +85,7 @@ export class HBox<P: {}> extends Element<P, *> {
   };
 }
 
-function createElementProps(props, context) {
+function createElementProps(props: any, context) {
   const style = {...props.style};
   const restProps: any = {};
   const spec = {displayName: 'Element', base: {}};
