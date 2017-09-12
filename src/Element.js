@@ -62,10 +62,10 @@ export class Element<
       if (this.dispose != null) {
         this.dispose();
       }
-      this.dispose = Stylesheet.injectDisposableStylesheet(stylesheet);
-      this.restProps = restProps;
       this.stylesheet = stylesheet;
+      this.dispose = Stylesheet.injectDisposableStylesheet(this.stylesheet);
     }
+    this.restProps = restProps;
   }
 
   componentWillUnmount() {
