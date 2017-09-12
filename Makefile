@@ -5,15 +5,15 @@ OUT = ./lib
 SRC_FILES = $(shell find $(SRC) -name '*.js')
 OUT_FLOW_FILES = $(SRC_FILES:./src/%=./lib/%.flow)
 
-build: ElementBase.css build-js build-flow
+build: build-js build-flow
 
 build-js:
-	@$(BIN)/babel --out-dir $(OUT) $(SRC)
+	@$(BIN)/babel --copy-files --out-dir $(OUT) $(SRC)
 
 build-flow: $(OUT_FLOW_FILES)
 
 build-watch:
-	@$(BIN)/babel --watch --out-dir $(OUT) $(SRC)
+	@$(BIN)/babel --copy-files --watch --out-dir $(OUT) $(SRC)
 
 clean:
 	@rm -rf $(OUT) ./coverage
@@ -45,5 +45,5 @@ lib/%.js.flow: src/%.js
 	@mkdir -p $(@D)
 	@cp $< $@
 
-ElementBase.css: $(SRC_FILES) scripts/generateElementBaseStylesheet.js
+src/experimental/CSSVariableElement.css: $(SRC_FILES) scripts/generateElementBaseStylesheet.js
 	@$(BIN)/babel-node ./scripts/generateElementBaseStylesheet.js > $(@)
