@@ -16,7 +16,7 @@ import type {StylesheetEnvironment} from './environment';
 export opaque type Stylesheet = StylesheetPrivate;
 export type {StylesheetSpec, StylesheetContext, StylesheetEnvironment};
 
-export {
+import {
   createStylesheet,
   injectStylesheet,
   injectDisposableStylesheet,
@@ -25,5 +25,25 @@ export {
   renderStylesheet,
 } from './Stylesheet';
 
-export {default as styleComponent} from './styleComponent';
-export {Element, VBox, HBox} from './Element';
+import {default as styleComponent} from './styleComponent';
+import {Element, VBox, HBox} from './Element';
+
+export {
+  createStylesheet,
+  injectStylesheet,
+  injectDisposableStylesheet,
+  toClassName,
+  createEnvironment,
+  renderStylesheet,
+  styleComponent,
+  Element,
+  VBox,
+  HBox,
+};
+
+export function defineStylesheet(spec: StylesheetSpec) {
+  const stylesheet = injectStylesheet(createStylesheet(spec));
+  return {
+    toClassName: toClassName.bind(null, stylesheet),
+  };
+}
