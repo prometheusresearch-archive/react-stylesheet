@@ -69,12 +69,12 @@ Object {
   "rules": Array [
     Object {
       "cssText": ".Component-<HASH> {
-margin-left: 12px;
+margin-left: 12px !important;
 }",
     },
     Object {
       "cssText": ".Component-<HASH>.RTL {
-margin-right: 12px;
+margin-right: 12px !important;
 }",
     },
   ],
@@ -89,13 +89,13 @@ margin-right: 12px;
       "repr": Array [
         Object {
           "props": Array [
-            "margin-left: 12px",
+            "margin-left: 12px !important",
           ],
           "selector": "base",
         },
         Object {
           "props": Array [
-            "margin-right: 12px",
+            "margin-right: 12px !important",
           ],
           "selector": "base",
         },
@@ -111,12 +111,12 @@ Object {
   "rules": Array [
     Object {
       "cssText": ".Component-<HASH> {
-margin-right: 12px;
+margin-right: 12px !important;
 }",
     },
     Object {
       "cssText": ".Component-<HASH>.RTL {
-margin-left: 12px;
+margin-left: 12px !important;
 }",
     },
   ],
@@ -131,13 +131,13 @@ margin-left: 12px;
       "repr": Array [
         Object {
           "props": Array [
-            "margin-right: 12px",
+            "margin-right: 12px !important",
           ],
           "selector": "base",
         },
         Object {
           "props": Array [
-            "margin-left: 12px",
+            "margin-left: 12px !important",
           ],
           "selector": "base",
         },
@@ -153,8 +153,8 @@ Object {
   "rules": Array [
     Object {
       "cssText": ".Component-<HASH> {
-margin-top: 12px;
-margin-bottom: 12px;
+margin-top: 12px !important;
+margin-bottom: 12px !important;
 }",
     },
   ],
@@ -169,8 +169,8 @@ margin-bottom: 12px;
       "repr": Array [
         Object {
           "props": Array [
-            "margin-top: 12px",
-            "margin-bottom: 12px",
+            "margin-top: 12px !important",
+            "margin-bottom: 12px !important",
           ],
           "selector": "base",
         },
@@ -186,8 +186,8 @@ Object {
   "rules": Array [
     Object {
       "cssText": ".Component-<HASH> {
-margin-left: 12px;
-margin-right: 12px;
+margin-left: 12px !important;
+margin-right: 12px !important;
 }",
     },
   ],
@@ -202,8 +202,8 @@ margin-right: 12px;
       "repr": Array [
         Object {
           "props": Array [
-            "margin-left: 12px",
-            "margin-right: 12px",
+            "margin-left: 12px !important",
+            "margin-right: 12px !important",
           ],
           "selector": "base",
         },
@@ -219,12 +219,12 @@ Object {
   "rules": Array [
     Object {
       "cssText": ".Component-<HASH> {
-padding-left: 12px;
+padding-left: 12px !important;
 }",
     },
     Object {
       "cssText": ".Component-<HASH>.RTL {
-padding-right: 12px;
+padding-right: 12px !important;
 }",
     },
   ],
@@ -239,13 +239,13 @@ padding-right: 12px;
       "repr": Array [
         Object {
           "props": Array [
-            "padding-left: 12px",
+            "padding-left: 12px !important",
           ],
           "selector": "base",
         },
         Object {
           "props": Array [
-            "padding-right: 12px",
+            "padding-right: 12px !important",
           ],
           "selector": "base",
         },
@@ -261,12 +261,12 @@ Object {
   "rules": Array [
     Object {
       "cssText": ".Component-<HASH> {
-padding-right: 12px;
+padding-right: 12px !important;
 }",
     },
     Object {
       "cssText": ".Component-<HASH>.RTL {
-padding-left: 12px;
+padding-left: 12px !important;
 }",
     },
   ],
@@ -281,13 +281,13 @@ padding-left: 12px;
       "repr": Array [
         Object {
           "props": Array [
-            "padding-right: 12px",
+            "padding-right: 12px !important",
           ],
           "selector": "base",
         },
         Object {
           "props": Array [
-            "padding-left: 12px",
+            "padding-left: 12px !important",
           ],
           "selector": "base",
         },
@@ -303,8 +303,8 @@ Object {
   "rules": Array [
     Object {
       "cssText": ".Component-<HASH> {
-padding-top: 12px;
-padding-bottom: 12px;
+padding-top: 12px !important;
+padding-bottom: 12px !important;
 }",
     },
   ],
@@ -319,8 +319,8 @@ padding-bottom: 12px;
       "repr": Array [
         Object {
           "props": Array [
-            "padding-top: 12px",
-            "padding-bottom: 12px",
+            "padding-top: 12px !important",
+            "padding-bottom: 12px !important",
           ],
           "selector": "base",
         },
@@ -336,8 +336,8 @@ Object {
   "rules": Array [
     Object {
       "cssText": ".Component-<HASH> {
-padding-left: 12px;
-padding-right: 12px;
+padding-left: 12px !important;
+padding-right: 12px !important;
 }",
     },
   ],
@@ -352,8 +352,8 @@ padding-right: 12px;
       "repr": Array [
         Object {
           "props": Array [
-            "padding-left: 12px",
-            "padding-right: 12px",
+            "padding-left: 12px !important",
+            "padding-right: 12px !important",
           ],
           "selector": "base",
         },
@@ -369,12 +369,12 @@ Object {
   "rules": Array [
     Object {
       "cssText": ".Component-<HASH> {
-left: 12px;
+left: 12px !important;
 }",
     },
     Object {
       "cssText": ".Component-<HASH>.RTL {
-right: 12px;
+right: 12px !important;
 }",
     },
   ],
@@ -389,13 +389,13 @@ right: 12px;
       "repr": Array [
         Object {
           "props": Array [
-            "left: 12px",
+            "left: 12px !important",
           ],
           "selector": "base",
         },
         Object {
           "props": Array [
-            "right: 12px",
+            "right: 12px !important",
           ],
           "selector": "base",
         },
@@ -411,12 +411,12 @@ Object {
   "rules": Array [
     Object {
       "cssText": ".Component-<HASH> {
-right: 12px;
+right: 12px !important;
 }",
     },
     Object {
       "cssText": ".Component-<HASH>.RTL {
-left: 12px;
+left: 12px !important;
 }",
     },
   ],
@@ -431,13 +431,13 @@ left: 12px;
       "repr": Array [
         Object {
           "props": Array [
-            "right: 12px",
+            "right: 12px !important",
           ],
           "selector": "base",
         },
         Object {
           "props": Array [
-            "left: 12px",
+            "left: 12px !important",
           ],
           "selector": "base",
         },
@@ -453,7 +453,7 @@ Object {
   "rules": Array [
     Object {
       "cssText": ".Component-<HASH> {
-color: red;
+color: red !important;
 }",
     },
   ],
@@ -468,7 +468,7 @@ color: red;
       "repr": Array [
         Object {
           "props": Array [
-            "color: red",
+            "color: red !important",
           ],
           "selector": "base",
         },
@@ -484,7 +484,7 @@ Object {
   "rules": Array [
     Object {
       "cssText": ".Component-something-<HASH> {
-color: red;
+color: red !important;
 }",
     },
   ],
@@ -499,7 +499,7 @@ color: red;
       "repr": Array [
         Object {
           "props": Array [
-            "color: red",
+            "color: red !important",
           ],
           "selector": "something",
         },
@@ -515,12 +515,12 @@ Object {
   "rules": Array [
     Object {
       "cssText": ".Fancy-<HASH> {
-color: red;
+color: red !important;
 }",
     },
     Object {
       "cssText": ".Fancy-some-<HASH> {
-color: yellow;
+color: yellow !important;
 }",
     },
   ],
@@ -539,7 +539,7 @@ color: yellow;
       "repr": Array [
         Object {
           "props": Array [
-            "color: red",
+            "color: red !important",
           ],
           "selector": "base",
         },
@@ -550,7 +550,7 @@ color: yellow;
       "repr": Array [
         Object {
           "props": Array [
-            "color: yellow",
+            "color: yellow !important",
           ],
           "selector": "some",
         },
@@ -566,12 +566,12 @@ Object {
   "rules": Array [
     Object {
       "cssText": ".Component-<HASH> {
-color: red;
+color: red !important;
 }",
     },
     Object {
       "cssText": ".Component-<HASH>:hover {
-color: black;
+color: black !important;
 }",
     },
   ],
@@ -589,13 +589,13 @@ color: black;
       "repr": Array [
         Object {
           "props": Array [
-            "color: red",
+            "color: red !important",
           ],
           "selector": "base",
         },
         Object {
           "props": Array [
-            "color: black",
+            "color: black !important",
           ],
           "selector": "base:hover",
         },
@@ -611,17 +611,17 @@ Object {
   "rules": Array [
     Object {
       "cssText": ".Component-<HASH> {
-color: red;
+color: red !important;
 }",
     },
     Object {
       "cssText": ".Component-<HASH>:hover {
-color: black;
+color: black !important;
 }",
     },
     Object {
       "cssText": ".Component-<HASH>:hover:focus {
-color: yellow;
+color: yellow !important;
 }",
     },
   ],
@@ -642,19 +642,19 @@ color: yellow;
       "repr": Array [
         Object {
           "props": Array [
-            "color: red",
+            "color: red !important",
           ],
           "selector": "base",
         },
         Object {
           "props": Array [
-            "color: black",
+            "color: black !important",
           ],
           "selector": "base:hover",
         },
         Object {
           "props": Array [
-            "color: yellow",
+            "color: yellow !important",
           ],
           "selector": "base:hover:focus",
         },
@@ -670,12 +670,12 @@ Object {
   "rules": Array [
     Object {
       "cssText": ".Component-something-<HASH> {
-color: red;
+color: red !important;
 }",
     },
     Object {
       "cssText": ".Component-something-<HASH>:hover {
-color: black;
+color: black !important;
 }",
     },
   ],
@@ -693,13 +693,13 @@ color: black;
       "repr": Array [
         Object {
           "props": Array [
-            "color: red",
+            "color: red !important",
           ],
           "selector": "something",
         },
         Object {
           "props": Array [
-            "color: black",
+            "color: black !important",
           ],
           "selector": "something:hover",
         },

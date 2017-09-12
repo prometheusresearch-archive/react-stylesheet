@@ -123,68 +123,68 @@ function compileProperty(propsLTR, propsRTL, name, value) {
   switch (name) {
     case 'paddingStart': {
       const cvalue = compileValue('padding', value);
-      propsLTR.push(`padding-left: ${cvalue}`);
-      propsRTL.push(`padding-right: ${cvalue}`);
+      propsLTR.push(`padding-left: ${cvalue} !important`);
+      propsRTL.push(`padding-right: ${cvalue} !important`);
       break;
     }
     case 'paddingEnd': {
       const cvalue = compileValue('padding', value);
-      propsLTR.push(`padding-right: ${cvalue}`);
-      propsRTL.push(`padding-left: ${cvalue}`);
+      propsLTR.push(`padding-right: ${cvalue} !important`);
+      propsRTL.push(`padding-left: ${cvalue} !important`);
       break;
     }
     case 'paddingVertical': {
       const cvalue = compileValue('padding', value);
-      propsLTR.push(`padding-top: ${cvalue}`);
-      propsLTR.push(`padding-bottom: ${cvalue}`);
+      propsLTR.push(`padding-top: ${cvalue} !important`);
+      propsLTR.push(`padding-bottom: ${cvalue} !important`);
       break;
     }
     case 'paddingHorizontal': {
       const cvalue = compileValue('padding', value);
-      propsLTR.push(`padding-left: ${cvalue}`);
-      propsLTR.push(`padding-right: ${cvalue}`);
+      propsLTR.push(`padding-left: ${cvalue} !important`);
+      propsLTR.push(`padding-right: ${cvalue} !important`);
       break;
     }
     case 'marginStart': {
       const cvalue = compileValue('margin', value);
-      propsLTR.push(`margin-left: ${cvalue}`);
-      propsRTL.push(`margin-right: ${cvalue}`);
+      propsLTR.push(`margin-left: ${cvalue} !important`);
+      propsRTL.push(`margin-right: ${cvalue} !important`);
       break;
     }
     case 'marginEnd': {
       const cvalue = compileValue('margin', value);
-      propsLTR.push(`margin-right: ${cvalue}`);
-      propsRTL.push(`margin-left: ${cvalue}`);
+      propsLTR.push(`margin-right: ${cvalue} !important`);
+      propsRTL.push(`margin-left: ${cvalue} !important`);
       break;
     }
     case 'marginVertical': {
       const cvalue = compileValue('margin', value);
-      propsLTR.push(`margin-top: ${cvalue}`);
-      propsLTR.push(`margin-bottom: ${cvalue}`);
+      propsLTR.push(`margin-top: ${cvalue} !important`);
+      propsLTR.push(`margin-bottom: ${cvalue} !important`);
       break;
     }
     case 'marginHorizontal': {
       const cvalue = compileValue('margin', value);
-      propsLTR.push(`margin-left: ${cvalue}`);
-      propsLTR.push(`margin-right: ${cvalue}`);
+      propsLTR.push(`margin-left: ${cvalue} !important`);
+      propsLTR.push(`margin-right: ${cvalue} !important`);
       break;
     }
     case 'startOffset': {
       const cvalue = compileValue('left', value);
-      propsLTR.push(`left: ${cvalue}`);
-      propsRTL.push(`right: ${cvalue}`);
+      propsLTR.push(`left: ${cvalue} !important`);
+      propsRTL.push(`right: ${cvalue} !important`);
       break;
     }
     case 'endOffset': {
       const cvalue = compileValue('right', value);
-      propsLTR.push(`right: ${cvalue}`);
-      propsRTL.push(`left: ${cvalue}`);
+      propsLTR.push(`right: ${cvalue} !important`);
+      propsRTL.push(`left: ${cvalue} !important`);
       break;
     }
     default:
       const cname = compileName(name);
       const cvalue = compileValue(name, value);
-      propsLTR.push(`${cname}: ${cvalue}`);
+      propsLTR.push(`${cname}: ${cvalue} !important`);
   }
 }
 

@@ -14,23 +14,24 @@ exports[`<Element /> inserts styles <Element color="red" className={...} /> 1`] 
 <div
   className={
     CSSClassJoin [
-      CSSClass base {
-        color: red
-      }
       "bootstrap"
     ]
+  }
+  style={
+    Object {
+      "color": "red",
+    }
   }
 />
 `;
 
 exports[`<Element /> inserts styles <Element color={...} /> 1`] = `
 <div
-  className={
-    CSSClassJoin [
-      CSSClass base {
-        color: red
-      }
-    ]
+  className={null}
+  style={
+    Object {
+      "color": "red",
+    }
   }
 />
 `;
@@ -39,13 +40,15 @@ exports[`<Element /> inserts styles <Element color={...} hover={...} /> 1`] = `
 <div
   className={
     CSSClassJoin [
-      CSSClass base {
-        color: black
-      }
       CSSClass base:hover {
-        color: red
+        color: red !important
       }
     ]
+  }
+  style={
+    Object {
+      "color": "black",
+    }
   }
 />
 `;
@@ -55,10 +58,10 @@ exports[`<Element /> inserts styles <Element focus={...} hover={...} /> 1`] = `
   className={
     CSSClassJoin [
       CSSClass base:focus {
-        color: black
+        color: black !important
       }
       CSSClass base:hover {
-        color: red
+        color: red !important
       }
     ]
   }
@@ -70,7 +73,7 @@ exports[`<Element /> inserts styles <Element hover={...} /> 1`] = `
   className={
     CSSClassJoin [
       CSSClass base:hover {
-        color: red
+        color: red !important
       }
     ]
   }

@@ -3,7 +3,7 @@
 exports[`Component-<HASH> RTL 1`] = `
 CSSClassJoin [
   CSSClass base {
-    color: red
+    color: red !important
   }
   "RTL"
 ]
@@ -12,7 +12,7 @@ CSSClassJoin [
 exports[`toClassName() 1`] = `
 CSSClassJoin [
   CSSClass base {
-    color: red
+    color: red !important
   }
 ]
 `;
@@ -20,7 +20,7 @@ CSSClassJoin [
 exports[`toClassName() 2`] = `
 CSSClassJoin [
   CSSClass base {
-    color: red
+    color: red !important
   }
 ]
 `;
@@ -28,7 +28,7 @@ CSSClassJoin [
 exports[`toClassName() 3`] = `
 CSSClassJoin [
   CSSClass base {
-    color: red
+    color: red !important
   }
 ]
 `;
@@ -36,10 +36,10 @@ CSSClassJoin [
 exports[`toClassName() 4`] = `
 CSSClassJoin [
   CSSClass base {
-    color: red
+    color: red !important
   }
   CSSClass some {
-    color: black
+    color: black !important
   }
 ]
 `;
@@ -47,7 +47,7 @@ CSSClassJoin [
 exports[`toClassName() 5`] = `
 CSSClassJoin [
   CSSClass base {
-    color: red
+    color: red !important
   }
 ]
 `;
@@ -55,11 +55,11 @@ CSSClassJoin [
 exports[`toClassName() 6`] = `
 CSSClassJoin [
   CSSClass base {
-    color: red
+    color: red !important
   }
   "RTL"
   CSSClass some {
-    color: black
+    color: black !important
   }
 ]
 `;
@@ -67,7 +67,7 @@ CSSClassJoin [
 exports[`toClassName() 7`] = `
 CSSClassJoin [
   CSSClass base {
-    color: red
+    color: red !important
   }
 ]
 `;
@@ -75,11 +75,11 @@ CSSClassJoin [
 exports[`toClassName() 8`] = `
 CSSClassJoin [
   CSSClass base {
-    color: red
+    color: red !important
   }
   "RTL"
   CSSClass rightToLeft {
-    color: black
+    color: black !important
   }
 ]
 `;
@@ -87,11 +87,11 @@ CSSClassJoin [
 exports[`toClassName() 9`] = `
 CSSClassJoin [
   CSSClass base {
-    color: red
+    color: red !important
   }
   "RTL"
   CSSClass rightToLeft {
-    color: black
+    color: black !important
   }
 ]
 `;
@@ -99,10 +99,10 @@ CSSClassJoin [
 exports[`toClassName() 10`] = `
 CSSClassJoin [
   CSSClass base {
-    color: red
+    color: red !important
   }
   CSSClass rightToLeft {
-    color: black
+    color: black !important
   }
 ]
 `;

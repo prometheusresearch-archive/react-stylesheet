@@ -74,15 +74,23 @@ export class Element<
     }
   }
 
-  createStylesheetFromProps(props: Props): [P, Stylesheet.Stylesheet] {
+  createStylesheetFromProps(props: any): [P, Stylesheet.Stylesheet] {
+    const style = {...props.style};
     const restProps: any = {};
     const spec = {base: {}};
+    let needStyle = false;
     for (const key in props) {
-      if (CSSPseudoClassSet[key] || CSSPropertySet[key]) {
+      if (CSSPropertySet[key]) {
+        style[key] = props[key];
+        needStyle = true;
+      } else if (CSSPseudoClassSet[key]) {
         spec.base[key] = props[key];
       } else if (key !== 'Component') {
         restProps[key] = props[key];
       }
+    }
+    if (needStyle) {
+      restProps.style = style;
     }
     return [restProps, Stylesheet.createStylesheet(spec)];
   }
