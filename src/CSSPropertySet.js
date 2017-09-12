@@ -2,7 +2,7 @@
  * @flow
  */
 
-export default {
+const CSSPropertySet = {
   color: true,
 
   display: true,
@@ -124,3 +124,5 @@ export default {
 
   zIndex: true,
 };
+
+export default CSSPropertySet;

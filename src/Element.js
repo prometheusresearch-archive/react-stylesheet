@@ -35,7 +35,7 @@ export class Element<
 
   render() {
     const {Component, className: extraClassName, ...props} = this.props;
-    const [restProps, stylesheet] = this.createStylesheetFromProps(props);
+    const {props: restProps, stylesheet} = createElementProps(props, this.context);
     if (this.stylesheet == null || stylesheet.id !== this.stylesheet.id) {
       if (this.dispose != null) {
         this.dispose();
@@ -55,27 +55,6 @@ export class Element<
     if (this.dispose != null) {
       this.dispose();
     }
-  }
-
-  createStylesheetFromProps(props: any): [P, Stylesheet.Stylesheet] {
-    const style = {...props.style};
-    const restProps: any = {};
-    const spec = {displayName: 'Element', base: {}};
-    let needStyle = false;
-    for (const key in props) {
-      if (CSSPropertySet[key]) {
-        style[key] = props[key];
-        needStyle = true;
-      } else if (CSSPseudoClassSet[key]) {
-        spec.base[key] = props[key];
-      } else if (key !== 'Component') {
-        restProps[key] = props[key];
-      }
-    }
-    if (needStyle) {
-      restProps.style = style;
-    }
-    return [restProps, Stylesheet.createStylesheet(spec)];
   }
 }
 
@@ -104,4 +83,103 @@ export class HBox<P: {}> extends Element<P, *> {
     Component: 'div',
     className: Stylesheet.toClassName(HBoxStylesheet, {}),
   };
+}
+
+function createElementProps(props, context) {
+  const style = {...props.style};
+  const restProps: any = {};
+  const spec = {displayName: 'Element', base: {}};
+
+  let needStyle = false;
+  for (const key in props) {
+    if (CSSPropertySet[key]) {
+      createStyleProp(style, key, props[key], context);
+      needStyle = true;
+    } else if (CSSPseudoClassSet[key]) {
+      spec.base[key] = props[key];
+    } else if (key !== 'Component') {
+      restProps[key] = props[key];
+    }
+  }
+
+  if (needStyle) {
+    restProps.style = style;
+  }
+
+  return {props: restProps, stylesheet: Stylesheet.createStylesheet(spec)};
+}
+
+function createStyleProp(style, name, value, context) {
+  switch (name) {
+    case 'paddingStart': {
+      if (context.rightToLeft) {
+        style.paddingRight = value;
+      } else {
+        style.paddingLeft = value;
+      }
+      break;
+    }
+    case 'paddingEnd': {
+      if (context.rightToLeft) {
+        style.paddingLeft = value;
+      } else {
+        style.paddingRight = value;
+      }
+      break;
+    }
+    case 'paddingVertical': {
+      style.paddingTop = value;
+      style.paddingBottom = value;
+      break;
+    }
+    case 'paddingHorizontal': {
+      style.paddingLeft = value;
+      style.paddingRight = value;
+      break;
+    }
+    case 'marginStart': {
+      if (context.rightToLeft) {
+        style.marginRight = value;
+      } else {
+        style.marginLeft = value;
+      }
+      break;
+    }
+    case 'marginEnd': {
+      if (context.rightToLeft) {
+        style.marginLeft = value;
+      } else {
+        style.marginRight = value;
+      }
+      break;
+    }
+    case 'marginVertical': {
+      style.marginTop = value;
+      style.marginBottom = value;
+      break;
+    }
+    case 'marginHorizontal': {
+      style.marginLeft = value;
+      style.marginRight = value;
+      break;
+    }
+    case 'startOffset': {
+      if (context.rightToLeft) {
+        style.right = value;
+      } else {
+        style.left = value;
+      }
+      break;
+    }
+    case 'endOffset': {
+      if (context.rightToLeft) {
+        style.left = value;
+      } else {
+        style.right = value;
+      }
+      break;
+    }
+    default:
+      style[name] = value;
+  }
 }

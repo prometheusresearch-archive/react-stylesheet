@@ -173,11 +173,11 @@ export function toClassName(
   stylesheet: ?Stylesheet,
   variant: Object,
   context?: StylesheetContext = defaultContext,
-): null | string | CSSStyleRepr.CSSClassJoin {
+): null | string | CSSStyleRepr.CSSClassJoin | CSSStyleRepr.CSSClass {
   const styles = [];
 
   if (stylesheet == null) {
-    return null;
+    return context.className === undefined ? null : context.className;
   }
 
   const addStyle = style => {
