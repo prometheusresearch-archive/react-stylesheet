@@ -42,7 +42,8 @@ export {
 };
 
 export function defineStylesheet(spec: StylesheetSpec) {
-  const stylesheet = injectStylesheet(createStylesheet(spec));
+  const stylesheet = createStylesheet(spec);
+  injectStylesheet(stylesheet);
   return {
     toClassName: toClassName.bind(null, stylesheet),
   };
