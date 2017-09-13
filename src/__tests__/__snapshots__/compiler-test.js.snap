@@ -708,3 +708,48 @@ color: black !important;
   },
 }
 `;
+
+exports[`compile() w/ pseudoclasses 4`] = `
+Object {
+  "id": "<HASH>",
+  "rules": Array [
+    Object {
+      "cssText": ".Component-<HASH> {
+color: red !important;
+}",
+    },
+    Object {
+      "cssText": ".Component-<HASH>:first-child {
+color: black !important;
+}",
+    },
+  ],
+  "spec": Object {
+    "base": Object {
+      "color": "red",
+      "firstChild": Object {
+        "color": "black",
+      },
+    },
+  },
+  "variantToClassName": Object {
+    "base": Object {
+      "className": "Component-<HASH>",
+      "repr": Array [
+        Object {
+          "props": Array [
+            "color: red !important",
+          ],
+          "selector": "base",
+        },
+        Object {
+          "props": Array [
+            "color: black !important",
+          ],
+          "selector": "base:first-child",
+        },
+      ],
+    },
+  },
+}
+`;

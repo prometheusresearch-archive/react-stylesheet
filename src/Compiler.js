@@ -103,7 +103,7 @@ function compileVariant(rules, selector, variant) {
   for (const name in variant) {
     const value = variant[name];
     if (CSSPseudoClassSet[name]) {
-      compileVariant(variantRules, selector.concat(name), value);
+      compileVariant(variantRules, selector.concat(compileName(name)), value);
     } else if (!isEmpty(value)) {
       compileProperty(props, propsRTL, name, value);
     }

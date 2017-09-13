@@ -67,6 +67,16 @@ test('compile() w/ pseudoclasses', function() {
       },
     }),
   ).toMatchSnapshot();
+  expect(
+    Compiler.compile({
+      base: {
+        color: 'red',
+        firstChild: {
+          color: 'black',
+        },
+      },
+    }),
+  ).toMatchSnapshot();
 });
 
 test('compile() paddingStart/paddingEnd', function() {
