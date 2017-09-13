@@ -1,6 +1,6 @@
 {
   "name": "react-stylesheet",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "Style React components",
   "main": "lib/index.js",
   "scripts": {
