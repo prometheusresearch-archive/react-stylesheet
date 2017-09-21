@@ -23,7 +23,7 @@ version-major version-minor version-patch: build flow test
 
 publish:
 	@npm publish --tag next
-	@git push --tags origin HEAD:master
+	@git push --tags origin HEAD:next
 
 flow:
 	@$(BIN)/flow
