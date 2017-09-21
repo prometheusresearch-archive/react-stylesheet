@@ -157,7 +157,7 @@ type CSSColorNamed =
 opaque type CSSColorUnit = string;
 export type CSSColor = CSSColorNamed | CSSColorUnit;
 
-opaque type CSSMeasureUnit = string;
+type CSSMeasureUnit = string;
 export type CSSMeasure = number | CSSMeasureUnit;
 
 export type CSSDisplay = 'block' | 'inline-block' | 'flex' | 'inline-flex' | 'inline';
