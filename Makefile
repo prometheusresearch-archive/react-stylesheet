@@ -22,7 +22,7 @@ version-major version-minor version-patch: build flow test
 	@npm version $(@:version-%=%)
 
 publish:
-	@npm publish
+	@npm publish --tag next
 	@git push --tags origin HEAD:master
 
 flow:
