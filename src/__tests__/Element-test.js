@@ -2,12 +2,13 @@
  * @flow
  */
 
-import React from 'react';
+import * as React from 'react';
 import renderer from 'react-test-renderer';
 
 import Element from '../Element';
 import * as TestUtils from '../TestUtils';
 
+// $ExpectError: ...
 expect.addSnapshotSerializer(TestUtils.snapshotSerializer);
 
 describe('<Element />', function() {

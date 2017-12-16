@@ -6,7 +6,7 @@
 import type {CSSPropertySet} from './CSSType';
 import type {Variant} from './Stylesheet';
 
-import React from 'react';
+import * as React from 'react';
 
 import createStylesheet, {Stylesheet} from './Stylesheet';
 import getComponentDisplayName from './getComponentDisplayName';
@@ -16,7 +16,7 @@ export type ComponentSpec = {
   [name: string]: CSSPropertySet,
 };
 
-export default function style<T: string | ReactClass<*>>(
+export default function style<P: Object, T: React.ComponentType<P>>(
   Component: T,
   spec: ComponentSpec,
 ): T {
@@ -42,25 +42,25 @@ export default function style<T: string | ReactClass<*>>(
   }
 }
 
-export function overrideStylesheet<T: ReactClass<*>>(
+export function overrideStylesheet<P: Object, T: React.ComponentType<P>>(
   Component: T,
   displayName: string,
   stylesheet: Stylesheet,
 ): T {
-  let defaultProps = Component.defaultProps;
-  let C = class extends Component {
+  let defaultProps = (Component: any).defaultProps;
+  let C = class extends (Component: any) {
     static displayName = displayName;
     static defaultProps = {...defaultProps, stylesheet};
   };
   return ((C: any): T);
 }
 
-export function injectStylesheet<T: string | ReactClass<*>>(
+export function injectStylesheet<P: Object, T: React.ComponentType<P>>(
   Component: T,
   displayName: string,
   stylesheet: Stylesheet,
 ): T {
-  let C = class extends ComponentWithStylesheet {
+  let C = class extends ComponentWithStylesheet<P> {
     static displayName = displayName;
     static defaultProps = {
       variant: {},
@@ -72,16 +72,16 @@ export function injectStylesheet<T: string | ReactClass<*>>(
   return ((C: any): T);
 }
 
-class ComponentWithStylesheet<DP> extends React.Component<DP, *, *> {
-  props: {
-    stylesheet: Stylesheet,
-    variant: Variant,
-    Component: string | ReactClass<*>,
-    className?: string,
-  };
+type ComponentWithStylesheetProps<P> = P & {
+  stylesheet: Stylesheet,
+  variant: Variant,
+  Component: string | React.ComponentType<P>,
+  className?: string,
+};
 
-  static defaultProps: $Abstract<DP>;
-
+class ComponentWithStylesheet<P: Object> extends React.Component<
+  ComponentWithStylesheetProps<P>,
+> {
   render() {
     let {
       variant,

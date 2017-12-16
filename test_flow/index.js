@@ -1,8 +1,8 @@
 /**
-  * @flow
-  */
+ * @flow
+ */
 
-import {style} from 'react-stylesheet';
+import {style} from '../src';
 import React from 'react';
 
 function Functional({hello}: {hello: string}) {
@@ -25,11 +25,7 @@ let StyledFunctional = style(Functional, {
 // $ExpectError
 <StyledFunctional hello={42} />;
 
-class Class extends React.Component {
-  props: {
-    hello: string,
-  };
-
+class Class extends React.Component<{hello: string}> {
   render() {
     return <div>{this.props.hello}</div>;
   }
@@ -58,14 +54,14 @@ style(Class, {
   },
 });
 
-import {Element} from 'react-stylesheet';
+import {Element} from '../src';
 
 <Element justifyContent="space-between" />;
 
 // $ExpectError
 <Element justifyContent="space-between-oops" />;
 
-import {HBox} from 'react-stylesheet';
+import {HBox} from '../src';
 
 <HBox justifyContent="space-between" />;
 

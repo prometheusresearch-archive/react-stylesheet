@@ -4,7 +4,7 @@
 
 import * as CSSType from './CSSType';
 
-import React from 'react';
+import * as React from 'react';
 
 import {expandStyle} from './compiler';
 import {Spec} from './ElementPropSpec';
@@ -396,9 +396,7 @@ export type ElementProps = {
   zIndexOnDisabled?: CSSType.zIndex,
 };
 
-export default class Element extends React.Component {
-  props: ElementProps;
-
+export default class Element extends React.Component<ElementProps> {
   static defaultProps = {
     boxSizing: 'border-box',
   };

@@ -17,3 +17,6 @@
 
 [options]
 suppress_comment=\\(.\\|\\n\\)*\\$ExpectError
+
+[version]
+^0.61

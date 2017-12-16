@@ -10,7 +10,7 @@
     "testutils-snapshot-serializer.js"
   ],
   "scripts": {
-    "test": "make test test-flow"
+    "test": "make test"
   },
   "repository": {
     "type": "git",
@@ -66,10 +66,10 @@
     "eslint": "^3.19.0",
     "eslint-config-prometheusresearch": "^0.4.0",
     "eslint-plugin-react": "^7.0.1",
-    "flow-bin": "^0.47.0",
+    "flow-bin": "^0.61.0",
     "invariant": "^2.2.1",
     "jest-cli": "^20.0.4",
-    "prettier": "^1.3.1",
+    "prettier": "^1.9.2",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-test-renderer": "^15.6.1"
