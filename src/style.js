@@ -16,7 +16,7 @@ export type ComponentSpec = {
   [name: string]: CSSPropertySet,
 };
 
-export default function style<P: Object, T: React.ComponentType<P>>(
+export default function style<P: Object, T: string | React.ComponentType<P>>(
   Component: T,
   spec: ComponentSpec,
 ): T {
@@ -55,7 +55,7 @@ export function overrideStylesheet<P: Object, T: React.ComponentType<P>>(
   return ((C: any): T);
 }
 
-export function injectStylesheet<P: Object, T: React.ComponentType<P>>(
+export function injectStylesheet<P: Object, T: string | React.ComponentType<P>>(
   Component: T,
   displayName: string,
   stylesheet: Stylesheet,

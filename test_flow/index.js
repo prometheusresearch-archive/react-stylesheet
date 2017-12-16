@@ -5,65 +5,83 @@
 import {style} from '../src';
 import React from 'react';
 
-function Functional({hello}: {hello: string}) {
-  return <div>{hello}</div>;
+function testDOM() {
+  let StyledDiv = style('div', {
+    base: {
+      color: 'red',
+    },
+  });
+
+  <StyledDiv />;
 }
 
-<Functional hello="here" />;
-
-// $ExpectError
-<Functional hello={42} />;
-
-let StyledFunctional = style(Functional, {
-  base: {
-    color: 'red',
-  },
-});
-
-<StyledFunctional hello="here" />;
-
-// $ExpectError
-<StyledFunctional hello={42} />;
-
-class Class extends React.Component<{hello: string}> {
-  render() {
-    return <div>{this.props.hello}</div>;
+function testFunctionalComponents() {
+  function Functional({hello}: {hello: string}) {
+    return <div>{hello}</div>;
   }
+
+  <Functional hello="here" />;
+
+  // $ExpectError
+  <Functional hello={42} />;
+
+  let StyledFunctional = style(Functional, {
+    base: {
+      color: 'red',
+    },
+  });
+
+  <StyledFunctional hello="here" />;
+
+  // $ExpectError
+  <StyledFunctional hello={42} />;
 }
 
-<Class hello="here" />;
+function testClassComponents() {
+  class Class extends React.Component<{hello: string}> {
+    render() {
+      return <div>{this.props.hello}</div>;
+    }
+  }
 
-// $ExpectError
-<Class hello={42} />;
+  <Class hello="here" />;
 
-let StyledClass = style(Class, {
-  base: {
-    color: 'red',
-  },
-});
+  // $ExpectError
+  <Class hello={42} />;
 
-<StyledClass hello="here" />;
+  let StyledClass = style(Class, {
+    base: {
+      color: 'red',
+    },
+  });
 
-// $ExpectError
-<StyledClass hello={42} />;
+  <StyledClass hello="here" />;
 
-// $ExpectError
-style(Class, {
-  base: {
-    olor: 'red',
-  },
-});
+  // $ExpectError
+  <StyledClass hello={42} />;
+
+  // $ExpectError
+  style(Class, {
+    base: {
+      olor: 'red',
+    },
+  });
+}
 
 import {Element} from '../src';
 
-<Element justifyContent="space-between" />;
+function testElement() {
+  <Element justifyContent="space-between" />;
 
-// $ExpectError
-<Element justifyContent="space-between-oops" />;
+  // $ExpectError
+  <Element justifyContent="space-between-oops" />;
+}
 
 import {HBox} from '../src';
 
-<HBox justifyContent="space-between" />;
+function testBox() {
+  <HBox justifyContent="space-between" />;
 
-// $ExpectError
-<HBox justifyContent="space-between-oops" />;
+  // $ExpectError
+  <HBox justifyContent="space-between-oops" />;
+}
