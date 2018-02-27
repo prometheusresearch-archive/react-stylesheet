@@ -26,7 +26,7 @@ export class Stylesheet extends StylesheetManager {
   _stylesheet: CompileResult;
   _refs: number;
   _remove: ?() => void;
-  _disposeTimer: ?number;
+  _disposeTimer: ?TimeoutID;
 
   constructor(name: string, spec: StylesheetSpec) {
     super();
